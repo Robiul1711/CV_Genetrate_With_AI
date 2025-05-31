@@ -55,7 +55,7 @@ const YourPlan = () => {
           </button>
 
           <p className="text-5xl font-bold">
-            €0 <span className="text-gray-500 text-2xl">/month</span>
+            €4.99 <span className="text-gray-500 text-2xl">/month</span>
           </p>
           {/* Button */}
 
@@ -91,7 +91,7 @@ const YourPlan = () => {
           </button>
 
           <p className="text-5xl font-bold">
-            €0 <span className="text-gray-500 text-2xl">/month</span>
+            €9.99 <span className="text-gray-500 text-2xl">/month</span>
           </p>
           {/* Button */}
 
@@ -127,7 +127,7 @@ const YourPlan = () => {
           </button>
 
           <p className="text-5xl font-bold">
-            €0 <span className="text-gray-500 text-2xl">/month</span>
+         €4.99<span className="text-gray-500 text-2xl">/month</span>
           </p>
           {/* Button */}
 

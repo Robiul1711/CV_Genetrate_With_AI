@@ -1,5 +1,5 @@
 import React from 'react'
-import { JobIcon } from '../AllIcons/HomeIcons'
+import { AllPackageIcon, CDPRIcon, CustomerIcon, DesignIcon, FastCvIcon, JobIcon, MultilingualIcon, TransparentIcon, TrustpilotIcon } from '../AllIcons/HomeIcons'
 
 const whyChoose = [
     {
@@ -10,49 +10,49 @@ const whyChoose = [
     },
     {
         id: 2,
-        icon: <JobIcon />,
+        icon: <FastCvIcon/>,
         title: 'Create resumes that get interviews',
         desc: 'Backed by data, designed for results'
     },
     {
         id: 3,
-        icon: <JobIcon />,
+        icon: <CDPRIcon/>,
         title: 'Create resumes that get interviews',
         desc: 'Backed by data, designed for results'
     },
     {
         id: 4,
-        icon: <JobIcon />,
+        icon: <MultilingualIcon />,
         title: 'Create resumes that get interviews',
         desc: 'Backed by data, designed for results'
     },
     {
         id: 5,
-        icon: <JobIcon />,
+        icon: <TransparentIcon />,
         title: 'Create resumes that get interviews',
         desc: 'Backed by data, designed for results'
     },
     {
         id: 6,
-        icon: <JobIcon />,
+        icon: <CustomerIcon />,
         title: 'Create resumes that get interviews',
         desc: 'Backed by data, designed for results'
     },
     {
         id: 7,
-        icon: <JobIcon />,
+        icon: <TrustpilotIcon />,
         title: 'Create resumes that get interviews',
         desc: 'Backed by data, designed for results'
     },
     {
         id: 8,
-        icon: <JobIcon />,
+        icon: <AllPackageIcon />,
         title: 'Create resumes that get interviews',
         desc: 'Backed by data, designed for results'
     },
     {
         id: 9,
-        icon: <JobIcon />,
+        icon: <DesignIcon />,
         title: 'Create resumes that get interviews',
         desc: 'Backed by data, designed for results'
     }
