@@ -19,7 +19,7 @@ const BrandSection = () => {
   return (
     <div className="">
         <p className="text-xl text-center  mb-20 font-medium text-primary">Trusted by Professionals Who Landed Jobs At</p>
-      <Marquee pauseOnHover speed={50} gradient={false}>
+      <Marquee pauseOnHover speed={50} gradient={true} gradientColor={["#08090A"]}>
         {brands.map((brand) => (
           <div
             key={brand.id}
