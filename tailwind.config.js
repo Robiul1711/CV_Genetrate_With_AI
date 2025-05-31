@@ -18,12 +18,12 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
-  			primary: '#22404B',
+  			primary: '#EBEBEB',
   			secondary: '#5A5C5F',
-  			dark: '#000'
+  			dark: '#1D1D1D'
   		},
   		backgroundImage: {
-  			banner: 'linear-gradient(329deg, rgba(87, 33, 33, 0.90) 0.75%, #474747 96.85%)'
+  			banner: 'linear-gradient(0deg, #08090A 0%, rgba(8, 9, 10, 0.00) 100%)'
   		},
   		screens: {
   			xs: '390px',
