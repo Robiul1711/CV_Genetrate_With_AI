@@ -12,6 +12,8 @@
 body {
   font-family: "Plus Jakarta Sans", serif;
   overflow-x: hidden;
+  background-color: #08090A;
+  color: white;
 }
 
 @layer base {
