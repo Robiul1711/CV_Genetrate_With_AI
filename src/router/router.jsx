@@ -8,6 +8,9 @@ import History from "@/pages/admin/History";
 import Setting from "@/pages/admin/Setting";
 import UpdateExistingResume from "@/pages/admin/UpdateExistingResume";
 import Home from "@/pages/home/Home";
+import Imprint from "@/pages/imprint/Imprint";
+import PrivacyPolicy from "@/pages/privacyPolicyPage/PrivacyPolicy";
+import TearmsAndCondition from "@/pages/tearms_and_condition/TearmsAndCondition";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -18,6 +21,18 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "/tearms-and-condition",
+        element: <TearmsAndCondition />,
+      },
+      {
+        path: "/imprint",
+        element: <Imprint />,
       },
     ],
   },
