@@ -1,0 +1,53 @@
+/* google fonts */
+
+/* google fonts */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+/* google fonts */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Plus Jakarta Sans", serif;
+  overflow-x: hidden;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
+
+
+.section-padding-x {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.section-padding-y {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+@media screen and (min-width: 650px){
+  .section-padding-x {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .section-padding-y {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+@media screen and (min-width: 1460px){
+  .section-padding-x {
+    padding-left: 150px;
+    padding-right: 150px;
+  }
+  .section-padding-y {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
