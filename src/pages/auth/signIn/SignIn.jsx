@@ -8,7 +8,7 @@ import {
   Google,
   Lock,
 } from "@/components/CustomIcons/CustomIcon";
-import { Link } from "react-router-dom";
+import { Link, ScrollRestoration } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const SignIn = () => {
@@ -25,6 +25,7 @@ const SignIn = () => {
 
   return (
     <div className="section-padding-x section-padding-y min-h-screen flex justify-center items-center">
+      <ScrollRestoration />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-4xl px-4 sm:px-10 lg:px-[190px] py-10 sm:py-16 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
@@ -103,19 +104,20 @@ const SignIn = () => {
               onChange={(e) => setChecked(e.target.checked)}
               className="hidden"
             />
-
             <span className="text-sm">Remember Me</span>
           </label>
 
-          <p className="cursor-pointer text-[16px] font-medium hover:underline">
-            Forgot Password ?
-          </p>
+          <Link to={"/forgot-password"}>
+            <p className="cursor-pointer text-[16px] font-medium hover:underline">
+              Forgot Password ?
+            </p>
+          </Link>
         </div>
 
         {/* Sign In Button */}
         <button
           type="submit"
-          className="w-full bg-[#FFF] text-black py-2 md:py-3 my-3 text-lg font-medium rounded-lg"
+          className="w-full bg-[#FFF] text-black py-2 md:py-3 my-3 text-lg font-medium rounded-xl"
         >
           Sign In
         </button>

@@ -8,6 +8,8 @@ import CreateNewResume from "@/pages/admin/CreateNewResume";
 import History from "@/pages/admin/History";
 import Setting from "@/pages/admin/Setting";
 import UpdateExistingResume from "@/pages/admin/UpdateExistingResume";
+import ForgotPassword from "@/pages/auth/forgotPassword/ForgotPassword";
+import OTPCode from "@/pages/auth/otpCode/OTPCode";
 import SignIn from "@/pages/auth/signIn/SignIn";
 import SignUp from "@/pages/auth/signUp/SignUp";
 import Home from "@/pages/home/Home";
@@ -81,6 +83,14 @@ const router = createBrowserRouter([
   {
     path: "/sign-up",
     element: <SignUp />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+  },
+  {
+    path: "/otp-code",
+    element: <OTPCode />,
   },
 ]);
 
