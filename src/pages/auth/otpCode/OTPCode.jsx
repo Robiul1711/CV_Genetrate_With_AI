@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../../assets/images/logo.png";
-import { ScrollRestoration } from "react-router-dom";
+import { Link, ScrollRestoration } from "react-router-dom";
 import Title from "@/components/common/Title";
 import OTPInput from "react-otp-input";
 
@@ -19,7 +19,7 @@ const OTPCode = () => {
   }, [seconds]);
 
   const handleResend = () => {
-    setOtp("");
+    setOTP("");
     setSeconds(56);
     setResendAvailable(false);
   };
@@ -85,15 +85,16 @@ const OTPCode = () => {
             )}
           </div>
         </div>
-
         {/* Sign In Button */}
         <div className="pb-8 md:pb-24">
-          <button
-            type="submit"
-            className="w-full bg-[#FFF] text-black py-2 md:py-3 my-4 text-lg font-medium rounded-lg"
-          >
-            Verify
-          </button>
+          <Link to={"/new-password"}>
+            <button
+              type="submit"
+              className="w-full bg-[#FFF] text-black py-2 md:py-3 my-4 text-lg font-medium rounded-lg"
+            >
+              Verify
+            </button>
+          </Link>
         </div>
       </form>
     </div>

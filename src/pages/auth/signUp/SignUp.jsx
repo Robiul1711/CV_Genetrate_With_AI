@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 const SignUp = () => {
   const { register, handleSubmit } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword1, setShowPassword1] = useState(false);
   const [checked, setChecked] = useState(false);
 
   const onSubmit = (data) => {
@@ -111,7 +112,7 @@ const SignUp = () => {
               className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
               onClick={() => setShowPassword((prev) => !prev)}
             >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
             </span>
           </div>
         </div>
@@ -126,7 +127,7 @@ const SignUp = () => {
               <Lock size={18} className="w-6 h-6" />
             </span>
             <input
-              type={showPassword ? "text" : "password"}
+              type={showPassword1 ? "text" : "password"}
               id="password"
               {...register("confirmPassword", { required: true })}
               placeholder="••••••••"
@@ -134,9 +135,9 @@ const SignUp = () => {
             />
             <span
               className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
-              onClick={() => setShowPassword((prev) => !prev)}
+              onClick={() => setShowPassword1((prev) => !prev)}
             >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              {showPassword1 ? <Eye size={20} /> : <EyeOff size={20} />}
             </span>
           </div>
         </div>

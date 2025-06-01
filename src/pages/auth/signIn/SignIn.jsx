@@ -81,7 +81,7 @@ const SignIn = () => {
               className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
               onClick={() => setShowPassword((prev) => !prev)}
             >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
             </span>
           </div>
         </div>

@@ -9,6 +9,7 @@ import History from "@/pages/admin/History";
 import Setting from "@/pages/admin/Setting";
 import UpdateExistingResume from "@/pages/admin/UpdateExistingResume";
 import ForgotPassword from "@/pages/auth/forgotPassword/ForgotPassword";
+import NewPassword from "@/pages/auth/resetPassword/ResetPassword";
 import OTPCode from "@/pages/auth/otpCode/OTPCode";
 import SignIn from "@/pages/auth/signIn/SignIn";
 import SignUp from "@/pages/auth/signUp/SignUp";
@@ -17,6 +18,7 @@ import Imprint from "@/pages/imprint/Imprint";
 import PrivacyPolicy from "@/pages/privacyPolicyPage/PrivacyPolicy";
 import TearmsAndCondition from "@/pages/tearms_and_condition/TearmsAndCondition";
 import { createBrowserRouter } from "react-router-dom";
+import SuccessfullyPasswordChange from "@/pages/auth/setPasswordSuccessfully/SuccessfullyPasswordChange";
 
 const router = createBrowserRouter([
   {
@@ -91,6 +93,14 @@ const router = createBrowserRouter([
   {
     path: "/otp-code",
     element: <OTPCode />,
+  },
+  {
+    path: "/new-password",
+    element: <NewPassword />,
+  },
+  {
+    path: "/success-new-password",
+    element: <SuccessfullyPasswordChange />,
   },
 ]);
 
