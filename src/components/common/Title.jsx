@@ -2,14 +2,16 @@ import React, { forwardRef } from "react";
 import clsx from "clsx";
 
 const sizeMap = {
-  title64: "text-[34px] sm:text-6xl font-bold",
+  title64: "text-[34px] sm:text-[64px] font-bold",
   title48: "text-3xl sm:text-5xl font-semibold",
-  title32: "text-2xl sm:text-4xl font-semibold",
+  title40: "text-2xl sm:text-[40px] font-medium",
+  title32: "text-2xl sm:text-3xl font-medium",
+  title28: "text-2xl sm:text-[28px] font-medium",
   title24: "text-xl sm:text-2xl font-medium",
-  title24: "text-lg sm:text-[22px] font-medium",
-  title20: "text-lg sm:text-xl font-semibold",
-  title18: "text-base sm:text-lg font-medium",
-  title16: "text-base sm:text-[17px] font-normal",
+  title22: "text-lg sm:text-[22px] font-medium",
+  title20: "text-lg sm:text-xl font-normal",
+  title18: "text-base sm:text-lg font-normal",
+  title16: "text-base sm:text-[16px] font-normal",
   title14: "text-sm sm:text-base font-normal",
   title12: "text-xs sm:text-sm font-normal",
 };
