@@ -1,5 +1,5 @@
-import React from 'react';
-import starBG from '../../assets/images/starBG.png';
+import React from "react";
+import starBG from "../../assets/images/starBG.png";
 
 const ReadyToLand = () => {
   return (
@@ -17,10 +17,11 @@ const ReadyToLand = () => {
           Ready to Land Your Next Job with a Perfect Resume?
         </h1>
         <p className="text-xl text-[#9B9B9B] pt-4 max-w-2xl">
-          Let Clever-CV guide you with expert AI tools — build, improve, and export your resume in minutes.
+          Let Clever-CV guide you with expert AI tools — build, improve, and
+          export your resume in minutes.
         </p>
         <div className="flex items-center gap-5">
-          <button className="mt-10 px-8 py-4 rounded-xl border border-white text-white hover:bg-white hover:text-dark transition-all duration-300 font-medium">
+          <button className="mt-10 px-8 py-4 rounded-xl border border-[#81FB84]/20 text-white hover:bg-white hover:text-dark transition-all duration-300 font-medium">
             Create Your Resume
           </button>
         </div>

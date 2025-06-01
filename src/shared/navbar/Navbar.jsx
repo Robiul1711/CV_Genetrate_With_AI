@@ -4,7 +4,12 @@ import uk from "../../assets/images/uk.png";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from "react-router-dom";
 
-const navLinks = ["Home", "Price", "Contact", "AI Help"];
+const navLinks = [
+  { name: "Home", path: "/" },
+  { name: "Price", path: "/price" },
+  { name: "Contact", path: "/contact" },
+  { name: "AI Help", path: "/ai-help" },
+];
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("Home");
@@ -30,18 +35,19 @@ const Navbar = () => {
       <div className="flex items-center gap-24">
         <img src={logo} alt="Logo" />
         <ul className="flex items-center gap-4">
-          {navLinks.map((link, index) => (
-            <li
+          {navLinks.map(({ name, path }, index) => (
+            <Link
+              to={path}
               key={index}
-              onClick={() => setActiveLink(link)}
+              onClick={() => setActiveLink(name)}
               className={`cursor-pointer font-medium py-3 px-7 rounded-lg transition-all duration-300 transform ${
-                activeLink === link
+                activeLink === name
                   ? "bg-white text-dark translate-y-[-2px]"
                   : "text-white hover:bg-white hover:text-dark hover:translate-y-[-2px]"
               }`}
             >
-              {link}
-            </li>
+              {name}
+            </Link>
           ))}
         </ul>
       </div>

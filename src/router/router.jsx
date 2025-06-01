@@ -19,6 +19,7 @@ import PrivacyPolicy from "@/pages/privacyPolicyPage/PrivacyPolicy";
 import TearmsAndCondition from "@/pages/tearms_and_condition/TearmsAndCondition";
 import { createBrowserRouter } from "react-router-dom";
 import SuccessfullyPasswordChange from "@/pages/auth/setPasswordSuccessfully/SuccessfullyPasswordChange";
+import Price from "@/pages/home/price/Price";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+       {
+        path: "/price",
+        element: <Price />,
       },
       {
         path: "/privacy-policy",
