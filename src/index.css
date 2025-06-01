@@ -2,7 +2,9 @@
 
 /* google fonts */
 
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 /* google fonts */
 
 @tailwind base;
@@ -10,7 +12,7 @@
 @tailwind utilities;
 
 body {
-  font-family: "Plus Jakarta Sans", serif;
+    font-family: "Poppins", sans-serif;
   overflow-x: hidden;
   background-color: #08090a;
   color: white;
@@ -74,6 +76,17 @@ body {
       transform: translateY(calc(-100% - var(--gap)));
     }
   }
+}
+
+
+#RFS-StepButton.active,
+#RFS-StepButton.completed{
+  background-color: #69CA6A !important;
+}
+#RFS-Connector{
+  height: 10px !important;
+  background: #69CA6A !important;
+  border: none !important;
 }
 
 

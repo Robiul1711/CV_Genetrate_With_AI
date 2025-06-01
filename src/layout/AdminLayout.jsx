@@ -99,7 +99,7 @@ const AdminLayout = () => {
       <ScrollRestoration />
       <div className="flex  h-screen min-h-screen w-full">
         <SideBar open={Open} setOpen={setOpen} sidebar={sideBar} />
-        <div className="flex-1 bg-dark text-white flex flex-col overflow-auto custom-scrollbar">
+        <div className="flex-1  text-white flex flex-col overflow-auto custom-scrollbar">
           <div className=" flex flex-col lg:gap-10 gap-5 lg:py-6 py-3 lg:px-[30px] px-2.5 sm:px-5">
             <CommonNavbar open={Open} setOpen={setOpen} />
             <Outlet />
