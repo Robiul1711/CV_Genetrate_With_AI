@@ -2,7 +2,7 @@
 
 /* google fonts */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 /* google fonts */
 
 @tailwind base;
@@ -12,7 +12,7 @@
 body {
   font-family: "Plus Jakarta Sans", serif;
   overflow-x: hidden;
-  background-color: #08090A;
+  background-color: #08090a;
   color: white;
 }
 
@@ -35,7 +35,7 @@ body {
   padding-bottom: 30px;
 }
 
-@media screen and (min-width: 650px){
+@media screen and (min-width: 650px) {
   .section-padding-x {
     padding-left: 20px;
     padding-right: 20px;
@@ -46,7 +46,7 @@ body {
   }
 }
 
-@media screen and (min-width: 1460px){
+@media screen and (min-width: 1460px) {
   .section-padding-x {
     padding-left: 150px;
     padding-right: 150px;
@@ -59,19 +59,21 @@ body {
 
 @theme inline {
   @keyframes marquee {
-  from {
-    transform: translateX(0);
+    from {
+      transform: translateX(0);
     }
-  to {
-    transform: translateX(calc(-100% - var(--gap)));
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
     }
   }
   @keyframes marquee-vertical {
-  from {
-    transform: translateY(0);
+    from {
+      transform: translateY(0);
     }
-  to {
-    transform: translateY(calc(-100% - var(--gap)));
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
     }
   }
 }
+
+

@@ -2,14 +2,19 @@ import { useState, useEffect } from "react";
 import logo from "../../assets/images/logo.png";
 import uk from "../../assets/images/uk.png";
 import { IoIosArrowDown } from "react-icons/io";
+import { Link, useLocation } from "react-router-dom";
 
-const navLinks = ["Home", "Price", "Contact", "AI Help"];
+const navLinks = [
+  { name: "Home", path: "/" },
+  { name: "Price", path: "/price" },
+  { name: "Contact", path: "/contact" },
+  { name: "AI Help", path: "/ai-help" },
+];
 
 const Navbar = () => {
-  const [activeLink, setActiveLink] = useState("Home");
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
-  // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -29,29 +34,34 @@ const Navbar = () => {
       <div className="flex items-center gap-24">
         <img src={logo} alt="Logo" />
         <ul className="flex items-center gap-4">
-          {navLinks.map((link, index) => (
-            <li
+          {navLinks.map(({ name, path }, index) => (
+            <Link
+              to={path}
               key={index}
-              onClick={() => setActiveLink(link)}
               className={`cursor-pointer font-medium py-3 px-7 rounded-lg transition-all duration-300 transform ${
-                activeLink === link
+                location.pathname === path
                   ? "bg-white text-dark translate-y-[-2px]"
                   : "text-white hover:bg-white hover:text-dark hover:translate-y-[-2px]"
               }`}
             >
-              {link}
-            </li>
+              {name}
+            </Link>
           ))}
         </ul>
       </div>
 
       <div className="flex items-center gap-5">
-        <button className="font-medium py-3 px-7 border border-white rounded-lg">
-          Log In
-        </button>
-        <button className="font-medium py-3 px-7 border border-white rounded-lg bg-white text-dark">
-          Sign Up
-        </button>
+        <Link to={"/sign-in"}>
+          <button className="font-medium py-3 px-7 border border-white rounded-lg">
+            Log In
+          </button>
+        </Link>
+        <Link to={"/sign-up"}>
+          <button className="font-medium py-3 px-7 border border-white rounded-lg bg-white text-dark">
+            Sign Up
+          </button>
+        </Link>
+
         <div className="flex items-center font-medium py-3 px-4 border border-white rounded-lg gap-2">
           <img src={uk} alt="UK Flag" />
           <span>Eng</span>

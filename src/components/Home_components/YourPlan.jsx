@@ -84,7 +84,7 @@ const YourPlan = () => {
             </button>
           </div>
         </div>
-        <div className=" border rounded-xl shadow-lg xlg:p-6 p-3 text-white">
+        <div className=" border border-[#81FB84]/30 rounded-xl shadow-lg xlg:p-6 p-3 text-white">
           <button className="border mb-6 flex items-center gap-2  font-semibold py-2 px-5  rounded-md">
             Free Plan
             <UpgradeIcon />
@@ -127,7 +127,7 @@ const YourPlan = () => {
           </button>
 
           <p className="text-5xl font-bold">
-         €4.99<span className="text-gray-500 text-2xl">/month</span>
+            €4.99<span className="text-gray-500 text-2xl">/month</span>
           </p>
           {/* Button */}
 
