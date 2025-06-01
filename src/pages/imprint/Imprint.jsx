@@ -1,9 +1,11 @@
 import Title from "@/components/common/Title";
 import React from "react";
+import { ScrollRestoration } from "react-router-dom";
 
 const Imprint = () => {
   return (
     <div className="section-padding-x section-padding-y space-y-4">
+      <ScrollRestoration />
       <Title level="title48">Imprint Clever-CV </Title>
       <Title level="title16" className="my-2">
         Welcome to Clever-CV. Below you will find the legally required
