@@ -21,7 +21,11 @@ const Footer = () => {
           </Link>
 
           <p className="text-[#666] leading-relaxed">
-            CleverCV is an AI-powered resume and cover letter builder that helps you stand out with confidence. Whether you're starting from scratch or improving an existing CV, our platform gives you step-by-step guidance, smart design suggestions, and powerful language enhancements.
+            CleverCV is an AI-powered resume and cover letter builder that helps
+            you stand out with confidence. Whether you're starting from scratch
+            or improving an existing CV, our platform gives you step-by-step
+            guidance, smart design suggestions, and powerful language
+            enhancements.
           </p>
         </div>
 
@@ -30,35 +34,37 @@ const Footer = () => {
           {/* Company */}
           <div className="flex  justify-end">
             <ul className="text-[#666] space-y-3">
-            <p className="text-white text-[20px] font-semibold mb-5">Company</p>
+              <p className="text-white text-[20px] font-semibold mb-5">
+                Company
+              </p>
               <li>
                 <a href="/" className="cursor-pointer">
-                 Home
+                  Home
                 </a>
               </li>
               <li>
                 <a href="/about" className="cursor-pointer">
-                Pricing
+                  Pricing
                 </a>
               </li>
               <li>
                 <a href="/resources" className="cursor-pointer">
-                 Contact
+                  Contact
                 </a>
               </li>
-          
             </ul>
           </div>
 
           {/* Service */}
-            <div className="flex  justify-end">
+          <div className="flex  justify-end">
             <ul className="text-[#666] space-y-3 flex flex-col items-start">
-            <p className="text-white text-[20px] font-semibold mb-3">Service</p>
+              <p className="text-white text-[20px] font-semibold mb-3">
+                Service
+              </p>
               <li className=" cursor-pointer">AI Resume Builder</li>
               <li className=" cursor-pointer">AI Resume Optimizer</li>
               <li className="cursor-pointer">Create Cover Letter</li>
               <li className="cursor-pointer">Multilingual Resume</li>
-           
             </ul>
           </div>
 
@@ -87,19 +93,24 @@ const Footer = () => {
       <div className="flex flex-col md:flex-row justify-center lg:justify-between items-center gap-5 text-center">
         {/* Left Text */}
         <div className="flex flex-col  sm:flex-row flex-wrap items-center gap-4 text-[#666] md:text-[16px]">
- 
-          <p className="underline cursor-pointer">Privacy Policy</p>
-          <p className="underline cursor-pointer"> Terms of Service</p>
-          <p className="underline cursor-pointer">Cookies Settings</p>
+          <Link to={"/privacy-policy"}>
+            <p className="underline cursor-pointer">Privacy Policy</p>
+          </Link>
+          <Link to={"/tearms-and-condition"}>
+            <p className="underline cursor-pointer"> Terms of Service</p>
+          </Link>
+          <Link to={"/imprint"}>
+            <p className="underline cursor-pointer">Imprint</p>
+          </Link>
         </div>
-<div className="flex gap-5 items-center">
-  <FaFacebookF  className="text-2xl text-white" />
-  <FaMedium  className="text-2xl text-white"/>
-  <FaLinkedin className="text-2xl text-white"/>
-</div>
+        <div className="flex gap-5 items-center">
+          <FaFacebookF className="text-2xl text-white" />
+          <FaMedium className="text-2xl text-white" />
+          <FaLinkedin className="text-2xl text-white" />
+        </div>
         {/* Right: Social Icons */}
         <div className="flex items-center mx-auto lg:mx-0 text-[#666] lg:gap-3  cursor-pointer">
-         <p>© 2024 FutureTech. All rights reserved.</p>
+          <p>© 2024 FutureTech. All rights reserved.</p>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import logo from "../../assets/images/logo.png";
 import uk from "../../assets/images/uk.png";
 import { IoIosArrowDown } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const navLinks = ["Home", "Price", "Contact", "AI Help"];
 
@@ -46,12 +47,17 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-5">
-        <button className="font-medium py-3 px-7 border border-white rounded-lg">
-          Log In
-        </button>
-        <button className="font-medium py-3 px-7 border border-white rounded-lg bg-white text-dark">
-          Sign Up
-        </button>
+        <Link to={"/sign-in"}>
+          <button className="font-medium py-3 px-7 border border-white rounded-lg">
+            Log In
+          </button>
+        </Link>
+        <Link to={"/sign-up"}>
+          <button className="font-medium py-3 px-7 border border-white rounded-lg bg-white text-dark">
+            Sign Up
+          </button>
+        </Link>
+
         <div className="flex items-center font-medium py-3 px-4 border border-white rounded-lg gap-2">
           <img src={uk} alt="UK Flag" />
           <span>Eng</span>

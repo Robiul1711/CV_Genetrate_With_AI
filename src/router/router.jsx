@@ -1,3 +1,4 @@
+import ErrorPage from "@/components/common/ErrorPage";
 import AdminLayout from "@/layout/AdminLayout";
 import Layout from "@/layout/Layout";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
@@ -7,6 +8,8 @@ import CreateNewResume from "@/pages/admin/CreateNewResume";
 import History from "@/pages/admin/History";
 import Setting from "@/pages/admin/Setting";
 import UpdateExistingResume from "@/pages/admin/UpdateExistingResume";
+import SignIn from "@/pages/auth/signIn/SignIn";
+import SignUp from "@/pages/auth/signUp/SignUp";
 import Home from "@/pages/home/Home";
 import Imprint from "@/pages/imprint/Imprint";
 import PrivacyPolicy from "@/pages/privacyPolicyPage/PrivacyPolicy";
@@ -17,6 +20,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -38,9 +42,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: (
-        <AdminLayout/>
-    ),
+    element: <AdminLayout />,
     children: [
       {
         path: "/dashboard",
@@ -48,30 +50,37 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/create-New-resume",
-        element: <CreateNewResume/>,
+        element: <CreateNewResume />,
       },
       {
         path: "/dashboard/update-existing-resume",
-        element: <UpdateExistingResume/>,
+        element: <UpdateExistingResume />,
       },
       {
         path: "/dashboard/create-cover-letter",
-        element: <CreateCoverLetter/>,
+        element: <CreateCoverLetter />,
       },
       {
         path: "/dashboard/application-package",
-        element: <ApplicationPackage/>,
+        element: <ApplicationPackage />,
       },
       {
         path: "/dashboard/history",
-        element: <History/>,
+        element: <History />,
       },
       {
         path: "/dashboard/setting",
-        element: <Setting/>,
+        element: <Setting />,
       },
-    
     ],
+  },
+  {
+    path: "/sign-in",
+    element: <SignIn />,
+  },
+  {
+    path: "/sign-up",
+    element: <SignUp />,
   },
 ]);
 

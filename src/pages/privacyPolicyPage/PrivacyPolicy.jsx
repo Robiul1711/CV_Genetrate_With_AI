@@ -1,9 +1,11 @@
 import Title from "@/components/common/Title";
 import React from "react";
+import { ScrollRestoration } from "react-router-dom";
 
 const PrivacyPolicy = () => {
   return (
     <div className="section-padding-x section-padding-y space-y-4">
+      <ScrollRestoration />
       <Title level="title48">Privacy Policy – Clever CV</Title>
       <Title level="title16">Last Updated: May 16, 2025</Title>
       <Title level="title16">
