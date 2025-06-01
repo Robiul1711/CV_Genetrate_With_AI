@@ -9,14 +9,26 @@ import {
   Lock,
 } from "@/components/CustomIcons/CustomIcon";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const SignIn = () => {
+  const { register, handleSubmit } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
 
+  const onSubmit = (data) => {
+    console.log({
+      ...data,
+      termsAgreed: checked,
+    });
+  };
+
   return (
     <div className="section-padding-x section-padding-y min-h-screen flex justify-center items-center">
-      <form className="w-full max-w-4xl px-4 sm:px-10 lg:px-[190px] py-10 sm:py-16 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full max-w-4xl px-4 sm:px-10 lg:px-[190px] py-10 sm:py-16 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+      >
         <div className="flex justify-center mb-4">
           <img src={logo} alt="logo" className="h-12" />
         </div>
@@ -41,6 +53,7 @@ const SignIn = () => {
             <input
               type="email"
               id="email"
+              {...register("email", { required: true })}
               placeholder="andrew.ainsley@yourdomain.com"
               className="w-full pl-12 pr-4 py-3 border border-[#666666] rounded-lg bg-black focus:outline-none"
             />
@@ -60,6 +73,7 @@ const SignIn = () => {
               type={showPassword ? "text" : "password"}
               id="password"
               placeholder="••••••••"
+              {...register("password", { required: true })}
               className="w-full pl-12 pr-4 py-3 border border-[#666666] rounded-lg bg-black"
             />
             <span
@@ -94,14 +108,14 @@ const SignIn = () => {
           </label>
 
           <p className="cursor-pointer text-[16px] font-medium hover:underline">
-            Forgot Password?
+            Forgot Password ?
           </p>
         </div>
 
         {/* Sign In Button */}
         <button
           type="submit"
-          className="w-full bg-[#FFF] text-black py-3 text-lg font-medium rounded-lg"
+          className="w-full bg-[#FFF] text-black py-2 md:py-3 my-3 text-lg font-medium rounded-lg"
         >
           Sign In
         </button>
@@ -128,7 +142,7 @@ const SignIn = () => {
 
         {/* Sign Up */}
         <p className="text-center py-6 text-sm">
-          Don’t have an account?{" "}
+          Don’t have an account ?{" "}
           <Link to={"/sign-up"}>
             <span className="font-medium cursor-pointer underline">
               Sign Up

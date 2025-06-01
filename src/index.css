@@ -76,37 +76,4 @@ body {
   }
 }
 
-.half-border-bottom {
-  position: relative;
-}
-
-.half-border-bottom::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 1px;
-  width: 100%;
-  background: #81FB84;
-}
-
-.half-border-bottom::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  height: 50%;
-  width: 1px;
-  background: #81FB84;
-}
-
-.half-border-bottom::before {
-  left: 0; /* Left vertical line */
-}
-
-.half-border-bottom::after {
-  right: 0; /* Right vertical line */
-  height: 50%;
-  width: 1px;
-}
-
 
