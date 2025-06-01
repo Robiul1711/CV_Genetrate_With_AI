@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import logo from "../../assets/images/logo.png";
 import uk from "../../assets/images/uk.png";
 import { IoIosArrowDown } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -12,10 +12,9 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  const [activeLink, setActiveLink] = useState("Home");
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
-  // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -39,9 +38,8 @@ const Navbar = () => {
             <Link
               to={path}
               key={index}
-              onClick={() => setActiveLink(name)}
               className={`cursor-pointer font-medium py-3 px-7 rounded-lg transition-all duration-300 transform ${
-                activeLink === name
+                location.pathname === path
                   ? "bg-white text-dark translate-y-[-2px]"
                   : "text-white hover:bg-white hover:text-dark hover:translate-y-[-2px]"
               }`}

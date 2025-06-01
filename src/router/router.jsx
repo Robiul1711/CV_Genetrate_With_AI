@@ -20,6 +20,8 @@ import TearmsAndCondition from "@/pages/tearms_and_condition/TearmsAndCondition"
 import { createBrowserRouter } from "react-router-dom";
 import SuccessfullyPasswordChange from "@/pages/auth/setPasswordSuccessfully/SuccessfullyPasswordChange";
 import Price from "@/pages/home/price/Price";
+import Contact from "@/pages/contact/Contact";
+import AIHelp from "@/pages/aiHelp/AIHelp";
 
 const router = createBrowserRouter([
   {
@@ -31,9 +33,18 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-       {
+      {
         path: "/price",
         element: <Price />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+
+      {
+        path: "/ai-help",
+        element: <AIHelp />,
       },
       {
         path: "/privacy-policy",

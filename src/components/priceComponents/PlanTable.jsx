@@ -14,10 +14,10 @@ const PlanTable = () => {
           <thead className="bg-[#0E0E10] text-white text-base md:text-[30px]">
             <tr>
               <th className="px-6 py-10">Features</th>
-              <th className="p-6">Free</th>
-              <th className="p-6">Basic</th>
-              <th className="p-6">Pro</th>
-              <th className="p-6">Pay-Pay-Download</th>
+              <th className="p-4">Free</th>
+              <th className="p-4">Basic</th>
+              <th className="p-4">Pro</th>
+              <th className="p-4">Pay-Pay-Download</th>
             </tr>
           </thead>
           <tbody className="text-sm space-y-2">
