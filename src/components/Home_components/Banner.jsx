@@ -8,12 +8,12 @@ const Banner = () => {
   return (
     <div className="py-12 md:py-20">
       <div className="flex flex-col gap-6 items-center justify-center text-center">
-        <button className="flex items-center gap-2 p-2 rounded-full border">
+        <button className="flex items-center gap-2 p-2 rounded-full border text-sm md:text-lg">
           <AiTwotoneThunderbolt />
           Smarter resumes. Better job prospects.
           <FaArrowRightLong className="text-2xl bg-dark p-1 rounded-full" />
         </button>
-        <h1 className="text-[36px] md:text-[68px] font-bold max-w-[956px]">
+        <h1 className="text-[32px] md:text-[46px] lg:text-[68px] font-bold w-full max-w-[956px]">
           Build Your Perfect Resume Smarter, Faster, with AI.
         </h1>
 

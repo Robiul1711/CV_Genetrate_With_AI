@@ -61,14 +61,14 @@ const HowItWorks = () => {
   return (
     <div className="md:py-28">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[36px] md:text-[48px] font-bold">How It Works</h1>
-        <p className="text-xl text-[#9B9B9B] pt-2 ">
+        <h1 className="text-[28px] md:text-[48px] font-bold">How It Works</h1>
+        <p className="md:text-xl text-[#9B9B9B] pt-2 ">
           Next generation no-code. Beyond natural language. Why type when you
           can click?
         </p>
       </div>
 
-      <div className="mt-16 space-y-20">
+      <div className="mt-8 md:mt-16 space-y-20">
         <div>
           {planOne.map((item, index) => (
             <div
@@ -77,7 +77,7 @@ const HowItWorks = () => {
             >
               <div className="w-full lg:w-1/2 ">
                 <div className="relative">
-                  <div className="absolute bottom-0 left-0 w-full h-[150px] bg-banner rounded-2xl"></div>
+                  <div className="absolute bottom-0 left-0 w-full h-[100px] md:h-[150px] bg-banner rounded-2xl"></div>
                   <img
                     src={item.img}
                     alt="Plan illustration"
@@ -134,7 +134,7 @@ const HowItWorks = () => {
                     {item.title}
                   </p>
                   <p className="text-xl text-[#9B9B9B] pt-4">{item.detail}</p>
-                  <ul className="  text-xl text-[#F1F1F1] pt-4 space-y-2">
+                  <ul className=" md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                     {item.list.map((listItem, idx) => (
                       <li key={idx} className="flex items-center gap-3">
                         <DotIcon /> {listItem}
@@ -148,7 +148,7 @@ const HowItWorks = () => {
               </div>
               <div className="w-full lg:w-1/2 ">
                 <div className="relative">
-                  <div className="absolute bottom-0 left-0 w-full h-[150px] bg-banner rounded-2xl"></div>
+                  <div className="absolute bottom-0 left-0 w-full h-[100px] md:h-[150px] bg-banner rounded-2xl"></div>
                   <img
                     src={item.img}
                     alt="Plan illustration"
@@ -167,7 +167,7 @@ const HowItWorks = () => {
             >
               <div className="w-full lg:w-1/2 ">
                 <div className="relative">
-                  <div className="absolute bottom-0 left-0 w-full h-[150px] bg-banner rounded-2xl"></div>
+                  <div className="absolute bottom-0 left-0 w-full h-[100px] md:h-[150px] bg-banner rounded-2xl"></div>
                   <img
                     src={item.img}
                     alt="Plan illustration"
@@ -178,7 +178,7 @@ const HowItWorks = () => {
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                    <span className="inline-flex items-center justify-center w-14 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
                       {index + 3}
                     </span>
                     <h2 className="text-2xl md:text-3xl font-medium">
@@ -238,7 +238,7 @@ const HowItWorks = () => {
               </div>
               <div className="w-full lg:w-1/2 ">
                 <div className="relative">
-                  <div className="absolute bottom-0 left-0 w-full h-[150px] bg-banner rounded-2xl"></div>
+                  <div className="absolute bottom-0 left-0 w-full h-[100px] md:h-[150px] bg-banner rounded-2xl"></div>
                   <img
                     src={item.img}
                     alt="Plan illustration"

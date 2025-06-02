@@ -4,10 +4,10 @@ const PlanTable = () => {
   return (
     <div className="mb-12">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[36px] md:text-[48px] font-bold">
+        <h1 className="text-[28px] md:text-[48px] font-bold">
           Find your perfect plan
         </h1>
-        <p className="text-xl text-[#9B9B9B] py-4 ">
+        <p className="md:text-xl text-[#9B9B9B] py-4 ">
           Compare features and choose what works for you
         </p>
       </div>
@@ -23,17 +23,19 @@ const PlanTable = () => {
             </tr>
           </thead>
           <tbody className="text-sm space-y-2">
-            <tr>
-              <td className="p-6 px-6 text-lg md:text-[26px] border-b border-[#262626] rounded-xl">
+            <tr className="">
+              <td className="p-6 px-6 md:text-lg lg:text-[26px] border-b border-[#262626] rounded-xl">
                 Resume Creation
               </td>
-              <td className="p-4 px-6 border-b border-[#262626]">✓ Basic</td>
+              <td className="p-4 px-6 border-b border-[#262626]">
+                ✓ Basic
+              </td>
               <td className="p-4  border-b border-[#262626]">✓ unlimited</td>
               <td className="p-4 border-b border-[#262626]">✓ unlimited</td>
               <td className="p-4 border-b border-[#262626]">✓ One time</td>
             </tr>
             <tr>
-              <td className="p-6 px-6 text-lg md:text-[26px]  border-b border-[#262626]">
+              <td className="p-6 px-6 md:text-lg lg::text-[26px]  border-b border-[#262626]">
                 AI Design Assistant
               </td>
               <td className="p-4 border-b border-[#262626]">✓</td>
@@ -42,7 +44,7 @@ const PlanTable = () => {
               <td className="p-4 border-b border-[#262626]">✓</td>
             </tr>
             <tr>
-              <td className="p-6 px-6 text-lg md:text-[26px]  border-b border-[#262626]">
+              <td className="p-6 px-6 md:text-lg lg::text-[26px]  border-b border-[#262626]">
                 CV Editor
               </td>
               <td className="p-4 border-b border-[#262626]">✓</td>
@@ -51,7 +53,7 @@ const PlanTable = () => {
               <td className="p-4 border-b border-[#262626]">✓</td>
             </tr>
             <tr>
-              <td className="p-6 px-6 text-lg md:text-[26px] border-b border-[#262626]">
+              <td className="p-6 px-6 md:text-lg lg::text-[26px] border-b border-[#262626]">
                 Download
               </td>
               <td className="p-4 border-b border-[#262626]">✓ low Quality</td>
@@ -60,7 +62,7 @@ const PlanTable = () => {
               <td className="p-4 border-b border-[#262626]">€4.99 each</td>
             </tr>
             <tr>
-              <td className="p-6 px-6 text-lg md:text-[26px] border-b border-[#262626]">
+              <td className="p-6 px-6 md:text-lg lg::text-[26px] border-b border-[#262626]">
                 Templates
               </td>
               <td className="p-4 border-b border-[#262626]">1 Basic</td>
@@ -69,7 +71,7 @@ const PlanTable = () => {
               <td className="p-4 border-b border-[#262626]">Basic Only</td>
             </tr>
             <tr>
-              <td className="p-6 px-6 text-lg md:text-[26px] border-b border-[#262626]">
+              <td className="p-6 px-6 md:text-lg lg::text-[26px] border-b border-[#262626]">
                 No Watermark
               </td>
               <td className="p-4 border-b border-[#262626]">✕</td>
@@ -78,7 +80,7 @@ const PlanTable = () => {
               <td className="p-4 border-b border-[#262626]">✓</td>
             </tr>
             <tr>
-              <td className="p-6 px-6 text-lg md:text-[26px] border-b border-[#262626]">
+              <td className="p-6 px-6 md:text-lg lg::text-[26px] border-b border-[#262626]">
                 Multilingual Support
               </td>
               <td className="p-4 border-b border-[#262626]">✕</td>
@@ -87,7 +89,7 @@ const PlanTable = () => {
               <td className="p-4 border-b border-[#262626]">+€4.99 each</td>
             </tr>
             <tr>
-              <td className="p-6 px-6 text-lg md:text-[26px] border-b border-[#262626]">
+              <td className="p-6 px-6 md:text-lg lg::text-[26px] border-b border-[#262626]">
                 Cover Letter Tools
               </td>
               <td className="p-4 border-b border-[#262626]">✕</td>
@@ -96,7 +98,7 @@ const PlanTable = () => {
               <td className="p-4 border-b border-[#262626]">+€1.99 each</td>
             </tr>
             <tr>
-              <td className="p-6 px-6 text-lg md:text-[26px] border-b border-[#262626]">
+              <td className="p-6 px-6 md:text-lg lg::text-[26px] border-b border-[#262626]">
                 Application Package Generator
               </td>
               <td className="p-4 border-b border-[#262626]">✕</td>
@@ -105,7 +107,7 @@ const PlanTable = () => {
               <td className="p-4 border-b border-[#262626]">✕</td>
             </tr>
             <tr>
-              <td className="p-6 px-6 text-lg md:text-[26px] border-b border-[#262626]">
+              <td className="p-6 px-6 md:text-lg lg::text-[26px] border-b border-[#262626]">
                 Export Formats
               </td>
               <td className="p-4 border-b border-[#262626]">✓ PNG</td>
