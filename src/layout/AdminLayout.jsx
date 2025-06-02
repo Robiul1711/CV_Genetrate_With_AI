@@ -29,7 +29,9 @@ const AdminLayout = () => {
       id: 2,
       icon: <CreateNewResumeIcon />,
       text: "Create New Resume",
-      path: "/dashboard/create-New-resume",
+      path: "/dashboard/create-new-resume",
+      extra_path: "/dashboard/edit-resume",
+      extra_path2: "/dashboard/edit-design",
       sublink: false,
     },
     {

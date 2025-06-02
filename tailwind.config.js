@@ -23,7 +23,8 @@ export default {
   			dark: '#1D1D1D'
   		},
   		backgroundImage: {
-  			banner: 'linear-gradient(0deg, #08090A 0%, rgba(8, 9, 10, 0.00) 100%)'
+  			banner: 'linear-gradient(0deg, #08090A 0%, rgba(8, 9, 10, 0.00) 100%)',
+  			linearbg: 'linear-gradient(0deg, rgba(255, 255, 255, 0.20) -9.26%, rgba(8, 9, 10, 0.00) 62.04%)'
   		},
   		screens: {
   			xs: '390px',

@@ -17,16 +17,17 @@ import Tailor_Modal from '@/components/createResumeComponents/Tailor_Modal';
 import Generating_Modal from '@/components/createResumeComponents/Generating_Modal';
 import AddWork from '@/components/createResumeComponents/AddWork';
 import { Edit } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
 
 const CreateNewResume = () => {
   const [activeStep, setActiveStep] = useState(0);
-
   const steps = [
     { label: 'Choose Your Goal', component: <Step1 /> },
     { label: 'Personal Info', component: <Step2 /> },
     { label: 'Experience', component: <>
       <Step3 />
-      <AddWork />
+      {/* <AddWork /> */}
     </> },
     { label: 'Education', component: <>
       <Step4 />
@@ -44,8 +45,8 @@ const CreateNewResume = () => {
     { label: 'Choose Resume', component: <Step8 /> },
     { label: 'Preview & Download', component: <>
       <Step9 />
-      <Tailor_Modal />
-      <Generating_Modal />
+      {/* <Tailor_Modal />
+      <Generating_Modal /> */}
     </> },
   ];
 
@@ -90,12 +91,12 @@ const CreateNewResume = () => {
         </button>
 <button
   onClick={goNext}
-  className='font-semibold border-white bg-white text-black py-4 px-16 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
+  className={`font-semibold border-white bg-white text-black ${activeStep === steps.length - 1 ? '' :  "py-4 px-16 "}text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
 >
   {activeStep === steps.length - 1 ? (
-    <span className="flex items-center gap-2">
+    <Link to="/dashboard/edit-resume"  className={`flex items-center gap-2 ${activeStep === steps.length - 1 ? 'py-4 px-16 ' :  ""}`}>
       <Edit size={18} /> Edit Resume
-    </span>
+    </Link>
   ) : activeStep === 6 ? (
     "Generate Resume With AI"
   ) : activeStep === 7 || activeStep === 8 ? (

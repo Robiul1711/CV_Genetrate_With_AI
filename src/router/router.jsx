@@ -22,6 +22,8 @@ import SuccessfullyPasswordChange from "@/pages/auth/setPasswordSuccessfully/Suc
 import Price from "@/pages/home/price/Price";
 import Contact from "@/pages/contact/Contact";
 import AIHelp from "@/pages/aiHelp/AIHelp";
+import EditResumePage from "@/pages/edit_resume_page/EditResumePage";
+import Design from "@/pages/edit_resume_page/Design";
 
 const router = createBrowserRouter([
   {
@@ -69,8 +71,16 @@ const router = createBrowserRouter([
         element: <AdminDashboard />,
       },
       {
-        path: "/dashboard/create-New-resume",
+        path: "/dashboard/create-new-resume",
         element: <CreateNewResume />,
+      },
+      {
+        path: "/dashboard/edit-resume",
+        element: <EditResumePage />,
+      },
+      {
+        path: "/dashboard/edit-design",
+        element: <Design />,
       },
       {
         path: "/dashboard/update-existing-resume",
