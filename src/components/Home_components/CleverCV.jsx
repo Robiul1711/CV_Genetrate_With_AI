@@ -71,10 +71,10 @@ const CleverCV = () => {
   return (
     <div className="pb-28">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[32px] md:text-[48px] font-bold">
+        <h1 className="text-[28px] md:text-[48px] font-bold">
           Why Choose Clever CV?
         </h1>
-        <p className="text-xl text-[#9B9B9B] pt-2 ">
+        <p className="md:text-xl text-[#9B9B9B] pt-2 ">
           Build resumes that get interviews – backed by data, designed for
           results.
         </p>
