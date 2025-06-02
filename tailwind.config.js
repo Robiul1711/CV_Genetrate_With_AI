@@ -24,7 +24,8 @@ export default {
   		},
   		backgroundImage: {
   			banner: 'linear-gradient(0deg, #08090A 0%, rgba(8, 9, 10, 0.00) 100%)',
-  			linearbg: 'linear-gradient(0deg, rgba(255, 255, 255, 0.20) -9.26%, rgba(8, 9, 10, 0.00) 62.04%)'
+  			linearbg: 'linear-gradient(0deg, rgba(255, 255, 255, 0.20) -9.26%, rgba(8, 9, 10, 0.00) 62.04%)',
+  			linearbutton: 'linear-gradient(147deg, #81FB84 4.22%, #010101 49.77%, #59D35C 85.63%)',
   		},
   		screens: {
   			xs: '390px',

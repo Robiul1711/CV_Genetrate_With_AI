@@ -68,11 +68,13 @@ const CreateNewResume = () => {
 
       {/* Stepper */}
       <div className="my-6">
-        <Stepper 
-          steps={steps.map(step => ({ label: step.label }))}
-          activeStep={activeStep}
-    
-        />
+<Stepper
+  steps={steps.map(step => ({ label: step.label }))}
+  activeStep={activeStep}
+hideConnectors={activeStep}
+  className='max-w-6xl mx-auto'
+/>
+
       </div>
 
       {/* Current Step Content */}
