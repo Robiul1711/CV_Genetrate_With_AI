@@ -21,7 +21,9 @@ const ForgotPassword = () => {
         className="w-full max-w-3xl px-4 sm:px-8 md:px-12 lg:px-32 py-10 sm:py-16 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
       >
         <div className="flex justify-center mb-4">
-          <img src={logo} alt="logo" className="h-12" />
+          <Link to={"/"}>
+            <img src={logo} alt="logo" className="h-12" />
+          </Link>
         </div>
 
         <h2 className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold text-center mb-2">
@@ -58,7 +60,7 @@ const ForgotPassword = () => {
           <Link to={"/otp-code"}>
             <button
               type="submit"
-              className="w-full bg-[#FFF] text-black py-2 md:py-3 my-4 text-lg font-medium rounded-lg"
+              className="w-full bg-[#FFF] text-black py-2 md:py-3 my-4 md:text-lg font-medium rounded-lg"
             >
               Send OTP Code
             </button>

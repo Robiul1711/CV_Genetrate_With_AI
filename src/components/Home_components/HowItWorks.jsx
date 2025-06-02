@@ -88,16 +88,18 @@ const HowItWorks = () => {
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center w-12 h-12 text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                    <span className="inline-flex items-center justify-center w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
                       {index + 1}
                     </span>
-                    <h2 className="text-3xl font-medium">{item.plan}</h2>
+                    <h2 className="text-2xl md:text-3xl font-medium">
+                      {item.plan}
+                    </h2>
                   </div>
-                  <p className="text-[28px] text-[#F1F1F1] pt-2">
+                  <p className="text-[22px] md:text-[28px] text-[#F1F1F1] pt-2">
                     {item.title}
                   </p>
                   <p className="text-xl text-[#9B9B9B] pt-4">{item.detail}</p>
-                  <ul className="  text-xl text-[#F1F1F1] pt-4 space-y-2">
+                  <ul className="md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                     {item.list.map((listItem, idx) => (
                       <li key={idx} className="flex items-center gap-3">
                         <DotIcon /> {listItem}
@@ -121,12 +123,14 @@ const HowItWorks = () => {
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center w-12 h-12 text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                    <span className="inline-flex items-center justify-center w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
                       {index + 2}
                     </span>
-                    <h2 className="text-3xl font-medium">{item.plan}</h2>
+                    <h2 className="text-2xl md:text-3xl font-medium">
+                      {item.plan}
+                    </h2>
                   </div>
-                  <p className="text-[28px] text-[#F1F1F1] pt-2">
+                  <p className="text-[22px] md:text-[28px] text-[#F1F1F1] pt-2">
                     {item.title}
                   </p>
                   <p className="text-xl text-[#9B9B9B] pt-4">{item.detail}</p>
@@ -174,16 +178,18 @@ const HowItWorks = () => {
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center w-12 h-12 text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                    <span className="inline-flex items-center justify-center w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
                       {index + 3}
                     </span>
-                    <h2 className="text-3xl font-medium">{item.plan}</h2>
+                    <h2 className="text-2xl md:text-3xl font-medium">
+                      {item.plan}
+                    </h2>
                   </div>
-                  <p className="text-[28px] text-[#F1F1F1] pt-2">
+                  <p className=" text-[22px] md:text-[28px] text-[#F1F1F1] pt-2">
                     {item.title}
                   </p>
                   <p className="text-xl text-[#9B9B9B] pt-4">{item.detail}</p>
-                  <ul className="  text-xl text-[#F1F1F1] pt-4 space-y-2">
+                  <ul className="  md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                     {item.list.map((listItem, idx) => (
                       <li key={idx} className="flex items-center gap-3">
                         <DotIcon /> {listItem}
@@ -207,16 +213,18 @@ const HowItWorks = () => {
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center w-12 h-12 text-3xl font-medium border border-[#81FB84]/20 rounded-full">
-                      {index + 2}
+                    <span className="inline-flex items-center justify-center w-16 md:w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                      {index + 4}
                     </span>
-                    <h2 className="text-3xl font-medium">{item.plan}</h2>
+                    <h2 className="text-2xl md:text-3xl font-medium">
+                      {item.plan}
+                    </h2>
                   </div>
-                  <p className="text-[28px] text-[#F1F1F1] pt-2">
+                  <p className="text-[22px] md:text-[28px] text-[#F1F1F1] pt-2">
                     {item.title}
                   </p>
                   <p className="text-xl text-[#9B9B9B] pt-4">{item.detail}</p>
-                  <ul className="  text-xl text-[#F1F1F1] pt-4 space-y-2">
+                  <ul className="md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                     {item.list.map((listItem, idx) => (
                       <li key={idx} className="flex items-center gap-3">
                         <DotIcon /> {listItem}
