@@ -57,10 +57,10 @@ const Navbar = () => {
       >
         {/* Left: Logo + Nav Links (desktop only) */}
         <div className="flex items-center gap-24">
-          <img src={logo} alt="Logo" className="w-12 md:w-24" />
+          <img src={logo} alt="Logo" className="w-12 lg:w-24" />
 
           {/* Nav Links - hidden on md and below */}
-          <ul className="hidden md:flex items-center gap-4">
+          <ul className="hidden lg:flex items-center gap-4">
             {navLinks.map(({ name, path }, index) => (
               <Link
                 to={path}
@@ -78,7 +78,7 @@ const Navbar = () => {
         </div>
 
         {/* Right: Buttons - hidden on md and below */}
-        <div className="hidden md:flex items-center gap-5">
+        <div className="hidden lg:flex items-center gap-5">
           <Link to={"/sign-in"}>
             <button className="font-medium py-3 px-7 border border-white rounded-lg">
               Log In
@@ -98,7 +98,7 @@ const Navbar = () => {
         </div>
 
         {/* Dynamic Icon for mobile */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <button onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? (
               <FiX className="text-white text-3xl" />
@@ -129,15 +129,8 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-[94.3px] left-0 w-3/4 h-full bg-[#0E0E10] z-50 shadow-lg p-6 flex flex-col gap-6"
+              className="fixed top-[94.3px] left-0 w-3/4 md:w-1/2 h-full bg-[#0E0E10] z-50 shadow-lg px-6 py-8 flex flex-col gap-6"
             >
-              <div className="flex justify-between items-center mb-6">
-                <img src={logo} alt="Logo" className="w-24" />
-                <button onClick={() => setIsOpen(false)}>
-                  <FiX className="text-white text-3xl" />
-                </button>
-              </div>
-
               <ul className="flex flex-col gap-4">
                 {navLinks.map(({ name, path }, index) => (
                   <Link

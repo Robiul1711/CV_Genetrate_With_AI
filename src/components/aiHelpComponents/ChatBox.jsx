@@ -8,9 +8,9 @@ const ChatBox = () => {
   const [showChatWithData, setShowChatWithData] = useState(false);
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 w-full">
+    <div className="flex flex-col lg:flex-row gap-8 w-full">
       {/* Left Sidebar */}
-      <div className="w-full md:w-[25%] bg-[#0E0E10] p-5 rounded-lg h-auto md:h-screen">
+      <div className="w-full lg:w-[25%] bg-[#0E0E10] p-5 rounded-lg h-auto lg:h-screen">
         <div className="relative flex items-center">
           <span className="absolute left-3 text-gray-400">
             <Search size={18} />
@@ -45,7 +45,7 @@ const ChatBox = () => {
       </div>
 
       {showChatWithData ? (
-        <div className="w-full md:flex-1 bg-[#0E0E10] rounded-lg">
+        <div className="w-full lg:flex-1 bg-[#0E0E10] rounded-lg">
           <div className="w-full md:flex-1 bg-[#0E0E10] rounded-lg p-6 space-y-6">
             {/* Top Input Row */}
             <div className="flex flex-col md:flex-row items-center gap-4">
@@ -111,7 +111,7 @@ const ChatBox = () => {
           </div>
           {/* input */}
           <div className="flex flex-col md:flex-row items-center gap-4 p-4 md:px-16 mt-6 md:mt-16 ml-5">
-            <div className="w-full md:w-[80%]">
+            <div className="w-full md:w-[50%]  lg:w-[80%]">
               <input
                 type="text"
                 placeholder="Ask anything about CV writing…"
@@ -129,7 +129,7 @@ const ChatBox = () => {
           </div>
         </div>
       ) : (
-        <div className="w-full md:flex-1 bg-[#0E0E10] rounded-lg">
+        <div className="w-full lg:flex-1 bg-[#0E0E10] rounded-lg">
           <div className="flex justify-center items-center h-[50vh] md:h-[70vh] text-center px-4">
             <div>
               <div className="flex justify-center my-5">
@@ -142,7 +142,7 @@ const ChatBox = () => {
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-4 px-4 md:px-16 mb-6">
-            <div className="w-full md:w-[80%]">
+            <div className="w-full md:w-[50%] lg:w-[80%]">
               <input
                 type="text"
                 placeholder="Ask anything about CV writing…"

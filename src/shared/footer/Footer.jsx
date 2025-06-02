@@ -16,7 +16,7 @@ const Footer = () => {
             <img
               src={footer}
               alt="icon"
-              className="mb-4 text-white cursor-pointer w-[60px] sm:w-[80px] md:w-[100px] lg:w-auto"
+              className="mb-4 text-white cursor-pointer w-[60px]  md:w-[80px] lg:w-auto"
             />
           </Link>
           <p className="text-[#666] leading-relaxed">

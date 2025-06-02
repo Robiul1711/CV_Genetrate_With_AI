@@ -4,7 +4,9 @@ const PlanTable = () => {
   return (
     <div className="mb-12">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[48px] font-bold">Find your perfect plan</h1>
+        <h1 className="text-[36px] md:text-[48px] font-bold">
+          Find your perfect plan
+        </h1>
         <p className="text-xl text-[#9B9B9B] py-4 ">
           Compare features and choose what works for you
         </p>
