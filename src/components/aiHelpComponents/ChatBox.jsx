@@ -67,7 +67,7 @@ const ChatBox = () => {
                 <Edit size={18} />
               </div>
             </div>
-            <div className="flex gap-4 items-start">
+            <div className="flex  flex-col lg:flex-row gap-4 items-start">
               <div className="p-2.5 rounded-full bg-black">
                 <AIIcon className="text-white w-6 h-6" />
               </div>
@@ -118,7 +118,7 @@ const ChatBox = () => {
                 className="pl-6 pr-2 py-2 w-full rounded-lg border border-[#262626] bg-[#0E0E10] text-white"
               />
             </div>
-            <div className="relative w-[55%] md:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 rounded-lg">
+            <div className="relative w-[65%] md:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 rounded-lg">
               <button type="button" className="text-left">
                 Send Message
               </button>
@@ -142,14 +142,14 @@ const ChatBox = () => {
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-4 px-4 md:px-16 mb-6">
-            <div className="w-full md:w-[50%] lg:w-[80%]">
+            <div className="w-full md:w-[60%] lg:w-[80%]">
               <input
                 type="text"
                 placeholder="Ask anything about CV writing…"
                 className="pl-6 pr-2 py-2 w-full rounded-lg border border-[#262626] bg-[#0E0E10] text-white"
               />
             </div>
-            <div className="relative w-[50%] md:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 rounded-lg">
+            <div className="relative w-[60%] md:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 rounded-lg">
               <button type="button" className="text-left">
                 Send Message
               </button>

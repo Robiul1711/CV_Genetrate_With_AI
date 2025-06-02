@@ -31,7 +31,9 @@ const SignIn = () => {
         className="w-full max-w-4xl px-4 sm:px-10 lg:px-[190px] py-10 sm:py-16 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
       >
         <div className="flex justify-center mb-4">
-          <img src={logo} alt="logo" className="h-12" />
+          <Link to={"/"}>
+            <img src={logo} alt="logo" className="h-12" />
+          </Link>
         </div>
 
         <h2 className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold text-center mb-2">
@@ -44,7 +46,7 @@ const SignIn = () => {
 
         {/* Email Input */}
         <div className="mb-4 relative">
-          <label htmlFor="email" className="block mb-2 text-lg">
+          <label htmlFor="email" className="block mb-2 md:text-lg">
             Email
           </label>
           <div className="relative">
@@ -63,7 +65,7 @@ const SignIn = () => {
 
         {/* Password Input */}
         <div className="mb-4 relative">
-          <label htmlFor="password" className="block mb-2 text-lg">
+          <label htmlFor="password" className="block mb-2 md:text-lg">
             Password
           </label>
           <div className="relative">
@@ -117,7 +119,7 @@ const SignIn = () => {
         {/* Sign In Button */}
         <button
           type="submit"
-          className="w-full bg-[#FFF] text-black py-2 md:py-3 my-3 text-lg font-medium rounded-xl"
+          className="w-full bg-[#FFF] text-black py-2 md:py-3 my-3 md:text-lg font-medium rounded-xl"
         >
           Sign In
         </button>

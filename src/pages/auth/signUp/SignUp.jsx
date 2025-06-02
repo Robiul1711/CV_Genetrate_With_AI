@@ -31,7 +31,10 @@ const SignUp = () => {
         className="w-full max-w-4xl px-4 sm:px-8 md:px-12 lg:px-24 xl:px-36 py-10 sm:py-16 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
       >
         <div className="flex justify-center mb-4">
-          <img src={logo} alt="logo" className="h-12" />
+          <Link to={"/"}>
+            {" "}
+            <img src={logo} alt="logo" className="h-12" />
+          </Link>
         </div>
 
         <h2 className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold text-center mb-2">
@@ -46,7 +49,7 @@ const SignUp = () => {
         {/* Name Input */}
         <div className="flex flex-col md:flex-row gap-5 w-full pt-2">
           <div className="mb-4 w-full">
-            <label htmlFor="name" className="block mb-2 text-lg">
+            <label htmlFor="name" className="block mb-2 md:text-lg">
               First Name
             </label>
 
@@ -59,7 +62,7 @@ const SignUp = () => {
             />
           </div>
           <div className="mb-4 w-full">
-            <label htmlFor="name" className="block mb-2 text-lg">
+            <label htmlFor="name" className="block mb-2 md:text-lg">
               Last Name
             </label>
 
@@ -75,7 +78,7 @@ const SignUp = () => {
 
         {/* Email Input */}
         <div className="mb-4 relative">
-          <label htmlFor="email" className="block mb-2 text-lg">
+          <label htmlFor="email" className="block mb-2 md:text-lg">
             Email
           </label>
           <div className="relative">
@@ -94,7 +97,7 @@ const SignUp = () => {
 
         {/* Password Input */}
         <div className="mb-4 relative">
-          <label htmlFor="password" className="block mb-2 text-lg">
+          <label htmlFor="password" className="block mb-2 md:text-lg">
             Password
           </label>
           <div className="relative">
@@ -119,7 +122,7 @@ const SignUp = () => {
 
         {/* Confirm password input */}
         <div className="mb-4 relative">
-          <label htmlFor="password" className="block mb-2 text-lg">
+          <label htmlFor="password" className="block mb-2 md:text-lg">
             Confirm Password
           </label>
           <div className="relative">
@@ -142,7 +145,7 @@ const SignUp = () => {
           </div>
         </div>
 
-        {/* Remember Me & Forgot Password */}
+        {/* Tearms and conditions */}
         <div className="my-6 text-sm">
           <label className="flex items-center gap-3 cursor-pointer">
             <span
@@ -170,7 +173,7 @@ const SignUp = () => {
         {/* Sign In Button */}
         <button
           type="submit"
-          className="w-full bg-[#FFF] text-black py-2 md:py-3 my-3 text-lg font-medium rounded-lg"
+          className="w-full bg-[#FFF] text-black py-2 md:py-3 my-3 md:text-lg font-medium rounded-lg"
         >
           Sign Up
         </button>

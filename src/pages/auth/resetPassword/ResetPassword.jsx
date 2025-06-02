@@ -25,7 +25,9 @@ const NewPassword = () => {
         className="w-full max-w-3xl px-4 sm:px-8 md:px-12 lg:px-32 py-10 sm:py-16 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
       >
         <div className="flex justify-center mb-4">
-          <img src={logo} alt="logo" className="h-12" />
+          <Link to={"/"}>
+            <img src={logo} alt="logo" className="h-12" />{" "}
+          </Link>
         </div>
 
         <h2 className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold text-center mb-2">
@@ -38,7 +40,7 @@ const NewPassword = () => {
 
         {/* new Password Input */}
         <div className="mb-4 relative">
-          <label htmlFor="password" className="block mb-2 text-lg">
+          <label htmlFor="password" className="block mb-2 md:text-lg">
             New Password
           </label>
           <div className="relative">
@@ -63,7 +65,7 @@ const NewPassword = () => {
 
         {/* Confirm password input */}
         <div className="mb-4 relative">
-          <label htmlFor="password" className="block mb-2 text-lg">
+          <label htmlFor="password" className="block mb-2 md:text-lg">
             Confirm New Password
           </label>
           <div className="relative">
@@ -91,7 +93,7 @@ const NewPassword = () => {
           <Link to={"/success-new-password"}>
             <button
               type="submit"
-              className="w-full bg-[#FFF] text-black py-2 md:py-3 my-4 text-lg font-medium rounded-lg"
+              className="w-full bg-[#FFF] text-black py-2 md:py-3 my-4 md:text-lg font-medium rounded-lg"
             >
               Save New Password
             </button>

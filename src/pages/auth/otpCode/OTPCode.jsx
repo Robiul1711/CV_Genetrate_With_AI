@@ -28,20 +28,25 @@ const OTPCode = () => {
       <ScrollRestoration />
       <form className="w-full max-w-3xl px-4 sm:px-8 md:px-12 lg:px-32 py-10 sm:py-16 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]">
         <div className="flex justify-center mb-4">
-          <img src={logo} alt="logo" className="h-12" />
+          <Link to={"/"}>
+            <img src={logo} alt="logo" className="h-12" />
+          </Link>
         </div>
 
         <h2 className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold text-center mb-2">
           Enter OTP Code
         </h2>
 
-        <Title level="title18" className="text-center mb-6 pb-2 !font-normal">
+        <Title
+          level="title18"
+          className="text-center md:mb-6 pb-2 !font-normal"
+        >
           Check your inbox for the one-time verification code we've sent to your
           email. Enter the code below to proceed With resetting your password.
         </Title>
 
         {/* otp Input */}
-        <div className="w-full max-w-md mx-auto text-center py-10">
+        <div className="w-full max-w-md mx-auto text-center py-6 md:py-10">
           {/* Heading */}
           <Title level="title18" className=" mb-6 pb-2 !font-normal">
             Code has been sent to example@gmail.com
@@ -90,7 +95,7 @@ const OTPCode = () => {
           <Link to={"/new-password"}>
             <button
               type="submit"
-              className="w-full bg-[#FFF] text-black py-2 md:py-3 my-4 text-lg font-medium rounded-lg"
+              className="w-full bg-[#FFF] text-black py-2 md:py-3 my-4 md:text-lg font-medium rounded-lg"
             >
               Verify
             </button>

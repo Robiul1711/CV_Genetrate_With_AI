@@ -159,7 +159,7 @@ const ContactForm = () => {
             {faqData.map((faq, idx) => (
               <div key={idx} className="bg-[#0E0E10] p-5 rounded-md">
                 <h3
-                  className="text-lg font-medium flex justify-between items-center cursor-pointer"
+                  className="md:text-lg font-medium flex justify-between items-center cursor-pointer"
                   onClick={() => toggleAccordion(idx)}
                 >
                   {faq.question}
