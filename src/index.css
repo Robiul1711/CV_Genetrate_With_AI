@@ -89,4 +89,9 @@ body {
   border: none !important;
 }
 
+#RFS-ConnectorContainer{
+  top: 10px !important;
+  left:  calc(-50% + 2em - 17px) !important;
+  right: calc(50% + 2em - 17px) !important;
 
+}

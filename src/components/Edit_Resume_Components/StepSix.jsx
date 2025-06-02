@@ -1,17 +1,9 @@
 import React from "react";
-import Title from "../common/Title";
 import { LuCirclePlus } from "react-icons/lu";
-const Step7 = () => {
+const StepSix = () => {
   return (
-    <div className="bg-black text-white flex items-center justify-center p-6">
-      <div className="max-w-6xl w-full">
-        <div className="text-center flex flex-col items-center gap-4 mb-10">
-          <Title level="title40"> Courses and Training Details</Title>
-          <Title level="title20">
-            Provide information about any professional courses or training
-            you’ve completed.
-          </Title>
-        </div>
+      <div className=" w-full">
+
 
         <form className="flex flex-col gap-4">
           {/* First & Last Name */}
@@ -60,8 +52,7 @@ const Step7 = () => {
           </div>
         </form>
       </div>
-    </div>
   );
 };
 
-export default Step7;
+export default StepSix;

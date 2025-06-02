@@ -1,8 +1,6 @@
 import React from "react";
-import Title from "../common/Title";
 import resume from "../../assets/images/resume.png";
 import { Download, Edit2 } from "lucide-react";
-import { FaEye } from "react-icons/fa6";
 
 const Step9 = () => {
   return (

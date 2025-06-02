@@ -1,23 +1,16 @@
 import React from "react";
 import { CiEdit } from "react-icons/ci";
-import Title from "../common/Title";
-const Step2 = () => {
+const StepOne = () => {
   return (
-    <div className="bg-black text-white min-h-screen flex items-center justify-center p-6">
-      <div className="max-w-6xl w-full">
-        <div className="text-center flex flex-col items-center gap-4 mb-10">
+    
+      <div className=" ">
 
-        <Title level="title40">Add Your Personal Details</Title>
-        <Title level="title20">
-          Please enter your basic details. These help employers get to know you and ensure your resume is complete.
-        </Title>
-        </div>
 
         {/* Upload Section */}
    <div className="flex flex-col gap-4 mb-8">
   <p className="text-sm text-white">Upload your photo *</p>
 
-  <div className="relative w-20 h-20 rounded-full  border-2 border-white">
+  <div className="relative w-20 h-20 rounded-full aspect-square border-2 border-white">
     <img
       src="https://randomuser.me/api/portraits/men/32.jpg"
       alt="Profile"
@@ -25,7 +18,7 @@ const Step2 = () => {
     />
 
     {/* Fix: z-index + absolute inside relative parent */}
-    <label className="absolute -bottom-1.5 border border-[#81FB84]/30  right-0 w-8 h-8 bg-dark rounded-full flex items-center justify-center cursor-pointer z-50">
+    <label className="absolute -bottom-1.5 border border-[#81FB84]/30 right-0 w-8 h-8 bg-dark rounded-full flex items-center justify-center cursor-pointer z-50">
       <CiEdit size={20} className="text-white" />
       <input type="file" className="hidden" />
     </label>
@@ -131,8 +124,8 @@ const Step2 = () => {
 
 
       </div>
-    </div>
+    
   );
 };
 
-export default Step2;
+export default StepOne;
