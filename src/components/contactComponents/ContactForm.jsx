@@ -101,7 +101,7 @@ const ContactForm = () => {
                 className="w-full bg-[#0E0E10] border border-[#262626] p-3 rounded-md"
               ></textarea>
             </div>
-            <div className="flex justify-between items-center my-4">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 my-4">
               <div className="my-6 text-sm">
                 <label className="flex items-center gap-3 cursor-pointer">
                   <span

@@ -71,7 +71,7 @@ const ChatBox = () => {
               <div className="p-2.5 rounded-full bg-black">
                 <AIIcon className="text-white w-6 h-6" />
               </div>
-              <div className="p-8 border border-[#262626] rounded-lg text-white w-full text-sm md:text-base leading-relaxed space-y-8">
+              <div className="p-4 md:p-8 border border-[#262626] rounded-lg text-white w-full text-sm md:text-base leading-relaxed space-y-8">
                 <Title level="title18" className="my-2">
                   AI Answer Artificial Intelligence (AI) offers numerous
                   advantages and has the potential to revolutionize various
@@ -110,7 +110,7 @@ const ChatBox = () => {
             </div>
           </div>
           {/* input */}
-          <div className="flex flex-col md:flex-row items-center gap-4 px-4 md:px-16 mt-16 ml-5">
+          <div className="flex flex-col md:flex-row items-center gap-4 p-4 md:px-16 mt-6 md:mt-16 ml-5">
             <div className="w-full md:w-[80%]">
               <input
                 type="text"
@@ -118,7 +118,7 @@ const ChatBox = () => {
                 className="pl-6 pr-2 py-2 w-full rounded-lg border border-[#262626] bg-[#0E0E10] text-white"
               />
             </div>
-            <div className="relative md:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 w-full rounded-lg">
+            <div className="relative w-[55%] md:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 rounded-lg">
               <button type="button" className="text-left">
                 Send Message
               </button>
@@ -130,7 +130,7 @@ const ChatBox = () => {
         </div>
       ) : (
         <div className="w-full md:flex-1 bg-[#0E0E10] rounded-lg">
-          <div className="flex justify-center items-center h-[70vh] text-center px-4">
+          <div className="flex justify-center items-center h-[50vh] md:h-[70vh] text-center px-4">
             <div>
               <div className="flex justify-center my-5">
                 <AIIcon />
@@ -149,7 +149,7 @@ const ChatBox = () => {
                 className="pl-6 pr-2 py-2 w-full rounded-lg border border-[#262626] bg-[#0E0E10] text-white"
               />
             </div>
-            <div className="relative md:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 w-full rounded-lg">
+            <div className="relative w-[50%] md:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 rounded-lg">
               <button type="button" className="text-left">
                 Send Message
               </button>
