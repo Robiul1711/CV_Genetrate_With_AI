@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import Logo from "@/assets/adminlogo.png";
 
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { FiLogOut } from "react-icons/fi";
+import LogOutModal from "./LogOutModal";
 // import { Logout } from "@/components/common/adminIcon/CustomIcon";
 
 const SideBar = ({ sidebar, open, setOpen }) => {
@@ -151,12 +153,10 @@ const SideBar = ({ sidebar, open, setOpen }) => {
           })}
 
           {/* Logout */}
-          {/* <div className="flex absolute bottom-6 w-[80%] items-center gap-3 text-[#FFF] hover:bg-[#466b55] hover:text-[#ffffff] cursor-pointer  transition  rounded-lg px-4 py-2">
-            <span>
-              <Logout />
-            </span>
-            <p className="font-medium text-white">Log Out</p>
-          </div> */}
+          <div className="flex absolute bottom-6 w-[80%] items-center gap-3 ">
+        
+           <LogOutModal/>
+          </div>
         </div>
       </div>
     </>
