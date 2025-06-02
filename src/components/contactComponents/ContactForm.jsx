@@ -127,7 +127,7 @@ const ContactForm = () => {
               </div>
               <button
                 type="submit"
-                className="bg-white text-black px-6 py-2 rounded-md font-medium"
+                className="bg-white text-black px-6 py-2 rounded-md font-medium hover:bg-dark hover:text-white transition-all duration-300"
               >
                 Send
               </button>
@@ -150,7 +150,7 @@ const ContactForm = () => {
               If the question is not available on our FAQ section, feel free to
               contact us personally, we will resolve your respective doubts.
             </p>
-            <button className="bg-black border flex items-center gap-2 border-[#81FB84]/20 text-[#FFF] px-5 py-2 rounded-lg transition">
+            <button className="bg-black border flex items-center gap-2 border-[#81FB84]/20 text-[#FFF] px-5 py-2 hover:bg-white hover:text-dark transition-all duration-300 rounded-lg">
               Ask Question <MoveUpRight size={18} />
             </button>
           </div>

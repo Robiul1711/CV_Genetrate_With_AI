@@ -84,8 +84,13 @@ const YourPlan = () => {
             </button>
           </div>
         </div>
-        <div className=" border border-[#81FB84]/30 rounded-xl shadow-lg xlg:p-6 p-3 text-white">
-          <button className="border mb-6 flex items-center gap-2  font-semibold py-2 px-5  rounded-md">
+        <div className="relative border border-[#81FB84]/30 rounded-xl shadow-lg xlg:p-6 p-3 text-white">
+          <div className="absolute -top-5 translate-x-[60%]">
+            <button className="border border-[#262626] bg-[#131316] px-4 py-1.5 rounded-2xl">
+              Most Popular
+            </button>
+          </div>
+          <button className="border mb-6 mt-3 flex items-center gap-2  font-semibold py-2 px-5  rounded-md">
             Free Plan
             <UpgradeIcon />
           </button>
