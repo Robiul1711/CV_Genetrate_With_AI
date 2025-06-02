@@ -39,8 +39,8 @@ const ContactForm = () => {
   return (
     <div className="my-8">
       <div className="relative">
-        <div className="hidden md:block absolute top-0 bottom-0 left-[48%] w-px bg-[#262626] transform -translate-x-1/4 z-0" />
-        <div className="grid md:grid-cols-2 gap-12 pb-20 section-padding-x">
+        <div className="hidden lg:block absolute top-0 bottom-0 left-[48%] w-px bg-[#262626] transform -translate-x-1/4 z-0" />
+        <div className="grid lg:grid-cols-2 gap-12 pb-20 section-padding-x">
           {/* Left Side Title */}
           <div className="flex items-center">
             <h2 className="text-3xl md:text-4xl font-semibold">
@@ -101,7 +101,7 @@ const ContactForm = () => {
                 className="w-full bg-[#0E0E10] border border-[#262626] p-3 rounded-md"
               ></textarea>
             </div>
-            <div className="flex justify-between items-center my-4">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 my-4">
               <div className="my-6 text-sm">
                 <label className="flex items-center gap-3 cursor-pointer">
                   <span
@@ -138,8 +138,8 @@ const ContactForm = () => {
 
       <hr className="border-1 border-[#262626]" />
       <div className="relative">
-        <div className="hidden md:block absolute top-0 bottom-0 left-[48%] w-px bg-[#262626] transform -translate-x-1/4 z-0" />
-        <div className="grid md:grid-cols-2 gap-12 pt-16 section-padding-x items-start">
+        <div className="hidden lg:block absolute top-0 bottom-0 left-[48%] w-px bg-[#262626] transform -translate-x-1/4 z-0" />
+        <div className="grid lg:grid-cols-2 gap-12 pt-16 section-padding-x items-start">
           <div className="flex flex-col items-start justify-center">
             <div className="flex flex-col items-start gap-3 mb-4">
               <Flower className="w-18 h-18" />

@@ -13,7 +13,7 @@ const ReadyToLand = () => {
 
       {/* Content Overlay */}
       <div className="absolute top-1/2 left-1/2 w-full max-w-5xl px-4 -translate-x-1/2 -translate-y-1/2 text-center flex flex-col items-center z-10">
-        <h1 className="text-[40px] md:text-[48px] font-bold leading-snug text-white">
+        <h1 className="text-[36px] md:text-[48px] font-bold leading-snug text-white">
           Ready to Land Your Next Job with a Perfect Resume?
         </h1>
         <p className="text-xl text-[#9B9B9B] pt-4 max-w-2xl">
