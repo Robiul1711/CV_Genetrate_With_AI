@@ -3,7 +3,7 @@ import starBG from "../../assets/images/starBG.png";
 
 const ReadyToLand = () => {
   return (
-    <div className="relative pb-28 h-[600px] overflow-hidden">
+    <div className="relative pb-28 h-[400px] md:h-[600px] overflow-hidden">
       {/* Background Image */}
       <img
         src={starBG}

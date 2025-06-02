@@ -13,7 +13,7 @@ const Banner = () => {
           Smarter resumes. Better job prospects.
           <FaArrowRightLong className="text-2xl bg-dark p-1 rounded-full" />
         </button>
-        <h1 className="text-[32px] md:text-[46px] lg:text-[68px] font-bold w-full max-w-[956px]">
+        <h1 className="text-[24px] md:text-[46px] lg:text-[68px] font-bold w-full max-w-[956px]">
           Build Your Perfect Resume Smarter, Faster, with AI.
         </h1>
 
