@@ -118,12 +118,10 @@ const ChatBox = () => {
                 className="pl-6 pr-2 py-2 w-full rounded-lg border border-[#262626] bg-[#0E0E10] text-white"
               />
             </div>
-            <div className="relative w-full md:flex-1 text-black">
-              <input
-                type="text"
-                placeholder="Send Message"
-                className="pl-4 pr-10 py-2 w-full rounded-lg"
-              />
+            <div className="relative md:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 w-full rounded-lg">
+              <button type="button" className="text-left">
+                Send Message
+              </button>
               <span className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">
                 <Send size={18} />
               </span>
@@ -151,12 +149,10 @@ const ChatBox = () => {
                 className="pl-6 pr-2 py-2 w-full rounded-lg border border-[#262626] bg-[#0E0E10] text-white"
               />
             </div>
-            <div className="relative w-full md:flex-1 text-black">
-              <input
-                type="text"
-                placeholder="Send Message"
-                className="pl-4 pr-10 py-2 w-full rounded-lg"
-              />
+            <div className="relative md:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 w-full rounded-lg">
+              <button type="button" className="text-left">
+                Send Message
+              </button>
               <span className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">
                 <Send size={18} />
               </span>
