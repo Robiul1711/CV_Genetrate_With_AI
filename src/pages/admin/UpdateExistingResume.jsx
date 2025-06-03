@@ -1,12 +1,11 @@
 
-import UploadACoverLetter from "@/components/upload_exgisting_resume/UploadACoverLetter";
+import Improvements from "@/components/UpdateExistingResumeComponent/Improvements";
 import UploadAResume from "@/components/upload_exgisting_resume/UploadAResume";
-import UploadCertificates from "@/components/upload_exgisting_resume/UploadCertificates";
 import { useState } from "react";
 const steps = [
   { title: "Upload Resume", component: <UploadAResume /> },
-  { title: "Upload Cover Letter", component: <UploadACoverLetter /> },
-  { title: "Upload Certificates", component: <UploadCertificates /> },
+  { title: "Upload Cover Letter", component: <Improvements /> },
+  // { title: "Upload Certificates", component: <UploadCertificates /> },
 ]
 const UpdateExistingResume = () => {
     const [activeStep, setActiveStep] = useState(0);

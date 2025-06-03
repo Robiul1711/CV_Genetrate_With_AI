@@ -79,19 +79,13 @@ body {
 }
 
 
-#RFS-StepButton.active,
-#RFS-StepButton.completed{
-  background-color: #69CA6A !important;
+/* Change calendar icon color */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* White icon */
+  /* or */
+  filter: white; /* Green icon */
+  
 }
-#RFS-Connector{
-  height: 8px !important;
-  background: #69CA6A !important;
-  border: none !important;
-}
-
-#RFS-ConnectorContainer{
-  top: 10px !important;
-  left:  calc(-50% + 2em - 17px) !important;
-  right: calc(50% + 2em - 17px) !important;
-
+input[type="date"] {
+  color-scheme: white; /* Changes icon to white in dark mode */
 }

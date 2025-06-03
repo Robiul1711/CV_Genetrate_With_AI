@@ -24,6 +24,7 @@ import Contact from "@/pages/contact/Contact";
 import AIHelp from "@/pages/aiHelp/AIHelp";
 import EditResumePage from "@/pages/edit_resume_page/EditResumePage";
 import Design from "@/pages/edit_resume_page/Design";
+import FinalReview from "@/components/UpdateExistingResumeComponent/FinalReview";
 
 const router = createBrowserRouter([
   {
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/update-existing-resume",
         element: <UpdateExistingResume />,
+      },
+      {
+        path: "/dashboard/final-review",
+        element: <FinalReview />,
       },
       {
         path: "/dashboard/create-cover-letter",

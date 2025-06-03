@@ -10,7 +10,7 @@ const UploadCertificates = () => {
     <div>
       <div className="max-w-5xl mx-auto w-full">
         <div className="text-center flex flex-col items-center gap-4 mb-10">
-          <Title level="title32"> UploadCertificates</Title>
+          <Title level="title32"> Upload Certificates</Title>
           <Title level="title16">
             Add relevant certificates or documents to strengthen your
             application. You can upload multiple files here.
