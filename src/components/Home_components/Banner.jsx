@@ -8,11 +8,14 @@ const Banner = () => {
   return (
     <div className="py-10 md:py-16 lg:py-20">
       <div className="flex flex-col gap-6 items-center justify-center text-center">
-        <button className="flex items-center gap-2 p-2 rounded-full border text-sm md:text-lg">
-          <AiTwotoneThunderbolt />
-          Smarter resumes. Better job prospects.
-          <FaArrowRightLong className="text-2xl bg-dark p-1 rounded-full" />
-        </button>
+        <div className="border border-[#d0d6de] p-0.5 rounded-full">
+          <button className="flex items-center gap-2 p-2 rounded-full border text-sm md:text-lg">
+            <AiTwotoneThunderbolt />
+            Smarter resumes. Better job prospects.
+            <FaArrowRightLong className="text-2xl bg-dark p-1 rounded-full" />
+          </button>
+        </div>
+
         <h1 className="text-[24px] md:text-[46px] lg:text-[68px] font-bold w-full max-w-[956px]">
           Build Your Perfect Resume Smarter, Faster, with AI.
         </h1>

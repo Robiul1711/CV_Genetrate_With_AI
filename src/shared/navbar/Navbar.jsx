@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import logo from "../../assets/images/logo.png";
-import uk from "../../assets/images/uk.png";
-import { IoIosArrowDown } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
+import LanguageDropdown from "@/components/common/LanguageDropdown";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -49,7 +48,7 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 section-padding-x py-4 md:py-6  flex items-center justify-between transition-all duration-300 ${
+        className={`sticky top-0 z-50 section-padding-x py-4  flex items-center justify-between transition-all duration-300 ${
           isScrolled
             ? "bg-[#0E0E10]/70 backdrop-blur-md shadow-lg"
             : "bg-transparent"
@@ -57,7 +56,9 @@ const Navbar = () => {
       >
         {/* Left: Logo + Nav Links (desktop only) */}
         <div className="flex items-center gap-24">
-          <img src={logo} alt="Logo" className="w-10 md:w-12 lg:w-16 xl:w-24" />
+          <Link to={"/"}>
+            <img src={logo} alt="Logo" className="w-10 md:w-12  xl:w-16" />
+          </Link>
 
           {/* Nav Links - hidden on md and below */}
           <ul className="hidden lg:flex items-center gap-4">
@@ -89,12 +90,7 @@ const Navbar = () => {
               Sign Up
             </button>
           </Link>
-
-          <div className="flex items-center font-medium py-2 xl:py-3 px-4 border border-white rounded-lg gap-2">
-            <img src={uk} alt="UK Flag" />
-            <span>Eng</span>
-            <IoIosArrowDown />
-          </div>
+          <LanguageDropdown />
         </div>
 
         {/* Dynamic Icon for mobile */}
@@ -172,18 +168,7 @@ const Navbar = () => {
                   </div>
                 </div>
 
-                <div className="w-[50%] flex items-center  justify-between font-medium py-2 md:py-3 px-4 mt-2 border border-white rounded-lg gap-2 text-white hover:bg-white hover:text-black transition cursor-pointer">
-                  <div className="flex items-center gap-2">
-                    <img
-                      src={uk}
-                      alt="UK Flag"
-                      className="w-5 h-5 object-cover"
-                    />
-                    <span>Eng</span>
-                  </div>
-
-                  <IoIosArrowDown />
-                </div>
+                <LanguageDropdown />
               </div>
             </motion.div>
           </>
