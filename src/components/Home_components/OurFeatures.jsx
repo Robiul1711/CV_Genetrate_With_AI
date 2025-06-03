@@ -77,7 +77,10 @@ const OurFeatures = () => {
         ))}
       </div>
       <div className="mt-8 flex items-center justify-center text-center flex-col">
-        <div className="bg-[#0E0E10] rounded-[32px] p-6 md:p-10 w-full ">
+        <div className="bg-[#0E0E10] relative rounded-[32px] p-6 md:p-10 w-full ">
+          <button className="absolute text-sm font-light top-0 right-0 py-2 px-3  bg-[#131316] rounded-lg">
+            Comming Soon
+          </button>
           <span className="border rounded-3xl p-6 inline-block">
             <Assistant />
           </span>
@@ -96,7 +99,7 @@ const OurFeatures = () => {
               className="bg-[#0E0E10] text-white placeholder-gray-400 px-6 py-3 text-sm md:text-base rounded-lg border w-full sm:max-w-sm focus:outline-none focus:ring-2 focus:ring-white transition-all duration-200"
             />
             <button className="font-medium px-5 md:px-7 py-2.5 md:py-3 text-sm md:text-base rounded-lg bg-white text-dark border border-white hover:bg-gray-200 transition-colors duration-200">
-              Sign Up
+              Notify Me
             </button>
           </div>
         </div>

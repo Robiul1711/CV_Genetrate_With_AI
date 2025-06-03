@@ -32,7 +32,7 @@ const SignIn = () => {
       >
         <div className="flex justify-center mb-4">
           <Link to={"/"}>
-            <img src={logo} alt="logo" className="h-12" />
+            <img src={logo} alt="logo" className="h-12 md:h-16" />
           </Link>
         </div>
 

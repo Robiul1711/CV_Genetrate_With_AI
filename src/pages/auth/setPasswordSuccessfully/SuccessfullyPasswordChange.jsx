@@ -11,7 +11,7 @@ const SuccessfullyPasswordChange = () => {
       <form className="w-full max-w-3xl px-4 sm:px-8 md:px-12 lg:px-32 py-10 sm:py-16 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]">
         <div className="flex justify-center mb-4">
           <Link to={"/"}>
-            <img src={logo} alt="logo" className="h-12" />
+            <img src={logo} alt="logo" className="h-12 md:h-16" />
           </Link>
         </div>
 
