@@ -62,7 +62,7 @@ const OurFeatures = () => {
         {data.map((item) => (
           <div
             key={item.id}
-            className="bg-[#0E0E10] rounded-[32px] p-6 md:p-10 hover:border border border-transparent hover:border-[#6de7945f]  duration-300 "
+            className="bg-[#0E0E10] rounded-[32px] p-6 md:p-10 hover:border border border-transparent hover:border-[#6de7945f] duration-300 transition-all transform"
           >
             <span className="border rounded-2xl md:rounded-3xl p-4 md:p-6 inline-block">
               {item.icons}
@@ -77,8 +77,8 @@ const OurFeatures = () => {
         ))}
       </div>
       <div className="mt-8 flex items-center justify-center text-center flex-col">
-        <div className="bg-[#0E0E10] relative rounded-[32px] p-6 md:p-10 w-full ">
-          <button className="absolute text-sm font-light top-0 right-0 py-2 px-3  bg-[#131316] rounded-lg">
+        <div className="bg-[#0E0E10] relative rounded-[32px] p-6 md:p-10 w-full hover:border border border-transparent hover:border-[#6de7945f] duration-300 transition-all transform">
+          <button className="absolute text-sm font-light top-0 right-1 py-2 px-3  bg-[#131316] rounded-[32px]">
             Comming Soon
           </button>
           <span className="border rounded-3xl p-6 inline-block">
