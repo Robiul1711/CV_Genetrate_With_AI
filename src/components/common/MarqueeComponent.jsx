@@ -44,7 +44,7 @@ const MarqueeComponent = () => {
     if (index < rating) {
       if (rating === 5) return "bg-[#219653]";
       if (rating === 4) return "bg-[#73CF11]";
-      if (rating === 3) return "bg-orange-400";
+      if (rating === 3) return "bg-orange-500";
     }
     return "bg-[#D9D9D9] text-white";
   };
@@ -64,7 +64,7 @@ const MarqueeComponent = () => {
                 className={`${getStarColor(
                   i,
                   item.rating
-                )} text-black border p-1 rounded-md`}
+                )} text-black  p-1 rounded-md`}
               />
             ))}
           </div>
