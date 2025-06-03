@@ -83,7 +83,7 @@ const CleverCV = () => {
         {whyChoose.map((item) => (
           <div
             key={item.id}
-            className="p-4 rounded-2xl border border-[#262626]"
+            className="p-4 rounded-2xl border border-[#262626] hover:border hover:border-[#6de7945f] duration-300 transition-all transform"
           >
             <span>{item.icon}</span>
             <h1 className="text-lg lg:text-xl font-bold mt-4 md:mt-6 lg:mt-8">
