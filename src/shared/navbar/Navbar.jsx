@@ -49,7 +49,7 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 section-padding-x py-4 md:py-6 flex items-center justify-between transition-all duration-300 ${
+        className={`sticky top-0 z-50 section-padding-x py-4 md:py-6  flex items-center justify-between transition-all duration-300 ${
           isScrolled
             ? "bg-[#0E0E10]/70 backdrop-blur-md shadow-lg"
             : "bg-transparent"
@@ -129,7 +129,7 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed left-0 w-3/4 md:w-1/2 h-full bg-[#0E0E10] z-50 shadow-lg px-6 py-8 flex flex-col gap-6"
+              className="fixed left-0 w-3/4 md:w-1/2 h-full bg-[#0E0E10] z-50 shadow-lg px-6 py-8 flex flex-col gap-6 lg:hidden"
             >
               <ul className="flex flex-col gap-4">
                 {navLinks.map(({ name, path }, index) => (
