@@ -49,7 +49,7 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 section-padding-x py-6 flex items-center justify-between transition-all duration-300 ${
+        className={`sticky top-0 z-50 section-padding-x py-4 md:py-6 flex items-center justify-between transition-all duration-300 ${
           isScrolled
             ? "bg-[#0E0E10]/70 backdrop-blur-md shadow-lg"
             : "bg-transparent"
@@ -80,12 +80,12 @@ const Navbar = () => {
         {/* Right: Buttons - hidden on md and below */}
         <div className="hidden lg:flex items-center gap-5">
           <Link to={"/sign-in"}>
-            <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white rounded-lg">
+            <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg">
               Log In
             </button>
           </Link>
           <Link to={"/sign-up"}>
-            <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white rounded-lg bg-white text-dark">
+            <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg ">
               Sign Up
             </button>
           </Link>
@@ -129,7 +129,7 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-[86.3px] left-0 w-3/4 md:w-1/2 h-full bg-[#0E0E10] z-50 shadow-lg px-6 py-8 flex flex-col gap-6"
+              className="fixed left-0 w-3/4 md:w-1/2 h-full bg-[#0E0E10] z-50 shadow-lg px-6 py-8 flex flex-col gap-6"
             >
               <ul className="flex flex-col gap-4">
                 {navLinks.map(({ name, path }, index) => (
@@ -138,7 +138,7 @@ const Navbar = () => {
                     key={index}
                     className={`cursor-pointer font-medium py-2 md:py-3 px-5 md:px-7 rounded-lg transition-all duration-300 transform ${
                       location.pathname === path
-                        ? "bg-white text-dark translate-y-[-2px]"
+                        ? "bg-white text-dark w-[70%] translate-y-[-2px]"
                         : "text-white hover:bg-white hover:text-dark hover:translate-y-[-2px]"
                     }`}
                     onClick={() => setIsOpen(false)}
@@ -148,27 +148,40 @@ const Navbar = () => {
                 ))}
               </ul>
 
-              <div className="flex flex-col gap-4 mt-4">
-                <Link to={"/sign-in"}>
-                  <button
-                    className="w-full font-medium py-2 md:py-3 px-5 md:px-7 border border-white rounded-lg text-white"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Log In
-                  </button>
-                </Link>
-                <Link to={"/sign-up"}>
-                  <button
-                    className="w-full font-medium py-2 md:py-3 px-5 md:px-7 border border-white rounded-lg bg-white text-dark"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Sign Up
-                  </button>
-                </Link>
+              <div className="flex flex-col  gap-4 mt-4 w-full">
+                <div className="flex justify-between gap-3 w-full">
+                  <div className="w-full">
+                    <Link to="/sign-in">
+                      <button
+                        className="w-full font-medium py-2 md:py-3 px-5 md:px-7 border border-white rounded-lg text-white hover:bg-white hover:text-black transition"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Log In
+                      </button>
+                    </Link>
+                  </div>
+                  <div className="w-full">
+                    <Link to="/sign-up">
+                      <button
+                        className="w-full font-medium py-2 md:py-3 px-5 md:px-7 border border-white rounded-lg text-white hover:bg-white hover:text-black transition"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Sign Up
+                      </button>
+                    </Link>
+                  </div>
+                </div>
 
-                <div className="flex items-center font-medium py-2 md:py-3 px-4 border border-white rounded-lg gap-2 text-white">
-                  <img src={uk} alt="UK Flag" />
-                  <span>Eng</span>
+                <div className="w-[50%] flex items-center  justify-between font-medium py-2 md:py-3 px-4 mt-2 border border-white rounded-lg gap-2 text-white hover:bg-white hover:text-black transition cursor-pointer">
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={uk}
+                      alt="UK Flag"
+                      className="w-5 h-5 object-cover"
+                    />
+                    <span>Eng</span>
+                  </div>
+
                   <IoIosArrowDown />
                 </div>
               </div>

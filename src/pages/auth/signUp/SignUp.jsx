@@ -90,7 +90,7 @@ const SignUp = () => {
               id="email"
               {...register("email", { required: true })}
               placeholder="andrew.ainsley@yourdomain.com"
-              className="w-full pl-12 pr-4 py-3 border border-[#666666] rounded-lg bg-black focus:outline-none"
+              className="w-full pl-12 pr-4 py-3 text-sm md:text-base border border-[#666666] rounded-lg bg-black focus:outline-none"
             />
           </div>
         </div>

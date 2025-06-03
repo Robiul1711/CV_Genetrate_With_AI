@@ -304,7 +304,7 @@ export const CoachIcon = () => {
 export const DotIcon = () => {
   return (
     <svg
-      className="p-0.5 rounded-full border border-[#83FD84]"
+      className="p-0.5 rounded-full border border-[#83FD84] overflow-visible"
       xmlns="http://www.w3.org/2000/svg"
       width="14"
       height="14"

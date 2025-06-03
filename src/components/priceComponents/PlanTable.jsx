@@ -13,7 +13,7 @@ const PlanTable = () => {
       </div>
       <div className="overflow-x-auto my-8 border border-[#262626] rounded-xl text-white  bg-black">
         <table className="min-w-full text-sm text-left ">
-          <thead className="bg-[#0E0E10] text-white text-base md:text-[30px]">
+          <thead className="bg-[#0E0E10] text-white md:text-[20px] lg:text-[30px]">
             <tr>
               <th className="px-6 py-10">Features</th>
               <th className="p-4">Free</th>
@@ -27,9 +27,7 @@ const PlanTable = () => {
               <td className="p-6 px-6 md:text-lg lg:text-[26px] border-b border-[#262626] rounded-xl">
                 Resume Creation
               </td>
-              <td className="p-4 px-6 border-b border-[#262626]">
-                ✓ Basic
-              </td>
+              <td className="p-4 px-6 border-b border-[#262626]">✓ Basic</td>
               <td className="p-4  border-b border-[#262626]">✓ unlimited</td>
               <td className="p-4 border-b border-[#262626]">✓ unlimited</td>
               <td className="p-4 border-b border-[#262626]">✓ One time</td>
