@@ -56,15 +56,17 @@ const ChatBox = () => {
                   className="w-12 h-12 object-cover rounded-full"
                 />
               </div>
-              <div className="w-full md:w-[90%]">
-                <input
-                  type="text"
-                  placeholder="Ask anything about CV writing…"
-                  className="pl-6 pr-2 py-2 w-full rounded-lg border border-[#262626] bg-[#1a1a1d] text-white focus:outline-none"
-                />
-              </div>
-              <div className="flex items-center justify-center w-10 h-10 border border-[#262626] rounded-lg text-white">
-                <Edit size={18} />
+              <div className="flex items-center gap-4 w-full">
+                <div className="w-full md:w-[98%]">
+                  <input
+                    type="text"
+                    placeholder="Ask anything about CV writing…"
+                    className="pl-6 pr-2 py-2 w-full text-sm md:text-base rounded-lg border border-[#262626] bg-[#0E0E10] text-white focus:outline-none"
+                  />
+                </div>
+                <div className="flex items-center justify-center w-10 h-10 border border-[#262626] rounded-lg text-white">
+                  <Edit size={18} />
+                </div>
               </div>
             </div>
             <div className="flex  flex-col lg:flex-row gap-4 items-start">
@@ -111,15 +113,15 @@ const ChatBox = () => {
           </div>
           {/* input */}
           <div className="flex flex-col md:flex-row items-center gap-4 p-4 md:px-16 mt-6 md:mt-16 ml-5">
-            <div className="w-full md:w-[50%]  lg:w-[80%]">
+            <div className="w-full md:w-[50%]  lg:w-[75%]">
               <input
                 type="text"
                 placeholder="Ask anything about CV writing…"
-                className="pl-6 pr-2 py-2 w-full rounded-lg border border-[#262626] bg-[#0E0E10] text-white"
+                className="pl-6 pr-2 py-2 w-full text-sm md:text-base rounded-lg border border-[#262626] bg-[#0E0E10] text-white"
               />
             </div>
             <div className="relative w-[65%] md:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 rounded-lg">
-              <button type="button" className="text-left">
+              <button type="button" className="text-left text-sm md:text-base">
                 Send Message
               </button>
               <span className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">
@@ -142,15 +144,15 @@ const ChatBox = () => {
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-4 px-4 md:px-16 mb-6">
-            <div className="w-full md:w-[60%] lg:w-[80%]">
+            <div className="w-full md:w-[60%] xl:w-[75%]">
               <input
                 type="text"
                 placeholder="Ask anything about CV writing…"
-                className="pl-6 pr-2 py-2 w-full rounded-lg border border-[#262626] bg-[#0E0E10] text-white"
+                className="pl-6 pr-2 py-2 w-full text-sm md:text-base rounded-lg border border-[#262626] bg-[#0E0E10] text-white"
               />
             </div>
-            <div className="relative w-[60%] md:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 rounded-lg">
-              <button type="button" className="text-left">
+            <div className="relative w-[60%] lg:flex-1 text-black bg-white hover:bg-dark hover:text-white transition-all duration-300 pl-4 pr-10 py-2 rounded-lg">
+              <button type="button" className="text-left text-sm md:text-base">
                 Send Message
               </button>
               <span className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">

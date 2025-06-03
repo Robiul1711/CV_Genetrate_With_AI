@@ -69,7 +69,7 @@ const whyChoose = [
 ];
 const CleverCV = () => {
   return (
-    <div className="pb-28">
+    <div className="pb-12 md:pb-28">
       <div className="flex flex-col items-center text-center">
         <h1 className="text-[28px] md:text-[48px] font-bold">
           Why Choose Clever CV?
@@ -79,15 +79,17 @@ const CleverCV = () => {
           results.
         </p>
       </div>
-      <div className="mt-20 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-6">
+      <div className="mt-10 md:mt-20 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-6">
         {whyChoose.map((item) => (
           <div
             key={item.id}
             className="p-4 rounded-2xl border border-[#262626]"
           >
             <span>{item.icon}</span>
-            <h1 className="text-xl font-bold mt-10">{item.title}</h1>
-            <p className="text-lg text-[#9B9B9B] pt-2">{item.desc}</p>
+            <h1 className="text-lg md:text-xl font-bold mt-6 md:mt-10">
+              {item.title}
+            </h1>
+            <p className="md:text-lg text-[#9B9B9B] pt-2">{item.desc}</p>
           </div>
         ))}
         {/* <div className='p-4 rounded-2xl border border-[#262626]'>

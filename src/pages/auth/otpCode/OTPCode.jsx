@@ -63,7 +63,7 @@ const OTPCode = () => {
               minWidth: "20px",
               height: "calc(15vw)",
               maxHeight: "60px",
-              marginRight: "12px",
+              marginRight: "6px",
               boxSizing: "border-box",
             }}
             renderInput={(props) => (
@@ -91,7 +91,7 @@ const OTPCode = () => {
           </div>
         </div>
         {/* Sign In Button */}
-        <div className="pb-8 md:pb-24">
+        <div className="pb-6 md:pb-24">
           <Link to={"/new-password"}>
             <button
               type="submit"

@@ -57,7 +57,7 @@ const Navbar = () => {
       >
         {/* Left: Logo + Nav Links (desktop only) */}
         <div className="flex items-center gap-24">
-          <img src={logo} alt="Logo" className="w-12 lg:w-24" />
+          <img src={logo} alt="Logo" className="w-10 md:w-12 lg:w-16 xl:w-24" />
 
           {/* Nav Links - hidden on md and below */}
           <ul className="hidden lg:flex items-center gap-4">
@@ -65,7 +65,7 @@ const Navbar = () => {
               <Link
                 to={path}
                 key={index}
-                className={`cursor-pointer font-medium py-3 px-7 rounded-lg transition-all duration-300 transform ${
+                className={`cursor-pointer font-medium py-2 xl:py-3 px-5 xl:px-7 rounded-lg transition-all duration-300 transform ${
                   location.pathname === path
                     ? "bg-white text-dark translate-y-[-2px]"
                     : "text-white hover:bg-white hover:text-dark hover:translate-y-[-2px]"
@@ -80,17 +80,17 @@ const Navbar = () => {
         {/* Right: Buttons - hidden on md and below */}
         <div className="hidden lg:flex items-center gap-5">
           <Link to={"/sign-in"}>
-            <button className="font-medium py-3 px-7 border border-white rounded-lg">
+            <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white rounded-lg">
               Log In
             </button>
           </Link>
           <Link to={"/sign-up"}>
-            <button className="font-medium py-3 px-7 border border-white rounded-lg bg-white text-dark">
+            <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white rounded-lg bg-white text-dark">
               Sign Up
             </button>
           </Link>
 
-          <div className="flex items-center font-medium py-3 px-4 border border-white rounded-lg gap-2">
+          <div className="flex items-center font-medium py-2 xl:py-3 px-4 border border-white rounded-lg gap-2">
             <img src={uk} alt="UK Flag" />
             <span>Eng</span>
             <IoIosArrowDown />
@@ -101,9 +101,9 @@ const Navbar = () => {
         <div className="lg:hidden">
           <button onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? (
-              <FiX className="text-white text-3xl" />
+              <FiX className="text-white text-2xl md:text-3xl" />
             ) : (
-              <FiMenu className="text-white text-3xl" />
+              <FiMenu className="text-white text-2xl md:text-3xl" />
             )}
           </button>
         </div>
@@ -129,14 +129,14 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-[94.3px] left-0 w-3/4 md:w-1/2 h-full bg-[#0E0E10] z-50 shadow-lg px-6 py-8 flex flex-col gap-6"
+              className="fixed top-[86.3px] left-0 w-3/4 md:w-1/2 h-full bg-[#0E0E10] z-50 shadow-lg px-6 py-8 flex flex-col gap-6"
             >
               <ul className="flex flex-col gap-4">
                 {navLinks.map(({ name, path }, index) => (
                   <Link
                     to={path}
                     key={index}
-                    className={`cursor-pointer font-medium py-3 px-7 rounded-lg transition-all duration-300 transform ${
+                    className={`cursor-pointer font-medium py-2 md:py-3 px-5 md:px-7 rounded-lg transition-all duration-300 transform ${
                       location.pathname === path
                         ? "bg-white text-dark translate-y-[-2px]"
                         : "text-white hover:bg-white hover:text-dark hover:translate-y-[-2px]"
@@ -151,7 +151,7 @@ const Navbar = () => {
               <div className="flex flex-col gap-4 mt-4">
                 <Link to={"/sign-in"}>
                   <button
-                    className="w-full font-medium py-3 px-7 border border-white rounded-lg text-white"
+                    className="w-full font-medium py-2 md:py-3 px-5 md:px-7 border border-white rounded-lg text-white"
                     onClick={() => setIsOpen(false)}
                   >
                     Log In
@@ -159,14 +159,14 @@ const Navbar = () => {
                 </Link>
                 <Link to={"/sign-up"}>
                   <button
-                    className="w-full font-medium py-3 px-7 border border-white rounded-lg bg-white text-dark"
+                    className="w-full font-medium py-2 md:py-3 px-5 md:px-7 border border-white rounded-lg bg-white text-dark"
                     onClick={() => setIsOpen(false)}
                   >
                     Sign Up
                   </button>
                 </Link>
 
-                <div className="flex items-center font-medium py-3 px-4 border border-white rounded-lg gap-2 text-white">
+                <div className="flex items-center font-medium py-2 md:py-3 px-4 border border-white rounded-lg gap-2 text-white">
                   <img src={uk} alt="UK Flag" />
                   <span>Eng</span>
                   <IoIosArrowDown />

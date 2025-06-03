@@ -86,8 +86,8 @@ const YourPlan = () => {
             </button>
           </div>
         </div>
-        <div className="relative border border-[#81FB84]/30 rounded-xl shadow-lg xlg:p-6 p-3 text-white">
-          <div className="absolute -top-5 translate-x-[60%]">
+        <div className="relative border border-[#81FB84]/30 rounded-xl shadow-lg xlg:p-6 mt-2 md:mt-0 p-3 text-white">
+          <div className="absolute -top-5 translate-x-[80%] md:translate-x-[60%]">
             <button className="border border-[#262626] bg-[#131316] px-4 py-1.5 rounded-2xl">
               Most Popular
             </button>
