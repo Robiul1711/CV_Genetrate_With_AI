@@ -109,7 +109,7 @@ const HowItWorks = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10 border">
+                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10 border hover:border-[#1b461c]">
                   Get Started Now
                 </button>
               </div>
@@ -146,7 +146,7 @@ const HowItWorks = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10  border">
+                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
                   Get Started Now
                 </button>
               </div>
@@ -203,7 +203,7 @@ const HowItWorks = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10  border">
+                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
                   Get Started Now
                 </button>
               </div>
@@ -240,7 +240,7 @@ const HowItWorks = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10  border">
+                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
                   Get Started Now
                 </button>
               </div>

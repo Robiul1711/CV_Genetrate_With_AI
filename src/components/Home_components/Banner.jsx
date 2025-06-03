@@ -31,10 +31,10 @@ const Banner = () => {
           smart suggestions.
         </p>
         <div className="flex flex-col md:flex-row items-center gap-5">
-          <button className="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 rounded-xl border">
+          <button className="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 rounded-xl border hover:border-[#1b461c]">
             Create your Resume <EditIcon />
           </button>
-          <button className="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 rounded-xl border">
+          <button className="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 rounded-xl border hover:border-[#1b461c]">
             Create your Resume <UpgradeIcon />
           </button>
         </div>
