@@ -62,14 +62,14 @@ const CreateNewResume = () => {
         </>
       ),
     },
-    { label: "Choose Resume", component: <Step8 /> },
+    { label: "Choose Resume", component: <Step8 activeStep={activeStep} setActiveStep={setActiveStep}/> },
     {
       label: "Preview & Download",
       component: (
         <>
           <Step9 />
-          {/* <Tailor_Modal />
-          <Generating_Modal /> */}
+          <Tailor_Modal />
+          {/* <Generating_Modal /> */}
         </>
       ),
     },

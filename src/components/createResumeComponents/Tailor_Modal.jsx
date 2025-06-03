@@ -10,6 +10,7 @@ import {
 import Title from "../common/Title";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { DialogClose } from "@radix-ui/react-dialog";
 const Tailor = [
   {
     id: 1,
@@ -27,7 +28,6 @@ const Tailor = [
     id: 4,
     title: "Casual",
   },
-
 ];
 const Gender = [
   {
@@ -46,7 +46,6 @@ const Gender = [
     id: 4,
     title: "Masculine",
   },
-
 ];
 const Complexity = [
   {
@@ -61,8 +60,6 @@ const Complexity = [
     id: 3,
     title: "Academic",
   },
-
-
 ];
 const Creativity = [
   {
@@ -77,8 +74,6 @@ const Creativity = [
     id: 3,
     title: "Highly Creative",
   },
-
-
 ];
 const Tailor_Modal = () => {
   return (
@@ -169,14 +164,18 @@ const Tailor_Modal = () => {
                 ))}
               </RadioGroup>
             </div>
-            <div className='flex  w-full mx-auto justify-between items-center mt-10'>
-  <button className='font-semibold border border-white text-white py-4 px-16 text-lg rounded-md hover:bg-white hover:text-black transition-colors duration-300'>
-    Back
-  </button>
-  <button className='font-semibold  border-white bg-white text-black py-4 px-16 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300'>
-    Next
-  </button>
-</div>
+            <div className="flex  w-full mx-auto justify-between items-center mt-10">
+              <DialogClose asChild>
+                <button className="font-semibold border border-white text-white py-4 px-16 text-lg rounded-md hover:bg-white hover:text-black transition-colors duration-300">
+                  Back
+                </button>
+              </DialogClose>
+              <DialogClose>
+                <button className="font-semibold  border-white bg-white text-black py-4 px-16 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
+                  Next
+                </button>
+              </DialogClose>
+            </div>
           </DialogHeader>
         </DialogContent>
       </Dialog>
