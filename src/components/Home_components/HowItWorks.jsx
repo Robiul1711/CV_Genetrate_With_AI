@@ -59,7 +59,7 @@ const planFour = [
 
 const HowItWorks = () => {
   return (
-    <div className="md:py-28">
+    <div className="xl:py-28">
       <div className="flex flex-col items-center text-center">
         <h1 className="text-[28px] md:text-[48px] font-bold">How It Works</h1>
         <p className="md:text-xl text-[#9B9B9B] pt-2 ">
@@ -182,7 +182,7 @@ const HowItWorks = () => {
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center w-14 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                    <span className="inline-flex items-center justify-center w-16 md:w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
                       {index + 3}
                     </span>
                     <h2 className="text-2xl md:text-3xl font-medium">
@@ -219,7 +219,7 @@ const HowItWorks = () => {
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center w-16 md:w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                    <span className="inline-flex items-center justify-center w-[70px] md:w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
                       {index + 4}
                     </span>
                     <h2 className="text-2xl md:text-3xl font-medium">

@@ -58,7 +58,7 @@ const SignIn = () => {
               id="email"
               {...register("email", { required: true })}
               placeholder="andrew.ainsley@yourdomain.com"
-              className="w-full pl-12 pr-4 py-3 border border-[#666666] rounded-lg bg-black focus:outline-none"
+              className="w-full pl-12 pr-4 py-3 text-sm md:text-base border border-[#666666] rounded-lg bg-black focus:outline-none"
             />
           </div>
         </div>
@@ -77,7 +77,7 @@ const SignIn = () => {
               id="password"
               placeholder="••••••••"
               {...register("password", { required: true })}
-              className="w-full pl-12 pr-4 py-3 border border-[#666666] rounded-lg bg-black"
+              className="w-full pl-12 pr-4 py-3 text-sm md:text-base border border-[#666666] rounded-lg bg-black"
             />
             <span
               className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"

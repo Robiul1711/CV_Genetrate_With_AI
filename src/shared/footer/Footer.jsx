@@ -47,7 +47,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="/resources" className="cursor-pointer">
+                <a href="/contact" className="cursor-pointer">
                   Contact
                 </a>
               </li>

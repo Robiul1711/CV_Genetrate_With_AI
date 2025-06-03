@@ -6,7 +6,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { EditIcon, UpgradeIcon } from "../AllIcons/HomeIcons";
 const Banner = () => {
   return (
-    <div className="py-12 md:py-20">
+    <div className="py-10 md:py-16 lg:py-20">
       <div className="flex flex-col gap-6 items-center justify-center text-center">
         <button className="flex items-center gap-2 p-2 rounded-full border text-sm md:text-lg">
           <AiTwotoneThunderbolt />
@@ -22,10 +22,10 @@ const Banner = () => {
           smart suggestions.
         </p>
         <div className="flex flex-col md:flex-row items-center gap-5">
-          <button className="flex items-center gap-2 px-8 py-4 rounded-xl border">
+          <button className="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 rounded-xl border">
             Create your Resume <EditIcon />
           </button>
-          <button className="flex items-center gap-2 px-8 py-4 rounded-xl border">
+          <button className="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 rounded-xl border">
             Create your Resume <UpgradeIcon />
           </button>
         </div>
