@@ -109,7 +109,7 @@ const HowItWorks = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-8 py-4 rounded-lg mt-10 border">
+                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10 border">
                   Get Started Now
                 </button>
               </div>
@@ -146,7 +146,7 @@ const HowItWorks = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-8 py-4 rounded-lg mt-10 border">
+                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10  border">
                   Get Started Now
                 </button>
               </div>
@@ -182,7 +182,7 @@ const HowItWorks = () => {
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center w-16 sm:w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                    <span className="inline-flex items-center justify-center  w-[55px] sm:w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
                       {index + 3}
                     </span>
                     <h2 className="text-2xl md:text-3xl font-medium">
@@ -203,7 +203,7 @@ const HowItWorks = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-8 py-4 rounded-lg mt-10 border">
+                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10  border">
                   Get Started Now
                 </button>
               </div>
@@ -219,7 +219,7 @@ const HowItWorks = () => {
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center w-16 sm:w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                    <span className="inline-flex items-center justify-center w-[62px] sm:w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
                       {index + 4}
                     </span>
                     <h2 className="text-2xl md:text-3xl font-medium">
@@ -240,7 +240,7 @@ const HowItWorks = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-8 py-4 rounded-lg mt-10 border">
+                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10  border">
                   Get Started Now
                 </button>
               </div>

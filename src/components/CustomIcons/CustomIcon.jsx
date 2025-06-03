@@ -471,3 +471,21 @@ export const AIIcon = (props) => {
     </svg>
   );
 };
+export const Star = (props) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="25"
+      viewBox="0 0 24 25"
+      fill="none"
+      {...props}
+    >
+      <path d="M24 0.740234H0V24.7402H24V0.740234Z" fill="#D9D9D9" />
+      <path
+        d="M11.9996 16.4648L15.6496 15.5398L17.1746 20.2398L11.9996 16.4648ZM20.3996 10.3898H13.9746L11.9996 4.33984L10.0246 10.3898H3.59961L8.79961 14.1398L6.82461 20.1898L12.0246 16.4398L15.2246 14.1398L20.3996 10.3898Z"
+        fill="white"
+      />
+    </svg>
+  );
+};

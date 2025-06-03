@@ -86,7 +86,7 @@ const CleverCV = () => {
             className="p-4 rounded-2xl border border-[#262626]"
           >
             <span>{item.icon}</span>
-            <h1 className="text-lg lg:text-xl font-bold mt-6 md:mt-10">
+            <h1 className="text-lg lg:text-xl font-bold mt-4 md:mt-6 lg:mt-8">
               {item.title}
             </h1>
             <p className="lg:text-lg text-[#9B9B9B] pt-2">{item.desc}</p>
