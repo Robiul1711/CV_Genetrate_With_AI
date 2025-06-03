@@ -95,10 +95,12 @@ const HowItWorks = () => {
                       {item.plan}
                     </h2>
                   </div>
-                  <p className="text-[22px] md:text-[28px] text-[#F1F1F1] pt-2">
+                  <p className="text-[20px] md:text-[28px] text-[#F1F1F1] pt-2">
                     {item.title}
                   </p>
-                  <p className="text-xl text-[#9B9B9B] pt-4">{item.detail}</p>
+                  <p className="text-lg md:text-xl text-[#9B9B9B] pt-4">
+                    {item.detail}
+                  </p>
                   <ul className="md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                     {item.list.map((listItem, idx) => (
                       <li key={idx} className="flex items-center gap-3">
@@ -130,11 +132,13 @@ const HowItWorks = () => {
                       {item.plan}
                     </h2>
                   </div>
-                  <p className="text-[22px] md:text-[28px] text-[#F1F1F1] pt-2">
+                  <p className="text-[20px] md:text-[28px] text-[#F1F1F1] pt-2">
                     {item.title}
                   </p>
-                  <p className="text-xl text-[#9B9B9B] pt-4">{item.detail}</p>
-                  <ul className=" md:text-xl text-[#F1F1F1] pt-4 space-y-2">
+                  <p className="text-lg md:text-xl text-[#9B9B9B] pt-4">
+                    {item.detail}
+                  </p>
+                  <ul className="md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                     {item.list.map((listItem, idx) => (
                       <li key={idx} className="flex items-center gap-3">
                         <DotIcon /> {listItem}
@@ -163,7 +167,7 @@ const HowItWorks = () => {
           {planThree.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col lg:flex-row justify-between w-full items-center gap-12"
+              className="flex flex-col-reverse lg:flex-row justify-between w-full items-center gap-12"
             >
               <div className="w-full lg:w-1/2 ">
                 <div className="relative">
@@ -185,10 +189,12 @@ const HowItWorks = () => {
                       {item.plan}
                     </h2>
                   </div>
-                  <p className=" text-[22px] md:text-[28px] text-[#F1F1F1] pt-2">
+                  <p className=" text-[20px] md:text-[28px] text-[#F1F1F1] pt-2">
                     {item.title}
                   </p>
-                  <p className="text-xl text-[#9B9B9B] pt-4">{item.detail}</p>
+                  <p className="text-lg md:text-xl text-[#9B9B9B] pt-4">
+                    {item.detail}
+                  </p>
                   <ul className="  md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                     {item.list.map((listItem, idx) => (
                       <li key={idx} className="flex items-center gap-3">
@@ -220,10 +226,12 @@ const HowItWorks = () => {
                       {item.plan}
                     </h2>
                   </div>
-                  <p className="text-[22px] md:text-[28px] text-[#F1F1F1] pt-2">
+                  <p className="text-[20px] md:text-[28px] text-[#F1F1F1] pt-2">
                     {item.title}
                   </p>
-                  <p className="text-xl text-[#9B9B9B] pt-4">{item.detail}</p>
+                  <p className="text-lg md:text-xl text-[#9B9B9B] pt-4">
+                    {item.detail}
+                  </p>
                   <ul className="md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                     {item.list.map((listItem, idx) => (
                       <li key={idx} className="flex items-center gap-3">

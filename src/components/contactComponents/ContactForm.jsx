@@ -40,7 +40,7 @@ const ContactForm = () => {
     <div className="md:my-8">
       <div className="relative">
         <div className="hidden lg:block absolute top-0 bottom-0 left-[48%] w-px bg-[#262626] transform -translate-x-1/4 z-0" />
-        <div className="grid lg:grid-cols-2 gap-12 pb-20 section-padding-x">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 pb-12 md:pb-20 section-padding-x">
           {/* Left Side Title */}
           <div className="flex items-center">
             <h2 className="text-3xl md:text-4xl font-semibold">
@@ -126,7 +126,7 @@ const ContactForm = () => {
                 </label>
               </div>
               <button
-                type="submit"
+                type="button"
                 className="bg-white text-black px-6 py-2 rounded-md font-medium hover:bg-dark hover:text-white transition-all duration-300"
               >
                 Send
