@@ -1,3 +1,4 @@
+import SportLight from "@/components/common/SportLight";
 import {
   ApplicationPackageIcon,
   CreateCoverLatterIcon,
@@ -39,6 +40,7 @@ const AdminLayout = () => {
       icon: <UpdateResumeIcon />,
       text: "Update Existing Resume",
       path: "/dashboard/update-existing-resume",
+      extra_path: "/dashboard/final-review",
       sublink: false,
     },
     {
@@ -98,6 +100,7 @@ const AdminLayout = () => {
   }, [location]);
   return (
     <>
+    <SportLight />
       <ScrollRestoration />
       <div className="flex  h-screen min-h-screen w-full">
         <SideBar open={Open} setOpen={setOpen} sidebar={sideBar} />
