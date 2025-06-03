@@ -69,7 +69,7 @@ const whyChoose = [
 ];
 const CleverCV = () => {
   return (
-    <div className="py-12 md:py-16 lg:py-24 xl:py-28">
+    <div className="pb-12 md:pb-16 lg:pb-24 xl:pb-28">
       <div className="flex flex-col items-center text-center">
         <h1 className="text-[28px] md:text-[48px] font-bold">
           Why Choose Clever CV?

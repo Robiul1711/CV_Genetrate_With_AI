@@ -67,7 +67,7 @@ const OurFeatures = () => {
             <span className="border rounded-2xl md:rounded-3xl p-4 md:p-6 inline-block">
               {item.icons}
             </span>
-            <h1 className="text-xl md:text-2xl lg:text-3xl font-medium pt-6 md:pt-8 lg:pt-12 xl:pt-20">
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-medium pt-6 md:pt-8 lg:pt-12 xl:pt-16">
               {item.title}
             </h1>
             <p className="sm:text-xl lg:text-2xl text-[#9B9B9B] pt-2">
@@ -81,7 +81,7 @@ const OurFeatures = () => {
           <span className="border rounded-3xl p-6 inline-block">
             <Assistant />
           </span>
-          <h1 className="text-xl md:text-3xl font-medium pt-6 md:pt-8 lg:pt-12 xl:pt-20">
+          <h1 className="text-xl md:text-3xl font-medium pt-6 md:pt-8 lg:pt-12 xl:pt-16">
             Interview Coach
           </h1>
           <p className="text-lg md:text-2xl text-[#9B9B9B] pt-2 max-w-[840px]  mx-auto">

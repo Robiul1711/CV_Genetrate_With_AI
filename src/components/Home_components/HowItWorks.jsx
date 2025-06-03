@@ -59,7 +59,7 @@ const planFour = [
 
 const HowItWorks = () => {
   return (
-    <div className="xl:py-28">
+    <div className="">
       <div className="flex flex-col items-center text-center">
         <h1 className="text-[28px] md:text-[48px] font-bold">How It Works</h1>
         <p className="md:text-xl text-[#9B9B9B] pt-2 ">
