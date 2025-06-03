@@ -62,7 +62,7 @@ const OurFeatures = () => {
         {data.map((item) => (
           <div
             key={item.id}
-            className="bg-[#0E0E10] rounded-[32px] p-6 md:p-10 "
+            className="bg-[#0E0E10] rounded-[32px] p-6 md:p-10 hover:border border border-transparent hover:border-[#6de7945f]  duration-300 "
           >
             <span className="border rounded-2xl md:rounded-3xl p-4 md:p-6 inline-block">
               {item.icons}

@@ -3,7 +3,7 @@ import banner from "../../assets/images/banner.png";
 import users from "../../assets/images/users.png";
 import { AiTwotoneThunderbolt } from "react-icons/ai";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { EditIcon, UpgradeIcon } from "../AllIcons/HomeIcons";
+import { BannerLineIcon, EditIcon, UpgradeIcon } from "../AllIcons/HomeIcons";
 const Banner = () => {
   return (
     <div className="py-10 md:py-16 lg:py-20">
@@ -15,10 +15,14 @@ const Banner = () => {
             <FaArrowRightLong className="text-2xl bg-dark p-1 rounded-full" />
           </button>
         </div>
-
-        <h1 className="text-[24px] md:text-[46px] lg:text-[68px] font-bold w-full max-w-[956px]">
-          Build Your Perfect Resume Smarter, Faster, with AI.
-        </h1>
+        <div className="relative">
+          <h1 className="text-[24px] md:text-[46px] lg:text-[68px] font-bold w-full max-w-[956px]">
+            Build Your Perfect Resume Smarter, Faster, with AI.
+          </h1>
+          <span className="absolute top-[45%] left-[82%] xmd:left-[65%] hidden xs:block xxs:hidden md:block lg:left-[82%] -translate-x-1/2 -translate-y-1/2">
+            <BannerLineIcon />
+          </span>
+        </div>
 
         <p className="max-w-[600px] md:text-xl text-primary ">
           Professional resumes made easy — create or upgrade with real-time
