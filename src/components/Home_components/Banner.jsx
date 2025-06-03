@@ -17,7 +17,9 @@ const Banner = () => {
         </div>
         <div className="relative">
           <h1 className="text-[24px] md:text-[46px] lg:text-[68px] font-bold w-full max-w-[956px]">
-            Build Your Perfect Resume Smarter, Faster, with AI.
+            Build Your Perfect{" "}
+            <span className="italic font-semibold font-Playfair">Resume</span>{" "}
+            Smarter, Faster, with AI.
           </h1>
           <span className="absolute top-[45%] left-[82%] xmd:left-[65%] hidden xs:block xxs:hidden md:block lg:left-[82%] -translate-x-1/2 -translate-y-1/2">
             <BannerLineIcon />

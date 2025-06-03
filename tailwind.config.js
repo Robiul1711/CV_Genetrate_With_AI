@@ -7,7 +7,7 @@ export default {
   theme: {
   	extend: {
   		fontFamily: {
-  			plus: 'Plus Jakarta Sans, serif'
+  			Playfair: "Playfair Display, serif"
   		},
   		boxShadow: {
   			custom: '0px 4px 16.2px 2px rgba(0, 0, 0, 0.20)'
