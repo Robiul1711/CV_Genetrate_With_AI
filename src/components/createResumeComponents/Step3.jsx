@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import Title from "../common/Title";
 import { LuCirclePlus } from "react-icons/lu";
+import { GoDotFill } from "react-icons/go";
+import { CiEdit } from "react-icons/ci";
 const Step3 = () => {
-    const [experienceForms, setExperienceForms] = useState([0]); // initially one form
-
-  const handleAddForm = () => {
-    setExperienceForms((prev) => [...prev, prev.length]);
-  };
-
+const [addWork, setAddWork] = useState(false);
+const handleClick = (e) => {
+  e.preventDefault();
+  setAddWork((prev) => !prev);
+};
   return (
     <div className=" text-white flex items-center justify-center p-6">
       <div className="max-w-6xl w-full">
@@ -19,6 +20,24 @@ const Step3 = () => {
             recent experience. You can add multiple positions.
           </Title>
         </div>
+        {
+          addWork && (
+            <div className="flex justify-between items-center mb-10 p-6 w-full rounded-[12px] border-[#262626] bg-[#0E0E10] border">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <Title level="title32">UI/UX Designer </Title>
+                  <GoDotFill className="text-[#fff] text-3xl" />
+                  <Title level="title32">Softvence agency </Title>
+                </div>
+                <Title level="title24">Mar 2024 - Jan 2025 </Title>
+              </div>
+              <CiEdit
+                size={32}
+                className="text-white cursor-pointer p-1 border border-white/30 rounded-full"
+              />
+            </div>
+          )
+        }
 
         <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* First & Last Name */}
@@ -74,7 +93,7 @@ const Step3 = () => {
           </div>
           <div>
     
-            <button className="font-medium px-7 py-5 rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
+            <button onClick={handleClick}className="font-medium px-7 py-5 rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
               <LuCirclePlus size={20} /> Add Another Pervious Experience
             </button>
           </div>

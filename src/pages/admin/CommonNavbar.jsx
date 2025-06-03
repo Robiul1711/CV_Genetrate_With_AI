@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/popover";
 import Title from "@/components/common/Title";
 import { Bell, Timer, Trash2, TrashIcon } from "lucide-react";
+import LanguageDropdown from "@/components/common/LanguageDropdown";
 
 const CommonNavbar = ({ open, setOpen }) => {
   const { pathname } = useLocation();
@@ -53,7 +54,7 @@ const CommonNavbar = ({ open, setOpen }) => {
                 <NotificationIcon />
               </span>
             </PopoverTrigger>
-            <PopoverContent align="end" className="max-w-[700px] !bg-black z-50   w-full p-6 bg-background border border-muted rounded-xl text-white shadow-md">
+            <PopoverContent align="end" className="max-w-[700px] !bg-black    w-full p-6 bg-background border border-muted rounded-xl text-white shadow-md">
               <div className="flex flex-col gap-2">
                 <Title level="title22">Notifications</Title>
                 <Title level="title18" className="text-[#9B9B9B]">
@@ -77,6 +78,8 @@ const CommonNavbar = ({ open, setOpen }) => {
               </div>
             </PopoverContent>
           </Popover>
+          {/* Langauge  */}
+          <LanguageDropdown />
           {/* aVATAR  */}
           <Popover>
             <PopoverTrigger asChild>
@@ -88,7 +91,7 @@ const CommonNavbar = ({ open, setOpen }) => {
                 />
               </div>
             </PopoverTrigger>
-            <PopoverContent align="end" className="w-44 p-2 bg-background border border-muted rounded-xl shadow-md">
+            <PopoverContent align="end" className="w-44 p-2 !bg-black border border-muted rounded-xl shadow-md">
               <div className="flex flex-col gap-2">
                 <Link
                   to="#"
