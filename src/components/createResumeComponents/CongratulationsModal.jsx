@@ -24,7 +24,7 @@ const CongratulationsModal = () => {
         <DialogTrigger asChild>
           <button
             onClick={() => setOpen(true)}
-            className="font-semibold flex items-center max-w-sm gap-2 border-white/20 bg-white text-black py-4 px-8 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300"
+            className="font-semibold flex items-center max-w-sm gap-2 border-white/20 bg-white text-black sm:py-[18px] md:px-16 px-8 py-2 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300"
           >
             <Download size={20} /> Download
           </button>
@@ -39,21 +39,20 @@ const CongratulationsModal = () => {
                 Download Status (2/5 used), Only 3 downloads remaining this
                 month!
               </Title>
-    <div className="flex gap-4 w-full">
-  <button
-    onClick={handleClose}
-    className="font-semibold w-full border border-white py-4 text-lg rounded-md bg-black text-white hover:text-black hover:bg-[#fff] transition-colors duration-300 hover:border-green-400"
-  >
-    Upgrade Now
-  </button>
-  <button
-    onClick={handleClose}
-    className="font-semibold w-full border border-white py-4 text-lg rounded-md bg-black text-white hover:text-black hover:bg-[#fff] transition-colors duration-300 hover:border-green-400"
-  >
-    Continue with 3 left
-  </button>
-</div>
-
+              <div className="flex gap-4 w-full">
+                <button
+                  onClick={handleClose}
+                  className="font-semibold w-full border border-white  md:py-4  px-2 sm:px-8 py-2 text-sm sm:text-lg rounded-md bg-black text-white hover:text-black hover:bg-[#fff] transition-colors duration-300 hover:border-green-400"
+                >
+                  Upgrade Now
+                </button>
+                <button
+                  onClick={handleClose}
+                  className="font-semibold w-full border border-white  md:py-4  px-2 sm:px-8 py-2 text-sm sm:text-lg rounded-md bg-black text-white hover:text-black hover:bg-[#fff] transition-colors duration-300 hover:border-green-400"
+                >
+                  Continue with 3 left
+                </button>
+              </div>
             </div>
           </DialogHeader>
         </DialogContent>
@@ -63,4 +62,3 @@ const CongratulationsModal = () => {
 };
 
 export default CongratulationsModal;
-

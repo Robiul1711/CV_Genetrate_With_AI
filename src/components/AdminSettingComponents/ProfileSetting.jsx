@@ -6,7 +6,7 @@ const ProfileSetting = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
-    <div className="max-w-6xl w-full p-6">
+    <div className="max-w-6xl w-full p-3  lg:p-6">
       <Title level="title22">Profile Settings</Title>
       <Title level="title16" className="my-2">
         Update your personal information
@@ -14,7 +14,7 @@ const ProfileSetting = () => {
 
       {/* Upload Section */}
       <div className="flex flex-col gap-4 my-8">
-        <div className="relative w-20 h-20 rounded-full border-2 border-white">
+        <div className="relative md:w-20 md:h-20 size-12 rounded-full border-2 border-white">
           <img
             src="https://randomuser.me/api/portraits/men/32.jpg"
             alt="Profile"
@@ -88,7 +88,7 @@ const ProfileSetting = () => {
             <button
               type="button"
               onClick={() => setIsEditing(true)}
-              className="font-semibold border border-white text-white py-4 px-16 text-lg rounded-md hover:bg-white hover:text-black transition"
+              className="font-semibold border border-white text-white  md:py-4  px-2 sm:px-8 py-2 text-sm sm:text-lg rounded-md hover:bg-white hover:text-black transition"
             >
               Edit Profile
             </button>
@@ -97,14 +97,14 @@ const ProfileSetting = () => {
               <button
                 type="button"
                 onClick={() => setIsEditing(false)}
-                className="font-semibold border border-white text-white py-4 px-16 text-lg rounded-md hover:bg-white hover:text-black transition"
+                className="font-semibold border border-white text-white  md:py-4  px-2 sm:px-8 py-2 text-sm sm:text-lg rounded-md hover:bg-white hover:text-black transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 onClick={() => setIsEditing(false)}
-                className="font-semibold border border-white text-white py-4 px-16 text-lg rounded-md hover:bg-white hover:text-black transition"
+                className="font-semibold border border-white text-white  md:py-4  px-2 sm:px-8 py-2 text-sm sm:text-lg rounded-md hover:bg-white hover:text-black transition"
               >
                 Save Changes
               </button>

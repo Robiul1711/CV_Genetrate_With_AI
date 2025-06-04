@@ -19,12 +19,12 @@ const FinalReview = () => {
         </Title>
       </div>
 
-      <div className="w-full flex justify-between gap-14">
+      <div className="w-full flex flex-col md:flex-row justify-between gap-6 md:gap-14">
         {/* Image */}
-        <div className="w-1/2">
+        <div className="md:w-1/2">
           <img src={resume} alt="resume" className="w-full" />
         </div>
-        <div className="w-1/2 flex flex-col justify-end">
+        <div className="md:w-1/2 flex flex-col justify-end">
           <div className="flex flex-col gap-2">
             <label className="text-sm text-white">Resume name</label>
             <input
@@ -33,7 +33,7 @@ const FinalReview = () => {
               className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
             />
           </div>
-          <div className="mt-10 flex flex-col w-full gap-4">
+          <div className="md:mt-10 mt-5 flex flex-col w-full gap-4">
             <label className="text-sm text-white">Download Type</label>
             <div className="flex pb-10  gap-2">
               <div className="flex flex-col w-full gap-2">

@@ -17,14 +17,14 @@ const Improvements = () => {
         impact.
       </Title>
 
-      <div className="mt-10 flex gap-10 justify-between">
+      <div className="md:mt-10 mt-5 flex flex-col lg:flex-row xl:gap-10 gap-5 justify-between">
         {/* Left Image */}
-        <div className="w-1/2">
-          <img src={resume} alt="resume" />
+        <div className="lg:w-1/2">
+          <img src={resume} alt="resume" className="w-full" />
         </div>
 
         {/* Right Content */}
-        <div className="w-1/2 flex flex-col gap-4">
+        <div className="lg:w-1/2 flex flex-col gap-4">
           <div className="p-6 rounded-xl bg-[#0E0E10]">
             <div className="flex flex-col gap-2">
               <Title level="title22">About</Title>
@@ -42,7 +42,7 @@ const Improvements = () => {
                 contribute and grow in the German tech landscape
               </Title>
             </div>
-            <button className="font-semibold flex items-center gap-2 mt-4 border border-white py-3.5 px-6 text-lg rounded-md bg-white text-black transition-colors duration-300">
+            <button className="font-semibold flex items-center gap-2 mt-4 border border-white md:py-3.5 md:px-6 py-1.5 px-4 md:text-lg rounded-md bg-white text-black transition-colors duration-300">
               Accept <IoCheckmarkDoneSharp />
             </button>
           </div>
@@ -63,7 +63,7 @@ const Improvements = () => {
                 contribute and grow in the German tech landscape
               </Title>
             </div>
-            <button className="font-semibold flex items-center gap-2 mt-4 border border-white py-3.5 px-6 text-lg rounded-md bg-white text-black transition-colors duration-300">
+            <button className="font-semibold flex items-center gap-2 mt-4 border border-white md:py-3.5 md:px-6 py-1.5 px-4 md:text-lg rounded-md bg-white text-black transition-colors duration-300">
               Accept <IoCheckmarkDoneSharp />
             </button>
           </div>
@@ -84,16 +84,16 @@ const Improvements = () => {
                 contribute and grow in the German tech landscape
               </Title>
             </div>
-            <button className="font-semibold flex items-center gap-2 mt-4 border border-white py-3.5 px-6 text-lg rounded-md bg-white text-black transition-colors duration-300">
+            <button className="font-semibold flex items-center gap-2 mt-4 border border-white md:py-3.5 md:px-6 py-1.5 px-4 md:text-lg   rounded-md bg-white text-black transition-colors duration-300">
               Accept <IoCheckmarkDoneSharp />
             </button>
           </div>
-          <div className="   flex items-center gap-6">
-            <button className="font-semibold border flex items-center gap-2 justify-center bg-white  w-full border-white/30 text-black py-4 px-4 text-lg rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+          <div className="  w-full flex items-center gap-3 md:gap-6">
+            <button className="font-semibold flex items-center gap-2 justify-center border border-white/30 text-white w-full md:py-4  px-8 py-2 md:text-lg rounded-md hover:bg-linearbg transition-colors duration-300">
               Reanalyze <BiAnalyse />
             </button>
-            <Link to={"/dashboard/final-review"} className="font-semibold border bg-white flex items-center gap-2 justify-center  w-full border-white/30 text-black py-4 px-4 text-lg rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
-              Accept All Suggestion <IoCheckmarkDoneSharp />
+            <Link to={"/dashboard/final-review"} className="font-semibold flex items-center gap-2 justify-center w-full border border-white/30 text-white md:py-4  px-8 py-2 md:text-lg rounded-md hover:bg-linearbg transition-colors duration-300">
+              Accept All<IoCheckmarkDoneSharp />
             </Link>
           </div>
         </div>
