@@ -68,7 +68,7 @@ const CreateNewResume = () => {
       component: (
         <>
           <Step9 />
-          <Tailor_Modal />
+          {/* <Tailor_Modal /> */}
           {/* <Generating_Modal /> */}
         </>
       ),
@@ -111,6 +111,10 @@ const CreateNewResume = () => {
         >
           Back
         </button>
+{
+  activeStep ===6 ? 
+           <Tailor_Modal activeStep={activeStep} setActiveStep={setActiveStep} />
+:
 
         <button
           className={`font-semibold border-white  bg-white text-black  ${
@@ -129,6 +133,7 @@ const CreateNewResume = () => {
               <Edit size={18} /> Edit Resume
             </Link>
           ) : activeStep === 6 ? (
+            
             "Generate Resume With AI"
           ) : activeStep === 7 || activeStep === 8 ? (
             "Generating Resume..."
@@ -136,6 +141,10 @@ const CreateNewResume = () => {
             "Next"
           )}
         </button>
+ 
+}
+
+      
       </div>
     </div>
   );

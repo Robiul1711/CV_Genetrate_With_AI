@@ -54,7 +54,7 @@ const YourPlan = () => {
         </div>
         <div className=" border rounded-xl shadow-lg xlg:p-6 p-3 text-white hover:border hover:border-[#6de7945f] duration-300 transition-all transform">
           <button className="border mb-6 flex items-center gap-2  font-semibold py-2 px-5  rounded-md">
-            Free Plan
+           Basic Plan
             <UpgradeIcon />
           </button>
 
@@ -97,7 +97,7 @@ const YourPlan = () => {
             </button>
           </div>
           <button className="border mb-6 mt-4 flex items-center gap-2  font-semibold py-2 px-5  rounded-md">
-            Free Plan
+          Pro Plan
             <UpgradeIcon />
           </button>
 
@@ -133,7 +133,7 @@ const YourPlan = () => {
         </div>
         <div className=" border rounded-xl shadow-lg xlg:p-6 p-3 text-white hover:border hover:border-[#6de7945f] duration-300 transition-all transform">
           <button className="border mb-6 flex items-center gap-2  font-semibold py-2 px-5  rounded-md">
-            Free Plan
+      Pay-Per-Download
             <UpgradeIcon />
           </button>
 

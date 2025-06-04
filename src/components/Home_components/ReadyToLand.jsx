@@ -1,5 +1,6 @@
 import React from "react";
 import starBG from "../../assets/images/starBG.png";
+import { Link } from "react-router-dom";
 
 const ReadyToLand = () => {
   return (
@@ -21,9 +22,9 @@ const ReadyToLand = () => {
           export your resume in minutes.
         </p>
         <div className="flex items-center gap-5">
-          <button className="mt-10 px-6 md:px-8 py-3 md:py-4 rounded-xl text-sm md:text-base border border-[#81FB84]/20 text-white hover:bg-white hover:text-dark transition-all duration-300 font-medium">
+          <Link to="/dashboard/create-new-resume" className="mt-10 px-6 md:px-8 py-3 md:py-4 rounded-xl text-sm md:text-base border border-[#81FB84]/20 text-white hover:bg-white hover:text-dark transition-all duration-300 font-medium">
             Create Your Resume
-          </button>
+          </Link>
         </div>
       </div>
     </div>
