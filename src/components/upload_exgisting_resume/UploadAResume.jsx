@@ -82,7 +82,7 @@ const UploadAResume = () => {
 
       {/* Show upload progress */}
       {file && (
-        <div className="border border-[#262626] p-5 rounded-xl mt-16">
+        <div className="border border-[#262626] p-5 rounded-xl mt-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <DocumentIcon />

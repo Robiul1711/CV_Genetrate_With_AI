@@ -54,24 +54,24 @@ const CommonNavbar = ({ open, setOpen }) => {
                 <NotificationIcon />
               </span>
             </PopoverTrigger>
-            <PopoverContent align="end" className="sm:max-w-[700px] max-w-[400px]  !bg-black    w-full p-4 md:p-6 bg-background border border-muted rounded-xl text-white shadow-md">
+            <PopoverContent align="end" className="sm:max-w-[700px] max-w-[380px]  !bg-black    w-full p-4 md:p-6 bg-background border border-muted rounded-xl text-white shadow-md">
               <div className="flex flex-col gap-2">
-                <Title level="title22">Notifications</Title>
-                <Title level="title18" className="text-[#9B9B9B]">
+                <Title level="title22" className="text-sm">Notifications</Title>
+                <Title level="title18" className="text-[#9B9B9B] text-sm">
                   Stay up-to-date with AI suggestions, resume updates, interview
                   tips, and more.
                 </Title>
-                <div className="mt-4 flex flex-col gap-2 p-4 rounded-xl border border-[#262626]">
+                <div className="mt-4 flex flex-col gap-2 p-2 sm:p-4 rounded-xl border border-[#262626]">
                   <div className="flex gap-4 items-center">
                     <Bell />
-                    <Title level="title18">
+                    <Title level="title18"  className="text-xs">
                       Your Resume Was Optimized for &apos;Marketing
                       Specialist&apos; Role
                     </Title>
                   </div>
                   <div className="flex gap-4 items-center justify-between mt-4">
-                    <span className="text-[#9B9B9B] flex items-center gap-2 text-sm border-none "><Timer />1 Day ago</span>
-                    <button className="text-[#9B9B9B] flex items-center gap-2 text-sm border-none "><Trash2 />Delete</button>
+                    <span className="text-[#9B9B9B] flex items-center gap-2 text-xs border-none "><Timer />1 Day ago</span>
+                    <button className="text-[#9B9B9B] flex items-center gap-2 text-xs border-none "><Trash2 />Delete</button>
           
                   </div>
                 </div>
