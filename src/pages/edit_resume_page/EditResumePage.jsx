@@ -52,7 +52,7 @@ const EditResumePage = () => {
           </div>
 
           {/* Step Nav */}
-          <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-0 sm:  justify-between border-b ">
+          <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-0   sm:justify-between border-b ">
             {steps.map((step, index) => (
               <Title
                 key={index}

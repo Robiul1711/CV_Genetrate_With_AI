@@ -6,9 +6,12 @@ const StepDesign = () => {
       <div className="flex flex-col gap-2">
         <label className="text-sm text-white">Change Language</label>
         <select className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white">
-          <option value="beginner">English</option>
-          <option value="intermediate">Intermediate</option>
-          <option value="advanced">Advanced</option>
+                <option value="beginner">German</option>
+              <option value="intermediate">English</option>
+              <option value="advanced">Russian</option>
+              <option value="advanced">Arabic</option>
+              <option value="advanced">Spanish</option>
+              <option value="advanced">Turkish</option>
         </select>
       </div>
       <div>
