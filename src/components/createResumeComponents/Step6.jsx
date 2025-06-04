@@ -60,6 +60,10 @@ const Step6 = () => {
               <option value="advanced">Arabic</option>
               <option value="advanced">Spanish</option>
               <option value="advanced">Turkish</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+              <option value="advanced">Advanced</option>
+              <option value="advanced">Advanced</option>
             </select>
           </div>
           <div className="flex flex-col gap-2">

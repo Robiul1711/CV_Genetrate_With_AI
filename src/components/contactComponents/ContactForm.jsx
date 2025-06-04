@@ -79,10 +79,10 @@ const ContactForm = () => {
               <div>
                 <label className="block mb-1">Phone Number</label>
                 <div className="flex items-center gap-5 w-full">
-                  <div className="w-[25%] flex items-center bg-[#0E0E10] border border-[#262626] rounded-md p-3 gap-3">
+                  {/* <div className="w-[25%] flex items-center bg-[#0E0E10] border border-[#262626] rounded-md p-3 gap-3">
                     <img src={uk} alt="UK Flag" />
                     <IoIosArrowDown />
-                  </div>
+                  </div> */}
                   <div className="flex-1 flex items-center bg-[#0E0E10] border border-[#262626] rounded-md p-3">
                     <input
                       type="tel"

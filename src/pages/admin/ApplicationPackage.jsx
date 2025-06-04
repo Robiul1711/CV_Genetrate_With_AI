@@ -35,23 +35,27 @@ const ApplicationPackage = () => {
       {activeStep === steps.length - 1 ? (
         ""
       ) : (
-        <div className="mt-8 md:mt-16 max-w-5xl mx-auto flex justify-between">
-          <button
-            onClick={handleBack}
-            disabled={activeStep === 0}
-            className="font-semibold border border-white md:py-4 md:px-16 px-8 py-2 text-lg rounded-md bg-black text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Back
-          </button>
+<div className="mt-8 md:mt-16 max-w-5xl mx-auto flex justify-between">
+  {/* Back Button - only render if not on first step */}
+  {activeStep !== 0 ? (
+    <button
+      onClick={handleBack}
+      className="font-semibold border border-white md:py-4 md:px-16 px-8 py-2 text-lg rounded-md bg-black text-white transition-colors duration-300"
+    >
+      Back
+    </button>
+  ) : <div />}
 
-          <button
-            onClick={handleNext}
-            disabled={activeStep === steps.length - 1}
-            className="font-semibold border border-white md:py-4 md:px-16 px-8 py-2 text-lg rounded-md bg-white text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Next
-          </button>
-        </div>
+  {/* Next Button */}
+  <button
+    onClick={handleNext}
+    disabled={activeStep === steps.length - 1}
+    className="font-semibold border border-white md:py-4 md:px-16 px-8 py-2 text-lg rounded-md bg-white text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+  >
+    Next
+  </button>
+</div>
+
       )}
     </div>
   );

@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 const StepProgressBar = ({ steps, currentStep }) => {
   return (
-    <div className="flex items-center justify-between px-2 sm:px-4 py-6 mx-auto w-full overflow-x-auto">
+    <div className="flex items-center justify-between px-2 sm:px-4 py-8 mx-auto w-full overflow-x-auto">
       {steps.map((step, index) => {
         const isActive = index + 1 === currentStep;
         const isCompleted = index + 1 < currentStep;
