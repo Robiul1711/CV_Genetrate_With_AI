@@ -41,7 +41,7 @@ const Step5 = () => {
   );
 
   return (
-    <div className=" text-white flex items-center justify-center p-6">
+    <div className=" text-white flex items-center justify-center p-3 lg:p-6">
       <div className="max-w-6xl w-full">
         <div className="text-center flex flex-col items-center gap-4 mb-10">
           <Title level="title40"> Highlight Your Skills</Title>

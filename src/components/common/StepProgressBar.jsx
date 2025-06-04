@@ -69,7 +69,7 @@ const StepProgressBar = ({ steps, currentStep }) => {
 
             {/* Step Label */}
             <div className={clsx(
-              "text-xs sm:text-sm md:text-base text-center mt-1 py-1.5 px-2 bg-[#18181A] sm:mt-2 font-medium whitespace-nowrap rounded-md",
+              "text-xs sm:text-sm md:text-base text-center mt-1 py-1.5 px-2 mx-1 bg-[#18181A] sm:mt-2 font-medium whitespace-nowrap rounded-md",
               isActive ? "text-green-500 font-semibold" : isCompleted ? "text-green-600" : "text-gray-400"
             )}>
               {step}

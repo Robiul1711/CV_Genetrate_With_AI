@@ -54,7 +54,7 @@ const CommonNavbar = ({ open, setOpen }) => {
                 <NotificationIcon />
               </span>
             </PopoverTrigger>
-            <PopoverContent align="end" className="max-w-[700px] !bg-black    w-full p-6 bg-background border border-muted rounded-xl text-white shadow-md">
+            <PopoverContent align="end" className="sm:max-w-[700px] max-w-[400px]  !bg-black    w-full p-4 md:p-6 bg-background border border-muted rounded-xl text-white shadow-md">
               <div className="flex flex-col gap-2">
                 <Title level="title22">Notifications</Title>
                 <Title level="title18" className="text-[#9B9B9B]">
@@ -71,7 +71,7 @@ const CommonNavbar = ({ open, setOpen }) => {
                   </div>
                   <div className="flex gap-4 items-center justify-between mt-4">
                     <span className="text-[#9B9B9B] flex items-center gap-2 text-sm border-none "><Timer />1 Day ago</span>
-                    <button className="text-[#9B9B9B] flex items-center gap-2 text-sm border-none "><Trash2 />Delate</button>
+                    <button className="text-[#9B9B9B] flex items-center gap-2 text-sm border-none "><Trash2 />Delete</button>
           
                   </div>
                 </div>

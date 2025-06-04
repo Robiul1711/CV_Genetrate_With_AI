@@ -12,7 +12,7 @@ const Step6 = () => {
     setAddLanguage(!addLanguage);
   };
   return (
-    <div className="bg-black text-white flex items-center justify-center p-6">
+    <div className="bg-black text-white flex items-center justify-center p-3 lg:p-6">
       <div className="max-w-6xl w-full">
         <div className="text-center flex flex-col items-center gap-4 mb-10">
           <Title level="title40">Language Proficiency</Title>
@@ -23,12 +23,12 @@ const Step6 = () => {
 {
         addLanguage && (
           <>
-           <div className="flex justify-between items-center mb-10 p-6 w-full rounded-[12px] border-[#262626] bg-[#0E0E10] border">
+           <div className="flex justify-between items-center mb-10 p-4 lg:p-6 w-full rounded-[12px] border-[#262626] bg-[#0E0E10] border">
              <div className="flex flex-col gap-2">
                <div className="flex items-center gap-2">
-                 <Title level="title32">German </Title>
+                 <Title level="title32" className="text-sm sm:text-base md:text-[32px]">German </Title>
                  <GoDotFill className="text-[#fff] text-3xl" />
-                 <Title level="title32">Native</Title>
+                 <Title level="title32" className="text-sm sm:text-base md:text-[32px]">Native</Title>
                </div>
              </div>
              <CiEdit
@@ -36,8 +36,8 @@ const Step6 = () => {
                className="text-white cursor-pointer p-1 border border-white/30 rounded-full"
              />
            </div>
-           <div className=" flex justify-end mb-5">
-             <FaRegTrashAlt className="text-white cursor-pointer text-3xl" />
+           <div className=" flex justify-end sm:mb-5">
+             <FaRegTrashAlt className="text-white cursor-pointer text-2xl sm:text-3xl" />
            </div>
           </>
         )
@@ -61,7 +61,7 @@ const Step6 = () => {
           </div>
 
           <div>
-            <button onClick={handleAddLanguage} className="font-medium px-7 py-5 rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
+            <button onClick={handleAddLanguage} className="font-medium px-7 py-3 md:py-5 rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
               <LuCirclePlus size={20} /> Add Another language
             </button>
           </div>

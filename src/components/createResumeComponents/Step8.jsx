@@ -33,7 +33,7 @@ const resumeData = [
 ];
 const Step8 = ({ activeStep, setActiveStep }) => {
   return (
-    <div className="bg-black text-white flex items-center justify-center p-6">
+    <div className="bg-black text-white flex items-center justify-center p-3 lg:p-6">
       <div className=" w-full">
         <div className="text-center flex flex-col items-center gap-4 mb-10">
           <Title level="title40">Your AI-Generated Resumes Are Ready!</Title>
@@ -43,11 +43,11 @@ const Step8 = ({ activeStep, setActiveStep }) => {
             one that fits your goals best.
           </Title>
         </div>
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="sm:mt-14 grid grid-cols-2 md:grid-cols-3 gap-4">
           {resumeData.map((item, index) => (
             <div
               key={index}
-              className="p-5 relative group border border-[#262626] rounded-xl bg-[#0E0E10]"
+              className="p-2 sm:p-5 relative group border border-[#262626] rounded-xl bg-[#0E0E10]"
             >
               {/* Image */}
               <img src={item.resume} alt="resume" className="rounded-xl" />

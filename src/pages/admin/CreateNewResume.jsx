@@ -105,7 +105,7 @@ const CreateNewResume = () => {
       {/* Navigation Buttons */}
       <div className="flex max-w-6xl w-full mx-auto justify-between items-center mt-10">
         <button
-          className="font-semibold border border-white text-white py-4 px-16 text-lg rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="font-semibold border border-white text-white md:py-4 md:px-16 px-8 py-2 text-lg rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={handleBack}
           disabled={activeStep === 0}
         >
@@ -113,8 +113,8 @@ const CreateNewResume = () => {
         </button>
 
         <button
-          className={`font-semibold border-white bg-white text-black ${
-            activeStep === steps.length - 1 ? "" : "py-4 px-16 "
+          className={`font-semibold border-white  bg-white text-black  ${
+            activeStep === steps.length - 1 ? "" : "md:py-4 md:px-16 px-8 py-2  "
           }text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
           onClick={handleNext}
           // disabled={activeStep >= steps.length - 1}
@@ -122,8 +122,8 @@ const CreateNewResume = () => {
           {activeStep === steps.length - 1 ? (
             <Link
               to="/dashboard/edit-resume"
-              className={`flex items-center gap-2 ${
-                activeStep === steps.length - 1 ? "py-4 px-16 " : ""
+              className={`flex items-center gap-2  ${
+                activeStep === steps.length - 1 ? "md:py-4 md:px-16 px-8 py-2" : ""
               }`}
             >
               <Edit size={18} /> Edit Resume
