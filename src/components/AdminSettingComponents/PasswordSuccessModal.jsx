@@ -16,7 +16,7 @@ const PasswordSuccessModal = () => {
       <Dialog>
         <DialogTrigger>
           {" "}
-          <button className="font-semibold flex items-center max-w-sm gap-2 border-white/20 bg-white text-black py-4 px-8 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
+          <button className="font-semibold flex items-center max-w-sm gap-2 border-white/20 bg-white text-black  md:py-4  px-2 sm:px-8 py-2 text-sm sm:text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
         Save New Password
           </button>
         </DialogTrigger>

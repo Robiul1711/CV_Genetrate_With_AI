@@ -25,9 +25,9 @@ const ReviewDocuments = () => {
       className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
     />
   </div>
-    <div className="mt-10 flex flex-col w-full gap-4">
+    <div className="sm:mt-10 mt-5 flex flex-col w-full gap-4">
     <label className="text-sm text-white">Download Type</label>
-  <div className="flex pb-10  gap-2">
+  <div className="flex flex-col sm:flex-row pb-10  gap-2">
       <div className="flex flex-col w-full gap-2">
             <select className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white">
               <option value="beginner">PDF</option>

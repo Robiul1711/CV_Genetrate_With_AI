@@ -21,24 +21,24 @@ const Setting = () => {
   }
 
   return (
-    <div className="h-[calc(100vh-200px)] overflow-hidden flex gap-10">
+    <div className="h-[calc(100vh-200px)] overflow-hidden flex lg:gap-10">
       {/* Sidebar */}
-      <div className="w-1/6 bg-[#0E0E10] p-6 rounded-xl h-full overflow-y-auto">
+      <div className="max-w-1/6 bg-[#0E0E10] p-2 sm:p-4 lg:p-6 rounded-xl h-full overflow-y-auto">
         {/* User Info */}
         <div className="flex items-center gap-3 mb-6">
           <img
             src="https://randomuser.me/api/portraits/men/32.jpg"
             alt="Profile"
-            className="w-12 h-12 object-cover rounded-full"
+            className="sm:w-12 size-8 sm:h-12 object-cover rounded-full"
           />
           <div>
-            <h1 className="text-lg font-semibold text-white">John Doe</h1>
-            <p className="text-sm text-[#9B9B9B]">Admin</p>
+            <h1 className="text-sm font-semibold text-white">John Doe</h1>
+            <p className="text-xs text-[#9B9B9B]">Admin</p>
           </div>
         </div>
 
         {/* Nav Links */}
-        <div className="flex flex-col gap-8 text-white">
+        <div className="flex flex-col gap-4 text-xs sm:text-base lg:gap-8 text-white">
           <button
             onClick={() => setActiveTab('profile')}
             className={`flex items-center gap-2 transition-colors ${
@@ -67,7 +67,7 @@ const Setting = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 h-full overflow-y-auto rounded-xl p-4">
+      <div className=" flex-1 h-full overflow-y-auto rounded-xl lg:p-4">
         {renderContent()}
       </div>
     </div>

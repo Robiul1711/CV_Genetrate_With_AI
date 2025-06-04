@@ -9,7 +9,7 @@ const ChangePassword = () => {
   const [showConfirm, setShowConfirm] = useState(false);
 
   return (
-    <div className="max-w-6xl w-full p-6">
+    <div className="max-w-6xl w-full p-2 lg:p-6">
       <Title level="title22">Change Password</Title>
       <Title level="title16" className="my-2">
         Update your password regularly to keep your account secure.
@@ -82,10 +82,10 @@ const ChangePassword = () => {
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-end gap-4 mt-8">
+          <div className="flex flex-wrap sm:justify-end gap-4 mt-8">
             <button
               type="button"
-              className="border border-white text-white py-3 px-10 rounded-md hover:bg-white hover:text-black transition"
+              className="border border-white text-white   md:py-4  px-2 sm:px-8 py-2 text-sm sm:text-lg rounded-md hover:bg-white hover:text-black transition"
             >
               Cancel
             </button>

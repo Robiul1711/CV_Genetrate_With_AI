@@ -40,7 +40,7 @@ const AdminDashboard = () => {
   <img src={dashboard} alt="" className='w-full' />
 </div>
       </div>
-<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6'>
+<div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6'>
   {
     data.map((item, index)=>(
       <div key={index} className='bg-[#0E0E10] p-6 md:p-10 lg:p-16 rounded-[16px] flex flex-col gap-3 lg:gap-6 items-center text-center justify-center'>

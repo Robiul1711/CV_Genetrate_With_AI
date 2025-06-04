@@ -17,7 +17,7 @@ const LogOutModal = () => {
           {" "}
           <button className="w-full flex items-center gap-2 text-[#FFF] hover:bg-[#466b55] hover:text-[#ffffff] cursor-pointer  transition  rounded-lg px-4 py-2">
             <span>
-              <FiLogOut />
+              <FiLogOut /> 
             </span>
             Log Out
           </button>
@@ -31,10 +31,10 @@ const LogOutModal = () => {
                 You’ll be signed out of your Clever-CV Account
               </Title>
               <div className="flex gap-4 w-full py-5">
-                <button className="font-semibold border w-full border-white py-4  text-lg rounded-md bg-black text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                <button className="font-semibold border w-full border-white  md:py-4  px-2 py-2  text-lg rounded-md bg-black text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                   Cancel
                 </button>
-                <button className="font-semibold border w-full border-white py-4  text-lg rounded-md bg-black text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                <button className="font-semibold border w-full border-white  md:py-4  px-2 py-2  text-lg rounded-md bg-black text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                   Yes, Log Out
                 </button>
               </div>
