@@ -33,26 +33,26 @@ const EditResumePage = () => {
         Let AI help improve your resume content.
       </Title>
 
-      <div className="mt-10 flex gap-10 justify-between">
+      <div className="md:mt-10 mt-5 flex flex-col md:flex-row gap-5 md:gap-10 justify-between">
         {/* Left Image */}
-        <div className="w-1/2">
+        <div className="md:w-1/2">
           <img src={resume} alt="resume" />
         </div>
 
         {/* Right Content */}
-        <div className="w-1/2">
+        <div className="md:w-1/2">
           {/* Top buttons */}
-          <div className="p-6 rounded-xl bg-[#0E0E10] flex items-center justify-center gap-6 border border-[#262626]">
-            <button className="font-semibold border w-full border-white/10 text-white py-4 px-16 text-lg rounded-md bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+          <div className="lg:p-6 p-3 rounded-xl bg-[#0E0E10] flex items-center justify-center gap-6 border border-[#262626]">
+            <button className="font-semibold border w-full border-white/10 text-white md:py-4  px-2 py-2 text-lg rounded-md bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
               Edit Content
             </button>
-            <Link to={"/dashboard/edit-design"} className="font-semibold border text-center w-full border-white/10 text-white py-4 px-16 text-lg rounded-md  hover:bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            <Link to={"/dashboard/edit-design"} className="font-semibold border text-center w-full border-white/10 text-white md:py-4  px-2 py-2 text-lg rounded-md  hover:bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
               Design
             </Link>
           </div>
 
           {/* Step Nav */}
-          <div className="mt-10 flex items-center justify-between border-b ">
+          <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-0 sm:  justify-between border-b ">
             {steps.map((step, index) => (
               <Title
                 key={index}
@@ -73,7 +73,7 @@ const EditResumePage = () => {
           <div className="mt-10">
             {steps[activeStep].component}
 
-            <button className="font-semibold border bg-white mt-8 w-full border-white/30 text-black py-4 px-16 text-lg rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            <button className="font-semibold border bg-white mt-4 md:mt-8 w-full border-white/30 text-black md:py-4 md:px-16 px-8 py-2 text-lg rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
               Apply Changes
             </button>
           </div>

@@ -81,13 +81,13 @@ const Tailor_Modal = () => {
       <Dialog>
         <DialogTrigger>
           {" "}
-          <button className="font-semibold  border-white bg-white text-black py-4 px-16 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
+          <button className="font-semibold  border-white bg-white text-black sm:py-4 sm:px-16 px-8 py-2 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
             Generate Resume With AI
           </button>
         </DialogTrigger>
         <DialogContent className="!bg-black max-w-xl">
           <DialogHeader>
-            <div className="text-center flex flex-col items-center gap-4 mb-10 pt-10">
+            <div className="md:text-center flex flex-col md:items-center gap-4 mb-4 sm:mb-10 pt-10">
               <Title level="title28">
                 Add Another Courses and Training Details
               </Title>
@@ -96,9 +96,9 @@ const Tailor_Modal = () => {
                 you’ve completed.
               </Title>
             </div>
-            <div className="pb-10">
+            <div className="sm:pb-10 pb-5">
               <Title level="title22">Tailor Your Document’s Voice</Title>
-              <RadioGroup defaultValue="option-1" className="w-full mt-5 flex">
+              <RadioGroup defaultValue="option-1" className="w-full mt-2 flex flex-wrap">
                 {Tailor.map((item) => (
                   <div
                     key={item.id}
@@ -113,9 +113,9 @@ const Tailor_Modal = () => {
                 ))}
               </RadioGroup>
             </div>
-            <div className="pb-10">
+            <div className="sm:pb-10 pb-5">
               <Title level="title22">Gender Language</Title>
-              <RadioGroup defaultValue="option-1" className="w-full mt-5 flex">
+              <RadioGroup defaultValue="option-1" className="w-full mt-2 flex flex-wrap">
                 {Gender.map((item) => (
                   <div
                     key={item.id}
@@ -130,9 +130,9 @@ const Tailor_Modal = () => {
                 ))}
               </RadioGroup>
             </div>
-            <div className="pb-10">
+            <div className="sm:pb-10 pb-5">
               <Title level="title22">Complexity</Title>
-              <RadioGroup defaultValue="option-1" className="w-full mt-5 flex">
+              <RadioGroup defaultValue="option-1" className="w-full mt-2 flex flex-wrap">
                 {Complexity.map((item) => (
                   <div
                     key={item.id}
@@ -147,9 +147,9 @@ const Tailor_Modal = () => {
                 ))}
               </RadioGroup>
             </div>
-            <div className="pb-10">
+            <div className="sm:pb-10 pb-5">
               <Title level="title22">Creativity</Title>
-              <RadioGroup defaultValue="option-1" className="w-full mt-5 flex">
+              <RadioGroup defaultValue="option-1" className="w-full mt-2 flex flex-wrap">
                 {Creativity.map((item) => (
                   <div
                     key={item.id}
@@ -166,12 +166,12 @@ const Tailor_Modal = () => {
             </div>
             <div className="flex  w-full mx-auto justify-between items-center mt-10">
               <DialogClose asChild>
-                <button className="font-semibold border border-white text-white py-4 px-16 text-lg rounded-md hover:bg-white hover:text-black transition-colors duration-300">
+                <button className="font-semibold border border-white text-white md:py-4 md:px-16 px-8 py-2 text-lg rounded-md hover:bg-white hover:text-black transition-colors duration-300">
                   Back
                 </button>
               </DialogClose>
               <DialogClose>
-                <button className="font-semibold  border-white bg-white text-black py-4 px-16 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
+                <button className="font-semibold  border-white bg-white text-black md:py-4 md:px-16 px-8 py-2 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
                   Next
                 </button>
               </DialogClose>

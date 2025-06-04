@@ -3,7 +3,7 @@ import { CiEdit } from "react-icons/ci";
 import Title from "../common/Title";
 const Step2 = () => {
   return (
-    <div className="bg-black text-white min-h-screen flex items-center justify-center p-6">
+    <div className=" text-white  flex items-center justify-center p-3 lg:p-6">
       <div className="max-w-6xl w-full">
         <div className="text-center flex flex-col items-center gap-4 mb-10">
 
