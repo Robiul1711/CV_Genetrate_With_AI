@@ -17,15 +17,15 @@ Manage your subscription plan
   <Title level="title40">Pro Plan</Title>
   <Title level="title20">€9.99/month</Title>
   <div className="flex gap-3 items-center text-[#9B9B9B] mt-2 sm:mt-5">
-  <Title level="title20">Start Date : 5/22/2025</Title>
+  <Title level="title20" className="text-xs">Start Date : 5/22/2025</Title>
   <span className="bg-[#9B9B9B] size-2 rounded-full"></span>
-  <Title level="title20">End Date : 5/22/2025</Title>
+  <Title level="title20" className="text-xs">End Date : 5/22/2025</Title>
 
   </div>
 </div>
 <div className="absolute top-0 md:left-[10%] left-1/2 -translate-x-1/2 -translate-y-1/2">
 
-<button className="px-4 py-2 border bg-black text-white rounded-full ">Current Plan</button>
+<button className="px-2 sm:px-4 py-2 border bg-black text-white rounded-full text-xs sm:text-base  ">Current Plan</button>
 </div>
 <div className="w-full sm:flex justify-end items-start">
 <button className="font-semibold border border-white  md:py-4  px-2 sm:px-4 py-2 text-sm  rounded-md bg-white text-black transition-colors duration-300 ">Upgrade Plan</button>

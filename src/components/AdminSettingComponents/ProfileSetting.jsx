@@ -38,7 +38,7 @@ const ProfileSetting = () => {
               type="text"
               placeholder="Jhon"
               disabled={!isEditing}
-              className={`bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white ${
+              className={`bg-[#0E0E10] rounded-[10px] p-3 text-xs sm:text-sm md:text-base sm:p-4rounded-lg border border-[#262626] text-white ${
                 !isEditing ? "opacity-50 cursor-not-allowed" : ""
               }`}
             />
@@ -50,7 +50,7 @@ const ProfileSetting = () => {
               type="text"
               placeholder="Smith"
               disabled={!isEditing}
-              className={`bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white ${
+              className={`bg-[#0E0E10] rounded-[10px] p-3 text-xs sm:text-sm md:text-base sm:p-4  border border-[#262626] text-white ${
                 !isEditing ? "opacity-50 cursor-not-allowed" : ""
               }`}
             />
@@ -62,7 +62,7 @@ const ProfileSetting = () => {
               type="email"
               placeholder="jhonsmith@gmail.com"
               disabled={!isEditing}
-              className={`bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white ${
+              className={`bg-[#0E0E10] rounded-[10px] p-3 text-xs sm:text-sm md:text-base sm:p-4  border border-[#262626] text-white ${
                 !isEditing ? "opacity-50 cursor-not-allowed" : ""
               }`}
             />
@@ -70,7 +70,7 @@ const ProfileSetting = () => {
 
           <div className="flex flex-col gap-2">
             <label className="text-sm text-white">Phone Number *</label>
-            <div className={`flex items-center p-5 rounded-lg border border-[#262626] bg-[#0E0E10] text-white ${!isEditing ? "opacity-50" : ""}`}>
+            <div className={`flex items-center rounded-[10px] p-3 text-xs sm:text-sm md:text-base sm:p-4 border border-[#262626] bg-[#0E0E10] text-white ${!isEditing ? "opacity-50" : ""}`}>
               <span className="pr-2">🇬🇧</span>
               <input
                 type="text"
@@ -83,7 +83,7 @@ const ProfileSetting = () => {
         </div>
 
         {/* Buttons */}
-        <div className="flex justify-end gap-4 mt-8">
+        <div className="flex flex-wrap justify-end gap-4 mt-3 sm:mt-8">
           {!isEditing ? (
             <button
               type="button"
