@@ -1,7 +1,7 @@
 
 import Improvements from "@/components/UpdateExistingResumeComponent/Improvements";
 import UploadAResume from "@/components/upload_exgisting_resume/UploadAResume";
-import { useState } from "react";
+import { act, useState } from "react";
 const steps = [
   { title: "Upload Resume", component: <UploadAResume /> },
   { title: "Upload Cover Letter", component: <Improvements /> },
@@ -32,13 +32,19 @@ const UpdateExistingResume = () => {
         ""
       ) : (
         <div className="mt-8 md:mt-16 max-w-5xl mx-auto flex justify-between">
-          <button
+          {
+            activeStep !== 0 ? (
+                  <button
             onClick={handleBack}
             disabled={activeStep === 0}
             className="font-semibold border border-white md:py-4 md:px-16 px-8 py-2 text-lg rounded-md bg-black text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Back
           </button>
+            ):
+            <div/>
+          }
+      
 
           <button
             onClick={handleNext}

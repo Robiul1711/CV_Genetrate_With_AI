@@ -10,6 +10,8 @@ import Step_5 from "@/components/CreateCoverLetterComponents/Step_5";
 import Step_6 from "@/components/CreateCoverLetterComponents/Step_6";
 import Step_1 from "@/components/CreateCoverLetterComponents/Step_1";
 import { FaAngleLeft } from "react-icons/fa6";
+import Tailor_Modal from "@/components/createResumeComponents/Tailor_Modal";
+import Tailor_Modal2 from "@/components/createResumeComponents/Tailor_Modal2";
 
 const CreateCoverLetter = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -78,6 +80,8 @@ const CreateCoverLetter = () => {
 
       {/* Navigation Buttons */}
       <div className="flex flex-wrap gap-2 max-w-6xl w-full mx-auto justify-between items-center mt-10">
+        {
+          activeStep !==0 ?
         <button
           className={`font-semibold  text-white  text-lg rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed  ${
             activeStep === steps.length - 1 ? " " : "md:py-4 md:px-16 px-8 py-2 border border-white"
@@ -87,7 +91,14 @@ const CreateCoverLetter = () => {
         >
           {activeStep === steps.length - 1 ? "" : "Back"}
         </button>
+        :
+        <div/>
 
+        }
+{
+  activeStep===4 ?
+   <Tailor_Modal2 activeStep={activeStep} setActiveStep={setActiveStep} />
+   : 
         <button
           className={`font-semibold border-white bg-white text-black ${
             activeStep === steps.length - 1 ? "" : "md:py-4 md:px-16 px-8 py-2"
@@ -97,10 +108,11 @@ const CreateCoverLetter = () => {
         >
           {activeStep === steps.length - 1
             ? ""
-            : activeStep === 2
+            : activeStep === 4
             ? "Combine & Continue"
-            : "Combine & Continue"}
+            : "Next"}
         </button>
+}
       </div>
     </div>
   );

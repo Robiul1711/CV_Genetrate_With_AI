@@ -109,13 +109,19 @@ const CreateNewResume = () => {
 
       {/* Navigation Buttons */}
       <div className="flex max-w-6xl w-full mx-auto justify-between items-center mt-10">
-        <button
+      {
+        activeStep !==0 ? 
+            <button
           className="font-semibold border border-white text-white md:py-4 md:px-16 px-8 py-2 text-lg rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={handleBack}
           disabled={activeStep === 0}
         >
           Back
         </button>
+        :
+        <div/>
+      }
+    
         {activeStep === 6 ? (
           <Tailor_Modal activeStep={activeStep} setActiveStep={setActiveStep} />
         ) : (
