@@ -8,8 +8,12 @@ const LanguageDropdown = () => {
 
   const options = [
     { label: "English", value: "en", img: uk },
+    { label: "German", value: "de", img: "https://flagcdn.com/w40/de.png" },
     { label: "French", value: "fr", img: "https://flagcdn.com/w40/fr.png" },
     { label: "Spanish", value: "es", img: "https://flagcdn.com/w40/es.png" },
+    { label: "Turkish", value: "tr", img: "https://flagcdn.com/w40/tr.png" },
+    { label: "Russian", value: "ru", img: "https://flagcdn.com/w40/ru.png" },
+    { label: "Arabic", value: "ar", img: "https://flagcdn.com/w40/sa.png" },
   ];
 
   const handleSelect = (option) => {

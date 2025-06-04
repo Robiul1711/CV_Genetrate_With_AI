@@ -168,7 +168,7 @@ const ContactForm = () => {
                   </span>
                 </h3>
                 {openIndex === idx && (
-                  <p className="mt-2 text-gray-400 text-sm border-t py-4 border-[#262626]">
+                  <p className="mt-2 text-[#7E7E81] text-sm border-t py-4 border-[#262626]">
                     {faq.answer}
                   </p>
                 )}
