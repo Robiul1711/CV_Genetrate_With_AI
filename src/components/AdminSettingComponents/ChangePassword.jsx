@@ -19,7 +19,7 @@ const ChangePassword = () => {
         <div className="flex flex-col gap-6 mt-6">
           {/* Current Password */}
           <div className="flex flex-col gap-2">
-            <label htmlFor="current" className="text-[17px] text-white">
+            <label htmlFor="current" className="text-sm sm:text-[17px] text-white">
               Current Password
             </label>
             <div className="relative">
@@ -27,7 +27,7 @@ const ChangePassword = () => {
                 type={showCurrent ? "text" : "password"}
                 id="current"
                 placeholder="Enter current password"
-                className="w-full border border-[#262626] bg-[#0E0E10] rounded-[12px] p-4 text-white"
+                className="w-full border border-[#262626] bg-[#0E0E10] rounded-[10px] p-3 text-xs sm:text-sm md:text-base sm:p-4 text-white"
               />
               <span
                 onClick={() => setShowCurrent((prev) => !prev)}
@@ -41,7 +41,7 @@ const ChangePassword = () => {
           {/* New and Confirm Password */}
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex flex-col gap-2 w-full">
-              <label htmlFor="new" className="text-[17px] text-white">
+              <label htmlFor="new" className="text-sm sm:text-[17px] text-white">
                 New Password
               </label>
               <div className="relative">
@@ -49,7 +49,7 @@ const ChangePassword = () => {
                   type={showNew ? "text" : "password"}
                   id="new"
                   placeholder="Enter new password"
-                  className="w-full border border-[#262626] bg-[#0E0E10] rounded-[12px] p-4 text-white"
+                  className="w-full border border-[#262626] bg-[#0E0E10] rounded-[10px] p-3 text-xs sm:text-sm md:text-base sm:p-4 text-white"
                 />
                 <span
                   onClick={() => setShowNew((prev) => !prev)}
@@ -61,7 +61,7 @@ const ChangePassword = () => {
             </div>
 
             <div className="flex flex-col gap-2 w-full">
-              <label htmlFor="confirm" className="text-[17px] text-white">
+              <label htmlFor="confirm" className="text-sm sm:text-[17px] text-white">
                 Confirm New Password
               </label>
               <div className="relative">
@@ -69,7 +69,7 @@ const ChangePassword = () => {
                   type={showConfirm ? "text" : "password"}
                   id="confirm"
                   placeholder="Confirm new password"
-                  className="w-full border border-[#262626] bg-[#0E0E10] rounded-[12px] p-4 text-white"
+                  className="w-full border border-[#262626] bg-[#0E0E10] rounded-[10px] p-3 text-xs sm:text-sm md:text-base sm:p-4 text-white"
                 />
                 <span
                   onClick={() => setShowConfirm((prev) => !prev)}
@@ -82,7 +82,7 @@ const ChangePassword = () => {
           </div>
 
           {/* Buttons */}
-          <div className="flex flex-wrap sm:justify-end gap-4 mt-8">
+          <div className="flex flex-wrap sm:justify-end gap-4 sm:mt-8">
             <button
               type="button"
               className="border border-white text-white   md:py-4  px-2 sm:px-8 py-2 text-sm sm:text-lg rounded-md hover:bg-white hover:text-black transition"
