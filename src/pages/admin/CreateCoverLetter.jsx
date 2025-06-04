@@ -56,11 +56,13 @@ const CreateCoverLetter = () => {
     <div>
       {/* Header */}
       <div className="flex flex-col gap-2">
-           <Link to={"/dashboard/edit-resume"} className="flex items-center gap-2">
-           {activeStep === steps.length - 1 && <FaAngleLeft className="cursor-pointer text-3xl p-1 border border-white/30 rounded-full" /> }
-              
-              <Title level="title32">Edit Resume</Title>
-            </Link>
+        <Link to={"/dashboard/edit-resume"} className="flex items-center gap-2">
+          {activeStep === steps.length - 1 && (
+            <FaAngleLeft className="cursor-pointer text-3xl p-1 border border-white/30 rounded-full" />
+          )}
+
+          <Title level="title32">Create AI-Powered Cover Letter</Title>
+        </Link>
         <Title level="title22">
           Get a professionally tailored cover letter aligned with your resume
           and the German job market — generated in seconds.
@@ -80,7 +82,9 @@ const CreateCoverLetter = () => {
       <div className="flex flex-wrap gap-2 max-w-6xl w-full mx-auto justify-between items-center mt-10">
         <button
           className={`font-semibold  text-white  text-lg rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed  ${
-            activeStep === steps.length - 1 ? " " : "md:py-4 md:px-16 px-8 py-2 border border-white"
+            activeStep === steps.length - 1
+              ? " "
+              : "md:py-4 md:px-16 px-8 py-2 border border-white"
           }`}
           onClick={handleBack}
           disabled={activeStep === 0}

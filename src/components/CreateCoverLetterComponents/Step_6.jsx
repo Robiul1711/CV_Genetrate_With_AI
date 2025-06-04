@@ -27,8 +27,8 @@ const Step_6 = () => {
                   <div className="flex flex-col w-full gap-2">
                     <select className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white">
                       <option value="beginner">PDF</option>
-                      <option value="intermediate">Intermediate</option>
-                      <option value="advanced">Advanced</option>
+                      <option value="intermediate">PNG</option>
+                      <option value="advanced">JPG</option>
                     </select>
                   </div>
                   <button className="font-semibold flex items-center max-w-sm gap-2 border-white bg-white text-black py-4 px-8 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
