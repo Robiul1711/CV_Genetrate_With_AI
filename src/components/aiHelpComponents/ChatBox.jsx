@@ -10,7 +10,7 @@ const ChatBox = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-8 w-full">
       {/* Left Sidebar */}
-      <div className="w-full lg:w-[25%] bg-[#0E0E10] p-5 rounded-lg h-auto lg:h-screen">
+      <div className="w-full lg:w-[25%] bg-[#0E0E10] p-5 rounded-lg ">
         <div className="relative flex items-center">
           <span className="absolute left-3 text-gray-400">
             <Search size={18} />

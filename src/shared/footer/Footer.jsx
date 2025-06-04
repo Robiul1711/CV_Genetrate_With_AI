@@ -37,19 +37,19 @@ const Footer = () => {
                 Company
               </p>
               <li>
-                <a href="/" className="cursor-pointer">
+                <Link to='/'  className="cursor-pointer">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/about" className="cursor-pointer">
+                <Link to='/price' className="cursor-pointer">
                   Pricing
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contact" className="cursor-pointer">
+                <Link to='/contact'  className="cursor-pointer">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -60,10 +60,10 @@ const Footer = () => {
               <p className="text-white text-[20px] font-semibold mb-3">
                 Service
               </p>
-              <li className="cursor-pointer">AI Resume Builder</li>
-              <li className="cursor-pointer">AI Resume Optimizer</li>
-              <li className="cursor-pointer">Create Cover Letter</li>
-              <li className="cursor-pointer">Multilingual Resume</li>
+              <Link to="/ai-help" className="cursor-pointer">AI Resume Builder</Link>
+              <Link to="/dashboard/create-new-resume" className="cursor-pointer">AI Resume Optimizer</Link>
+              <Link to="" className="cursor-pointer">Create Cover Letter</Link>
+              <Link to="" className="cursor-pointer">Multilingual Resume</Link>
             </ul>
           </div>
         </div>

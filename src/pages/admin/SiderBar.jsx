@@ -57,7 +57,7 @@ const SideBar = ({ sidebar, open, setOpen }) => {
         bg-[#0E0E10] border-r-[1px] border-[#262626] backdrop-blur-md lg:px-8 px-4 flex flex-col gap-8 shadow-md xlg:static fixed transition-all duration-300`}
       >
         {/* Logo */}
-        <Link to={"/dashboard"}>
+        <Link to={"/"}>
           <div className="flex justify-center gap-4 items-center">
             <div className=" w-[50px] h-[50px]">
               <img

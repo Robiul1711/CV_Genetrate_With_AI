@@ -75,13 +75,13 @@ const Creativity = [
     title: "Highly Creative",
   },
 ];
-const Tailor_Modal = () => {
+const Tailor_Modal = ({ activeStep , setActiveStep }) => {
   return (
     <div>
       <Dialog>
         <DialogTrigger>
           {" "}
-          <button className="font-semibold  border-white bg-white text-black sm:py-4 sm:px-16 px-8 py-2 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
+          <button  className="font-semibold  border-white bg-white text-black sm:py-4 sm:px-16 px-8 py-2 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
             Generate Resume With AI
           </button>
         </DialogTrigger>
@@ -171,7 +171,7 @@ const Tailor_Modal = () => {
                 </button>
               </DialogClose>
               <DialogClose>
-                <button className="font-semibold  border-white bg-white text-black md:py-4 md:px-16 px-8 py-2 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
+                <button onClick={() => setActiveStep(activeStep + 1)} className="font-semibold  border-white bg-white text-black md:py-4 md:px-16 px-8 py-2 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
                   Next
                 </button>
               </DialogClose>
