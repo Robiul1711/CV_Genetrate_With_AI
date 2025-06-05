@@ -17,7 +17,7 @@ const Banner = () => {
           </div>
         </div>
         <div className="relative">
-          <h1 className="text-[24px] md:text-[46px] lg:text-[68px] font-bold w-full max-w-[956px]">
+          <h1 className="text-[24px] md:text-[46px] lg:text-[55px] xl:text-[68px] font-bold w-full max-w-[956px]">
             Build Your Perfect{" "}
             <span className="italic font-semibold font-Playfair">Resume</span>{" "}
             Smarter, Faster, with AI.

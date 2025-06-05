@@ -3,7 +3,7 @@ import Marquee from "react-fast-marquee";
 import MarqueeComponent from "../common/MarqueeComponent";
 const SeeWhat = () => {
   return (
-    <div className="xl:py-28">
+    <div className="lg:py-28">
       <div className="flex flex-col items-center text-center">
         <h1 className="text-[28px] md:text-[48px] font-bold">
           See What Our Users Are Saying

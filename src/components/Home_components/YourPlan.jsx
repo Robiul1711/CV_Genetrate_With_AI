@@ -14,7 +14,7 @@ const YourPlan = () => {
         </p>
       </div>
       <div className="mt-8 md:mt-12 lg:mt-16 xl:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <div className=" border rounded-xl shadow-lg xlg:p-6 p-5 md:p-3 text-white hover:border hover:border-[#6de7945f] duration-300 transition-all transform">
+        <div className=" border rounded-xl shadow-lg xlg:p-6 p-5 md:p-3 text-white hover:border hover:border-white duration-300 transition-all transform">
           <button className="border mb-6 flex items-center gap-2  font-semibold py-2 px-5  rounded-md">
             Free Plan
             <UpgradeIcon />
@@ -52,7 +52,7 @@ const YourPlan = () => {
             </div>
           </div>
         </div>
-        <div className=" border rounded-xl shadow-lg xlg:p-6 p-3 text-white hover:border hover:border-[#6de7945f] duration-300 transition-all transform">
+        <div className=" border rounded-xl shadow-lg xlg:p-6 p-3 text-white hover:border hover:border-white duration-300 transition-all transform">
           <button className="border mb-6 flex items-center gap-2  font-semibold py-2 px-5  rounded-md">
            Basic Plan
             <UpgradeIcon />
@@ -90,7 +90,7 @@ const YourPlan = () => {
             </div>
           </div>
         </div>
-        <div className="relative border rounded-xl shadow-lg xlg:p-6 mt-3 lg:mt-0 p-3 text-white hover:border hover:border-[#6de7945f] duration-300 transition-all transform">
+        <div className="relative border rounded-xl shadow-lg xlg:p-6 mt-3 lg:mt-0 p-3 text-white hover:border hover:border-white duration-300 transition-all transform">
           <div className="absolute -top-5 translate-x-[80%] md:translate-x-[55%]">
             <button className="border border-[#262626] bg-[#131316] px-4 py-1.5 rounded-2xl">
               Most Popular
@@ -131,7 +131,7 @@ const YourPlan = () => {
             </button>
           </div>
         </div>
-        <div className=" border rounded-xl shadow-lg xlg:p-6 p-3 text-white hover:border hover:border-[#6de7945f] duration-300 transition-all transform">
+        <div className=" border rounded-xl shadow-lg xlg:p-6 p-3 text-white hover:border hover:border-white duration-300 transition-all transform">
           <button className="border mb-6 flex items-center gap-2  font-semibold py-2 px-5  rounded-md">
       Pay-Per-Download
             <UpgradeIcon />

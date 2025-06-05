@@ -158,7 +158,7 @@ export const UpgradeIcon = () => {
 export const ResumeUpdate = () => {
   return (
     <svg
-      className="size-7 md:size-8 lg:size-auto"
+      className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="76"
       height="76"
@@ -183,7 +183,7 @@ export const ResumeUpdate = () => {
 export const CreateIcon = () => {
   return (
     <svg
-      className="size-7 md:size-8 lg:size-auto"
+      className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="76"
       height="76"
@@ -202,7 +202,7 @@ export const CreateIcon = () => {
 export const Optimizer = () => {
   return (
     <svg
-      className="size-7 md:size-8 lg:size-auto"
+      className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="76"
       height="76"
@@ -219,7 +219,7 @@ export const Optimizer = () => {
 export const Multilingual = () => {
   return (
     <svg
-      className="size-7 md:size-8 lg:size-auto"
+      className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="76"
       height="76"
@@ -255,7 +255,7 @@ export const Multilingual = () => {
 export const Application = () => {
   return (
     <svg
-      className="size-7 md:size-8 lg:size-auto"
+      className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="76"
       height="76"
@@ -307,7 +307,7 @@ export const Application = () => {
 export const Assistant = () => {
   return (
     <svg
-      className="size-7 md:size-8 lg:size-auto"
+      className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="76"
       height="76"
