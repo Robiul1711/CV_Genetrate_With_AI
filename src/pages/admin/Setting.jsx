@@ -21,9 +21,9 @@ const Setting = () => {
   }
 
   return (
-    <div className="h-[calc(100vh-200px)] overflow-hidden flex lg:gap-10">
+    <div className="h-[calc(100vh-200px)] overflow-hidden flex lg:gap-2">
       {/* Sidebar */}
-      <div className="max-w-1/6 bg-[#0E0E10] p-2 sm:p-4 lg:p-6 rounded-xl h-full overflow-y-auto">
+      <div className="max-w-1/6 bg-[#0E0E10]/80 p-2 sm:p-4 lg:p-6 rounded-xl h-full overflow-y-auto">
         {/* User Info */}
         <div className="flex items-center gap-3 mb-6">
           <img

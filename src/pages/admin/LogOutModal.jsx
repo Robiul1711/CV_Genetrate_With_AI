@@ -16,9 +16,9 @@ const LogOutModal = () => {
       <Dialog>
         <DialogTrigger>
           {" "}
-          <button className="w-full flex items-center gap-2 text-[#FFF] hover:bg-[#466b55] hover:text-[#ffffff] cursor-pointer  transition  rounded-lg px-4 py-2">
+          <button className="w-full flex items-center gap-2 text-[#FFF] hover:bg-[#466b55] hover:text-[#ffffff] cursor-pointer text-sm transition  rounded-lg px-4 py-2">
             <span>
-              <FiLogOut />
+              <FiLogOut className="text-xl" />
             </span>
             Log Out
           </button>
