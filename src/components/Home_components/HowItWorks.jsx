@@ -61,19 +61,19 @@ const HowItWorks = () => {
   return (
     <div className="">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[28px] md:text-[48px] font-bold">How It Works</h1>
-        <p className="md:text-xl text-[#9B9B9B] pt-2 ">
+        <h1 className="text-[28px]  font-bold">How It Works</h1>
+        <p className=" text-[#9B9B9B] pt-1">
           Next generation no-code. Beyond natural language. Why type when you
           can click?
         </p>
       </div>
 
-      <div className="mt-8 md:mt-16 space-y-20">
+      <div className="mt-8 md:mt-14 space-y-20">
         <div>
           {planOne.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col lg:flex-row justify-between w-full items-center gap-12"
+              className="flex flex-col lg:flex-row justify-between w-full items-center gap-16"
             >
               <div className="w-full lg:w-1/2 ">
                 <div className="relative">
@@ -81,35 +81,35 @@ const HowItWorks = () => {
                   <img
                     src={item.img}
                     alt="Plan illustration"
-                    className="w-full border border-[#171718] rounded-2xl"
+                    className="w-full border border-[#171718] rounded-2xl p-8"
                   />
                 </div>
               </div>
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                    <span className="inline-flex items-center justify-center size-10 text-xl font-medium border border-[#81FB84]/20 rounded-full">
                       {index + 1}
                     </span>
                     <h2 className="text-2xl md:text-3xl font-medium">
                       {item.plan}
                     </h2>
                   </div>
-                  <p className="text-[20px] md:text-[28px] text-[#F1F1F1] pt-2">
+                  <p className="text-[20px]  text-[#F1F1F1] pt-2">
                     {item.title}
                   </p>
-                  <p className="text-lg md:text-xl text-[#9B9B9B] pt-4">
+                  <p className="  text-[#9B9B9B] pt-4">
                     {item.detail}
                   </p>
-                  <ul className="md:text-xl text-[#F1F1F1] pt-4 space-y-2">
+                  <ul className=" md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                     {item.list.map((listItem, idx) => (
-                      <li key={idx} className="flex items-center gap-3">
+                      <li key={idx} className="flex items-center gap-3 text-sm">
                         <DotIcon /> {listItem}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10 border hover:border-[#1b461c]">
+                <button className="flex items-center gap-2 px-6 md:px-4 py-2 md:py-3 rounded-lg mt-8 md:mt-10 border hover:border-[#1b461c]">
                   Get Started Now
                 </button>
               </div>
@@ -120,33 +120,33 @@ const HowItWorks = () => {
           {planTwo.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col lg:flex-row justify-between w-full items-center gap-12"
+              className="flex flex-col lg:flex-row justify-between w-full items-center gap-16"
             >
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                    <span className="inline-flex items-center justify-center size-10 text-xl font-medium border border-[#81FB84]/20 rounded-full">
                       {index + 2}
                     </span>
                     <h2 className="text-2xl md:text-3xl font-medium">
                       {item.plan}
                     </h2>
                   </div>
-                  <p className="text-[20px] md:text-[28px] text-[#F1F1F1] pt-2">
+                  <p className="text-[20px]  text-[#F1F1F1] pt-2">
                     {item.title}
                   </p>
-                  <p className="text-lg md:text-xl text-[#9B9B9B] pt-4">
+                  <p className=" text-[#9B9B9B] pt-4">
                     {item.detail}
                   </p>
                   <ul className="md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                     {item.list.map((listItem, idx) => (
-                      <li key={idx} className="flex items-center gap-3">
+                      <li key={idx} className="flex items-center gap-3 text-sm">
                         <DotIcon /> {listItem}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
+                <button className="flex items-center gap-2 px-6 md:px-4 py-2 md:py-3 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
                   Get Started Now
                 </button>
               </div>
@@ -156,7 +156,7 @@ const HowItWorks = () => {
                   <img
                     src={item.img}
                     alt="Plan illustration"
-                    className="w-full border border-[#171718] rounded-2xl"
+                    className="w-full border border-[#171718] rounded-2xl p-10"
                   />
                 </div>
               </div>
@@ -167,7 +167,7 @@ const HowItWorks = () => {
           {planThree.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col-reverse lg:flex-row justify-between w-full items-center gap-12"
+              className="flex flex-col-reverse lg:flex-row justify-between w-full items-center gap-16"
             >
               <div className="w-full lg:w-1/2 ">
                 <div className="relative">
@@ -175,35 +175,35 @@ const HowItWorks = () => {
                   <img
                     src={item.img}
                     alt="Plan illustration"
-                    className="w-full border border-[#171718] rounded-2xl"
+                    className="w-full border border-[#171718] rounded-2xl p-10"
                   />
                 </div>
               </div>
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center  w-[55px] sm:w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                    <span className="inline-flex items-center justify-center  w-[55px] size-12 text-xl font-medium border border-[#81FB84]/20 rounded-full">
                       {index + 3}
                     </span>
                     <h2 className="text-2xl md:text-3xl font-medium">
                       {item.plan}
                     </h2>
                   </div>
-                  <p className=" text-[20px] md:text-[28px] text-[#F1F1F1] pt-2">
+                  <p className=" text-[20px]  text-[#F1F1F1] pt-2">
                     {item.title}
                   </p>
-                  <p className="text-lg md:text-xl text-[#9B9B9B] pt-4">
+                  <p className="text-[#9B9B9B] pt-4">
                     {item.detail}
                   </p>
                   <ul className="  md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                     {item.list.map((listItem, idx) => (
-                      <li key={idx} className="flex items-center gap-3">
+                      <li key={idx} className="flex items-center gap-3 text-sm">
                         <DotIcon /> {listItem}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
+                <button className="flex items-center gap-2 px-6 md:px-4 py-2 md:py-3 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
                   Get Started Now
                 </button>
               </div>
@@ -214,33 +214,33 @@ const HowItWorks = () => {
           {planFour.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col lg:flex-row justify-between w-full items-center gap-12"
+              className="flex flex-col lg:flex-row justify-between w-full items-center gap-16"
             >
               <div className="w-full lg:w-1/2">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="inline-flex items-center justify-center w-[62px] sm:w-12 h-12 text-2xl md:text-3xl font-medium border border-[#81FB84]/20 rounded-full">
+                    <span className="inline-flex items-center justify-center w-[62px] size-12 text-xl font-medium border border-[#81FB84]/20 rounded-full">
                       {index + 4}
                     </span>
                     <h2 className="text-2xl md:text-3xl font-medium">
                       {item.plan}
                     </h2>
                   </div>
-                  <p className="text-[20px] md:text-[28px] text-[#F1F1F1] pt-2">
+                  <p className="text-[20px]  text-[#F1F1F1] pt-2">
                     {item.title}
                   </p>
-                  <p className="text-lg md:text-xl text-[#9B9B9B] pt-4">
+                  <p className=" text-[#9B9B9B] pt-4">
                     {item.detail}
                   </p>
                   <ul className="md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                     {item.list.map((listItem, idx) => (
-                      <li key={idx} className="flex items-center gap-3">
+                      <li key={idx} className="flex items-center gap-3 text-sm">
                         <DotIcon /> {listItem}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-4 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
+                <button className="flex items-center gap-2 px-6 md:px-4 py-2 md:py-3 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
                   Get Started Now
                 </button>
               </div>
@@ -250,7 +250,7 @@ const HowItWorks = () => {
                   <img
                     src={item.img}
                     alt="Plan illustration"
-                    className="w-full border border-[#171718] rounded-2xl"
+                    className="w-full border border-[#171718] rounded-2xl p-10"
                   />
                 </div>
               </div>

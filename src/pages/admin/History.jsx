@@ -6,7 +6,7 @@ const History = () => {
   return (
         <div className='flex items-center flex-col gap-16 justify-center'>
       <Title level="title40">You haven’t generated any documents yet!</Title>
-        <img src={history} alt="" />
+        <img src={history} alt="" className='max-w-64' />
     </div>
   )
 }

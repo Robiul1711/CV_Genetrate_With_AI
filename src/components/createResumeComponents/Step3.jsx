@@ -25,11 +25,11 @@ const handleClick = (e) => {
             <div className="flex justify-between items-center mb-10 p-6 w-full rounded-[12px] border-[#262626] bg-[#0E0E10] border">
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
-                  <Title level="title32" className="text-sm sm:text-base md:text-[32px]">UI/UX Designer </Title>
+                  <Title level="title32" className="text-sm sm:text-base ">UI/UX Designer </Title>
                   <GoDotFill className="text-[#fff] text-3xl" />
-                  <Title level="title32" className="text-sm sm:text-base md:text-[32px]">Softvence agency </Title>
+                  <Title level="title32" className="text-sm sm:text-base ">Softvence agency </Title>
                 </div>
-                <Title level="title24" className="text-sm sm:text-base md:text-[32px]">Mar 2024 - Jan 2025 </Title>
+                <Title level="title24" className="text-sm sm:text-base ">Mar 2024 - Jan 2025 </Title>
               </div>
               <CiEdit
                 size={32}
@@ -93,7 +93,7 @@ const handleClick = (e) => {
           </div>
           <div>
     
-            <button onClick={handleClick}className="font-medium px-7 py-3 md:py-5 rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
+            <button onClick={handleClick}className="font-medium px-7 py-3  rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
               <LuCirclePlus size={20} /> Add Another Pervious Experience
             </button>
           </div>

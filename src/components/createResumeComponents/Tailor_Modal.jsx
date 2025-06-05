@@ -81,7 +81,7 @@ const Tailor_Modal = ({ activeStep , setActiveStep }) => {
       <Dialog>
         <DialogTrigger>
           {" "}
-          <button  className="font-semibold  border-white bg-white text-black sm:py-4 sm:px-16 px-4 py-2 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
+          <button  className="font-semibold  border-white bg-white text-black  px-4 py-2 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
             Generate Resume With AI
           </button>
         </DialogTrigger>
@@ -166,12 +166,12 @@ const Tailor_Modal = ({ activeStep , setActiveStep }) => {
             </div>
             <div className="flex  w-full mx-auto justify-between items-center sm:mt-10">
               <DialogClose asChild>
-                <button className="font-semibold border border-white text-white md:py-4 md:px-16 px-8 py-2 text-lg rounded-md hover:bg-white hover:text-black transition-colors duration-300">
+                <button className="font-semibold border border-white text-white  px-8 py-2 text-lg rounded-md hover:bg-white hover:text-black transition-colors duration-300">
                   Back
                 </button>
               </DialogClose>
               <DialogClose>
-                <button onClick={() => setActiveStep(activeStep + 1)} className="font-semibold  border-white bg-white text-black md:py-4 md:px-16 px-8 py-2 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
+                <button onClick={() => setActiveStep(activeStep + 1)} className="font-semibold  border-white bg-white text-black  px-8 py-2 text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
                   Next
                 </button>
               </DialogClose>

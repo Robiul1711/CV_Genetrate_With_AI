@@ -58,25 +58,25 @@ const OurFeatures = () => {
           Our Features
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 md:mt-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-10 md:mt-16">
         {data.map((item) => (
           <div
             key={item.id}
-            className="bg-[#0E0E10] rounded-[32px] p-6 md:p-10 hover:border border border-transparent hover:border-white duration-300 transition-all transform"
+            className="bg-[#0E0E10] rounded-[32px] p-6  hover:border border border-transparent hover:border-white duration-300 transition-all transform"
           >
-            <span className="border rounded-xl lg:rounded-2xl xl:rounded-3xl p-3 md:p-4  inline-block">
+            <span className="border rounded-xl lg:rounded-2xl xl:rounded-3xl p-3   inline-block">
               {item.icons}
             </span>
-            <h1 className="text-xl md:text-2xl lg:text-3xl font-medium pt-6 md:pt-8 lg:pt-6 xl:pt-16">
+            <h1 className="text-xl font-medium pt-4 xl:pt-16">
               {item.title}
             </h1>
-            <p className="sm:text-xl lg:text-2xl text-[#9B9B9B] pt-2">
+            <p className="text-sm text-[#9B9B9B] pt-2">
               {item.desc}
             </p>
           </div>
         ))}
       </div>
-      <div className="mt-8 flex items-center justify-center text-center flex-col">
+      <div className="mt-8 flex max-w-[840px] mx-auto items-center justify-center text-center flex-col">
         <div className="bg-[#0E0E10] relative rounded-[32px] p-6 md:p-10 w-full hover:border border border-transparent hover:border-white duration-300 transition-all transform">
           <button className="absolute text-sm font-light top-0 right-1 py-2 px-3  bg-[#131316] rounded-[32px]">
             Comming Soon
@@ -87,7 +87,7 @@ const OurFeatures = () => {
           <h1 className="text-xl md:text-3xl font-medium pt-6 md:pt-8 lg:pt-8 xl:pt-16">
             Interview Coach
           </h1>
-          <p className="text-lg md:text-2xl text-[#9B9B9B] pt-2 max-w-[840px]  mx-auto">
+          <p className="text-lg  text-[#9B9B9B] pt-2 max-w-[840px]  mx-auto">
             Practice with AI-powered mock interviews. Master your interview
             skills with personalized AI feedback. Get ready for your dream job
             with realistic practice sessions.

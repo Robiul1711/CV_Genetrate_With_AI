@@ -50,11 +50,11 @@ const MarqueeComponent = () => {
   };
 
   return (
-    <div className="flex gap-6  pl-6">
+    <div className="flex gap-4  pl-6">
       {data.map((item, index) => (
         <div
           key={index}
-          className="border border-[#262626] rounded-xl min-w-[300px] max-w-[527px] p-6 rounded-12 flex flex-col gap-6 h-full hover:border hover:border-white duration-300 transition-all transform"
+          className="border border-[#262626] rounded-xl min-w-[300px] max-w-[527px] p-6 rounded-12 flex flex-col gap-4 h-full hover:border hover:border-white duration-300 transition-all transform"
         >
           <div className="flex gap-1">
             {[...Array(5)].map((_, i) => (
@@ -64,22 +64,22 @@ const MarqueeComponent = () => {
                 className={`${getStarColor(
                   i,
                   item.rating
-                )} text-black  p-1 rounded-md`}
+                )} text-black  p-1 size-6 rounded-md`}
               />
             ))}
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <img
               src={item.img}
               alt={item.name}
-              className="w-14 h-14 object-cover rounded-full"
+              className="w-12 h-12 object-cover rounded-full"
             />
             <div>
               <h1>{item.name}</h1>
-              <p className="text-Grey">{item.position}</p>
+              <p className="text-Grey text-sm">{item.position}</p>
             </div>
           </div>
-          <p>{item.desc}</p>
+          <p className="text-Grey text-sm">{item.desc}</p>
         </div>
       ))}
     </div>

@@ -31,13 +31,13 @@ const UpdateExistingResume = () => {
       {activeStep === steps.length - 1 ? (
         ""
       ) : (
-        <div className="mt-8 md:mt-16 max-w-5xl mx-auto flex justify-between">
+        <div className="mt-8 max-w-5xl mx-auto flex justify-between">
           {
             activeStep !== 0 ? (
                   <button
             onClick={handleBack}
             disabled={activeStep === 0}
-            className="font-semibold border border-white md:py-4 md:px-16 px-8 py-2 text-lg rounded-md bg-black text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="font-semibold border border-white  px-8 py-2 text-lg rounded-md bg-black text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Back
           </button>
@@ -49,7 +49,7 @@ const UpdateExistingResume = () => {
           <button
             onClick={handleNext}
             disabled={activeStep === steps.length - 1}
-            className="font-semibold border border-white md:py-4 md:px-16 px-8 py-2 text-lg rounded-md bg-white text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="font-semibold border border-white px-8 py-2 text-lg rounded-md bg-white text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
           </button>

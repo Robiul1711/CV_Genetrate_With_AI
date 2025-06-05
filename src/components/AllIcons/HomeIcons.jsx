@@ -390,7 +390,7 @@ export const DotIcon = () => {
 };
 export const JobIcon = () => {
   return (
-    <svg
+    <svg className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="40"
       height="41"
@@ -483,6 +483,7 @@ export const JobIcon = () => {
 export const FastCvIcon = () => {
   return (
     <svg
+      className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="40"
       height="41"
@@ -522,7 +523,7 @@ export const FastCvIcon = () => {
 };
 export const CDPRIcon = () => {
   return (
-    <svg
+    <svg className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="40"
       height="41"
@@ -570,7 +571,7 @@ export const CDPRIcon = () => {
 };
 export const MultilingualIcon = () => {
   return (
-    <svg
+    <svg className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="40"
       height="41"
@@ -626,7 +627,7 @@ export const MultilingualIcon = () => {
 };
 export const TransparentIcon = () => {
   return (
-    <svg
+    <svg className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="40"
       height="41"
@@ -666,7 +667,7 @@ export const TransparentIcon = () => {
 };
 export const CustomerIcon = () => {
   return (
-    <svg
+    <svg className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="40"
       height="41"
@@ -750,7 +751,7 @@ export const CustomerIcon = () => {
 };
 export const TrustpilotIcon = () => {
   return (
-    <svg
+    <svg className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="40"
       height="41"
@@ -766,7 +767,7 @@ export const TrustpilotIcon = () => {
 };
 export const AllPackageIcon = () => {
   return (
-    <svg
+    <svg className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="40"
       height="41"
@@ -818,7 +819,7 @@ export const AllPackageIcon = () => {
 };
 export const DesignIcon = () => {
   return (
-    <svg
+    <svg className="size-7 md:size-8 xl:size-auto"
       xmlns="http://www.w3.org/2000/svg"
       width="40"
       height="41"

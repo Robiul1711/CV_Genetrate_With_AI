@@ -20,12 +20,12 @@ const Banner = () => {
           </div>
         </div>
         <div className="relative">
-          <h1 className="text-[24px] md:text-[46px] lg:text-[55px] xl:text-[68px] font-bold w-full max-w-[956px]">
+          <h1 className="text-[24px] md:text-[40px]  font-bold w-full ">
             Build Your Perfect{" "}
             <span className="italic font-semibold font-Playfair">Resume</span>{" "}
             Smarter, Faster, with AI.
           </h1>
-          {
+          {/* {
             selectedLanguage === "en" ? (
               <span className="absolute top-[45%] left-[82%] xmd:left-[65%] hidden xs:block xxs:hidden md:block lg:left-[82%] -translate-x-1/2 -translate-y-1/2">
                 <BannerLineIcon />
@@ -34,18 +34,18 @@ const Banner = () => {
               null
             )
           }
-      
+       */}
         </div>
 
-        <p className="max-w-[600px] md:text-xl text-primary ">
+        <p className="max-w-[700px]  text-primary ">
           Professional resumes made easy — create or upgrade with real-time
           smart suggestions.
         </p>
         <div className="flex flex-col md:flex-row items-center gap-5">
-          <Link to={"/dashboard/create-new-resume"} className="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 rounded-xl border hover:border-[#1b461c]">
+          <Link to={"/dashboard/create-new-resume"} className="flex items-center gap-2 px-6  py-3  rounded-xl border hover:border-[#1b461c]">
             Create your Resume <EditIcon />
           </Link>
-          <Link to={"dashboard/update-existing-resume"} className="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 rounded-xl border hover:border-[#1b461c]">
+          <Link to={"dashboard/update-existing-resume"} className="flex items-center gap-2 px-6  py-3  rounded-xl border hover:border-[#1b461c]">
            Upgrade your Resume<UpgradeIcon />
           </Link>
         </div>

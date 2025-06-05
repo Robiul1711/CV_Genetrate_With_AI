@@ -43,7 +43,7 @@ const ContactForm = () => {
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12 pb-12 md:pb-20 section-padding-x">
           {/* Left Side Title */}
           <div className="flex items-center">
-            <h2 className="text-3xl md:text-4xl font-semibold">
+            <h2 className="text-3xl md:text-3xl text-center font-semibold">
               Get in Touch Clever <br />{" "}
               <span className="pt-4 inline-block">CV </span>
             </h2>

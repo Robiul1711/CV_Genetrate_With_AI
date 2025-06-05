@@ -88,7 +88,7 @@ const CreateCoverLetter = () => {
           className={`font-semibold  text-white  text-lg rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed  ${
             activeStep === steps.length - 1
               ? " "
-              : "md:py-4 md:px-16 px-8 py-2 border border-white"
+              : " px-8 py-2 border border-white"
           }`}
           onClick={handleBack}
           disabled={activeStep === 0}
@@ -105,7 +105,7 @@ const CreateCoverLetter = () => {
    : 
         <button
           className={`font-semibold border-white bg-white text-black ${
-            activeStep === steps.length - 1 ? "" : "md:py-4 md:px-16 px-8 py-2"
+            activeStep === steps.length - 1 ? "" : " px-8 py-2"
           } text-lg rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
           onClick={handleNext}
           disabled={activeStep >= steps.length - 1}
