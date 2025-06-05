@@ -63,7 +63,7 @@ const SideBar = ({ sidebar, open, setOpen }) => {
               <img
                 src={Logo}
                 alt="Safe"
-                className="object-contain w-full h-full object-cover"
+                className="object-contain w-full h-full "
               />
             </div>
             <div className=" flex flex-col gap-1">
@@ -90,7 +90,7 @@ const SideBar = ({ sidebar, open, setOpen }) => {
                   setActiveParentIndex(null);
                   setOpen(false);
                 }}
-                className={`flex items-center gap-3 px-4 py-2 rounded-lg text-base font-medium transition-colors duration-200 ${
+                className={`flex items-center text-sm gap-3 px-4 py-1 rounded-lg  font-medium transition-colors duration-200 ${
                   isActive(item?.path, item?.extra_path, item?.extra_path2)
                     ? "text-white border border-[#76E477]/60 border-l-[6px] border-opacity-60 shadow-md shadow-[#76E477]/30 rounded-lg bg-[#18181A] p-4"
                     : "text-[#FFF] border-[0.5px] border-l-[6px] border-transparent  "
@@ -103,7 +103,7 @@ const SideBar = ({ sidebar, open, setOpen }) => {
               <div className="relative" key={index}>
                 {/* Parent link */}
                 <div
-                  className={`flex items-center justify-between px-4 py-2 cursor-pointer w-full rounded-lg transition-all duration-200 ${
+                  className={`flex items-center justify-between px-4 py-2  cursor-pointer w-full rounded-lg transition-all duration-200 ${
                     parentActive
                       ? "bg-[#253E8E] text-white"
                       : "text-gray-700 hover:bg-[#E3ECFF] hover:text-[#253E8E]"
@@ -125,7 +125,7 @@ const SideBar = ({ sidebar, open, setOpen }) => {
 
                 {/* Sublinks dropdown */}
                 <div
-                  className={`transition-all duration-300 ease-in-out overflow-hidden px-4 bg-white rounded-lg ${
+                  className={`transition-all duration-300  ease-in-out overflow-hidden px-4 bg-white rounded-lg ${
                     activeParentIndex === index
                       ? "max-h-[500px] py-4 opacity-100 translate-y-0"
                       : "max-h-0 opacity-0 -translate-y-2"
@@ -136,7 +136,7 @@ const SideBar = ({ sidebar, open, setOpen }) => {
                       <Link
                         key={subIndex}
                         to={value?.path}
-                        className={`block px-4 py-2 rounded-md transition-colors duration-200 ${
+                        className={`block px-4 py-2  rounded-md transition-colors duration-200 ${
                           isActive(value?.path)
                             ? "text-black font-medium bg-[#F0F4FF]"
                             : "text-[#5A5C5F] font-normal hover:bg-[#F0F4FF]"
