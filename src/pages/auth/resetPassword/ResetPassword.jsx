@@ -18,11 +18,11 @@ const NewPassword = () => {
     });
   };
   return (
-    <div className="section-padding-x section-padding-y min-h-screen flex justify-center items-center">
+    <div className="section-padding-x section-padding-y md:py-8  h-auto md:h-screen  flex justify-center items-center">
       <ScrollRestoration />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-3xl px-4 sm:px-8 md:px-12 lg:px-32 py-10 sm:py-16 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+        className="w-full max-w-3xl px-4 sm:px-8 md:px-12 lg:px-32 py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
       >
         <div className="flex justify-center mb-4">
           <Link to={"/"}>

@@ -24,11 +24,11 @@ const SignUp = () => {
     });
   };
   return (
-    <div className="section-padding-x section-padding-y min-h-screen flex justify-center items-center">
+    <div className="section-padding-x section-padding-y md:py-8 h-auto md:h-screen flex justify-center items-center overflow-auto md:overflow-y-hidden">
       <ScrollRestoration />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-4xl px-4 sm:px-8 md:px-12 lg:px-24 xl:px-36 py-10 sm:py-16 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+        className="w-full max-w-4xl md:h-[816px] px-4 sm:px-8 md:px-12 lg:px-24 xl:px-32 py-5 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
       >
         <div className="flex justify-center mb-4">
           <Link to={"/"}>
@@ -37,11 +37,14 @@ const SignUp = () => {
           </Link>
         </div>
 
-        <h2 className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold text-center mb-2">
+        <h2 className="text-[24px] sm:text-[28px] md:text-[40px] font-semibold text-center mb-2">
           Create Your Account
         </h2>
 
-        <Title level="title18" className="text-center mb-6 pb-2 !font-normal">
+        <Title
+          level="title18"
+          className="text-center !text-[17px] pb-3 !font-normal"
+        >
           Join Clever-CV to build, optimize, and land your dream job with
           AI-powered resumes and cover letters.
         </Title>
@@ -96,57 +99,57 @@ const SignUp = () => {
         </div>
 
         {/* Password Input */}
-        <div className="mb-4 relative">
-          <label htmlFor="password" className="block mb-2 md:text-lg">
-            Password
-          </label>
-          <div className="relative">
-            <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <Lock size={18} className="w-6 h-6" />
-            </span>
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              {...register("passowrd", { required: true })}
-              placeholder="••••••••"
-              className="w-full pl-12 pr-4 py-3 border border-[#666666] rounded-lg bg-black"
-            />
-            <span
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
-              onClick={() => setShowPassword((prev) => !prev)}
-            >
-              {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
-            </span>
+        <div className="flex flex-col md:flex-row gap-5 w-full pt-2">
+          <div className="mb-4 relative w-full">
+            <label htmlFor="password" className="block mb-2 md:text-lg">
+              Password
+            </label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                <Lock size={18} className="w-6 h-6" />
+              </span>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                {...register("passowrd", { required: true })}
+                placeholder="••••••••"
+                className="w-full pl-12 pr-4 py-3 border border-[#666666] rounded-lg bg-black"
+              />
+              <span
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+              </span>
+            </div>
           </div>
-        </div>
-
-        {/* Confirm password input */}
-        <div className="mb-4 relative">
-          <label htmlFor="password" className="block mb-2 md:text-lg">
-            Confirm Password
-          </label>
-          <div className="relative">
-            <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <Lock size={18} className="w-6 h-6" />
-            </span>
-            <input
-              type={showPassword1 ? "text" : "password"}
-              id="password"
-              {...register("confirmPassword", { required: true })}
-              placeholder="••••••••"
-              className="w-full pl-12 pr-4 py-3 border border-[#666666] rounded-lg bg-black"
-            />
-            <span
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
-              onClick={() => setShowPassword1((prev) => !prev)}
-            >
-              {showPassword1 ? <Eye size={20} /> : <EyeOff size={20} />}
-            </span>
+          <div className="mb-4 relative w-full">
+            <label htmlFor="password" className="block mb-2 md:text-lg">
+              Confirm Password
+            </label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                <Lock size={18} className="w-6 h-6" />
+              </span>
+              <input
+                type={showPassword1 ? "text" : "password"}
+                id="password"
+                {...register("confirmPassword", { required: true })}
+                placeholder="••••••••"
+                className="w-full pl-12 pr-4 py-3 border border-[#666666] rounded-lg bg-black"
+              />
+              <span
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
+                onClick={() => setShowPassword1((prev) => !prev)}
+              >
+                {showPassword1 ? <Eye size={20} /> : <EyeOff size={20} />}
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Tearms and conditions */}
-        <div className="my-6 text-sm">
+        <div className="my-2 text-sm">
           <label className="flex items-center gap-3 cursor-pointer">
             <span
               className={`w-5 h-5 flex justify-center items-center border rounded-sm 
@@ -179,7 +182,7 @@ const SignUp = () => {
         </button>
 
         {/* Divider */}
-        <div className="flex items-center my-8">
+        <div className="flex items-center my-3">
           <hr className="flex-grow border-gray-300" />
           <span className="mx-4 text-[#FFF] text-sm">Or continue with</span>
           <hr className="flex-grow border-gray-300" />
@@ -199,7 +202,7 @@ const SignUp = () => {
         </div>
 
         {/* Sign Up */}
-        <p className="text-center py-6 text-sm">
+        <p className="text-center text-sm my-2">
           Already have an account ?{" "}
           <Link to={"/sign-in"}>
             <span className="font-medium cursor-pointer underline">
