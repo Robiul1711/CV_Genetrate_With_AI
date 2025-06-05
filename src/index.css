@@ -88,3 +88,125 @@ input[type="date"] {
 }
 
 
+/*Google multi langauge  */
+
+.goog-te-gadget {
+  font-size: 0 !important;
+}
+ 
+@media (min-width: 320px) and (max-width: 640px) {
+  .goog-te-gadget .goog-te-combo {
+    width: 120px !important;
+  }
+}
+ 
+.goog-te-gadget .goog-te-combo {
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+ 
+ 
+ 
+/* Hide Google branding */
+.goog-logo-link, .goog-te-gadget span {
+  display: none !important;
+}
+ 
+.goog-tooltip,
+.goog-tooltip:hover,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+ 
+/* Hide Google Translate banner */
+#goog-gt-tt,
+.goog-te-banner-frame,
+.goog-logo-link,
+.goog-te-gadget {
+  display: none !important;
+}
+/* Prevent iframe balloon from affecting layout */
+iframe.goog-te-banner-frame {
+  display: none !important;
+}
+ 
+/* Remove background highlight on translated text */
+.goog-te-gadget span,
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+  color: inherit !important;
+}
+ 
+ 
+.goog-text-highlight {
+  background-color: transparent !important;
+}
+ 
+ 
+.VIpgJd-ZVi9od-ORHb{
+  display: none !important;
+}
+ 
+table{
+  display: none !important;
+}
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+  left: 0;
+  top: -53px !important;
+  height: 39px;
+  width: 100%;
+  z-index: 10000001;
+  display: none !important;
+ 
+}
+ 
+body{
+  top: 0 !important;
+  position: static !important;
+}
+ 
+ 
+ 
+.custom-language-select {
+  padding: 9px 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+}
+ 
+.custom-language-select:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+ 
+.loading-indicator {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #666;
+}
+ 
+.language-selector {
+  display: flex;
+  align-items: center;
+  
+}
+ 
+.VIpgJd-yAWNEb-VIpgJd-fmcmS-sn54Q {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    position: relative;
+}
+ 

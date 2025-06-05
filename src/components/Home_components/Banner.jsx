@@ -5,7 +5,10 @@ import { AiTwotoneThunderbolt } from "react-icons/ai";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { BannerLineIcon, EditIcon, UpgradeIcon } from "../AllIcons/HomeIcons";
 import { Link } from "react-router-dom";
+import { UseLangauge } from "@/hooks/UseLangauge";
 const Banner = () => {
+  const {selectedLanguage}=UseLangauge();
+
   return (
     <div className="py-10 md:py-16 lg:py-20">
       <div className="flex flex-col gap-6 items-center justify-center  text-center">
@@ -22,9 +25,16 @@ const Banner = () => {
             <span className="italic font-semibold font-Playfair">Resume</span>{" "}
             Smarter, Faster, with AI.
           </h1>
-          <span className="absolute top-[45%] left-[82%] xmd:left-[65%] hidden xs:block xxs:hidden md:block lg:left-[82%] -translate-x-1/2 -translate-y-1/2">
-            <BannerLineIcon />
-          </span>
+          {
+            selectedLanguage === "en" ? (
+              <span className="absolute top-[45%] left-[82%] xmd:left-[65%] hidden xs:block xxs:hidden md:block lg:left-[82%] -translate-x-1/2 -translate-y-1/2">
+                <BannerLineIcon />
+              </span>
+            ) : (
+              null
+            )
+          }
+      
         </div>
 
         <p className="max-w-[600px] md:text-xl text-primary ">

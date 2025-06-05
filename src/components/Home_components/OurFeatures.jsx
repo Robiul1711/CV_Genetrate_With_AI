@@ -64,7 +64,7 @@ const OurFeatures = () => {
             key={item.id}
             className="bg-[#0E0E10] rounded-[32px] p-6 md:p-10 hover:border border border-transparent hover:border-white duration-300 transition-all transform"
           >
-            <span className="border rounded-xl lg:rounded-2xl xl:rounded-3xl p-3 md:p-4 xl:p-6 inline-block">
+            <span className="border rounded-xl lg:rounded-2xl xl:rounded-3xl p-3 md:p-4  inline-block">
               {item.icons}
             </span>
             <h1 className="text-xl md:text-2xl lg:text-3xl font-medium pt-6 md:pt-8 lg:pt-6 xl:pt-16">
@@ -81,7 +81,7 @@ const OurFeatures = () => {
           <button className="absolute text-sm font-light top-0 right-1 py-2 px-3  bg-[#131316] rounded-[32px]">
             Comming Soon
           </button>
-          <span className="border rounded-xl lg:rounded-2xl xl:rounded-3xl p-3 md:p-4 xl:p-6 inline-block">
+          <span className="border rounded-xl lg:rounded-2xl xl:rounded-3xl p-3 md:p-4 inline-block">
             <Assistant />
           </span>
           <h1 className="text-xl md:text-3xl font-medium pt-6 md:pt-8 lg:pt-8 xl:pt-16">

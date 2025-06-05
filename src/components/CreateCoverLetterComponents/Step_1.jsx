@@ -5,7 +5,7 @@ const Step_1 = () => {
   return (
     <div className="     text-white flex items-center justify-center">
       <div className="max-w-6xl w-full">
-        <div className="text-center flex flex-col items-center gap-4 mb-10">
+        <div className="text-center flex flex-col items-center gap-4 mb-5 xl:mb-10">
 
         <Title level="title40">Basic Information</Title>
         

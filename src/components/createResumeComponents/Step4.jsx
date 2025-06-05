@@ -11,7 +11,7 @@ const Step4 = () => {
   setAddEducation((prev) => !prev);
 };
   return (
-    <div className=" text-white flex items-center justify-center p-3 lg:p-6">
+    <div className=" text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="max-w-6xl w-full">
         <div className="text-center flex flex-col items-center gap-4 mb-10">
           <Title level="title40"> Add Your Education</Title>

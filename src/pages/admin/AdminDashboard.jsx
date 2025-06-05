@@ -37,13 +37,13 @@ const AdminDashboard = () => {
 <Title level="title20">Craft, Optimize, Impress, Land Your Dream Job — All in One Smart Platform</Title>
 </div>
 <div className='hidden md:block'>
-  <img src={dashboard} alt="" className='w-full' />
+  <img src={dashboard} alt="" className='w-full size-40 xl:size-auto' />
 </div>
       </div>
-<div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6'>
+<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 xl:gap-6 mt-4 xl:mt-6'>
   {
     data.map((item, index)=>(
-      <div key={index} className='bg-[#0E0E10] p-6 md:p-10 lg:p-16 rounded-[16px] flex flex-col gap-3 lg:gap-6 items-center text-center justify-center'>
+      <div key={index} className='bg-[#0E0E10] p-4 xl:p-10  rounded-[16px] flex flex-col gap-3 xl:gap-6 items-center text-center justify-center'>
         <span>{item.icons}</span>
         <Title level="title32">{item.title}</Title>
         <Title level="title16">{item.descript}</Title>

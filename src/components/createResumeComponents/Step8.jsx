@@ -33,9 +33,9 @@ const resumeData = [
 ];
 const Step8 = ({ activeStep, setActiveStep }) => {
   return (
-    <div className="bg-black text-white flex items-center justify-center p-3 lg:p-6">
+    <div className="bg-black text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className=" w-full">
-        <div className="text-center flex flex-col items-center gap-4 mb-10">
+        <div className="text-center flex flex-col items-center gap-4 mb-5 xl:mb-10">
           <Title level="title40">Your AI-Generated Resumes Are Ready!</Title>
           <Title level="title20">
             We’ve created multiple resume versions tailored to your profile,

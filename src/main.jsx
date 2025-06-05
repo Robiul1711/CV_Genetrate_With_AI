@@ -4,11 +4,15 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./router/router";
 import { PrimeReactProvider } from "primereact/api";
+import LangaugesProvider from "./providers/LangaugesProvider";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
     <PrimeReactProvider>
+      <LangaugesProvider>
       <RouterProvider router={router} />
+
+      </LangaugesProvider>
     </PrimeReactProvider>
-  </StrictMode>
+  // </StrictMode>
 );

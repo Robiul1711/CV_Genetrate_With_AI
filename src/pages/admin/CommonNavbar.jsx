@@ -26,7 +26,7 @@ const CommonNavbar = ({ open, setOpen }) => {
 
   return (
     <div className="flex flex-col gap-1">
-      <div className="flex items-center gap-5 justify-between w-full py-6 px-0 sm:px-6 rounded-2xl">
+      <div className="flex items-center gap-5 justify-between w-full  rounded-2xl">
         {/* Sidebar toggle + Search */}
         <div className="flex items-center gap-2 w-full">
           <span

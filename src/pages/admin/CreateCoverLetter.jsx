@@ -78,10 +78,10 @@ const CreateCoverLetter = () => {
       />
 
       {/* Current Step Content */}
-      <div className="mt-8">{steps[activeStep].component}</div>
+      <div className="">{steps[activeStep].component}</div>
 
       {/* Navigation Buttons */}
-      <div className="flex flex-wrap gap-2 max-w-6xl w-full mx-auto justify-between items-center mt-10">
+      <div className="flex flex-wrap gap-2 max-w-6xl w-full mx-auto justify-between items-center mt-6">
         {
           activeStep !==0 ?
         <button
