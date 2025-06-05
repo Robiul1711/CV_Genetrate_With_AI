@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const ReadyToLand = () => {
   return (
-    <div className="relative pb-28 h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+    <div className="relative pb-28 h-[400px] md:h-[500px] xl:h-[600px] overflow-hidden">
       {/* Background Image */}
       <img
         src={starBG}

@@ -10,9 +10,9 @@ const Step7 = () => {
     setAddCourse(!addCourse);
   }
   return (
-    <div className="bg-black text-white flex items-center justify-center p-3 lg:p-6">
+    <div className="bg-black text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="max-w-6xl w-full">
-        <div className="text-center flex flex-col items-center gap-4 mb-10">
+        <div className="text-center flex flex-col items-center gap-4 mb-5 xl:mb-10">
           <Title level="title40"> Courses and Training Details</Title>
           <Title level="title20">
             Provide information about any professional courses or training

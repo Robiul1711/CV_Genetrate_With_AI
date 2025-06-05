@@ -3,9 +3,9 @@ import { CiEdit } from "react-icons/ci";
 import Title from "../common/Title";
 const Step2 = () => {
   return (
-    <div className=" text-white  flex items-center justify-center p-3 lg:p-6">
+    <div className=" text-white  flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="max-w-6xl w-full">
-        <div className="text-center flex flex-col items-center gap-4 mb-10">
+        <div className="text-center flex flex-col items-center gap-4 mb-5 xl:mb-10">
 
         <Title level="title40">Add Your Personal Details</Title>
         <Title level="title20">

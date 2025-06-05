@@ -37,17 +37,17 @@ const Footer = () => {
                 Company
               </p>
               <li>
-                <Link to='/'  className="cursor-pointer">
+                <Link to='/'  className="cursor-pointer hover:text-white">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to='/price' className="cursor-pointer">
+                <Link to='/price' className="cursor-pointer hover:text-white">
                   Pricing
                 </Link>
               </li>
               <li>
-                <Link to='/contact'  className="cursor-pointer">
+                <Link to='/contact'  className="cursor-pointer hover:text-white">
                   Contact
                 </Link>
               </li>
@@ -60,10 +60,10 @@ const Footer = () => {
               <p className="text-white text-[20px] font-semibold mb-3">
                 Service
               </p>
-              <Link to="/ai-help" className="cursor-pointer">AI Resume Builder</Link>
-              <Link to="/dashboard/create-new-resume" className="cursor-pointer">AI Resume Optimizer</Link>
-              <Link to="" className="cursor-pointer">Create Cover Letter</Link>
-              <Link to="" className="cursor-pointer">Multilingual Resume</Link>
+              <Link to="/ai-help" className="cursor-pointer hover:text-white">AI Resume Builder</Link>
+              <Link to="/dashboard/create-new-resume " className="cursor-pointer hover:text-white ">AI Resume Optimizer</Link>
+              <Link to="" className="cursor-pointer hover:text-white">Create Cover Letter</Link>
+              <Link to="" className="cursor-pointer hover:text-white">Multilingual Resume</Link>
             </ul>
           </div>
         </div>
@@ -77,13 +77,13 @@ const Footer = () => {
         {/* Left Text */}
         <div className="flex flex-wrap justify-center gap-4 text-[#666] md:text-[16px]">
           <Link to={"/privacy-policy"}>
-            <p className="underline cursor-pointer">Privacy Policy</p>
+            <p className="underline cursor-pointer hover:text-white">Privacy Policy</p>
           </Link>
           <Link to={"/tearms-and-condition"}>
-            <p className="underline cursor-pointer">Terms of Service</p>
+            <p className="underline cursor-pointer hover:text-white">Terms of Service</p>
           </Link>
           <Link to={"/imprint"}>
-            <p className="underline cursor-pointer">Imprint</p>
+            <p className="underline cursor-pointer hover:text-white">Imprint</p>
           </Link>
         </div>
 

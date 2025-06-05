@@ -54,7 +54,7 @@ const MarqueeComponent = () => {
       {data.map((item, index) => (
         <div
           key={index}
-          className="border border-[#262626] rounded-xl min-w-[300px] max-w-[527px] p-6 rounded-12 flex flex-col gap-6 h-full hover:border hover:border-[#6de7945f] duration-300 transition-all transform"
+          className="border border-[#262626] rounded-xl min-w-[300px] max-w-[527px] p-6 rounded-12 flex flex-col gap-6 h-full hover:border hover:border-white duration-300 transition-all transform"
         >
           <div className="flex gap-1">
             {[...Array(5)].map((_, i) => (

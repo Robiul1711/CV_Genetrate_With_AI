@@ -3,13 +3,13 @@ import clsx from "clsx";
 
 const sizeMap = {
   title64: "text-[34px] sm:text-[64px] font-bold",
-  title48: "text-3xl sm:text-5xl font-semibold",
-  title40: "text-2xl sm:text-[40px] font-medium",
-  title32: "text-2xl sm:text-3xl font-medium",
+  title48: "text-2xl sm:text-[38px] xl:text-[48px] font-semibold",
+  title40: "text-2xl sm:text-[32px] xl:text-[40px] font-medium",
+  title32: "xl:text-xl lg:text-2xl xl:text-3xl font-medium",
   title28: "text-2xl sm:text-[28px] font-medium",
   title24: "text-bsse sm:text-lg md:text-2xl font-medium",
-  title22: "text-lg sm:text-[22px] font-medium",
-  title20: " text-base md:text-lg sm:text-xl font-normal",
+  title22: "lg:text-base xl:text-[22px] font-medium",
+  title20: " text-base  xl:text-xl font-normal",
   title18: "text-base sm:text-lg font-normal",
   title16: "text-base sm:text-[16px] font-normal",
   title14: "text-sm sm:text-base font-normal",
