@@ -37,7 +37,7 @@ const UploadAResume = () => {
 
   return (
     <div className="max-w-5xl mx-auto w-full">
-      <div className="text-center flex flex-col items-center gap-4 mb-10">
+      <div className="text-center flex flex-col items-center gap-4 mb-5">
         <Title level="title32">Upload Your Resume</Title>
         <Title level="title16">
           Upload your existing resume in PDF, DOCX or PNG format. Our AI will
@@ -49,7 +49,7 @@ const UploadAResume = () => {
       <div className="flex items-center justify-center w-full">
         <label
           htmlFor="dropzone-file"
-          className="flex flex-col items-center justify-center w-full sm:h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer"
+          className="flex flex-col items-center justify-center w-full sm:h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer"
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <svg

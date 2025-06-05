@@ -69,27 +69,27 @@ const whyChoose = [
 ];
 const CleverCV = () => {
   return (
-    <div className="pb-12 mt-10 lg:mt-0 md:pb-16 lg:pb-24 xl:pb-28">
+    <div className="pb-12 mt-10 lg:mt-0 md:pb-8 ">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[28px] md:text-[48px] font-bold">
+        <h1 className="text-[28px]  font-bold">
           Why Choose Clever CV?
         </h1>
-        <p className="md:text-xl text-[#9B9B9B] pt-2 ">
+        <p className=" text-[#9B9B9B] pt-1 ">
           Build resumes that get interviews – backed by data, designed for
           results.
         </p>
       </div>
-      <div className="mt-10 md:mt-16 lg:mt-20 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-4 lg:gap-6">
+      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-4 lg:gap-6">
         {whyChoose.map((item) => (
           <div
             key={item.id}
-            className="p-4 rounded-2xl border border-[#262626] hover:border hover:border-white duration-300 transition-all transform"
+            className="p-4 rounded-xl border border-[#262626] hover:border hover:border-white duration-300 transition-all transform"
           >
             <span>{item.icon}</span>
-            <h1 className="text-lg lg:text-xl font-bold mt-4 md:mt-6 lg:mt-8">
+            <h1 className=" font-bold mt-4">
               {item.title}
             </h1>
-            <p className="lg:text-lg text-[#9B9B9B] pt-2">{item.desc}</p>
+            <p className=" text-[#9B9B9B] text-sm pt-1">{item.desc}</p>
           </div>
         ))}
       </div>

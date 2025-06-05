@@ -88,7 +88,7 @@ const ProfileSetting = () => {
             <button
               type="button"
               onClick={() => setIsEditing(true)}
-              className="font-semibold border border-white text-white  md:py-4  px-2 sm:px-8 py-2 text-sm sm:text-lg rounded-md hover:bg-white hover:text-black transition"
+              className="font-semibold border border-white text-white   px-2  py-2 text-sm  rounded-md hover:bg-white hover:text-black transition"
             >
               Edit Profile
             </button>
@@ -97,14 +97,14 @@ const ProfileSetting = () => {
               <button
                 type="button"
                 onClick={() => setIsEditing(false)}
-                className="font-semibold border border-white text-white  md:py-4  px-2 sm:px-8 py-2 text-sm sm:text-lg rounded-md hover:bg-white hover:text-black transition"
+                className="font-semibold border border-white text-white    px-2  py-2 text-sm  rounded-md hover:bg-white hover:text-black transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 onClick={() => setIsEditing(false)}
-                className="font-semibold border border-white text-white  md:py-4  px-2 sm:px-8 py-2 text-sm sm:text-lg rounded-md hover:bg-white hover:text-black transition"
+                className="font-semibold border border-white text-white   px-2 8 py-2 text-sm  rounded-md hover:bg-white hover:text-black transition"
               >
                 Save Changes
               </button>

@@ -27,14 +27,14 @@ const Step6 = () => {
                 <div className="flex items-center gap-2">
                   <Title
                     level="title32"
-                    className="text-sm sm:text-base md:text-[32px]"
+                    className="text-sm sm:text-base "
                   >
                     German{" "}
                   </Title>
                   <GoDotFill className="text-[#fff] text-3xl" />
                   <Title
                     level="title32"
-                    className="text-sm sm:text-base md:text-[32px]"
+                    className="text-sm sm:text-base "
                   >
                     Native
                   </Title>
@@ -75,7 +75,7 @@ const Step6 = () => {
           <div>
             <button
               onClick={handleAddLanguage}
-              className="font-medium px-7 py-3 md:py-5 rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200"
+              className="font-medium px-7 py-3  rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200"
             >
               <LuCirclePlus size={20} /> Add Another language
             </button>

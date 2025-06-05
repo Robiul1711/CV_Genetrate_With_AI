@@ -18,7 +18,7 @@ const BrandSection = () => {
 
   return (
     <div className="">
-        <p className="text-xl text-center  mb-20 font-medium text-primary">Trusted by Professionals Who Landed Jobs At</p>
+        <p className="text-xl text-center  mb-14 font-medium text-primary">Trusted by Professionals Who Landed Jobs At</p>
       <Marquee pauseOnHover speed={50} gradient={true} gradientColor={["#08090A"]}>
         {brands.map((brand) => (
           <div
@@ -28,7 +28,7 @@ const BrandSection = () => {
             <img
               src={brand.brand}
               alt={`brand-${brand.id}`}
-              className="w-[200px] h-[40px] object-contain rounded-lg"
+              className="w-[150px] h-[30px] object-contain rounded-lg"
             />
           </div>
         ))}

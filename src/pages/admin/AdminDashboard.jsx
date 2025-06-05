@@ -28,7 +28,7 @@ const data=[
 const AdminDashboard = () => {
   return (
     <div>
-      <div className='bg-[#0E0E10] p-5 lg:p-8 rounded-[8px] flex gap-6 justify-between'>
+      <div className='bg-[#0E0E10] p-5 rounded-[8px] flex gap-6 justify-between'>
 <div className='flex flex-col gap-6'>
   <div className='flex items-center gap-4'>
 <Title level="title28">Welcome to Your Clever CV Dashboard!</Title>
