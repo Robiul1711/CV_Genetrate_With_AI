@@ -24,9 +24,9 @@ const OTPCode = () => {
     setResendAvailable(false);
   };
   return (
-    <div className="section-padding-x section-padding-y min-h-screen flex justify-center items-center overflow-y-auto">
+    <div className="section-padding-x section-padding-y md:py-8  h-auto md:h-screen  flex justify-center items-center overflow-auto md:overflow-y-hidden">
       <ScrollRestoration />
-      <form className="w-full max-w-3xl px-4 sm:px-8 md:px-12 lg:px-32 py-10 sm:py-16 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]">
+      <form className="w-full max-w-3xl  h-[700px] px-4 sm:px-8 md:px-12 lg:px-32 py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]">
         <div className="flex justify-center mb-4">
           <Link to={"/"}>
             <img src={logo} alt="logo" className="h-12 md:h-16" />
