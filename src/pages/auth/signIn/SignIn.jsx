@@ -24,7 +24,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="section-padding-x section-padding-y md:py-8 h-auto md:h-screen flex justify-center items-center overflow-y-auto md:overflow-y-hidden">
+    <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center overflow-y-auto md:overflow-y-hidden">
       <ScrollRestoration />
       <form
         onSubmit={handleSubmit(onSubmit)}

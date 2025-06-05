@@ -24,11 +24,11 @@ const SignUp = () => {
     });
   };
   return (
-    <div className="section-padding-x section-padding-y md:py-8 h-auto md:h-screen flex justify-center items-center overflow-auto md:overflow-y-hidden">
+    <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center overflow-auto md:overflow-y-hidden">
       <ScrollRestoration />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-4xl md:h-[816px] px-4 sm:px-8 md:px-12 lg:px-24 xl:px-32 py-5 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+        className="w-full max-w-4xl md:h-[866px] px-4 sm:px-8 md:px-12 lg:px-24 xl:px-32 py-5 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
       >
         <div className="flex justify-center mb-4">
           <Link to={"/"}>
@@ -202,7 +202,7 @@ const SignUp = () => {
         </div>
 
         {/* Sign Up */}
-        <p className="text-center text-sm my-2">
+        <p className="text-center text-sm my-6">
           Already have an account ?{" "}
           <Link to={"/sign-in"}>
             <span className="font-medium cursor-pointer underline">
