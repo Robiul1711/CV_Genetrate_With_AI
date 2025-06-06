@@ -11,7 +11,7 @@ const Step7 = () => {
   }
   return (
     <div className="bg-black text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
-      <div className="max-w-6xl w-full">
+      <div className="w-[800px] mx-auto">
         <div className="text-center flex flex-col items-center gap-4 mb-5 xl:mb-10">
           <Title level="title40"> Courses and Training Details</Title>
           <Title level="title20">
@@ -21,11 +21,11 @@ const Step7 = () => {
         </div>
 {
         addCourse && (
-            <div className="flex justify-between items-center mb-10 p-6 w-full rounded-[12px] border-[#262626] bg-[#0E0E10] border">
+            <div className="flex justify-between items-center mb-5 p-3 w-full rounded-[12px] border-[#262626] bg-[#0E0E10] border">
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
                   <Title level="title32" className="text-sm sm:text-base">UI/UX Designer </Title>
-                  <GoDotFill className="text-[#fff] text-3xl" />
+                  <GoDotFill className="text-[#fff] text-xl" />
                   <Title level="title32" className="text-sm sm:text-base">Softvence agency </Title>
                 </div>
                 <Title level="title24">Mar 2024 - Jan 2025 </Title>
@@ -45,7 +45,7 @@ const Step7 = () => {
             <input
               type="text"
               placeholder="Polytechnic Institute"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -53,7 +53,7 @@ const Step7 = () => {
             <input
               type="text"
               placeholder="Diploma"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -62,7 +62,7 @@ const Step7 = () => {
               <input
                 type="date"
                 defaultValue="2024-05-22"
-                className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+                className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
               />
             </div>
 
@@ -72,13 +72,13 @@ const Step7 = () => {
               <input
                 type="date"
                 defaultValue="2024-05-22"
-                className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+                className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
               />
             </div>
           </div>
 
           <div>
-            <button onClick={handleAddCourse} className="font-medium px-7 py-3 rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
+            <button onClick={handleAddCourse} className="font-medium px-4 py-2 rounded-lg text-xs  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
               <LuCirclePlus size={20} />
               Add Another Certificate
             </button>

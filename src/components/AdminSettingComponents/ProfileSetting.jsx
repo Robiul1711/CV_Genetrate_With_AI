@@ -6,22 +6,22 @@ const ProfileSetting = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
-    <div className="max-w-6xl w-full p-3  lg:p-6">
+    <div className="max-w-6xl w-full l p-3  lg:p-6">
       <Title level="title22">Profile Settings</Title>
       <Title level="title16" className="my-2">
         Update your personal information
       </Title>
 
       {/* Upload Section */}
-      <div className="flex flex-col gap-4 my-8">
-        <div className="relative md:w-20 md:h-20 size-12 rounded-full border-2 border-white">
+      <div className="flex flex-col gap-4 my-4">
+        <div className="relative md:w-16 md:h-16 size-12 rounded-full border-2 border-white">
           <img
             src="https://randomuser.me/api/portraits/men/32.jpg"
             alt="Profile"
             className="w-full h-full object-cover rounded-full"
           />
           {isEditing && (
-            <label className="absolute -bottom-1.5 border border-[#81FB84]/30 right-0 w-8 h-8 bg-dark rounded-full flex items-center justify-center cursor-pointer z-50">
+            <label className="absolute -bottom-1.5 border border-[#81FB84]/30 right-0 w-8 h-6 bg-dark rounded-full flex items-center justify-center cursor-pointer z-50">
               <CiEdit size={20} className="text-white" />
               <input type="file" className="hidden" />
             </label>
@@ -38,7 +38,7 @@ const ProfileSetting = () => {
               type="text"
               placeholder="Jhon"
               disabled={!isEditing}
-              className={`bg-[#0E0E10] rounded-[10px] p-3 text-xs sm:text-sm md:text-base sm:p-4rounded-lg border border-[#262626] text-white ${
+              className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5  text-xs   sm:p-4rounded-lg border border-[#262626] text-white ${
                 !isEditing ? "opacity-50 cursor-not-allowed" : ""
               }`}
             />
@@ -50,7 +50,7 @@ const ProfileSetting = () => {
               type="text"
               placeholder="Smith"
               disabled={!isEditing}
-              className={`bg-[#0E0E10] rounded-[10px] p-3 text-xs sm:text-sm md:text-base sm:p-4  border border-[#262626] text-white ${
+              className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5  text-xs   border border-[#262626] text-white ${
                 !isEditing ? "opacity-50 cursor-not-allowed" : ""
               }`}
             />
@@ -62,7 +62,7 @@ const ProfileSetting = () => {
               type="email"
               placeholder="jhonsmith@gmail.com"
               disabled={!isEditing}
-              className={`bg-[#0E0E10] rounded-[10px] p-3 text-xs sm:text-sm md:text-base sm:p-4  border border-[#262626] text-white ${
+              className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5  text-xss sm:text-sm md:text-base  border border-[#262626] text-white ${
                 !isEditing ? "opacity-50 cursor-not-allowed" : ""
               }`}
             />
@@ -70,7 +70,7 @@ const ProfileSetting = () => {
 
           <div className="flex flex-col gap-2">
             <label className="text-sm text-white">Phone Number *</label>
-            <div className={`flex items-center rounded-[10px] p-3 text-xs sm:text-sm md:text-base sm:p-4 border border-[#262626] bg-[#0E0E10] text-white ${!isEditing ? "opacity-50" : ""}`}>
+            <div className={`flex items-center rounded-[10px] px-3 py-1.5  text-xs sm:text-sm md:text-base border border-[#262626] bg-[#0E0E10] text-white ${!isEditing ? "opacity-50" : ""}`}>
               <span className="pr-2">🇬🇧</span>
               <input
                 type="text"
@@ -104,7 +104,7 @@ const ProfileSetting = () => {
               <button
                 type="submit"
                 onClick={() => setIsEditing(false)}
-                className="font-semibold border border-white text-white   px-2 8 py-2 text-sm  rounded-md hover:bg-white hover:text-black transition"
+                className="font-semibold border border-white text-white   px-2  py-2 text-sm  rounded-md hover:bg-white hover:text-black transition"
               >
                 Save Changes
               </button>

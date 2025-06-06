@@ -35,12 +35,12 @@ const CommonNavbar = ({ open, setOpen }) => {
           >
             <GiHamburgerMenu color="white" size={26} />
           </span>
-          <div className="lg:p-4 p-3 max-w-[718px] w-full rounded-[16px] sm:flex hidden items-center gap-2 border border-[#262626]">
+          <div className="p-2 max-w-[718px] w-full rounded-[16px] sm:flex hidden items-center gap-2 border border-[#262626]">
             <span>
               <SearchIcon />
             </span>
             <input
-              className="w-full border-none text-white outline-none bg-transparent placeholder-secondary text-base font-normal"
+              className="w-full border-none text-white text-sm outline-none bg-transparent placeholder-secondary  font-normal"
               placeholder="Search anything here..."
             />
           </div>
@@ -50,7 +50,7 @@ const CommonNavbar = ({ open, setOpen }) => {
           {/* Notification & Avatar */}
           <Popover >
             <PopoverTrigger >
-              <span className="w-[40px] h-[40px] rounded-full border-[1px] border-[#ECEEF0] justify-center items-center flex">
+              <span className="w-[30px] h-[30px] rounded-full border-[1px] border-[#ECEEF0] justify-center items-center flex">
                 <NotificationIcon />
               </span>
             </PopoverTrigger>
@@ -83,7 +83,7 @@ const CommonNavbar = ({ open, setOpen }) => {
           {/* aVATAR  */}
           <Popover>
             <PopoverTrigger asChild>
-              <div className="w-[40px] h-[40px] rounded-full cursor-pointer">
+              <div className="w-[30px] h-[30px] rounded-full cursor-pointer">
                 <img
                   src={Avatar}
                   alt="Avatar"

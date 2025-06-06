@@ -19,7 +19,7 @@ const StepTwo = () => {
             <input
               type="text"
               placeholder="Jhon"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -27,7 +27,7 @@ const StepTwo = () => {
             <input
               type="text"
               placeholder="Smith"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs rounded-lg border border-[#262626] text-white"
             />
           </div>
 
@@ -36,7 +36,7 @@ const StepTwo = () => {
             <input
               type="date"
               defaultValue="2024-05-22"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
             />
           </div>
 
@@ -46,13 +46,13 @@ const StepTwo = () => {
             <input
               type="date"
               defaultValue="2024-05-22"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
             />
           </div>
 
-          <div className="flex items-center gap-2 py-6">
+          <div className="flex items-center gap-2 py-2">
             <Checkbox />
-            <p>I&apos;m still working here</p>
+            <p className="text-xs">I&apos;m still working here</p>
           </div>
           {/* About */}
           <div className="md:col-span-2 flex flex-col gap-2">
@@ -61,12 +61,12 @@ const StepTwo = () => {
             </label>
             <textarea
               placeholder="Tell us about yourself..."
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] h-24 resize-none text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] h-24 resize-none text-white"
             />
           </div>
           <div>
     
-            <button className="font-medium px-7 py-5 rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
+            <button className="font-medium px-4 py-2 rounded-lg  text-sm flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
               <LuCirclePlus size={20} /> Add Another Pervious Experience
             </button>
           </div>

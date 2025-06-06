@@ -13,8 +13,8 @@ const Step6 = () => {
   };
   return (
     <div className="bg-black text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
-      <div className="max-w-6xl w-full">
-        <div className="text-center flex flex-col items-center gap-4 mb-5 xl:mb-10">
+      <div className="w-[800px] mx-auto">
+        <div className="text-center flex flex-col items-center gap-4 mb-5 xl:mb-5">
           <Title level="title40">Language Proficiency</Title>
           <Title level="title20">
             Mention all languages you speak and your proficiency levels
@@ -22,7 +22,7 @@ const Step6 = () => {
         </div>
         {addLanguage && (
           <>
-            <div className="flex justify-between items-center mb-10 p-4 lg:p-6 w-full rounded-[12px] border-[#262626] bg-[#0E0E10] border">
+            <div className="flex justify-between items-center mb-10 p-3 lg:p-6 w-full rounded-[12px] border-[#262626] bg-[#0E0E10] border">
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
                   <Title
@@ -53,7 +53,7 @@ const Step6 = () => {
         <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col gap-2">
             <label className="text-sm text-white">Language *</label>
-            <select className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white">
+            <select className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white">
               <option value="beginner">German</option>
               <option value="intermediate">English</option>
               <option value="advanced">Russian</option>
@@ -65,7 +65,7 @@ const Step6 = () => {
           </div>
           <div className="flex flex-col gap-2">
             <label className="text-sm text-white">Select Level *</label>
-            <select className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white">
+            <select className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white">
               <option value="beginner">Native</option>
               <option value="intermediate">Intermediate</option>
               <option value="advanced">Advanced</option>
@@ -75,7 +75,7 @@ const Step6 = () => {
           <div>
             <button
               onClick={handleAddLanguage}
-              className="font-medium px-7 py-3  rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200"
+              className="font-medium px-4 py-2 text-xs  rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200"
             >
               <LuCirclePlus size={20} /> Add Another language
             </button>

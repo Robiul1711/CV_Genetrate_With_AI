@@ -44,11 +44,11 @@ const StepFour = () => {
         <div className="text-white">
           {/* Selected Skills */}
           <p className="text-sm mb-2">Selected Skill</p>
-          <div className="flex flex-wrap gap-3 mb-6">
+          <div className="flex flex-wrap gap-3 mb-3">
             {selectedSkills.map((skill) => (
               <div
                 key={skill}
-                className="flex items-center bg-[#0E0E10] border border-[#2A2A2A] px-4 py-2 rounded-full text-sm"
+                className="flex items-center bg-[#0E0E10] border border-[#2A2A2A] px-2 py-1.5 rounded-full text-sm"
               >
                 <span className="mr-2">{skill}</span>
                 <button onClick={() => handleRemoveSkill(skill)}>
@@ -69,7 +69,7 @@ const StepFour = () => {
               placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full p-4 pl-10 rounded-md bg-[#0E0E10] border border-[#262626] text-sm placeholder:text-gray-400 focus:outline-none"
+              className="w-full px-3 py-1.5  text-xs    4 pl-10 rounded-md bg-[#0E0E10] border border-[#262626]  placeholder:text-gray-400 focus:outline-none"
             />
             <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
           </div>
@@ -82,7 +82,7 @@ const StepFour = () => {
                 key={skill}
                 onClick={() => handleSelectSkill(skill)}
                 disabled={selectedSkills.includes(skill)}
-                className={`px-4 py-2 rounded-full text-sm border border-[#2A2A2A] bg-[#0E0E10] ${
+                className={`px-3 py-1.5 rounded-full text-sm border border-[#2A2A2A] bg-[#0E0E10] ${
                   selectedSkills.includes(skill)
                     ? "opacity-50 cursor-not-allowed"
                     : "hover:border-white"

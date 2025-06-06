@@ -29,7 +29,7 @@ const select = [
 
 const Step1 = () => {
   return (
-   <div className="flex flex-col items-center justify-center ">
+   <div className="flex flex-col items-center justify-center mt-4 ">
   <div className="text-center">
     <Title level="title48">Choose Your Goal</Title>
     <Title level="title20" className="mt-2">

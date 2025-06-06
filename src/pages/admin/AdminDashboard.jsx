@@ -28,16 +28,16 @@ const data=[
 const AdminDashboard = () => {
   return (
     <div>
-      <div className='bg-[#0E0E10] p-5 rounded-[8px] flex gap-6 justify-between'>
-<div className='flex flex-col gap-6'>
-  <div className='flex items-center gap-4'>
+      <div className='bg-[#0E0E10] p-5 rounded-[8px] flex gap-6 justify-around'>
+<div className='flex flex-col gap-6 px-4'>
+  <div className='flex items-center text-sm gap-4'>
 <Title level="title28">Welcome to Your Clever CV Dashboard!</Title>
     <img src={hi} alt="" />
   </div>
 <Title level="title20">Craft, Optimize, Impress, Land Your Dream Job — All in One Smart Platform</Title>
 </div>
-<div className='hidden md:block'>
-  <img src={dashboard} alt="" className='w-full size-40 xl:size-auto' />
+<div className='hidden md:block px-4'>
+  <img src={dashboard} alt="" className='w-full size-32 xl:size-48' />
 </div>
       </div>
 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 xl:gap-6 mt-4 xl:mt-6'>

@@ -14,7 +14,7 @@ const StepThree = () => {
             <input
               type="text"
               placeholder="Polytechnic Institute"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs rounded-lg border border-[#262626] text-white"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -22,7 +22,7 @@ const StepThree = () => {
             <input
               type="text"
               placeholder="Diploma"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs rounded-lg border border-[#262626] text-white"
             />
           </div>
 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -31,7 +31,7 @@ const StepThree = () => {
             <input
               type="date"
               defaultValue="2024-05-22"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs rounded-lg border border-[#262626] text-white"
             />
           </div>
 
@@ -41,19 +41,19 @@ const StepThree = () => {
             <input
               type="date"
               defaultValue="2024-05-22"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
             />
           </div>
 
 </div>
 
-          <div className="flex items-center gap-2 py-6">
+          <div className="flex items-center gap-2 py-3">
             <Checkbox />
-            <p>Currently Enrolled</p>
+            <p className="text-xs">Currently Enrolled</p>
           </div>
 
           <div>
-            <button className="font-medium px-7 py-5 rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
+            <button className="font-medium px-4 py-2 rounded-lg  text-xs flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
               <LuCirclePlus size={20} />Add Education
             </button>
           </div>
