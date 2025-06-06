@@ -60,10 +60,10 @@ const Footer = () => {
               <p className="text-white text-[20px] font-semibold mb-3">
                 Service
               </p>
-              <Link to="/ai-help" className="cursor-pointer hover:text-white">AI Resume Builder</Link>
-              <Link to="/dashboard/create-new-resume " className="cursor-pointer hover:text-white ">AI Resume Optimizer</Link>
-              <Link to="" className="cursor-pointer hover:text-white">Create Cover Letter</Link>
-              <Link to="" className="cursor-pointer hover:text-white">Multilingual Resume</Link>
+              <Link to="/dashboard/create-new-resume" className="cursor-pointer hover:text-white">AI Resume Builder</Link>
+              <Link to="/dashboard/create-new-resume" className="cursor-pointer hover:text-white ">AI Resume Optimizer</Link>
+              <Link to="/dashboard/create-new-resume" className="cursor-pointer hover:text-white">Create Cover Letter</Link>
+              <Link to="/dashboard/create-new-resume" className="cursor-pointer hover:text-white">Multilingual Resume</Link>
             </ul>
           </div>
         </div>

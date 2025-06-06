@@ -62,7 +62,7 @@ const ProfileSetting = () => {
               type="email"
               placeholder="jhonsmith@gmail.com"
               disabled={!isEditing}
-              className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5  text-xss sm:text-sm md:text-base  border border-[#262626] text-white ${
+              className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5  text-xs  border border-[#262626] text-white ${
                 !isEditing ? "opacity-50 cursor-not-allowed" : ""
               }`}
             />
@@ -76,7 +76,7 @@ const ProfileSetting = () => {
                 type="text"
                 placeholder="123 456 8455"
                 disabled={!isEditing}
-                className="bg-transparent w-full focus:outline-none text-white"
+                className="bg-transparent text-xs w-full focus:outline-none text-white"
               />
             </div>
           </div>

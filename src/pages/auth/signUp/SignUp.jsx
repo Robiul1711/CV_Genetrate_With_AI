@@ -28,7 +28,7 @@ const SignUp = () => {
       <ScrollRestoration />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-4xl md:h-[866px] px-4 sm:px-4 md:px-12 lg:px-24 xl:px-32 py-5 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+        className="w-full max-w-4xl  px-4 sm:px-4 md:px-12 lg:px-24 xl:px-32 py-5 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
       >
         <div className="flex justify-center mb-4">
           <Link to={"/"}>
@@ -86,7 +86,7 @@ const SignUp = () => {
           </label>
           <div className="relative">
             <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <Mail size={20} />
+              <Mail size={16} />
             </span>
             <input
               type="email"
@@ -106,7 +106,7 @@ const SignUp = () => {
             </label>
             <div className="relative">
               <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-                <Lock size={18} className="w-6 h-6" />
+                <Lock size={16} className="w-4 h-4" />
               </span>
               <input
                 type={showPassword ? "text" : "password"}
@@ -119,7 +119,7 @@ const SignUp = () => {
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
                 onClick={() => setShowPassword((prev) => !prev)}
               >
-                {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
               </span>
             </div>
           </div>
@@ -129,7 +129,7 @@ const SignUp = () => {
             </label>
             <div className="relative">
               <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-                <Lock size={18} className="w-6 h-6" />
+                <Lock size={16} className="w-4 h-4" />
               </span>
               <input
                 type={showPassword1 ? "text" : "password"}
@@ -142,7 +142,7 @@ const SignUp = () => {
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
                 onClick={() => setShowPassword1((prev) => !prev)}
               >
-                {showPassword1 ? <Eye size={20} /> : <EyeOff size={20} />}
+                {showPassword1 ? <Eye size={16} /> : <EyeOff size={16} />}
               </span>
             </div>
           </div>
