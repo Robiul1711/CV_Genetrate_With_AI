@@ -26,7 +26,7 @@ const LanguageDropdown = () => {
       {/* Trigger */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between font-medium py-2.5 xl:py-3 px-4 border border-white/10 rounded-lg gap-2 cursor-pointer text-white bg-transparent"
+        className="flex items-center justify-between font-medium py-2 text-sm xl:py-3 px-4 border border-white/10 rounded-lg gap-2 cursor-pointer text-white bg-transparent"
       >
         <img
           src={options.find((opt) => opt.label === selected)?.img}

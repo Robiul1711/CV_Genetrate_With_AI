@@ -7,10 +7,10 @@ const StepOne = () => {
 
 
         {/* Upload Section */}
-   <div className="flex flex-col gap-4 mb-8">
+   <div className="flex flex-col gap-4 mb-4">
   <p className="text-sm text-white">Upload your photo *</p>
 
-  <div className="relative w-20 h-20 rounded-full aspect-square border-2 border-white">
+  <div className="relative w-16 h-16 rounded-full aspect-square border-2 border-white">
     <img
       src="https://randomuser.me/api/portraits/men/32.jpg"
       alt="Profile"
@@ -33,7 +33,7 @@ const StepOne = () => {
     <input
       type="text"
       placeholder="Jhon"
-      className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+      className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
     />
   </div>
   <div className="flex flex-col gap-2">
@@ -41,7 +41,7 @@ const StepOne = () => {
     <input
       type="text"
       placeholder="Smith"
-      className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+      className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
     />
   </div>
 
@@ -51,12 +51,12 @@ const StepOne = () => {
     <input
       type="email"
       placeholder="jhonsmith@gmail.com"
-      className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+      className="bg-[#0E0E10] px-3 py-1.5  text-xs rounded-lg border border-[#262626] text-white"
     />
   </div>
   <div className="flex flex-col gap-2">
     <label className="text-sm text-white">Phone Number *</label>
-    <div className="flex items-center p-5 rounded-lg border border-[#262626] bg-[#0E0E10] text-white">
+    <div className="flex items-center px-3 py-1.5  text-xs  rounded-lg border border-[#262626] bg-[#0E0E10] text-white">
       <span className="pr-2">🇬🇧</span>
       <input
         type="text"
@@ -72,7 +72,7 @@ const StepOne = () => {
     <input
       type="text"
       placeholder="Berlin, Germany"
-      className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+      className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
     />
   </div>
   <div className="flex flex-col gap-2">
@@ -80,7 +80,7 @@ const StepOne = () => {
     <input
       type="date"
       defaultValue="2024-05-22"
-      className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+      className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
     />
   </div>
 
@@ -90,7 +90,7 @@ const StepOne = () => {
     <input
       type="text"
       placeholder="UI/UX Designer"
-      className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+      className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
     />
   </div>
 
@@ -99,7 +99,7 @@ const StepOne = () => {
     <label className="text-sm text-white">About (Optional)</label>
     <textarea
       placeholder="Tell us about yourself..."
-      className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] h-24 resize-none text-white"
+      className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] h-20 resize-none text-white"
     />
   </div>
 
@@ -109,7 +109,7 @@ const StepOne = () => {
     <input
       type="url"
       placeholder="https://www.linkedin.com/in/your-username/"
-      className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+      className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
     />
   </div>
   <div className="flex flex-col gap-2">
@@ -117,7 +117,7 @@ const StepOne = () => {
     <input
       type="url"
       placeholder="https://www.xing.com/in/your-username/"
-      className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+      className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
     />
   </div>
 </form>

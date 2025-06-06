@@ -5,8 +5,8 @@ import { LuCirclePlus } from "react-icons/lu";
 const Step_4 = () => {
   return (
     <div className=" text-white flex items-center justify-center">
-      <div className="max-w-6xl w-full">
-        <div className="text-center flex flex-col items-center gap-4 mb-10">
+      <div className="w-[800px] mx-auto">
+        <div className="text-center flex flex-col items-center gap-4 mb-5">
           <Title level="title40"> Why You’re a Good Fit</Title>
   
         </div>
@@ -18,7 +18,7 @@ const Step_4 = () => {
             <input
               type="text"
               placeholder="Write here..."
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5 text-xs  rounded-lg border border-[#262626] text-white"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -26,7 +26,7 @@ const Step_4 = () => {
             <input
               type="text"
               placeholder="Write here..."
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5 text-xs  border border-[#262626] text-white"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -34,7 +34,7 @@ const Step_4 = () => {
             <input
               type="text"
               placeholder="Write here..."
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5 text-xs  rounded-lg border border-[#262626] text-white"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -42,7 +42,7 @@ const Step_4 = () => {
             <input
               type="text"
               placeholder="Write here..."
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
           </div>
         </form>

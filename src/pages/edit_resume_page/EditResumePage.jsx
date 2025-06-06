@@ -25,7 +25,7 @@ const EditResumePage = () => {
   return (
     <div>
       <Link to={"/dashboard/create-New-resume"} className="flex items-center gap-2">
-        <FaAngleLeft className="cursor-pointer text-3xl p-1 border border-white/30 rounded-full" />
+        <FaAngleLeft className="cursor-pointer text-xl p-1 border border-white/30 rounded-full" />
         <Title level="title32">Edit Resume</Title>
       </Link>
 
@@ -42,7 +42,7 @@ const EditResumePage = () => {
         {/* Right Content */}
         <div className="md:w-1/2">
           {/* Top buttons */}
-          <div className="lg:p-4 p-3 rounded-xl bg-[#0E0E10] flex items-center justify-center gap-6 border border-[#262626]">
+          <div className="lg:p-4 p-2 rounded-xl bg-[#0E0E10] flex items-center justify-center gap-3 border border-[#262626]">
             <button className="font-semibold border w-full border-white/10 text-white   px-2 py-2 rounded-md bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
               Edit Content
             </button>
@@ -52,7 +52,7 @@ const EditResumePage = () => {
           </div>
 
           {/* Step Nav */}
-          <div className="mt-5 flex flex-wrap items-center gap-4 sm:gap-0   sm:justify-between border-b ">
+          <div className="mt-3 flex flex-wrap items-center gap-4 sm:gap-0   sm:justify-between border-b ">
             {steps.map((step, index) => (
               <Title
                 key={index}
@@ -61,7 +61,7 @@ const EditResumePage = () => {
                   activeStep === index
                     ? "border-[#fff] text-white bg-linearbg"
                     : "border-transparent text-white/70"
-                }`}
+                } text-sm`}
                 onClick={() => setActiveStep(index)}
               >
                 {step.title}
@@ -70,10 +70,10 @@ const EditResumePage = () => {
           </div>
 
           {/* Active Step */}
-          <div className="mt-5">
+          <div className="mt-3">
             {steps[activeStep].component}
 
-            <button className="font-semibold border bg-white mt-4 md:mt-4 w-full border-white/30 text-black px-8 py-2 text-lg rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            <button className="font-semibold border bg-white mt-4 md:mt-4 w-full border-white/30 text-black px-4 py-2 text-sm rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
               Apply Changes
             </button>
           </div>

@@ -36,7 +36,7 @@ const SignIn = () => {
           </Link>
         </div>
 
-        <h2 className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold text-center mb-2">
+        <h2 className="text-xl  font-semibold text-center mb-2">
           Welcome back!
         </h2>
 
@@ -46,26 +46,26 @@ const SignIn = () => {
 
         {/* Email Input */}
         <div className="mb-4 relative">
-          <label htmlFor="email" className="block mb-2 md:text-lg">
+          <label htmlFor="email" className="block mb-2 text-sm">
             Email
           </label>
           <div className="relative">
             <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <Mail size={20} />
+              <Mail size={18} />
             </span>
             <input
               type="email"
               id="email"
               {...register("email", { required: true })}
               placeholder="andrew.ainsley@yourdomain.com"
-              className="w-full pl-12 pr-4 py-3 text-sm md:text-base border border-[#666666] rounded-lg bg-black focus:outline-none"
+              className="w-full px-3 py-1.5 pl-10  !text-xs    md:text-base border border-[#666666] rounded-lg bg-black focus:outline-none"
             />
           </div>
         </div>
 
         {/* Password Input */}
         <div className="mb-4 relative">
-          <label htmlFor="password" className="block mb-2 md:text-lg">
+          <label htmlFor="password" className="block mb-2 text-sm">
             Password
           </label>
           <div className="relative">
@@ -77,7 +77,7 @@ const SignIn = () => {
               id="password"
               placeholder="••••••••"
               {...register("password", { required: true })}
-              className="w-full pl-12 pr-4 py-3 text-sm md:text-base border border-[#666666] rounded-lg bg-black"
+              className="w-full  px-3 py-1.5 pl-10  !text-xs    md:text-base border border-[#666666] rounded-lg bg-black"
             />
             <span
               className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
@@ -92,7 +92,7 @@ const SignIn = () => {
         <div className="flex flex-wrap justify-between items-center my-6 text-sm gap-2">
           <label className="flex items-center gap-3 cursor-pointer">
             <span
-              className={`w-5 h-5 flex justify-center items-center border rounded-sm 
+              className={`w-4 h-4 flex justify-center items-center border rounded-sm 
           ${
             checked ? "border-[#81FB84] bg-black" : "border-[#666666] bg-black"
           }`}
@@ -110,7 +110,7 @@ const SignIn = () => {
           </label>
 
           <Link to={"/forgot-password"}>
-            <p className="cursor-pointer text-[16px] font-medium hover:underline">
+            <p className="cursor-pointer text-sm font-medium hover:underline">
               Forgot Password ?
             </p>
           </Link>
@@ -119,13 +119,13 @@ const SignIn = () => {
         {/* Sign In Button */}
         <button
           type="submit"
-          className="w-full bg-[#FFF] text-black py-2 md:py-3 my-3 md:text-lg font-medium rounded-xl"
+          className="w-full bg-[#FFF] text-black py-2  my-3 text-sm font-medium rounded-xl"
         >
           Sign In
         </button>
 
         {/* Divider */}
-        <div className="flex items-center my-8">
+        <div className="flex items-center my-3">
           <hr className="flex-grow border-gray-300" />
           <span className="mx-4 text-[#FFF] text-sm">Or continue with</span>
           <hr className="flex-grow border-gray-300" />
@@ -133,19 +133,19 @@ const SignIn = () => {
 
         {/* Social Icons */}
         <div className="flex justify-center items-center gap-5 mb-4">
-          <div className="border border-[#666666] p-3 rounded-full w-12 h-12 flex justify-center items-center">
-            <Facebook size={20} />
+          <div className="border border-[#666666] p-3 rounded-full w-11 h-11 flex justify-center items-center">
+            <Facebook size={18} />
           </div>
-          <div className="border border-[#666666] p-3 rounded-full w-12 h-12 flex justify-center items-center">
-            <Google size={20} />
+          <div className="border border-[#666666] p-3 rounded-full w-11 h-11 flex justify-center items-center">
+            <Google size={18} />
           </div>
-          <div className="border border-[#666666] p-3 rounded-full w-12 h-12 flex justify-center items-center">
-            <Apple size={20} />
+          <div className="border border-[#666666] p-3 rounded-full w-11 h-11 flex justify-center items-center">
+            <Apple size={18} />
           </div>
         </div>
 
         {/* Sign Up */}
-        <p className="text-center py-6 text-sm">
+        <p className="text-center py-2 text-sm">
           Don’t have an account ?{" "}
           <Link to={"/sign-up"}>
             <span className="font-medium cursor-pointer underline">

@@ -105,7 +105,7 @@ const AdminLayout = () => {
       <div className="flex  h-screen min-h-screen w-full">
         <SideBar open={Open} setOpen={setOpen} sidebar={sideBar} />
         <div className="flex-1  text-white flex flex-col overflow-auto custom-scrollbar">
-          <div className=" flex flex-col  gap-5  py-3  px-2.5 sm:px-4">
+          <div className=" flex flex-col  gap-5  py-3  px-2.5 sm:px-10">
             <CommonNavbar open={Open} setOpen={setOpen} />
             <Outlet />
           </div>

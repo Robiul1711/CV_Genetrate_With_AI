@@ -12,8 +12,8 @@ const Step4 = () => {
 };
   return (
     <div className=" text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
-      <div className="max-w-6xl w-full">
-        <div className="text-center flex flex-col items-center gap-4 mb-10">
+      <div className="w-[800px] mx-auto">
+        <div className="text-center flex flex-col items-center gap-4 mb-5">
           <Title level="title40"> Add Your Education</Title>
           <Title level="title20">
             Share your academic background — including schools, degrees, and
@@ -45,7 +45,7 @@ const Step4 = () => {
             <input
               type="text"
               placeholder="Polytechnic Institute"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -53,7 +53,7 @@ const Step4 = () => {
             <input
               type="text"
               placeholder="Diploma"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
             />
           </div>
 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -62,7 +62,7 @@ const Step4 = () => {
             <input
               type="date"
               defaultValue="2024-05-22"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
             />
           </div>
 
@@ -72,19 +72,19 @@ const Step4 = () => {
             <input
               type="date"
               defaultValue="2024-05-22"
-              className="bg-[#0E0E10] p-5 rounded-lg border border-[#262626] text-white"
+              className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
             />
           </div>
 
 </div>
 
-          <div className="flex items-center gap-2 py-3 lg:py-6">
+          <div className="flex items-center gap-2 py-2 lg:py-3">
             <Checkbox />
-            <p>Currently Enrolled</p>
+            <p className="!text-xs">Currently Enrolled</p>
           </div>
 
           <div>
-            <button onClick={handleClick2} className="font-medium px-7 py-3  rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
+            <button onClick={handleClick2} className="font-medium !text-sm px-4 py-2  rounded-lg  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
               <LuCirclePlus size={20} />Add Education
             </button>
           </div>

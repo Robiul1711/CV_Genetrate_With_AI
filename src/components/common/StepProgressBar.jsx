@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 const StepProgressBar = ({ steps, currentStep }) => {
   return (
-    <div className="flex items-center justify-between px-2 sm:px-4 py-8 mx-auto w-full overflow-x-auto">
+    <div className="flex items-center justify-between px-2 :px-4 py-4 mx-auto w-full overflow-x-auto">
       {steps.map((step, index) => {
         const isActive = index + 1 === currentStep;
         const isCompleted = index + 1 < currentStep;
@@ -16,7 +16,7 @@ const StepProgressBar = ({ steps, currentStep }) => {
           >
             {/* Connector Line - before each step except the first */}
             {index !== 0 && (
-              <div className="absolute top-3 left-0 right-1/2 h-1 sm:h-2">
+              <div className="absolute top-3 left-0 right-1/2 h-1 ">
                 <div
                   className={clsx(
                     "h-full w-full",
@@ -28,7 +28,7 @@ const StepProgressBar = ({ steps, currentStep }) => {
 
             {/* Connector Line - after each step except the last */}
             {!isLastStep && (
-              <div className="absolute top-3 left-1/2 right-0 h-1 sm:h-2">
+              <div className="absolute top-3 left-1/2 right-0 h-1 ">
                 <div
                   className={clsx(
                     "h-full w-full",
@@ -41,7 +41,7 @@ const StepProgressBar = ({ steps, currentStep }) => {
             {/* Step Circle */}
             <div
               className={clsx(
-                "z-10 w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold border-2 transition-all duration-300",
+                "z-10 w-6 h-6  rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold border-2 transition-all duration-300",
                 isActive
                   ? "bg-green-500 text-white border-green-500 sm:shadow-lg sm:shadow-green-500/30"
                   : isCompleted
@@ -69,7 +69,7 @@ const StepProgressBar = ({ steps, currentStep }) => {
 
             {/* Step Label */}
             <div className={clsx(
-              "text-xs sm:text-sm  text-center mt-1 py-1.5 px-2 mx-1 bg-[#18181A] sm:mt-2 font-medium whitespace-nowrap rounded-md",
+              "text-xs   text-center mt-1 py-1.5 px-2 mx-1 bg-[#18181A] sm:mt-1 font-medium whitespace-nowrap rounded-md",
               isActive ? "text-green-500 font-semibold" : isCompleted ? "text-green-600" : "text-gray-400"
             )}>
               {step}

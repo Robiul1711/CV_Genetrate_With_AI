@@ -19,7 +19,7 @@ const Design = () => {
         Let AI help improve your resume content.
       </Title>
 
-      <div className="lg:mt-10 mt-5 flex flex-col lg:flex-row gap-5 lg:gap-10 justify-between">
+      <div className="lg:mt-5 mt-5 flex flex-col lg:flex-row gap-5 lg:gap-5 justify-between">
         {/* Left Image */}
         <div className="lg:w-1/2">
           <img src={resume} alt="resume" />
@@ -28,20 +28,20 @@ const Design = () => {
         {/* Right Content */}
         <div className="lg:w-1/2">
           {/* Top buttons */}
-          <div className="sm:p-6 p-3 rounded-xl bg-[#0E0E10] flex items-center justify-center gap-6 border border-[#262626]">
-            <Link to={"/dashboard/edit-resume"} className="font-semibold border w-full text-center border-white/10 text-white  md:py-4  px-2 py-2 text-lg rounded-md hover:bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+          <div className=" p-3 rounded-xl bg-[#0E0E10] flex items-center justify-center gap-6 border border-[#262626]">
+            <Link to={"/dashboard/edit-resume"} className="font-semibold border w-full text-center border-white/10 text-white    px-2 py-2 text-lg rounded-md hover:bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
               Edit Content
             </Link>
-            <Link to={"/dashboard/edit-design"} className="font-semibold border w-full text-center border-white/10 text-white  md:py-4  px-2 py-2 text-lg rounded-md bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            <Link to={"/dashboard/edit-design"} className="font-semibold border w-full text-center border-white/10 text-white    px-2 py-2 text-lg rounded-md bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
               Design
             </Link>
           </div>
 
 
           {/* Active Step */}
-          <div className="mt-10">
+          <div className="mt-5">
             <StepDesign  />
-            <button className="font-semibold border bg-white mt-8 w-full border-white/30 text-black md:py-4 md:px-16 px-8 py-2 text-lg rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            <button className="font-semibold border bg-white mt-8 w-full border-white/30 text-black  px-8 py-2 text-sm rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
               Apply Changes
             </button>
           </div>
