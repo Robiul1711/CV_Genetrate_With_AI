@@ -1,6 +1,7 @@
 import { Check } from "lucide-react";
 import React from "react";
 import { UpgradeIcon } from "../AllIcons/HomeIcons";
+import { Link } from "react-router-dom";
 
 const YourPlan = () => {
   return (
@@ -46,9 +47,9 @@ const YourPlan = () => {
                   </li>
                 ))}
               </ul>
-              <button className="w-full bg-white text-sm text-black font-semibold py-2 rounded-md mt-4">
+              <Link to={`/sign-in`} className=" text-center flex justify-center items-center bg-white text-sm text-black font-semibold py-2 rounded-md mt-4">
                 Start Free Trail
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -84,9 +85,9 @@ const YourPlan = () => {
                   </li>
                 ))}
               </ul>
-              <button className="w-full bg-white text-sm text-black font-semibold py-2 rounded-md mt-4">
+              <Link to={`/sign-in`} className=" text-center flex justify-center items-center bg-white text-sm text-black font-semibold py-2 rounded-md mt-4">
                 Start Free Trail
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -122,9 +123,9 @@ const YourPlan = () => {
                   </li>
                 ))}
               </ul>
-              <button className="w-full bg-white text-sm text-black font-semibold py-2 rounded-md mt-4">
+              <Link to={`/sign-in`} className=" text-center flex justify-center items-center bg-white text-sm text-black font-semibold py-2 rounded-md mt-4">
                 Start Free Trail
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -160,9 +161,9 @@ const YourPlan = () => {
                   </li>
                 ))}
               </ul>
-              <button className="w-full bg-white text-sm text-black font-semibold py-2 rounded-md mt-4">
+              <Link to={`/sign-in`} className=" text-center flex justify-center items-center bg-white text-sm text-black font-semibold py-2 rounded-md mt-4">
                 Start Free Trail
-              </button>
+              </Link>
             </div>
           </div>
         </div>

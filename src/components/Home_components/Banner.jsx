@@ -20,21 +20,18 @@ const Banner = () => {
           </div>
         </div>
         <div className="relative">
-          <h1 className="text-[24px] md:text-[40px]  font-bold w-full ">
+          <h1 className="text-[24px]  md:text-[45px]  font-bold w-full ">
             Build Your Perfect{" "}
             <span className="italic font-semibold font-Playfair">Resume</span>{" "}
-            Smarter, Faster, with AI.
+           <br/> Smarter, Faster, with AI.
           </h1>
-          {/* {
-            selectedLanguage === "en" ? (
-              <span className="absolute top-[45%] left-[82%] xmd:left-[65%] hidden xs:block xxs:hidden md:block lg:left-[82%] -translate-x-1/2 -translate-y-1/2">
+    
+         
+              <span className="absolute top-[45%]  xxs:left-[99%]  left-[88%] md:left-[94%]     xlg:left-[94%] -translate-x-1/2 -translate-y-1/2">
                 <BannerLineIcon />
               </span>
-            ) : (
-              null
-            )
-          }
-       */}
+           
+      
         </div>
 
         <p className="max-w-[700px]  text-primary ">

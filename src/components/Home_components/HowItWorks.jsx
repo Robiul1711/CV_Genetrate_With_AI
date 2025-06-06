@@ -4,6 +4,7 @@ import plan2 from "../../assets/images/plan2.png";
 import plan3 from "../../assets/images/plan3.png";
 import plan4 from "../../assets/images/plan4.png";
 import { DotIcon } from "../AllIcons/HomeIcons";
+import { Link } from "react-router-dom";
 
 const planOne = [
   {
@@ -109,9 +110,9 @@ const HowItWorks = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-6 md:px-4 py-2 md:py-3 rounded-lg mt-8 md:mt-10 border hover:border-[#1b461c]">
+                <Link to={`/sign-in`}  className=" inline-block items-center gap-2 px-6 md:px-4 py-2 md:py-3 rounded-lg mt-8 md:mt-10 border hover:border-[#1b461c]">
                   Get Started Now
-                </button>
+                </Link>
               </div>
             </div>
           ))}
@@ -146,9 +147,9 @@ const HowItWorks = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-6 md:px-4 py-2 md:py-3 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
+                <Link to={`/sign-in`} className="inline-block  items-center gap-2 px-6 md:px-4 py-2 md:py-3 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
                   Get Started Now
-                </button>
+                </Link>
               </div>
               <div className="w-full lg:w-1/2 ">
                 <div className="relative">
@@ -203,9 +204,9 @@ const HowItWorks = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-6 md:px-4 py-2 md:py-3 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
+                <Link to={`/sign-in`} className="inline-block  items-center gap-2 px-6 md:px-4 py-2 md:py-3 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
                   Get Started Now
-                </button>
+                </Link>
               </div>
             </div>
           ))}
@@ -240,9 +241,9 @@ const HowItWorks = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="flex items-center gap-2 px-6 md:px-4 py-2 md:py-3 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
+                <Link to={`/sign-in`} className="inline-block  items-center gap-2 px-6 md:px-4 py-2 md:py-3 rounded-lg mt-8 md:mt-10  border hover:border-[#1b461c]">
                   Get Started Now
-                </button>
+                </Link>
               </div>
               <div className="w-full lg:w-1/2 ">
                 <div className="relative">

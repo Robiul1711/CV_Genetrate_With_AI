@@ -44,8 +44,8 @@ const ContactForm = () => {
           {/* Left Side Title */}
           <div className="flex items-center">
             <h2 className="text-3xl md:text-3xl text-center font-semibold">
-              Get in Touch Clever <br />{" "}
-              <span className="pt-4 inline-block">CV </span>
+              Get in Touch Clever CV  
+              {/* <span className="pt-4 ">CV </span> */}
             </h2>
           </div>
 
