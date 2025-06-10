@@ -19,7 +19,7 @@ const Footer = () => {
               className="mb-4 w-[40px] md:w-[60px] text-white cursor-pointer "
             />
           </Link>
-          <p className="text-[#666] leading-relaxed">
+          <p className="text-[15px] md:text-base text-[#666] leading-relaxed">
             CleverCV is an AI-powered resume and cover letter builder that helps
             you stand out with confidence. Whether you're starting from scratch
             or improving an existing CV, our platform gives you step-by-step
@@ -33,21 +33,30 @@ const Footer = () => {
           {/* Company */}
           <div className="flex justify-start md:justify-end">
             <ul className="text-[#666] space-y-3">
-              <p className="text-white text-[20px] font-semibold mb-5">
+              <p className="text-white text-[18px] md:text-[20px] font-semibold mb-5">
                 Company
               </p>
               <li>
-                <Link to='/'  className="cursor-pointer hover:text-white">
+                <Link
+                  to="/"
+                  className="text-[15px] md:text-base cursor-pointer hover:text-white"
+                >
                   Home
                 </Link>
               </li>
               <li>
-                <Link to='/price' className="cursor-pointer hover:text-white">
+                <Link
+                  to="/price"
+                  className="text-[15px] md:text-base cursor-pointer hover:text-white"
+                >
                   Pricing
                 </Link>
               </li>
               <li>
-                <Link to='/contact'  className="cursor-pointer hover:text-white">
+                <Link
+                  to="/contact"
+                  className="text-[15px] md:text-base cursor-pointer hover:text-white"
+                >
                   Contact
                 </Link>
               </li>
@@ -57,13 +66,33 @@ const Footer = () => {
           {/* Service */}
           <div className="flex justify-start md:justify-end">
             <ul className="text-[#666] space-y-3 flex flex-col items-start">
-              <p className="text-white text-[20px] font-semibold mb-3">
+              <p className="text-white text-[18px] md:text-[20px] font-semibold mb-3">
                 Service
               </p>
-              <Link to="/dashboard/create-new-resume" className="cursor-pointer hover:text-white">AI Resume Builder</Link>
-              <Link to="/dashboard/create-new-resume" className="cursor-pointer hover:text-white ">AI Resume Optimizer</Link>
-              <Link to="/dashboard/create-new-resume" className="cursor-pointer hover:text-white">Create Cover Letter</Link>
-              <Link to="/dashboard/create-new-resume" className="cursor-pointer hover:text-white">Multilingual Resume</Link>
+              <Link
+                to="/dashboard/create-new-resume"
+                className="text-[15px] md:text-base cursor-pointer hover:text-white"
+              >
+                AI Resume Builder
+              </Link>
+              <Link
+                to="/dashboard/create-new-resume"
+                className="text-[15px] md:text-base cursor-pointer hover:text-white "
+              >
+                AI Resume Optimizer
+              </Link>
+              <Link
+                to="/dashboard/create-new-resume"
+                className="text-[15px] md:text-base cursor-pointer hover:text-white"
+              >
+                Create Cover Letter
+              </Link>
+              <Link
+                to="/dashboard/create-new-resume"
+                className="text-[15px] md:text-base cursor-pointer hover:text-white"
+              >
+                Multilingual Resume
+              </Link>
             </ul>
           </div>
         </div>
@@ -77,25 +106,31 @@ const Footer = () => {
         {/* Left Text */}
         <div className="flex flex-wrap justify-center gap-4 text-[#666] md:text-[16px]">
           <Link to={"/privacy-policy"}>
-            <p className="underline cursor-pointer hover:text-white">Privacy Policy</p>
+            <p className="underline text-[15px] md:text-base cursor-pointer hover:text-white">
+              Privacy Policy
+            </p>
           </Link>
           <Link to={"/tearms-and-condition"}>
-            <p className="underline cursor-pointer hover:text-white">Terms of Service</p>
+            <p className="underline text-[15px] md:text-base cursor-pointer hover:text-white">
+              Terms of Service
+            </p>
           </Link>
           <Link to={"/imprint"}>
-            <p className="underline cursor-pointer hover:text-white">Imprint</p>
+            <p className="underline text-[15px] md:text-base cursor-pointer hover:text-white">
+              Imprint
+            </p>
           </Link>
         </div>
 
         {/* Social Icons */}
         <div className="flex gap-5 items-center justify-center">
-          <FaFacebookF className="text-2xl text-white" />
-          <FaMedium className="text-2xl text-white" />
-          <FaLinkedin className="text-2xl text-white" />
+          <FaFacebookF className="text-xl md:text-2xl text-white" />
+          <FaMedium className="text-xl md:text-2xl text-white" />
+          <FaLinkedin className="text-xl md:text-2xl text-white" />
         </div>
 
         {/* Copyright */}
-        <div className="text-[#666] text-center">
+        <div className="text-[15px] md:text-base text-[#666] text-center">
           <p>© 2024 FutureTech. All rights reserved.</p>
         </div>
       </div>

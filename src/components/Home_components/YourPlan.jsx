@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 
 const YourPlan = () => {
   return (
-    <div className="pb-12 py-10 ">
+    <div className="pb-12 py-6 md:py-10 ">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[28px]  font-bold">
+        <h1 className="text-[24px] md:text-[28px]  font-bold">
           Choose Your Plan
         </h1>
-        <p className=" text-[#9B9B9B] pt-2 ">
+        <p className="text-[15px] md:text-base text-[#9B9B9B] pt-2 ">
           Flexible options for every job seeker.
         </p>
       </div>
@@ -47,7 +47,10 @@ const YourPlan = () => {
                   </li>
                 ))}
               </ul>
-              <Link to={`/sign-in`} className=" text-center flex justify-center items-center bg-white text-sm text-black font-semibold py-2 rounded-md mt-4">
+              <Link
+                to={`/sign-in`}
+                className=" text-center flex justify-center items-center bg-white text-sm text-black font-semibold py-2 rounded-md mt-4"
+              >
                 Start Free Trail
               </Link>
             </div>
@@ -85,7 +88,10 @@ const YourPlan = () => {
                   </li>
                 ))}
               </ul>
-              <Link to={`/sign-in`} className=" text-center flex justify-center items-center bg-white text-sm text-black font-semibold py-2 rounded-md mt-4">
+              <Link
+                to={`/sign-in`}
+                className=" text-center flex justify-center items-center bg-white text-sm text-black font-semibold py-2 rounded-md mt-4"
+              >
                 Start Free Trail
               </Link>
             </div>
@@ -123,7 +129,10 @@ const YourPlan = () => {
                   </li>
                 ))}
               </ul>
-              <Link to={`/sign-in`} className=" text-center flex justify-center items-center bg-white text-sm text-black font-semibold py-2 rounded-md mt-4">
+              <Link
+                to={`/sign-in`}
+                className=" text-center flex justify-center items-center bg-white text-sm text-black font-semibold py-2 rounded-md mt-4"
+              >
                 Start Free Trail
               </Link>
             </div>
@@ -161,14 +170,15 @@ const YourPlan = () => {
                   </li>
                 ))}
               </ul>
-              <Link to={`/sign-in`} className=" text-center flex justify-center items-center bg-white text-sm text-black font-semibold py-2 rounded-md mt-4">
+              <Link
+                to={`/sign-in`}
+                className=" text-center flex justify-center items-center bg-white text-sm text-black font-semibold py-2 rounded-md mt-4"
+              >
                 Start Free Trail
               </Link>
             </div>
           </div>
         </div>
-  
-
       </div>
     </div>
   );

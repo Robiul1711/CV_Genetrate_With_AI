@@ -5,7 +5,7 @@ const SeeWhat = () => {
   return (
     <div className="lg:py-20">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[28px]  font-bold">
+        <h1 className="text-[24px] md:text-[28px]  font-bold">
           See What Our Users Are Saying
         </h1>
       </div>

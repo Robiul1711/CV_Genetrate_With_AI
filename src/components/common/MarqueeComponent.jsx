@@ -60,11 +60,11 @@ const MarqueeComponent = () => {
             {[...Array(5)].map((_, i) => (
               <IoIosStarOutline
                 key={i}
-                size={32}
+                size={28}
                 className={`${getStarColor(
                   i,
                   item.rating
-                )} text-black  p-1 size-6 rounded-md`}
+                )} text-black  p-1 size-5 md:size-6 rounded-md`}
               />
             ))}
           </div>
@@ -76,10 +76,12 @@ const MarqueeComponent = () => {
             />
             <div>
               <h1>{item.name}</h1>
-              <p className="text-Grey text-sm">{item.position}</p>
+              <p className="text-Grey text-[13px] md:text-sm">
+                {item.position}
+              </p>
             </div>
           </div>
-          <p className="text-Grey text-sm">{item.desc}</p>
+          <p className="text-Grey text-[13px] md:text-sm">{item.desc}</p>
         </div>
       ))}
     </div>
