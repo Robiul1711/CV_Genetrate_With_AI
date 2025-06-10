@@ -28,7 +28,7 @@ const SignIn = () => {
       <ScrollRestoration />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-4xl px-4 sm:px-10 lg:px-[190px] py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+        className="w-full max-w-2xl px-4 sm:px-10 lg:px-[120px] py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
       >
         <div className="flex justify-center mb-4">
           <Link to={"/"}>
