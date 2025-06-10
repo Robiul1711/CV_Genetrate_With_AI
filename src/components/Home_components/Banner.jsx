@@ -7,7 +7,7 @@ import { BannerLineIcon, EditIcon, UpgradeIcon } from "../AllIcons/HomeIcons";
 import { Link } from "react-router-dom";
 import { UseLangauge } from "@/hooks/UseLangauge";
 const Banner = () => {
-  const {selectedLanguage}=UseLangauge();
+  const { selectedLanguage } = UseLangauge();
 
   return (
     <div className="py-10 md:py-16 lg:py-20">
@@ -23,15 +23,12 @@ const Banner = () => {
           <h1 className="text-[24px]  md:text-[45px]  font-bold w-full ">
             Build Your Perfect{" "}
             <span className="italic font-semibold font-Playfair">Resume</span>{" "}
-           <br/> Smarter, Faster, with AI.
+            <br /> Smarter, Faster, with AI.
           </h1>
-    
-         
-              <span className="absolute top-[45%]  xxs:left-[99%]  left-[88%] md:left-[94%]     xlg:left-[94%] -translate-x-1/2 -translate-y-1/2">
-                <BannerLineIcon />
-              </span>
-           
-      
+
+          <span className="absolute top-[45%]  xxs:left-[99%]  left-[88%] md:left-[94%]     xlg:left-[94%] -translate-x-1/2 -translate-y-1/2">
+            <BannerLineIcon />
+          </span>
         </div>
 
         <p className="max-w-[700px]  text-primary ">
@@ -39,11 +36,18 @@ const Banner = () => {
           smart suggestions.
         </p>
         <div className="flex flex-col md:flex-row items-center gap-5">
-          <Link to={"/dashboard/create-new-resume"} className="flex items-center gap-2 px-6  py-3  rounded-xl border hover:border-[#1b461c]">
+          <Link
+            to={"/dashboard/create-new-resume"}
+            className="flex items-center gap-2 px-6 py-2 md:py-3  rounded-xl border hover:border-[#1b461c]"
+          >
             Create your Resume <EditIcon />
           </Link>
-          <Link to={"dashboard/update-existing-resume"} className="flex items-center gap-2 px-6  py-3  rounded-xl border hover:border-[#1b461c]">
-           Upgrade your Resume<UpgradeIcon />
+          <Link
+            to={"dashboard/update-existing-resume"}
+            className="flex items-center gap-2 px-6 py-2  md:py-3  rounded-xl border hover:border-[#1b461c]"
+          >
+            Upgrade your Resume
+            <UpgradeIcon />
           </Link>
         </div>
         <p className="flex items-center gap-2 p-2 rounded-full border">

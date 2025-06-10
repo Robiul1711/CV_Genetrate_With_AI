@@ -69,12 +69,12 @@ const whyChoose = [
 ];
 const CleverCV = () => {
   return (
-    <div className="pb-12 mt-10 lg:mt-0 md:pb-8 ">
+    <div className="pb-6 mt-10 lg:mt-0 md:pb-8 ">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[28px]  font-bold">
+        <h1 className="text-[24px] md:text-[28px] font-bold">
           Why Choose Clever CV?
         </h1>
-        <p className=" text-[#9B9B9B] pt-1 ">
+        <p className="text-[15px] md:text-base text-[#9B9B9B] pt-1 ">
           Build resumes that get interviews – backed by data, designed for
           results.
         </p>
@@ -86,9 +86,7 @@ const CleverCV = () => {
             className="p-4 rounded-xl border border-[#262626] hover:border hover:border-white duration-300 transition-all transform"
           >
             <span>{item.icon}</span>
-            <h1 className=" font-bold mt-4">
-              {item.title}
-            </h1>
+            <h1 className=" font-bold mt-4">{item.title}</h1>
             <p className=" text-[#9B9B9B] text-sm pt-1">{item.desc}</p>
           </div>
         ))}
