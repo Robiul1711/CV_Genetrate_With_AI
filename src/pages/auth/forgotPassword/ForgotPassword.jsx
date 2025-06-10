@@ -14,11 +14,11 @@ const ForgotPassword = () => {
     });
   };
   return (
-    <div className="section-padding-x section-padding-y md:py-8  h-auto md:h-screen flex justify-center items-center">
+    <div className="section-padding-x section-padding-y md:py-8  min-h-screen flex justify-center items-center">
       <ScrollRestoration />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-2xl h-[450px] px-4 sm:px-8  lg:px-28 py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+        className="w-full max-w-2xl h-auto md:h-[440px] px-4 sm:px-8  lg:px-28 py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
       >
         <div className="flex justify-center mb-4">
           <Link to={"/"}>
@@ -56,7 +56,7 @@ const ForgotPassword = () => {
         </div>
 
         {/* Sign In Button */}
-        <div className="pb-8 md:pb-24">
+        <div className="mt-4">
           <Link to={"/otp-code"}>
             <button
               type="submit"

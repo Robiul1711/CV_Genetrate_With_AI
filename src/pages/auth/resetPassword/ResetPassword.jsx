@@ -18,11 +18,11 @@ const NewPassword = () => {
     });
   };
   return (
-    <div className="section-padding-x section-padding-y md:py-8  h-auto md:h-screen  flex justify-center items-center">
+    <div className="section-padding-x section-padding-y md:py-8  min-h-screen  flex justify-center items-center">
       <ScrollRestoration />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-2xl h-[470px] px-4 sm:px-8 md:px-12 lg:px-32 py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+        className="w-full max-w-2xl h-auto md:h-[470px] px-4 sm:px-8 md:px-12 lg:px-32 py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
       >
         <div className="flex justify-center mb-4">
           <Link to={"/"}>
@@ -89,7 +89,7 @@ const NewPassword = () => {
         </div>
 
         {/* Sign In Button */}
-        <div className="pb-8 md:pb-24">
+        <div className=" md:pb-20">
           <Link to={"/success-new-password"}>
             <button
               type="submit"
