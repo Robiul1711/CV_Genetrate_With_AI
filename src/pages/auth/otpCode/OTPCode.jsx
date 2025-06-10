@@ -33,7 +33,7 @@ const OTPCode = () => {
           </Link>
         </div>
 
-        <h2 className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold text-center mb-2">
+        <h2 className="text-lg font-semibold text-center mb-2">
           Enter OTP Code
         </h2>
 
@@ -95,7 +95,7 @@ const OTPCode = () => {
           <Link to={"/new-password"}>
             <button
               type="submit"
-              className="w-full bg-[#FFF] text-black py-2 md:py-3 my-4 md:text-lg font-medium rounded-lg"
+              className="w-full bg-[#FFF] text-black py-2  my-3 text-sm font-medium rounded-lg"
             >
               Verify
             </button>
