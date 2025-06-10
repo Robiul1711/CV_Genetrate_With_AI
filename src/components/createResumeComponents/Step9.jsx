@@ -31,7 +31,7 @@ const Step9 = () => {
                       <option value="advanced">JPG</option>
                     </select>
                   </div>
-                  <button className="font-semibold flex items-center justify-center max-w-sm gap-2 border-white bg-white text-black text-sm  px-2 rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
+                  <button className="font-semibold my-4 flex items-center justify-center max-w-sm gap-2 border-white bg-white text-black py-1.5 text-sm  px-2 rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
                     <Download size={18} /> Download
                   </button>
                 </div>

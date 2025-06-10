@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import React from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useLocation, Link } from "react-router-dom";
@@ -113,12 +114,12 @@ const CommonNavbar = ({ open, setOpen }) => {
       </div>
 
       {/* Mobile Search */}
-      <div className="lg:p-4 p-3 max-w-[718px] w-full rounded-[16px] sm:hidden flex items-center gap-2 border border-[#262626]">
+      <div className="lg:p-4 p-2 mt-3 max-w-[718px] w-full rounded-[16px] sm:hidden flex items-center gap-2 border border-[#262626]">
         <span>
           <SearchIcon />
         </span>
         <input
-          className="w-full border-none text-white outline-none bg-transparent placeholder-secondary text-base font-normal"
+          className="w-full border-none text-white outline-none bg-transparent placeholder-secondary text-sm font-normal"
           placeholder="Search anything here..."
         />
       </div>

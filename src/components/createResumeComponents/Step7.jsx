@@ -8,36 +8,41 @@ const Step7 = () => {
   const handleAddCourse = (e) => {
     e.preventDefault();
     setAddCourse(!addCourse);
-  }
+  };
   return (
     <div className="bg-black text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="w-[800px] mx-auto">
-        <div className="text-center flex flex-col items-center gap-4 mb-5 xl:mb-10">
-          <Title level="title40"> Courses and Training Details</Title>
-          <Title level="title20">
+        
+        <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
+          <Title level="title24">Courses and Training Details</Title>
+          <Title level="title14">
             Provide information about any professional courses or training
-            you’ve completed.
           </Title>
         </div>
-{
-        addCourse && (
-            <div className="flex justify-between items-center mb-5 p-3 w-full rounded-[12px] border-[#262626] bg-[#0E0E10] border">
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <Title level="title32" className="text-sm sm:text-base">UI/UX Designer </Title>
-                  <GoDotFill className="text-[#fff] text-xl" />
-                  <Title level="title32" className="text-sm sm:text-base">Softvence agency </Title>
-                </div>
-                <Title level="title24">Mar 2024 - Jan 2025 </Title>
+        <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
+          <Title level="title40">Courses and Training Details</Title>
+          <Title level="title20"> Provide information about any professional courses or training</Title>
+        </div>
+        {addCourse && (
+          <div className="flex justify-between items-center mb-5 p-3 w-full rounded-[12px] border-[#262626] bg-[#0E0E10] border">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <Title level="title32" className="text-sm sm:text-base">
+                  UI/UX Designer{" "}
+                </Title>
+                <GoDotFill className="text-[#fff] text-xl" />
+                <Title level="title32" className="text-sm sm:text-base">
+                  Softvence agency{" "}
+                </Title>
               </div>
-              <CiEdit
-                size={32}
-                className="text-white cursor-pointer p-1 border border-white/30 rounded-full"
-              />
+              <Title level="title24">Mar 2024 - Jan 2025 </Title>
             </div>
-    
-        )
-}
+            <CiEdit
+              size={32}
+              className="text-white cursor-pointer p-1 border border-white/30 rounded-full"
+            />
+          </div>
+        )}
         <form className="flex flex-col gap-4">
           {/* First & Last Name */}
           <div className="flex flex-col gap-2">
@@ -78,7 +83,10 @@ const Step7 = () => {
           </div>
 
           <div>
-            <button onClick={handleAddCourse} className="font-medium px-4 py-2 rounded-lg text-xs  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200">
+            <button
+              onClick={handleAddCourse}
+              className="font-medium px-4 py-2 rounded-lg text-xs  flex items-center gap-2   border border-white/20 hover:bg-[white] hover:text-black  transition-colors duration-200"
+            >
               <LuCirclePlus size={20} />
               Add Another Certificate
             </button>

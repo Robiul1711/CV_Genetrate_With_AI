@@ -5,7 +5,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Progress } from "@/components/ui/progress";
 const Step_3 = () => {
   return (
-     <div className="w-[800px] mx-auto ">
+     <div className="max-w-[800px] mx-auto ">
          <div className="text-center flex flex-col items-center gap-4 mb-5">
            <Title level="title32"> Upload Resume</Title>
   
@@ -14,7 +14,7 @@ const Step_3 = () => {
          <div className="flex items-center justify-center w-full">
            <label
              htmlFor="dropzone-file"
-             className="flex flex-col items-center justify-center w-full sm:h-28 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer"
+             className="flex flex-col items-center justify-center w-full sm:h-28 border-2 border-gray-300 border-dashed py-2 rounded-lg cursor-pointer"
            >
              <div className="flex flex-col items-center justify-center pt-3 pb-2">
                <svg
@@ -43,7 +43,7 @@ const Step_3 = () => {
              <input id="dropzone-file" type="file" className="hidden" />
            </label>
          </div>
-         <div className="border border-[#262626] w-full rounded-xl mt-6 md:mt-6 ">
+         <div className="border border-[#262626] w-full p-4 rounded-xl mt-6 md:mt-6 ">
            <div className="flex items-center justify-between ">
              <div className="flex items-center gap-2">
                <DocumentIcon />

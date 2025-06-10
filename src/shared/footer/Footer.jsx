@@ -11,12 +11,12 @@ const Footer = () => {
       {/* Top Section */}
       <div className="flex flex-col md:flex-row md:justify-between gap-10">
         {/* Left: Logo & Description */}
-        <div className="w-[40%]">
+        <div className="  w-full md:w-[40%]">
           <Link to={"/"} className=" ">
             <img
               src={footer}
               alt="icon"
-              className="mb-4 w-[60px] text-white cursor-pointer "
+              className="mb-4 w-[40px] md:w-[60px] text-white cursor-pointer "
             />
           </Link>
           <p className="text-[#666] leading-relaxed">

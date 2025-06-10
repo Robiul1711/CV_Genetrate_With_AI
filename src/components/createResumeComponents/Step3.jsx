@@ -13,7 +13,15 @@ const Step3 = () => {
   return (
     <div className=" text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="w-[800px] mx-auto">
-        <div className="text-center flex flex-col items-center gap-4 mb-3 xl:mb-5">
+        
+        <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
+          <Title level="title24">Your Work Experience</Title>
+          <Title level="title14">
+            List your previous jobs and responsibilities. Start with your most
+            recent experience. You can add multiple positions.
+          </Title>
+        </div>
+        <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
           <Title level="title40">Your Work Experience</Title>
           <Title level="title20">
             List your previous jobs and responsibilities. Start with your most

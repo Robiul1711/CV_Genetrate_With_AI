@@ -5,7 +5,14 @@ const Step2 = () => {
   return (
     <div className=" text-white  flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="w-[800px] mx-auto">
-        <div className="text-center flex flex-col items-center gap-4 mb-5 xl:mb-10">
+        <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
+
+        <Title level="title24">Add Your Personal Details</Title>
+        <Title level="title14">
+          Please enter your basic details. These help employers get to know you and ensure your resume is complete.
+        </Title>
+        </div>
+        <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
 
         <Title level="title40">Add Your Personal Details</Title>
         <Title level="title20">

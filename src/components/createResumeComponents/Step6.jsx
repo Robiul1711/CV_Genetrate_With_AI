@@ -14,7 +14,13 @@ const Step6 = () => {
   return (
     <div className="bg-black text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="w-[800px] mx-auto">
-        <div className="text-center flex flex-col items-center gap-4 mb-5 xl:mb-5">
+        <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
+          <Title level="title24">Language Proficiency</Title>
+          <Title level="title14">
+            Mention all languages you speak and your proficiency levels
+          </Title>
+        </div>
+        <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
           <Title level="title40">Language Proficiency</Title>
           <Title level="title20">
             Mention all languages you speak and your proficiency levels
@@ -25,17 +31,11 @@ const Step6 = () => {
             <div className="flex justify-between items-center mb-10 p-3 lg:p-6 w-full rounded-[12px] border-[#262626] bg-[#0E0E10] border">
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
-                  <Title
-                    level="title32"
-                    className="text-sm sm:text-base "
-                  >
+                  <Title level="title32" className="text-sm sm:text-base ">
                     German{" "}
                   </Title>
                   <GoDotFill className="text-[#fff] text-3xl" />
-                  <Title
-                    level="title32"
-                    className="text-sm sm:text-base "
-                  >
+                  <Title level="title32" className="text-sm sm:text-base ">
                     Native
                   </Title>
                 </div>
@@ -60,7 +60,6 @@ const Step6 = () => {
               <option value="advanced">Arabic</option>
               <option value="advanced">Spanish</option>
               <option value="advanced">Turkish</option>
-   
             </select>
           </div>
           <div className="flex flex-col gap-2">
