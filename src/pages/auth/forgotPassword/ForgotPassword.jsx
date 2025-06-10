@@ -26,7 +26,7 @@ const ForgotPassword = () => {
           </Link>
         </div>
 
-        <h2 className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold text-center mb-2">
+        <h2 className="text-lg font-semibold text-center mb-2">
           Forget Password
         </h2>
 
@@ -38,19 +38,19 @@ const ForgotPassword = () => {
 
         {/* Email Input */}
         <div className="mb-4 relative">
-          <label htmlFor="email" className="block mb-2 text-lg">
+          <label htmlFor="email" className="block mb-2 text-sm">
             Your Registered Email
           </label>
           <div className="relative">
             <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <Mail size={20} />
+              <Mail size={16} />
             </span>
             <input
               type="email"
               id="email"
               {...register("email", { required: true })}
               placeholder="andrew.ainsley@yourdomain.com"
-              className="w-full pl-12 pr-4 py-3 text-sm md:text-base border border-[#666666] rounded-lg bg-black focus:outline-none"
+              className="w-full px-3 py-1.5 pl-10  !text-xs md:text-base border border-[#666666] rounded-lg bg-black focus:outline-none"
             />
           </div>
         </div>
@@ -60,7 +60,7 @@ const ForgotPassword = () => {
           <Link to={"/otp-code"}>
             <button
               type="submit"
-              className="w-full bg-[#FFF] text-black py-2 md:py-3 my-4 md:text-lg font-medium rounded-lg"
+              className="w-full bg-[#FFF] text-black py-2  my-3 text-sm font-medium rounded-lg"
             >
               Send OTP Code
             </button>

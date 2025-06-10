@@ -58,7 +58,7 @@ const SignIn = () => {
               id="email"
               {...register("email", { required: true })}
               placeholder="andrew.ainsley@yourdomain.com"
-              className="w-full px-3 py-1.5 pl-10  !text-xs    md:text-base border border-[#666666] rounded-lg bg-black focus:outline-none"
+              className="w-full px-3 py-1.5 pl-10  !text-xs md:text-base border border-[#666666] rounded-lg bg-black focus:outline-none"
             />
           </div>
         </div>

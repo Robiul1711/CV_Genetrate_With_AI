@@ -18,7 +18,7 @@ const BrandSection = () => {
 
   return (
     <div className="">
-      <p className="text-xl text-center mb-8  md:mb-14 font-medium text-primary">
+      <p className="text-xl md:text-[28px] text-center mb-8  md:mb-14 font-medium text-primary">
         Trusted by Professionals Who Landed Jobs At
       </p>
       <Marquee

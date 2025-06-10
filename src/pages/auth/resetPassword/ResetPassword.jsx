@@ -30,7 +30,7 @@ const NewPassword = () => {
           </Link>
         </div>
 
-        <h2 className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold text-center mb-2">
+        <h2 className="text-lg font-semibold text-center mb-2">
           Create New Password
         </h2>
 
@@ -40,50 +40,50 @@ const NewPassword = () => {
 
         {/* new Password Input */}
         <div className="mb-4 relative">
-          <label htmlFor="password" className="block mb-2 md:text-lg">
+          <label htmlFor="password" className="block mb-2 text-sm">
             New Password
           </label>
           <div className="relative">
             <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <Lock size={18} className="w-6 h-6" />
+              <Lock size={16} className="w-4 h-4" />
             </span>
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              {...register("passowrd", { required: true })}
               placeholder="••••••••"
-              className="w-full pl-12 pr-4 py-3 border border-[#666666] rounded-lg bg-black"
+              {...register("password", { required: true })}
+              className="w-full  px-3 py-1.5 pl-10  !text-xs    md:text-base border border-[#666666] rounded-lg bg-black"
             />
             <span
               className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
               onClick={() => setShowPassword((prev) => !prev)}
             >
-              {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+              {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
             </span>
           </div>
         </div>
 
         {/* Confirm password input */}
         <div className="mb-4 relative">
-          <label htmlFor="password" className="block mb-2 md:text-lg">
+          <label htmlFor="password" className="block mb-2 text-sm">
             Confirm New Password
           </label>
           <div className="relative">
             <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <Lock size={18} className="w-6 h-6" />
+              <Lock size={16} className="w-4 h-4" />
             </span>
             <input
-              type={showPassword1 ? "text" : "password"}
+              type={showPassword ? "text" : "password"}
               id="password"
-              {...register("confirmPassword", { required: true })}
               placeholder="••••••••"
-              className="w-full pl-12 pr-4 py-3 border border-[#666666] rounded-lg bg-black"
+              {...register("password", { required: true })}
+              className="w-full  px-3 py-1.5 pl-10  !text-xs    md:text-base border border-[#666666] rounded-lg bg-black"
             />
             <span
               className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
-              onClick={() => setShowPassword1((prev) => !prev)}
+              onClick={() => setShowPassword((prev) => !prev)}
             >
-              {showPassword1 ? <Eye size={20} /> : <EyeOff size={20} />}
+              {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
             </span>
           </div>
         </div>
@@ -93,7 +93,7 @@ const NewPassword = () => {
           <Link to={"/success-new-password"}>
             <button
               type="submit"
-              className="w-full bg-[#FFF] text-black py-2 md:py-3 my-4 md:text-lg font-medium rounded-lg"
+              className="w-full bg-[#FFF] text-black py-2  my-3 text-sm font-medium rounded-lg"
             >
               Save New Password
             </button>
