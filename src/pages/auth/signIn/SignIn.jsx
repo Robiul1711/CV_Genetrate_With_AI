@@ -8,19 +8,47 @@ import {
   Google,
   Lock,
 } from "@/components/CustomIcons/CustomIcon";
-import { Link, ScrollRestoration } from "react-router-dom";
+import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const SignIn = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [serverError, setServerError] = useState(null);
+  const navigate =useNavigate()
+  const axiosPublic = useAxiosPublic();
+
+  const signInMutation = useMutation({
+    mutationFn: async (data) => {
+      const payload = {
+        email: data.email,
+        password: data.password,
+      };
+      const res = await axiosPublic.post(`/signin/`, payload);
+      return res.data;
+    },
+    onSuccess: (data) => {
+      setServerError(null);
+      toast.success("Login Successfully")
+      console.log("Login successful:", data);
+      navigate("/")
+    
+    },
+    onError: (error) => {
+      console.log(error)
+      setServerError(
+        error?.response?.data?.message || "Invalid credentials or server error."
+      );
+    },
+  });
 
   const onSubmit = (data) => {
-    console.log({
-      ...data,
-      termsAgreed: checked,
-    });
+    setServerError(null);
+    signInMutation.mutate(data);
   };
 
   return (
@@ -36,7 +64,7 @@ const SignIn = () => {
           </Link>
         </div>
 
-        <h2 className="text-xl  font-semibold text-center mb-2">
+        <h2 className="text-xl font-semibold text-center mb-2">
           Welcome back!
         </h2>
 
@@ -44,23 +72,44 @@ const SignIn = () => {
           Sign in to access your resumes and tools
         </Title>
 
+        {/* Server Error */}
+        {serverError && (
+          <div className="mb-4 p-3 bg-red-500/10 border border-red-500 rounded-lg text-red-500 text-sm">
+            {serverError}
+          </div>
+        )}
+
         {/* Email Input */}
-        <div className="mb-4 relative">
+        <div className="mb-1 relative">
           <label htmlFor="email" className="block mb-2 text-sm">
             Email
           </label>
-          <div className="relative">
-            <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <div className={`relative flex items-center w-full px-3 py-1.5  gap-3 !text-xs md:text-base border rounded-lg ${
+                errors.email ? "border-red-500" : "border-[#666666]"
+              }`}>
+            <span className=" ">
               <Mail size={16} />
             </span>
             <input
               type="email"
               id="email"
-              {...register("email", { required: true })}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address",
+                },
+              })}
               placeholder="andrew.ainsley@yourdomain.com"
-              className="w-full px-3 py-1.5 pl-10  !text-xs md:text-base border border-[#666666] rounded-lg bg-black focus:outline-none"
+              className={`   w-full  bg-black focus:outline-none`}
             />
+            
           </div>
+          {errors.email && (
+              <p className="mt-1 text-xs text-red-500">
+                {errors.email.message}
+              </p>
+            )}
         </div>
 
         {/* Password Input */}
@@ -76,8 +125,10 @@ const SignIn = () => {
               type={showPassword ? "text" : "password"}
               id="password"
               placeholder="••••••••"
-              {...register("password", { required: true })}
-              className="w-full  px-3 py-1.5 pl-10  !text-xs    md:text-base border border-[#666666] rounded-lg bg-black"
+              {...register("password", { required: "Password is required" })}
+              className={`w-full px-3 py-1.5 pl-10 !text-xs md:text-base border ${
+                errors.password ? "border-red-500" : "border-[#666666]"
+              } rounded-lg bg-black`}
             />
             <span
               className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
@@ -85,6 +136,9 @@ const SignIn = () => {
             >
               {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
             </span>
+            {errors.password && (
+              <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>
+            )}
           </div>
         </div>
 
@@ -92,10 +146,9 @@ const SignIn = () => {
         <div className="flex flex-wrap justify-between items-center my-6 text-sm gap-2">
           <label className="flex items-center gap-3 cursor-pointer">
             <span
-              className={`w-4 h-4 flex justify-center items-center border rounded-sm 
-          ${
-            checked ? "border-[#81FB84] bg-black" : "border-[#666666] bg-black"
-          }`}
+              className={`w-4 h-4 flex justify-center items-center border rounded-sm ${
+                checked ? "border-[#81FB84] bg-black" : "border-[#666666] bg-black"
+              }`}
             >
               {checked && <Check size={14} className="text-[#81FB84]" />}
             </span>
@@ -111,7 +164,7 @@ const SignIn = () => {
 
           <Link to={"/forgot-password"}>
             <p className="cursor-pointer text-sm font-medium hover:underline">
-              Forgot Password ?
+              Forgot Password?
             </p>
           </Link>
         </div>
@@ -119,9 +172,38 @@ const SignIn = () => {
         {/* Sign In Button */}
         <button
           type="submit"
-          className="w-full bg-[#FFF] text-black py-2  my-3 text-sm font-medium rounded-xl"
+          disabled={signInMutation.isPending}
+          className={`w-full ${
+            signInMutation.isPending ? "bg-gray-400" : "bg-[#FFF]"
+          } text-black py-2 my-3 text-sm font-medium rounded-xl flex justify-center items-center gap-2`}
         >
-          Sign In
+          {signInMutation.isPending ? (
+            <>
+              <svg
+                className="animate-spin -ml-1 mr-2 h-4 w-4 text-black"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Signing In...
+            </>
+          ) : (
+            "Sign In"
+          )}
         </button>
 
         {/* Divider */}
@@ -133,24 +215,21 @@ const SignIn = () => {
 
         {/* Social Icons */}
         <div className="flex justify-center items-center gap-5 mb-4">
-          <div className="border border-[#666666] p-3 rounded-full w-11 h-11 flex justify-center items-center">
-            <Facebook size={18} />
-          </div>
-          <div className="border border-[#666666] p-3 rounded-full w-11 h-11 flex justify-center items-center">
-            <Google size={18} />
-          </div>
-          <div className="border border-[#666666] p-3 rounded-full w-11 h-11 flex justify-center items-center">
-            <Apple size={18} />
-          </div>
+          {[Facebook, Google, Apple].map((Icon, index) => (
+            <div
+              key={index}
+              className="border border-[#666666] p-3 rounded-full w-11 h-11 flex justify-center items-center"
+            >
+              <Icon size={18} />
+            </div>
+          ))}
         </div>
 
         {/* Sign Up */}
         <p className="text-center py-2 text-sm">
-          Don’t have an account ?{" "}
+          Don’t have an account?{" "}
           <Link to={"/sign-up"}>
-            <span className="font-medium cursor-pointer underline">
-              Sign Up
-            </span>
+            <span className="font-medium cursor-pointer underline">Sign Up</span>
           </Link>
         </p>
       </form>

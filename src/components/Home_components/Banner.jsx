@@ -1,5 +1,5 @@
 import React from "react";
-import banner from "../../assets/images/banner.png";
+import banner from "@/assets/images/banner.png";
 import users from "../../assets/images/users.png";
 import { AiTwotoneThunderbolt } from "react-icons/ai";
 import { FaArrowRightLong } from "react-icons/fa6";
