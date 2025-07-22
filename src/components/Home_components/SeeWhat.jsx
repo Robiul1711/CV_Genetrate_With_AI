@@ -1,7 +1,21 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
 import MarqueeComponent from "../common/MarqueeComponent";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useEmail } from "@/hooks/useEmail";
+import { useQuery } from "@tanstack/react-query";
 const SeeWhat = () => {
+  
+
+const axiosPublic = useAxiosPublic();
+const { language } = useEmail();
+  const {data} = useQuery({
+    queryKey: ['testimonials', language],
+    queryFn: () => axiosPublic.get('/testimonials',{
+      params:{lan:language},
+    })
+  })
+
   return (
     <div className="lg:py-20">
       <div className="flex flex-col items-center text-center">
@@ -19,7 +33,7 @@ const SeeWhat = () => {
               gradient={true}
               gradientColor={["#08090A"]}
             >
-              <MarqueeComponent />
+              <MarqueeComponent data={data}/>
             </Marquee>
             <Marquee
               direction="left"

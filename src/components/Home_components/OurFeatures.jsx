@@ -2,54 +2,29 @@ import React from "react";
 import {
   Application,
   Assistant,
-  CoachIcon,
   CreateIcon,
   Multilingual,
   Optimizer,
   ResumeUpdate,
   UpgradeIcon,
 } from "../AllIcons/HomeIcons";
-import { icons } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useEmail } from "@/hooks/useEmail";
 
-const data = [
-  {
-    id: 1,
-    icons: <ResumeUpdate />,
-    title: "AI Resume Builder",
-    desc: "Start from zero and build a job-winning resume in minutes—guided by AI, personalized for your goals, and tailored to the job market.",
-  },
-  {
-    id: 2,
-    icons: <CreateIcon />,
-    title: "AI Resume Builder",
-    desc: "Start from zero and build a job-winning resume in minutes—guided by AI, personalized for your goals, and tailored to the job market.",
-  },
-  {
-    id: 3,
-    icons: <Optimizer />,
-    title: "AI Resume Builder",
-    desc: "Start from zero and build a job-winning resume in minutes—guided by AI, personalized for your goals, and tailored to the job market.",
-  },
-  {
-    id: 4,
-    icons: <Multilingual />,
-    title: "AI Resume Builder",
-    desc: "Start from zero and build a job-winning resume in minutes—guided by AI, personalized for your goals, and tailored to the job market.",
-  },
-  {
-    id: 5,
-    icons: <Application />,
-    title: "AI Resume Builder",
-    desc: "Start from zero and build a job-winning resume in minutes—guided by AI, personalized for your goals, and tailored to the job market.",
-  },
-  {
-    id: 6,
-    icons: <Assistant />,
-    title: "AI Resume Builder",
-    desc: "Start from zero and build a job-winning resume in minutes—guided by AI, personalized for your goals, and tailored to the job market.",
-  },
-];
 const OurFeatures = () => {
+  const IMG_URL = import.meta.env.VITE_IMG_URL;
+  const axiosPublic=useAxiosPublic();
+  const { language } = useEmail();
+    const { data } = useQuery({
+    queryKey: ['ourFeatures', language], // important: include language in key for refetch
+    queryFn: () =>
+      axiosPublic.get('/features', {
+        params: { lan: language },
+      }),
+  });
+
+
   return (
     <div className="py-12 md:py-16 lg:py-24 xl:py-28">
       <div className="flex items-center justify-center">
@@ -59,19 +34,17 @@ const OurFeatures = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 mt-10 md:mt-16">
-        {data.map((item) => (
+        {data?.data?.data?.map((item) => (
           <div
             key={item.id}
             className="bg-[#0E0E10] rounded-[32px] p-6  hover:border border border-transparent hover:border-white duration-300 transition-all transform"
           >
-            <span className="border rounded-xl lg:rounded-2xl xl:rounded-3xl p-2.5 inline-block">
-              {item.icons}
-            </span>
+       <img src={IMG_URL+item.logo} className="border rounded-xl lg:rounded-2xl xl:rounded-3xl p-2.5 inline-block" alt="" />
             <h1 className="text-lg md:text-xl font-medium pt-4 xl:pt-16">
               {item.title}
             </h1>
             <p className="text-[13px] md:text-base text-[#9B9B9B] pt-2">
-              {item.desc}
+              {item.short_description}
             </p>
           </div>
         ))}

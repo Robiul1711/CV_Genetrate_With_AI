@@ -2,24 +2,22 @@ import React, { useState } from "react";
 import uk from "../../assets/images/uk.png";
 import { IoIosArrowDown } from "react-icons/io";
 import { useLocation } from "react-router-dom";
+import { useEmail } from "@/hooks/useEmail";
 
 const LanguageDropdown = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("English");
+const { setLanguage} = useEmail();
 
   const options = [
     { label: "English", value: "en", img: uk },
     { label: "German", value: "de", img: "https://flagcdn.com/w40/de.png" },
-    { label: "French", value: "fr", img: "https://flagcdn.com/w40/fr.png" },
-    { label: "Spanish", value: "es", img: "https://flagcdn.com/w40/es.png" },
-    { label: "Turkish", value: "tr", img: "https://flagcdn.com/w40/tr.png" },
-    { label: "Russian", value: "ru", img: "https://flagcdn.com/w40/ru.png" },
-    { label: "Arabic", value: "ar", img: "https://flagcdn.com/w40/sa.png" },
-  ];
 
+  ];
   const handleSelect = (option) => {
     setSelected(option.label);
+    setLanguage(option.value);
     setIsOpen(false);
   };
   const dropdownWidth = location.pathname.startsWith("/dashboard")
