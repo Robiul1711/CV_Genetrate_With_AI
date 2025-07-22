@@ -1,45 +1,8 @@
 import { IoIosStarOutline } from "react-icons/io";
-import client from "../../assets/images/user.png";
-import { Star } from "../CustomIcons/CustomIcon";
-const data = [
-  {
-    img: client,
-    name: "Alicia Rohan",
-    position: "Lead Security Administrator",
-    desc: "Lorem ipsum dolor sit amet consectetur. Vitae hac morbi ultrices tincidunt quam nisl. Enim cursus non consectetur dui risus. Non consequat arcu mattis pretium et amet est sit.",
-    rating: 5,
-  },
-  {
-    img: client,
-    name: "John Doe",
-    position: "Marketing Director",
-    desc: "Lorem ipsum dolor sit amet consectetur. Vitae hac morbi ultrices tincidunt quam nisl. Enim cursus non consectetur dui risus. Non consequat arcu mattis pretium et amet est sit.",
-    rating: 3,
-  },
-  {
-    img: client,
-    name: "Emily Carter",
-    position: "Product Manager",
-    desc: "Lorem ipsum dolor sit amet consectetur. Vitae hac morbi ultrices tincidunt quam nisl. Enim cursus non consectetur dui risus. Non consequat arcu mattis pretium et amet est sit.",
-    rating: 4,
-  },
-  {
-    img: client,
-    name: "James Lee",
-    position: "UX Designer",
-    desc: "Lorem ipsum dolor sit amet consectetur. Vitae hac morbi ultrices tincidunt quam nisl. Enim cursus non consectetur dui risus. Non consequat arcu mattis pretium et amet est sit.",
-    rating: 3,
-  },
-  {
-    img: client,
-    name: "Sophia Wang",
-    position: "Software Engineer",
-    desc: "Lorem ipsum dolor sit amet consectetur. Vitae hac morbi ultrices tincidunt quam nisl. Enim cursus non consectetur dui risus. Non consequat arcu mattis pretium et amet est sit.",
-    rating: 5,
-  },
-];
 
-const MarqueeComponent = () => {
+const MarqueeComponent = ({ data }) => {
+    const IMG_URL = import.meta.env.VITE_IMG_URL;
+  console.log(data?.data?.data);
   const getStarColor = (index, rating) => {
     if (index < rating) {
       if (rating === 5) return "bg-[#219653] text-white";
@@ -51,7 +14,7 @@ const MarqueeComponent = () => {
 
   return (
     <div className="flex gap-4  pl-6">
-      {data.map((item, index) => (
+      {data?.data?.data?.map((item, index) => (
         <div
           key={index}
           className="border border-[#262626] rounded-xl min-w-[300px] max-w-[527px] p-6 rounded-12 flex flex-col gap-4 h-full hover:border hover:border-white duration-300 transition-all transform"
@@ -70,18 +33,18 @@ const MarqueeComponent = () => {
           </div>
           <div className="flex items-center gap-2">
             <img
-              src={item.img}
+              src={`${IMG_URL}${item.user_image}`}
               alt={item.name}
               className="w-12 h-12 object-cover rounded-full"
             />
             <div>
               <h1>{item.name}</h1>
               <p className="text-Grey text-[13px] md:text-sm">
-                {item.position}
+                {item.profession}
               </p>
             </div>
           </div>
-          <p className="text-Grey text-[13px] md:text-sm">{item.desc}</p>
+          <p className="text-Grey text-[13px] md:text-sm">{item.comment }</p>
         </div>
       ))}
     </div>

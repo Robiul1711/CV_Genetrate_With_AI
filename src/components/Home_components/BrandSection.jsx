@@ -1,20 +1,20 @@
-import image1 from "@/assets/images/b1.png";
-import image2 from "@/assets/images/b2.png";
-import image3 from "@/assets/images/b3.png";
-import image4 from "@/assets/images/b4.png";
-import image5 from "@/assets/images/b1.png"; // Assuming a different image
-import image6 from "@/assets/images/b2.png"; // Assuming a different image
+
 import Marquee from "react-fast-marquee";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import { useEmail } from "@/hooks/useEmail";
 
 const BrandSection = () => {
-  const brands = [
-    { id: 1, brand: image1 },
-    { id: 2, brand: image2 },
-    { id: 3, brand: image3 },
-    { id: 4, brand: image4 },
-    { id: 5, brand: image5 },
-    { id: 6, brand: image6 },
-  ];
+
+  const IMG_URL = import.meta.env.VITE_IMG_URL;
+const axiosPublic = useAxiosPublic();
+const { language } = useEmail();
+  const {data} = useQuery({
+    queryKey: ['brands', language],
+    queryFn: () => axiosPublic.get('/brands',{
+      params:{lan:language},
+    })
+  })
 
   return (
     <div className="">
@@ -27,13 +27,13 @@ const BrandSection = () => {
         gradient={true}
         gradientColor={["#08090A"]}
       >
-        {brands.map((brand) => (
+        {data?.data?.data?.map((brand) => (
           <div
             key={brand.id}
             className="mx-5 md:mx-10 flex items-center justify-center"
           >
             <img
-              src={brand.brand}
+              src={IMG_URL + brand.logo}
               alt={`brand-${brand.id}`}
               className="w-[100px] md:w-[150px] h-[25px] md:h-[30px] object-contain rounded-lg"
             />

@@ -10,6 +10,9 @@ import {
   TransparentIcon,
   TrustpilotIcon,
 } from "../AllIcons/HomeIcons";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useEmail } from "@/hooks/useEmail";
+import { useQuery } from "@tanstack/react-query";
 
 const whyChoose = [
   {
@@ -68,6 +71,16 @@ const whyChoose = [
   },
 ];
 const CleverCV = () => {
+  const IMG_URL = import.meta.env.VITE_IMG_URL
+  const axiosPublic = useAxiosPublic();
+const { language } = useEmail();
+  const {data} = useQuery({
+    queryKey: ['benefits', language],
+    queryFn: () => axiosPublic.get('/benefits',{
+      params:{lan:language},
+    })
+  })
+
   return (
     <div className="pb-6 mt-10 lg:mt-0 md:pb-8 ">
       <div className="flex flex-col items-center text-center">
@@ -80,14 +93,15 @@ const CleverCV = () => {
         </p>
       </div>
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-4 lg:gap-6">
-        {whyChoose.map((item) => (
+        {data?.data?.data?.map((item) => (
           <div
             key={item.id}
             className="p-4 rounded-xl border border-[#262626] hover:border hover:border-white duration-300 transition-all transform"
           >
-            <span>{item.icon}</span>
+            {console.log(item.logo)}
+           <img src={IMG_URL+item.logo} alt="" />
             <h1 className=" font-bold mt-4">{item.title}</h1>
-            <p className=" text-[#9B9B9B] text-sm pt-1">{item.desc}</p>
+            <p className=" text-[#9B9B9B] text-sm pt-1">{item.sub_title}</p>
           </div>
         ))}
       </div>
