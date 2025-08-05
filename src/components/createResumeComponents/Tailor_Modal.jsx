@@ -2,87 +2,50 @@ import React from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Title from "../common/Title";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { useFormContext, Controller } from "react-hook-form";
+
 const Tailor = [
-  {
-    id: 1,
-    title: "Professional",
-  },
-  {
-    id: 2,
-    title: "Academic",
-  },
-  {
-    id: 3,
-    title: "Technical",
-  },
-  {
-    id: 4,
-    title: "Casual",
-  },
+  { id: 1, title: "Professional" },
+  { id: 2, title: "Academic" },
+  { id: 3, title: "Technical" },
+  { id: 4, title: "Casual" },
 ];
+
 const Gender = [
-  {
-    id: 1,
-    title: "Neutral  ",
-  },
-  {
-    id: 2,
-    title: "Inclusive ",
-  },
-  {
-    id: 3,
-    title: "Feminine",
-  },
-  {
-    id: 4,
-    title: "Masculine",
-  },
+  { id: 1, title: "Neutral" },
+  { id: 2, title: "Inclusive" },
+  { id: 3, title: "Feminine" },
+  { id: 4, title: "Masculine" },
 ];
+
 const Complexity = [
-  {
-    id: 1,
-    title: "Simplified    ",
-  },
-  {
-    id: 2,
-    title: "Advanced  ",
-  },
-  {
-    id: 3,
-    title: "Academic",
-  },
+  { id: 1, title: "Simplified" },
+  { id: 2, title: "Advanced" },
+  { id: 3, title: "Academic" },
 ];
+
 const Creativity = [
-  {
-    id: 1,
-    title: "Straightforward  ",
-  },
-  {
-    id: 2,
-    title: "Moderate   ",
-  },
-  {
-    id: 3,
-    title: "Highly Creative",
-  },
+  { id: 1, title: "Straightforward" },
+  { id: 2, title: "Moderate" },
+  { id: 3, title: "Highly Creative" },
 ];
-const Tailor_Modal = ({ activeStep , setActiveStep }) => {
+
+const Tailor_Modal = ({ activeStep, setActiveStep }) => {
+  const { control } = useFormContext();
+
   return (
     <div>
       <Dialog>
-        <DialogTrigger>
-          {" "}
-          <button  className="font-semibold  border-white bg-white text-black  px-3 py-1 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
-            Generate Resume With AI
+        <DialogTrigger asChild>
+          <button className="font-semibold border-white bg-white text-black px-3 py-1.5 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
+            Add Another Courses and Training
           </button>
         </DialogTrigger>
         <DialogContent className="!bg-black max-w-xl">
@@ -92,87 +55,131 @@ const Tailor_Modal = ({ activeStep , setActiveStep }) => {
                 Add Another Courses and Training Details
               </Title>
               <Title level="title16">
-                Provide information about any professional courses or training
-                you’ve completed.
+                Match your resume/cover letter to the company's culture. Select one option per category
               </Title>
             </div>
+
+            {/* Tailor Voice */}
             <div className="sm:pb-10 pb-2">
-              <Title level="title22">Tailor Your Document’s Voice</Title>
-              <RadioGroup defaultValue="option-1" className="w-full mt-2 flex flex-wrap">
-                {Tailor.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center space-x-2 mb-2"
+              <Title level="title22">Tailor Your Document's Voice</Title>
+              <Controller
+                control={control}
+                name="tailor_documents_voice"
+                defaultValue="Professional"
+                render={({ field }) => (
+                  <RadioGroup 
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    className="w-full mt-2 flex flex-wrap gap-4"
                   >
-                    <RadioGroupItem
-                      value={`option-${item.id}`}
-                      id={`option-${item.id}`}
-                    />
-                    <Label htmlFor={`option-${item.id}`}>{item.title}</Label>
-                  </div>
-                ))}
-              </RadioGroup>
+                    {Tailor.map((item) => (
+                      <div key={item.id} className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          value={item.title}
+                          id={`tailor-${item.id}`}
+                        />
+                        <Label htmlFor={`tailor-${item.id}`}>{item.title}</Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                )}
+              />
             </div>
+
+            {/* Gender Language */}
             <div className="sm:pb-10 pb-2">
               <Title level="title22">Gender Language</Title>
-              <RadioGroup defaultValue="option-1" className="w-full mt-2 flex flex-wrap">
-                {Gender.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center space-x-2 mb-3"
+              <Controller
+                control={control}
+                name="gender_language"
+                defaultValue="Neutral"
+                render={({ field }) => (
+                  <RadioGroup 
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    className="w-full mt-2 flex flex-wrap gap-4"
                   >
-                    <RadioGroupItem
-                      value={`option-${item.id}`}
-                      id={`option-${item.id}`}
-                    />
-                    <Label htmlFor={`option-${item.id}`}>{item.title}</Label>
-                  </div>
-                ))}
-              </RadioGroup>
+                    {Gender.map((item) => (
+                      <div key={item.id} className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          value={item.title}
+                          id={`gender-${item.id}`}
+                        />
+                        <Label htmlFor={`gender-${item.id}`}>{item.title}</Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                )}
+              />
             </div>
+
+            {/* Complexity */}
             <div className="sm:pb-10 pb-2">
               <Title level="title22">Complexity</Title>
-              <RadioGroup defaultValue="option-1" className="w-full mt-2 flex flex-wrap">
-                {Complexity.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center space-x-2 mb-2"
+              <Controller
+                control={control}
+                name="complexity"
+                defaultValue="Simplified"
+                render={({ field }) => (
+                  <RadioGroup 
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    className="w-full mt-2 flex flex-wrap gap-4"
                   >
-                    <RadioGroupItem
-                      value={`option-${item.id}`}
-                      id={`option-${item.id}`}
-                    />
-                    <Label htmlFor={`option-${item.id}`}>{item.title}</Label>
-                  </div>
-                ))}
-              </RadioGroup>
+                    {Complexity.map((item) => (
+                      <div key={item.id} className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          value={item.title}
+                          id={`complexity-${item.id}`}
+                        />
+                        <Label htmlFor={`complexity-${item.id}`}>{item.title}</Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                )}
+              />
             </div>
+
+            {/* Creativity */}
             <div className="sm:pb-10 pb-2">
               <Title level="title22">Creativity</Title>
-              <RadioGroup defaultValue="option-1" className="w-full mt-2 flex flex-wrap">
-                {Creativity.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center space-x-2 mb-2"
+              <Controller
+                control={control}
+                name="creativity"
+                defaultValue="Straightforward"
+                render={({ field }) => (
+                  <RadioGroup 
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    className="w-full mt-2 flex flex-wrap gap-4"
                   >
-                    <RadioGroupItem
-                      value={`option-${item.id}`}
-                      id={`option-${item.id}`}
-                    />
-                    <Label htmlFor={`option-${item.id}`}>{item.title}</Label>
-                  </div>
-                ))}
-              </RadioGroup>
+                    {Creativity.map((item) => (
+                      <div key={item.id} className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          value={item.title}
+                          id={`creativity-${item.id}`}
+                        />
+                        <Label htmlFor={`creativity-${item.id}`}>{item.title}</Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                )}
+              />
             </div>
-            <div className="flex  w-full mx-auto justify-between items-center sm:mt-10">
+
+            {/* Navigation Buttons */}
+            <div className="flex w-full mx-auto justify-between items-center sm:mt-10">
               <DialogClose asChild>
-                <button className="font-semibold border border-white text-white  px-4 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300">
+                <button className="font-semibold border border-white text-white px-4 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300">
                   Back
                 </button>
               </DialogClose>
-              <DialogClose>
-                <button onClick={() => setActiveStep(activeStep + 1)} className="font-semibold  border-white bg-white text-black  px-4 text-sm py-2  rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
-                  Next
+              <DialogClose asChild>
+                <button
+                 
+                  className="font-semibold border-white bg-white text-black px-4 text-sm py-2 rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300"
+                >
+                 Select
                 </button>
               </DialogClose>
             </div>

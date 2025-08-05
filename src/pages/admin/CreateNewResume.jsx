@@ -9,17 +9,16 @@ import Step6 from "@/components/createResumeComponents/Step6";
 import Step7 from "@/components/createResumeComponents/Step7";
 import Step8 from "@/components/createResumeComponents/Step8";
 import Step9 from "@/components/createResumeComponents/Step9";
-import AddEducation from "@/components/createResumeComponents/AddEducation";
-import AddLangauge from "@/components/createResumeComponents/AddLangauge";
-import AddCourse from "@/components/createResumeComponents/AddCourse";
-import Tailor_Modal from "@/components/createResumeComponents/Tailor_Modal";
-import Generating_Modal from "@/components/createResumeComponents/Generating_Modal";
-import AddWork from "@/components/createResumeComponents/AddWork";
 import { Edit } from "lucide-react";
 import { Link } from "react-router-dom";
 import StepProgressBar from "@/components/common/StepProgressBar";
+import { useForm, FormProvider } from "react-hook-form";
 
 const CreateNewResume = () => {
+  const methods = useForm({
+    mode: "onChange",
+  });
+
   const [activeStep, setActiveStep] = useState(0);
 
   const steps = [
@@ -27,40 +26,20 @@ const CreateNewResume = () => {
     { label: "Personal Info", component: <Step2 /> },
     {
       label: "Experience",
-      component: (
-        <>
-          <Step3 />
-          {/* <AddWork /> */}
-        </>
-      ),
+      component: <Step3 />,
     },
     {
       label: "Education",
-      component: (
-        <>
-          <Step4 />
-          {/* <AddEducation /> */}
-        </>
-      ),
+      component: <Step4 />,
     },
     { label: "Skills", component: <Step5 /> },
     {
       label: "Languages",
-      component: (
-        <>
-          <Step6 />
-          {/* <AddLangauge /> */}
-        </>
-      ),
+      component: <Step6 />,
     },
     {
       label: "Certificate / Train",
-      component: (
-        <>
-          <Step7 />
-          {/* <AddCourse /> */}
-        </>
-      ),
+      component: <Step7 />,
     },
     {
       label: "Choose Resume",
@@ -70,13 +49,7 @@ const CreateNewResume = () => {
     },
     {
       label: "Preview & Download",
-      component: (
-        <>
-          <Step9 />
-          {/* <Tailor_Modal /> */}
-          {/* <Generating_Modal /> */}
-        </>
-      ),
+      component: <Step9 />,
     },
   ];
 
@@ -87,75 +60,93 @@ const CreateNewResume = () => {
   const handleBack = () => {
     if (activeStep > 0) setActiveStep((prev) => prev - 1);
   };
+  const onSubmit = (data) => {
+    console.log("✅ Final Form Data:", data);
+
+    if (activeStep === 6) {
+      setActiveStep(7);
+    } else {
+      console.log("🎉 All steps completed. Submitting final data...");
+    }
+  };
 
   return (
-    <div>
-      {/* Header */}
-      <div className="flex flex-col gap-2">
-        <Title level="title32">Create New Resume</Title>
-        <Title level="title22">
-          Build your resume step-by-step with AI assistance
-        </Title>
-      </div>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        {/* Header */}
+        <div className="flex flex-col gap-2">
+          <Title level="title32">Create New Resume</Title>
+          <Title level="title22">
+            Build your resume step-by-step with AI assistance
+          </Title>
+        </div>
 
-      {/* Step Progress Bar */}
-      <StepProgressBar
-        steps={steps.map((step) => step.label)}
-        currentStep={activeStep + 1} // 1-based index
-      />
+        {/* Step Progress Bar */}
+        <StepProgressBar
+          steps={steps.map((step) => step.label)}
+          currentStep={activeStep + 1}
+        />
 
-      {/* Current Step Content */}
-      <div className="">{steps[activeStep].component}</div>
+        {/* Current Step Content */}
+        <div className="mt-6">{steps[activeStep].component}</div>
 
-      {/* Navigation Buttons */}
-      <div className="flex max-w-6xl w-full mx-auto justify-between items-center ">
-      {
-        activeStep !==0 ? 
+        {/* Navigation Buttons */}
+        <div className="flex max-w-6xl w-full mx-auto justify-between items-center mt-10">
+          {activeStep !== 0 ? (
             <button
-          className="font-semibold border border-white text-white  px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          onClick={handleBack}
-          disabled={activeStep === 0}
-        >
-          Back
-        </button>
-        :
-        <div/>
-      }
-    
-        {activeStep === 6 ? (
-          <Tailor_Modal activeStep={activeStep} setActiveStep={setActiveStep} />
-        ) : (
-          <button
-            className={`font-semibold border-white  bg-white text-black  ${
-              activeStep === steps.length - 1
-                ? ""
-                : " px-3 py-2  "
-            }text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
-            onClick={handleNext}
-            // disabled={activeStep >= steps.length - 1}
-          >
-            {activeStep === steps.length - 1 ? (
-              <Link
-                to="/dashboard/edit-resume"
-                className={`flex items-center gap-2  ${
-                  activeStep === steps.length - 1
-                    ? " px-3 py-2"
-                    : ""
-                }`}
+              type="button"
+              className="font-semibold border border-white text-white  px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={handleBack}
+              disabled={activeStep === 0}
+            >
+              Back
+            </button>
+          ) : (
+            <div />
+          )}
+
+          {activeStep === 6 ? (
+            <>
+              <button
+                type="submit"
+                className="font-semibold border border-white text-white  px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Edit size={18} /> Edit Resume
-              </Link>
-            ) : activeStep === 6 ? (
-              "Generate Resume With AI"
-            ) : activeStep === 7 || activeStep === 8 ? (
-              "Generating Resume..."
-            ) : (
-              "Next"
-            )}
-          </button>
-        )}
-      </div>
-    </div>
+                Generate Resume With AI
+              </button>
+            </>
+          ) : (
+            <button
+              type="button"
+              className={`font-semibold border-white  bg-white text-black  ${
+                activeStep === steps.length - 1 ? "" : " px-3 py-2  "
+              }text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
+              onClick={methods.handleSubmit(() => {
+                if (activeStep < 6) {
+                  handleNext();
+                }
+              })}
+            >
+              {activeStep === steps.length - 1 ? (
+                <Link
+                  to="/dashboard/edit-resume"
+                  className={`flex items-center gap-2  ${
+                    activeStep === steps.length - 1 ? " px-3 py-2" : ""
+                  }`}
+                >
+                  <Edit size={18} /> Edit Resume
+                </Link>
+              ) : activeStep === 8 ? (
+                "Generate Resume With AI"
+              ) : activeStep === 7 || activeStep === 8 ? (
+                "Choose Resume Template"
+              ) : (
+                "Next"
+              )}
+            </button>
+          )}
+        </div>
+      </form>
+    </FormProvider>
   );
 };
 
