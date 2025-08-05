@@ -33,6 +33,7 @@
     "react-otp-input": "^3.1.1",
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^7.0.2",
+    "react-spinners": "^0.17.0",
     "react-toastify": "^11.0.5",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7"

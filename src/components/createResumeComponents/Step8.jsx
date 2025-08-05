@@ -33,7 +33,7 @@ const resumeData = [
 ];
 const Step8 = ({ activeStep, setActiveStep }) => {
   return (
-    <div className="bg-black text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
+    <div className=" text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className=" w-full">
         
         <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
