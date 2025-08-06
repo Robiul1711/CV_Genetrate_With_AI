@@ -6,9 +6,22 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { BannerLineIcon, EditIcon, UpgradeIcon } from "../AllIcons/HomeIcons";
 import { Link } from "react-router-dom";
 import { UseLangauge } from "@/hooks/UseLangauge";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useEmail } from "@/hooks/useEmail";
+import { useQuery } from "@tanstack/react-query";
 const Banner = () => {
   const { selectedLanguage } = UseLangauge();
-
+  const IMG_URL = import.meta.env.VITE_IMG_URL;
+  const axiosPublic = useAxiosPublic();
+  const { language } = useEmail();
+  const { data } = useQuery({
+    queryKey: ["hero", language], // important: include language in key for refetch
+    queryFn: () =>
+      axiosPublic.get("/hero-section", {
+        params: { lan: language },
+      }),
+  });
+  console.log(data?.data?.data);
   return (
     <div className="py-10 md:py-16 lg:py-20">
       <div className="flex flex-col gap-6 items-center justify-center  text-center">
@@ -32,8 +45,7 @@ const Banner = () => {
         </div>
 
         <p className="max-w-[700px]  text-primary ">
-          Professional resumes made easy — create or upgrade with real-time
-          smart suggestions.
+          {data?.data?.data?.sub_title}
         </p>
         <div className="flex flex-col md:flex-row items-center gap-5">
           <Link
@@ -57,7 +69,11 @@ const Banner = () => {
         </p>
       </div>
       <div className="">
-        <img src={banner} alt="" className="w-full" />
+        <img
+          src={IMG_URL + data?.data?.data?.banner}
+          alt="Banner"
+          className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-xl"
+        />
       </div>
     </div>
   );

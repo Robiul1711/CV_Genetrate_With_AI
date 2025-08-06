@@ -17,31 +17,31 @@ const Step3 = () => {
 
   const { fields, append, remove, update } = useFieldArray({
     control,
-    name: "experiences",
+    name: "work_experiences",
   });
 
   // Append one default item on mount if empty
   useEffect(() => {
     if (fields.length === 0) {
       append({
-        jobTitle: "",
-        company: "",
-        startDate: "",
-        endDate: "",
-        isCurrent: false,
-        description: "",
+        job_title: "",
+  company_name: "",
+  start_date: "",
+  end_date: "",
+  still_working_here: false,
+  responsibilities: "",
       });
     }
   }, [append, fields.length]);
 
   const handleAdd = () => {
     append({
-      jobTitle: "",
-      company: "",
-      startDate: "",
-      endDate: "",
-      isCurrent: false,
-      description: "",
+      job_title: "",
+  company_name: "",
+  start_date: "",
+  end_date: "",
+  still_working_here: false,
+  responsibilities: "",
     });
   };
 
@@ -57,9 +57,10 @@ const Step3 = () => {
           </Title>
         </div>
 
-        {/* Experiences */}
+        {/* work_experiences */}
         {fields.map((item, index) => {
-          const isCurrent = watch(`experiences.${index}.isCurrent`);
+        const isCurrent = watch(`work_experiences.${index}.still_working_here`);
+
 
           return (
             <div
@@ -69,11 +70,11 @@ const Step3 = () => {
               <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center gap-2">
                   <Title level="title24">
-                    {watch(`experiences.${index}.jobTitle`) || "Job Title"}
+                    {watch(`work_experiences.${index}.job_title`) || "Job Title"}
                   </Title>
                   <GoDotFill className="text-white" />
                   <Title level="title24">
-                    {watch(`experiences.${index}.company`) || "Company"}
+                    {watch(`work_experiences.${index}.job_title`) || "Company"}
                   </Title>
                 </div>
                 <div className="flex gap-2">
@@ -99,7 +100,7 @@ const Step3 = () => {
                   <label className="text-sm">Job Title *</label>
                   <input
                     type="text"
-                    {...register(`experiences.${index}.jobTitle`)}
+                    {...register(`work_experiences.${index}.job_title`)}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
                 </div>
@@ -107,7 +108,7 @@ const Step3 = () => {
                   <label className="text-sm">Company Name *</label>
                   <input
                     type="text"
-                    {...register(`experiences.${index}.company`)}
+                    {...register(`work_experiences.${index}.company_name`)}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
                 </div>
@@ -116,7 +117,7 @@ const Step3 = () => {
                   <label className="text-sm">Start Date *</label>
                   <input
                     type="date"
-                    {...register(`experiences.${index}.startDate`)}
+                    {...register(`work_experiences.${index}.start_date`)}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
                 </div>
@@ -125,7 +126,7 @@ const Step3 = () => {
                   <input
                     type="date"
                     disabled={isCurrent}
-                    {...register(`experiences.${index}.endDate`)}
+                    {...register(`work_experiences.${index}.end_date`)}
                     className={`bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white ${
                       isCurrent ? "opacity-50 cursor-not-allowed" : ""
                     }`}
@@ -136,7 +137,7 @@ const Step3 = () => {
                   <Checkbox
                     checked={isCurrent}
                     onCheckedChange={(checked) =>
-                      setValue(`experiences.${index}.isCurrent`, checked)
+                      setValue(`work_experiences.${index}.still_working_here`, checked)
                     }
                   />
                   <label className="text-sm">I&apos;m still working here</label>
@@ -148,7 +149,7 @@ const Step3 = () => {
                   </label>
                   <textarea
                     rows={3}
-                    {...register(`experiences.${index}.description`)}
+                    {...register(`work_experiences.${index}.responsibilities`)}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white resize-none"
                   />
                 </div>

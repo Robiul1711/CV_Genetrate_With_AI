@@ -6,9 +6,14 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
   	extend: {
-  		fontFamily: {
-  			Playfair: "Playfair Display, serif"
-  		},
+extend: {
+  fontFamily: {
+       poppins: "Poppins, serif",
+    urbanist: "Urbanist, sans-serif",
+    playfair: "Playfair Display, serif",
+  },
+},
+
   		boxShadow: {
   			custom: '0px 4px 16.2px 2px rgba(0, 0, 0, 0.20)'
   		},

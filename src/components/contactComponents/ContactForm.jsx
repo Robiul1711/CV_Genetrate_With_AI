@@ -3,6 +3,9 @@ import { Flower } from "../CustomIcons/CustomIcon";
 import { Check, MoveUpRight } from "lucide-react";
 import { IoIosArrowDown } from "react-icons/io";
 import uk from "../../assets/images/uk.png";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useEmail } from "@/hooks/useEmail";
+import { useQuery } from "@tanstack/react-query";
 
 const faqData = [
   {
@@ -36,6 +39,17 @@ const ContactForm = () => {
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
+    const axiosPublic=useAxiosPublic();
+  const { language } = useEmail();
+    const { data } = useQuery({
+    queryKey: ['faqs', language], // important: include language in key for refetch
+    queryFn: () =>
+      axiosPublic.get('/faqs', {
+        params: { lan: language },
+      }),
+  });
+  const FaqData=data?.data?.data
   return (
     <div className="md:my-8">
       <div className="relative">
@@ -44,7 +58,7 @@ const ContactForm = () => {
           {/* Left Side Title */}
           <div className="flex items-center">
             <h2 className="text-3xl md:text-3xl text-center font-semibold">
-              Get in Touch Clever CV  
+              Get in Touch Clever CV
               {/* <span className="pt-4 ">CV </span> */}
             </h2>
           </div>
@@ -156,7 +170,7 @@ const ContactForm = () => {
           </div>
 
           <div className="space-y-4">
-            {faqData.map((faq, idx) => (
+            {FaqData?.map((faq, idx) => (
               <div key={idx} className="bg-[#0E0E10] p-5 rounded-md">
                 <h3
                   className="md:text-lg font-medium flex justify-between items-center cursor-pointer"
@@ -168,8 +182,8 @@ const ContactForm = () => {
                   </span>
                 </h3>
                 {openIndex === idx && (
-                  <p className="mt-2 text-[#7E7E81] text-sm border-t py-4 border-[#262626]">
-                    {faq.answer}
+                  <p className="mt-2 text-[#7E7E81] text-sm border-t py-4 border-[#262626]" dangerouslySetInnerHTML={{ __html: faq.answer }}>
+                   
                   </p>
                 )}
               </div>
