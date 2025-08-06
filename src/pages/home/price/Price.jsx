@@ -1,3 +1,4 @@
+import ResumeOne from "@/components/All_Templates/ResumeOne";
 import ReadyToLand from "@/components/Home_components/ReadyToLand";
 import YourPlan from "@/components/Home_components/YourPlan";
 import PlanTable from "@/components/priceComponents/PlanTable";
@@ -9,7 +10,8 @@ const Price = () => {
     <div className="section-padding-x section-padding-y">
       <ScrollRestoration />
       <YourPlan />
-      <PlanTable />
+    <PlanTable />
+    <ResumeOne />
       <ReadyToLand />
     </div>
   );

@@ -38,7 +38,7 @@ const Step2 = () => {
             />
             <label className="absolute -bottom-1.5 border border-[#81FB84]/30 right-0 w-8 h-8 bg-dark rounded-full flex items-center justify-center cursor-pointer z-50">
               <CiEdit size={20} className="text-white" />
-              <input type="file" className="hidden" {...register("profileImage")} />
+              <input type="file" className="hidden" {...register("profile_photo")} />
             </label>
           </div>
         </div>
@@ -51,10 +51,10 @@ const Step2 = () => {
             <input
               type="text"
               placeholder="John"
-              {...register("firstName", { required: "First name is required" })}
+              {...register("first_name", { required: "First name is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.firstName && <p className="text-red-400 text-xs">{errors.firstName.message}</p>}
+            {errors.first_name && <p className="text-red-400 text-xs">{errors.first_name.message}</p>}
           </div>
 
           {/* Last Name */}
@@ -63,10 +63,10 @@ const Step2 = () => {
             <input
               type="text"
               placeholder="Smith"
-              {...register("lastName", { required: "Last name is required" })}
+              {...register("last_name", { required: "Last name is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.lastName && <p className="text-red-400 text-xs">{errors.lastName.message}</p>}
+            {errors.last_name && <p className="text-red-400 text-xs">{errors.last_name.message}</p>}
           </div>
 
           {/* Email */}
@@ -89,11 +89,11 @@ const Step2 = () => {
               <input
                 type="text"
                 placeholder="123 456 8455"
-                {...register("phone", { required: "Phone number is required" })}
+                {...register("phone_number", { required: "Phone number is required" })}
                 className="bg-transparent w-full focus:outline-none text-white"
               />
             </div>
-            {errors.phone && <p className="text-red-400 text-xs">{errors.phone.message}</p>}
+            {errors.phone_number && <p className="text-red-400 text-xs">{errors.phone_number.message}</p>}
           </div>
 
           {/* Address */}
@@ -123,10 +123,10 @@ const Step2 = () => {
             <input
               type="text"
               placeholder="UI/UX Designer"
-              {...register("jobTitle", { required: "Job title is required" })}
+              {...register("job_title", { required: "Job title is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.jobTitle && <p className="text-red-400 text-xs">{errors.jobTitle.message}</p>}
+            {errors.job_title && <p className="text-red-400 text-xs">{errors.job_title.message}</p>}
           </div>
 
           {/* About */}
@@ -145,7 +145,7 @@ const Step2 = () => {
             <input
               type="url"
               placeholder="https://www.linkedin.com/in/your-username/"
-              {...register("linkedin")}
+              {...register("linked_in_profile")}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
           </div>
@@ -156,7 +156,7 @@ const Step2 = () => {
             <input
               type="url"
               placeholder="https://www.xing.com/in/your-username/"
-              {...register("xing")}
+              {...register("xing_profile")}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
           </div>

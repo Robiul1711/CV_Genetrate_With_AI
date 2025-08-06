@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Template_One = () => {
+const ResumeNine = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const Template_One = () => {
   )
 }
 
-export default Template_One
+export default ResumeNine

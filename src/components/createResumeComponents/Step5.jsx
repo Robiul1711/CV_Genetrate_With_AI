@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Title from "../common/Title";
 import { FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
@@ -29,25 +29,24 @@ const Step5 = () => {
   } = useFormContext();
 
   const skills = watch("skills") || [];
-
   const [search, setSearch] = useState("");
 
-  // Add skill object { label: skill }
+  // Add skill object { skill: skill }
   const handleSelectSkill = (skill) => {
-    const updated = [...skills, { label: skill }];
+    const updated = [...skills, { skill }];
     setValue("skills", updated, { shouldValidate: true });
   };
 
-  // Remove skill by label
-  const handleRemoveSkill = (skill) => {
-    const updated = skills.filter((s) => s.label !== skill);
+  // Remove skill by value
+  const handleRemoveSkill = (skillToRemove) => {
+    const updated = skills.filter((s) => s.skill !== skillToRemove);
     setValue("skills", updated, { shouldValidate: true });
   };
 
   const filteredSkills = allSkills.filter(
     (skill) =>
       skill.toLowerCase().includes(search.toLowerCase()) &&
-      !skills.some((s) => s.label === skill)
+      !skills.some((s) => s.skill === skill)
   );
 
   return (
@@ -71,15 +70,15 @@ const Step5 = () => {
         </div>
 
         {/* Selected Skills */}
-        <p className="text-sm mb-2">Selected Skill</p>
+        <p className="text-sm mb-2">Selected Skills</p>
         <div className="flex flex-wrap gap-3 mb-6">
           {skills.map((skillObj) => (
             <div
-              key={skillObj.label}
+              key={skillObj.skill}
               className="flex items-center bg-[#0E0E10] border border-[#2A2A2A] px-3 py-1.5 rounded-full text-sm"
             >
-              <span className="mr-2">{skillObj.label}</span>
-              <button onClick={() => handleRemoveSkill(skillObj.label)}>
+              <span className="mr-2">{skillObj.skill}</span>
+              <button onClick={() => handleRemoveSkill(skillObj.skill)}>
                 <IoClose className="text-white hover:text-red-400" size={14} />
               </button>
             </div>
@@ -100,7 +99,7 @@ const Step5 = () => {
         </div>
 
         {/* Suggested Skills */}
-        <p className="mt-5 text-sm">Suggested Skill</p>
+        <p className="mt-5 text-sm">Suggested Skills</p>
         <div className="flex flex-wrap gap-2 mt-2">
           {filteredSkills.map((skill) => (
             <button
