@@ -27,9 +27,9 @@ const { language } = useEmail();
         gradient={true}
         gradientColor={["#08090A"]}
       >
-        {data?.data?.data?.map((brand) => (
+        {data?.data?.data?.map((brand,index) => (
           <div
-            key={brand.id}
+            key={index}
             className="mx-5 md:mx-10 flex items-center justify-center"
           >
             <img

@@ -75,9 +75,9 @@ const OurFeatures = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 mt-10 md:mt-16">
-        {data?.data?.data?.map((item) => (
+        {data?.data?.data?.map((item,index) => (
           <div
-            key={item.id}
+            key={index}
             className="bg-[#0E0E10] rounded-[32px] p-6  hover:border border border-transparent hover:border-white duration-300 transition-all transform"
           >
             <img

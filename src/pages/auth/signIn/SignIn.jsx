@@ -13,14 +13,20 @@ import { useForm } from "react-hook-form";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useAuth } from "@/hooks/useAuth";
 
 const SignIn = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
   const [serverError, setServerError] = useState(null);
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
+  const { setToken,setRefreshToken ,user} = useAuth();
 
   const signInMutation = useMutation({
     mutationFn: async (data) => {
@@ -29,17 +35,19 @@ const SignIn = () => {
         password: data.password,
       };
       const res = await axiosPublic.post(`/signin/`, payload);
-      return res.data;
+      return res.data; // should return { access, refresh }
     },
     onSuccess: (data) => {
       setServerError(null);
-      toast.success("Login Successfully")
-      console.log("Login successful:", data);
-      navigate("/")
-    
+      toast.success("Login Successfully");
+      navigate("/");
+
+      // Save tokens to context
+      setToken(data.access);
+      setRefreshToken(data.refresh);
     },
     onError: (error) => {
-      console.log(error)
+      console.log(error);
       setServerError(
         error?.response?.data?.message || "Invalid credentials or server error."
       );
@@ -50,6 +58,10 @@ const SignIn = () => {
     setServerError(null);
     signInMutation.mutate(data);
   };
+
+  console.log(user);
+
+
 
   return (
     <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center overflow-y-auto md:overflow-y-hidden">
@@ -84,9 +96,11 @@ const SignIn = () => {
           <label htmlFor="email" className="block mb-2 text-sm">
             Email
           </label>
-          <div className={`relative flex items-center w-full px-3 py-1.5  gap-3 !text-xs md:text-base border rounded-lg ${
-                errors.email ? "border-red-500" : "border-[#666666]"
-              }`}>
+          <div
+            className={`relative flex items-center w-full px-3 py-1.5  gap-3 !text-xs md:text-base border rounded-lg ${
+              errors.email ? "border-red-500" : "border-[#666666]"
+            }`}
+          >
             <span className=" ">
               <Mail size={16} />
             </span>
@@ -103,13 +117,10 @@ const SignIn = () => {
               placeholder="andrew.ainsley@yourdomain.com"
               className={`   w-full  bg-black focus:outline-none`}
             />
-            
           </div>
           {errors.email && (
-              <p className="mt-1 text-xs text-red-500">
-                {errors.email.message}
-              </p>
-            )}
+            <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>
+          )}
         </div>
 
         {/* Password Input */}
@@ -137,7 +148,9 @@ const SignIn = () => {
               {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
             </span>
             {errors.password && (
-              <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>
+              <p className="mt-1 text-xs text-red-500">
+                {errors.password.message}
+              </p>
             )}
           </div>
         </div>
@@ -147,7 +160,9 @@ const SignIn = () => {
           <label className="flex items-center gap-3 cursor-pointer">
             <span
               className={`w-4 h-4 flex justify-center items-center border rounded-sm ${
-                checked ? "border-[#81FB84] bg-black" : "border-[#666666] bg-black"
+                checked
+                  ? "border-[#81FB84] bg-black"
+                  : "border-[#666666] bg-black"
               }`}
             >
               {checked && <Check size={14} className="text-[#81FB84]" />}
@@ -229,7 +244,9 @@ const SignIn = () => {
         <p className="text-center py-2 text-sm">
           Don’t have an account?{" "}
           <Link to={"/sign-up"}>
-            <span className="font-medium cursor-pointer underline">Sign Up</span>
+            <span className="font-medium cursor-pointer underline">
+              Sign Up
+            </span>
           </Link>
         </p>
       </form>
