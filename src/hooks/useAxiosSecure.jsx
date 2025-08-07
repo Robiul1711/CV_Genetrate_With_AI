@@ -2,20 +2,18 @@ import axios from "axios";
 import { useAuth } from "./useAuth";
 
 const useAxiosSecure = () => {
-  const auth = useAuth();
-  // Ensure that auth and user are defined before destructuring
-  const access_token = auth?.user?.token;
- console.log(access_token)
+  const { token } = useAuth(); // useAuth must return non-null context
+
   const axiosSecure = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     timeout: 30000,
   });
 
   axiosSecure.interceptors.request.use((config) => {
-    if (access_token) {
+    if (token) {
       config.headers = {
         ...config.headers,
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${token}`,
       };
     }
     return config;

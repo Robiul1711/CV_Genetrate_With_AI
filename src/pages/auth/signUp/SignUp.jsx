@@ -8,7 +8,7 @@ import {
   Google,
   Lock,
 } from "@/components/CustomIcons/CustomIcon";
-import { Link, ScrollRestoration } from "react-router-dom";
+import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useMutation } from "@tanstack/react-query";
@@ -30,6 +30,7 @@ const SignUp = () => {
   } = useForm();
 
   const password = watch("password");
+  const navigate =useNavigate()
 
   const signUpMutation = useMutation({
     mutationFn: async (data) => {
@@ -46,6 +47,8 @@ const SignUp = () => {
       reset();
       setServerError(null);
       toast.success(data?.message)
+      navigate('/sign-in')
+
     },
     onError: (error) => {
       setServerError(
