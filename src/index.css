@@ -223,4 +223,21 @@ body{
     -moz-box-sizing: border-box;
     position: relative;
 }
- 
+/* src/styles/custom-scrollbar.css */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #999 transparent; /* thumb | track */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 999px;
+}

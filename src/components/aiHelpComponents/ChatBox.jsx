@@ -1,5 +1,5 @@
 import { Edit, MoveUpRight, Search, Send } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Title from "../common/Title";
 import { AIIcon } from "../CustomIcons/CustomIcon";
 import man from "../../assets/images/man.png";
@@ -10,50 +10,72 @@ import ChatScreenWithReaction from "./ChatScreenWithReaction";
 
 const ChatBox = () => {
   const [showChatWithData, setShowChatWithData] = useState(false);
-const axiosSecure = useAxiosSecure();
-const { language } = useEmail();
-  const {data} = useQuery({
-    queryKey: ['suggested-questions', language],
-    queryFn: () => axiosSecure.get('/suggested-questions',{
-      params:{lan:language},
-    })
-  })
+  const axiosSecure = useAxiosSecure();
+  const { language } = useEmail();
+  const { data } = useQuery({
+    queryKey: ["suggested-questions", language],
+    queryFn: () =>
+      axiosSecure.get("/suggested-questions", {
+        params: { lan: language },
+      }),
+  });
+
+const { data: History, isFetching } = useQuery({
+  queryKey: ["chat-histories", language], // changing 'language' triggers auto refetch
+  queryFn: () =>
+    axiosSecure.get("/chat-histories", {
+      params: { lan: language },
+    }),
+  enabled: !!language, // only fetch when language exists
+  keepPreviousData: true, // keep old data while loading new
+});
+
+
   return (
-    <div className="flex flex-col md:flex-row gap-8 w-full">
+    <div className="flex flex-col md:flex-row  w-full">
       {/* Left Sidebar */}
-      <div className="w-full hidden md:block md:w-[25%] bg-[#0E0E10] p-5 rounded-lg ">
-        <div className="relative flex items-center">
-          <span className="absolute left-3 text-gray-400">
-            <Search size={18} />
-          </span>
-          <input
-            type="text"
-            placeholder="Search"
-            className="pl-10 pr-4 py-2 w-full rounded-lg border border-[#262626] bg-[#0E0E10] text-white"
-          />
+      <div className=" flex-col w-full hidden md:block md:w-[25%] bg-[#0E0E10] p-5 rounded-lg">
+        <h2 className="text-white text-lg font-semibold pb-2">My History</h2>
+        <div className="max-h-64 overflow-y-auto custom-scrollbar">
+          <div className="space-y-4 mt-4">
+            {History?.data?.data?.map((q, idx) => (
+              <div
+                key={idx}
+                onClick={() => setShowChatWithData(true)}
+                className="flex justify-between items-center text-white hover:underline cursor-pointer"
+              >
+                <p className="text-sm md:text-base">{q.question}</p>
+                <MoveUpRight size={18} />
+              </div>
+            ))}
+          </div>
         </div>
 
-        <h2 className="text-white text-lg font-semibold my-6 pt-4">
-          Suggested Questions
-        </h2>
+        <div className="pt-14">
+          <h2 className="text-white text-lg font-semibold ">
+            Suggested Questions
+          </h2>
 
-        <div className="space-y-4 mt-8">
-          {data?.data?.data?.map((q, idx) => (
-            <div
-              key={idx}
-              onClick={() => setShowChatWithData(true)}
-              className="flex justify-between items-center text-white hover:underline cursor-pointer"
-            >
-              <p className="text-sm md:text-base">{q.question}</p>
-              <MoveUpRight size={18} />
+          <div className="max-h-72 overflow-y-auto custom-scrollbar">
+            <div className="space-y-4 mt-4">
+              {data?.data?.data?.map((q, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => setShowChatWithData(true)}
+                  className="flex justify-between items-center text-white hover:underline cursor-pointer"
+                >
+                  <p className="text-sm md:text-base">{q.question}</p>
+                  <MoveUpRight size={18} />
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
 
       {showChatWithData ? (
         <>
-<ChatScreenWithReaction  />
+          <ChatScreenWithReaction />
         </>
       ) : (
         <div className="w-full md:flex-1 bg-[#0E0E10] rounded-lg">
@@ -65,10 +87,20 @@ const { language } = useEmail();
               <h2 className="text-white text-xl font-semibold">
                 Hi! I’m your CV guide. Ask me anything!
               </h2>
+
+              <div className="flex justify-center my-5">
+                <button
+                  type="button"
+                  onClick={() => setShowChatWithData(true)}
+                  className="text-left text-sm md:text-base border hover:border-gray-400 hover:text-black border-gray-300 px-5 py-2 rounded-full transition-all duration-300 ease-in-out hover:bg-gray-100 hover:shadow-md hover:scale-105"
+                >
+                  Open Chat
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row items-center gap-4 px-4 md:px-16 mb-6">
+          {/* <div className="flex flex-col md:flex-row items-center gap-4 px-4 md:px-16 mb-6">
             <div className="w-full md:w-[60%] xl:w-[75%]">
               <input
                 type="text"
@@ -84,7 +116,7 @@ const { language } = useEmail();
                 <Send size={18} />
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </div>
