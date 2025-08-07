@@ -4,6 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
 import LanguageDropdown from "@/components/common/LanguageDropdown";
+import { useAuth } from "@/hooks/useAuth";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -17,6 +19,10 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const sidebarRef = useRef(null);
+  const { user,logout, isLoadingUser,} = useAuth();
+
+  const axiosSecure =useAxiosSecure()
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,19 +85,26 @@ const Navbar = () => {
         </div>
 
         {/* Right: Buttons - hidden on md and below */}
-        <div className="hidden lg:flex items-center gap-5">
-          <Link to={"/sign-in"}>
-            <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg">
-              Log In
-            </button>
-          </Link>
-          <Link to={"/sign-up"}>
-            <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg ">
-              Sign Up
-            </button>
-          </Link>
-          <LanguageDropdown />
-        </div>
+        {user ? (
+          <button onClick={logout} className=" py-2 px-4 rounded-xl border-gray-400 text-center flex justify-center items-center">
+
+            Logout
+          </button>
+        ) : (
+          <div className="hidden lg:flex items-center gap-5">
+            <Link to={"/sign-in"}>
+              <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg">
+                Log In
+              </button>
+            </Link>
+            <Link to={"/sign-up"}>
+              <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg ">
+                Sign Up
+              </button>
+            </Link>
+            <LanguageDropdown />
+          </div>
+        )}
 
         {/* Dynamic Icon for mobile */}
         <div className="lg:hidden">
