@@ -132,7 +132,7 @@ const CreateNewResume = () => {
               })}
             >
               {activeStep === steps.length - 1 ? (
-                <Link  
+                <Link
                   to="/dashboard/edit-resume"
                   className={`flex items-center gap-2  ${
                     activeStep === steps.length - 1 ? " px-3 py-2" : ""

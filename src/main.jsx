@@ -10,19 +10,19 @@ import { Slide, ToastContainer } from "react-toastify";
 import AuthProvider from "./providers/AuthProvider";
 import EmailProvider from "./providers/EmailProvider";
 import { Toaster } from "react-hot-toast";
+import { ResumeProvider } from "./providers/ResumeContext";
 const queryClient = new QueryClient();
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
   <PrimeReactProvider>
-    <Toaster
-  position="top-center"
-  reverseOrder={false}
-/>
+    <Toaster position="top-center" reverseOrder={false} />
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <EmailProvider>
           <LangaugesProvider>
-            <RouterProvider router={router} />
+            <ResumeProvider>
+              <RouterProvider router={router} />
+            </ResumeProvider>
 
             <ToastContainer
               position="top-center"
