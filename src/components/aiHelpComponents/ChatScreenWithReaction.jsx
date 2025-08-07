@@ -99,7 +99,7 @@ const ChatMutation = useMutation({
   }, [messages]);
 
   return (
-    <div className="flex flex-col w-full max-w-2xl mx-auto bg-[#0E0E10] rounded-md   overflow-hidden shadow-md h-[90vh]">
+    <div className="flex flex-col w-full max-w-6xl mx-auto bg-[#0E0E10] rounded-md   overflow-hidden shadow-md h-[90vh]">
       {/* Message Area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         <AnimatePresence>
