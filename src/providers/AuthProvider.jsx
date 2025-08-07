@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { AuthContext } from "@/context";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 // Utility to get tokens
@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(getStoredAccessToken());
   const [refreshToken, setRefreshToken] = useState(getStoredRefreshToken());
   const [language, setLanguage] = useState("en");
-
+  const queryClient = useQueryClient();
   // Persist tokens to localStorage
   useEffect(() => {
     token
@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
 
   // Refresh access token every 5 minutes
   useEffect(() => {
+    
     const interval = setInterval(async () => {
       if (!refreshToken) return;
 
@@ -39,7 +40,7 @@ const AuthProvider = ({ children }) => {
         setToken(newAccessToken);
         console.log("🔁 Access token refreshed");
       } catch (err) {
-        console.error("🔒 Failed to refresh token", err);
+        console.error("Failed to refresh token", err);
         setToken("");
         setRefreshToken("");
         localStorage.removeItem("auth_token");
@@ -60,10 +61,18 @@ const AuthProvider = ({ children }) => {
         },
       }
     );
-    setUserdata(res.data.data);
-    console.log(res?.data.data);
 
     return res.data.data;
+  };
+
+  const logout = () => {
+    setToken("");
+    setRefreshToken("");
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("refresh_token");
+
+    // 🧹 Invalidate & remove user cache
+    queryClient.removeQueries({ queryKey: ["authUser"] });
   };
 
   const {
@@ -92,6 +101,7 @@ const AuthProvider = ({ children }) => {
         isLoadingUser,
         isErrorUser,
         refetchUser,
+        logout,
       }}
     >
       {children}
