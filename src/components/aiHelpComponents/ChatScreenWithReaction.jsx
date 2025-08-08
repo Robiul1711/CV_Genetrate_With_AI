@@ -10,7 +10,7 @@ import bot from "@/assets/images/bot.png";
 const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatWithData }) => {
   const axiosSecure = useAxiosSecure();
   const { language } = useEmail();
-  const [loading, setLoading] = useState(false);
+const [loading, setLoading] = useState(false);
 
   const [messages, setMessages] = useState([
     {
@@ -36,51 +36,52 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
       const res = await axiosSecure.post("/chats/", data);
       return res.data;
     },
-    onSuccess: (res) => {
-      const botResponse = res?.data?.answer;
-      const newId = Date.now();
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: newId,
-          text: botResponse,
-          sender: "other",
-          senderProfile: {
-            name: "Bot",
-            avatar: bot
-          },
-          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-          reaction: null
-        }
-      ]);
-      setLoading(false); // Hide typing indicator when bot responds
+ onSuccess: (res) => {
+  const botResponse = res?.data?.answer;
+  const newId = Date.now();
+  setMessages((prev) => [
+    ...prev,
+    {
+      id: newId,
+      text: botResponse,
+      sender: "other",
+      senderProfile: {
+        name: "Bot",
+        avatar: bot
+      },
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      reaction: null
     }
+  ]);
+  setLoading(false); // 👈 Hide typing indicator
+}
+
   });
 
-  const handleSendMessage = () => {
-    if (!newMessage.trim()) return;
-    const newId = Date.now();
+const handleSendMessage = () => {
+  if (!newMessage.trim()) return;
+  const newId = Date.now();
 
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: newId,
-        text: newMessage,
-        sender: "me",
-        senderProfile: {
-          name: "You",
-          avatar: "https://i.pravatar.cc/40?img=1"
-        },
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        reaction: null
-      }
-    ]);
+  setMessages((prev) => [
+    ...prev,
+    {
+      id: newId,
+      text: newMessage,
+      sender: "me",
+      senderProfile: {
+        name: "You",
+        avatar: "https://i.pravatar.cc/40?img=1"
+      },
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      reaction: null
+    }
+  ]);
 
-    setLoading(true); // Show typing indicator
-    ChatMutation.mutate({ question: newMessage, language });
-    setNewMessage("");
-    inputRef.current?.focus();
-  };
+  setLoading(true); // 👈 Show typing indicator
+  ChatMutation.mutate({ question: newMessage, language });
+  setNewMessage("");
+  inputRef.current?.focus();
+};
 
   const handleReaction = (messageId, reaction) => {
     setMessages((prev) =>
@@ -121,13 +122,12 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
         },
       ]);
 
-      setLoading(true);
       ChatMutation.mutate({ question: clickedQuestion, language });
     }
   }, [clickedQuestion, showChatWithData]);
 
   return (
-    <div className="flex flex-col w-full max-w-6xl mx-auto bg-[#0E0E10] rounded-md custom-scrollbar overflow-hidden shadow-md h-[90vh] relative">
+    <div className="flex flex-col w-full max-w-6xl mx-auto bg-[#0E0E10] rounded-md custom-scrollbar overflow-hidden shadow-md h-[90vh]">
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         <AnimatePresence>
           {messages.map((msg) => (
@@ -176,25 +176,7 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
               )}
             </motion.div>
           ))}
-
-          {/* Typing indicator shown when loading */}
-          {loading && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              className="flex items-center gap-2 justify-start"
-            >
-              <img src={bot} alt="bot" className="w-8 h-8 rounded-full" />
-              <div className="flex space-x-1">
-                <span className="h-2 w-2 bg-gray-400 rounded-full animate-bounce [animation-delay:.1s]" />
-                <span className="h-2 w-2 bg-gray-400 rounded-full animate-bounce [animation-delay:.2s]" />
-                <span className="h-2 w-2 bg-gray-400 rounded-full animate-bounce [animation-delay:.3s]" />
-              </div>
-            </motion.div>
-          )}
         </AnimatePresence>
-
         <div ref={messagesEndRef} />
       </div>
 

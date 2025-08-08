@@ -68,8 +68,8 @@ const CreateNewResume = () => {
   const onSubmit = (data) => {
     console.log("✅ Final Form Data:", data);
 
-    if (activeStep === 6) {
-      setActiveStep(7);
+    if (activeStep === 7) {
+      setActiveStep(8);
     } else {
       console.log("🎉 All steps completed. Submitting final data...");
     }
@@ -126,7 +126,7 @@ const CreateNewResume = () => {
                 activeStep === steps.length - 1 ? "" : " px-3 py-2  "
               }text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
               onClick={methods.handleSubmit(() => {
-                if (activeStep < 7) {
+                if (activeStep < 9) {
                   handleNext();
                 }
               })}
