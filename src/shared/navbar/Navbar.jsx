@@ -6,6 +6,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import LanguageDropdown from "@/components/common/LanguageDropdown";
 import { useAuth } from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import UserDropdown from "../UserDropdown";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -19,10 +22,9 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const sidebarRef = useRef(null);
-  const { user,logout, isLoadingUser,} = useAuth();
+  const { user, logout, isLoadingUser } = useAuth();
 
-  const axiosSecure =useAxiosSecure()
-  
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -85,11 +87,23 @@ const Navbar = () => {
         </div>
 
         {/* Right: Buttons - hidden on md and below */}
-        {user ? (
-          <button onClick={logout} className=" py-2 px-4 rounded-xl border-gray-400 text-center flex justify-center items-center">
+        {isLoadingUser ? (
+          <div className="hidden lg:flex items-center gap-5">
+            <Skeleton
+              baseColor="#0E0E10"
+              width={200}
+              height={40}
+              borderRadius={8}
+            />
+          </div>
+        ) : user ? (
+          <UserDropdown
+            user={{
+              name: user.first_name + " " + user.last_name,
 
-            Logout
-          </button>
+              email: user?.user?.email,
+            }}
+          />
         ) : (
           <div className="hidden lg:flex items-center gap-5">
             <Link to={"/sign-in"}>
@@ -98,7 +112,7 @@ const Navbar = () => {
               </button>
             </Link>
             <Link to={"/sign-up"}>
-              <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg ">
+              <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg">
                 Sign Up
               </button>
             </Link>

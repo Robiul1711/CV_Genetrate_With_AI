@@ -5,8 +5,6 @@ import { User, Settings, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 const UserDropdown = ({
-  user,
-  onSignOut,
   className = "",
   avatarBgColor = "bg-primary",
   avatarTextColor = "text-white",
@@ -15,7 +13,7 @@ const UserDropdown = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const {user,logout} =useAuth()
+  const { user, logout, isLoadingUser } = useAuth();
 
   // Default dropdown items
   const defaultItems = [
@@ -32,9 +30,11 @@ const UserDropdown = ({
     {
       label: "Sign Out",
       icon: <LogOut className="w-4 h-4 mr-3" />,
-      onClick: onSignOut,
+      onClick: logout,
     },
   ];
+
+  console.log(user[0]?.first_name);
 
   // Combine default and custom items
   const items = dropdownItems.length > 0 ? dropdownItems : defaultItems;
@@ -55,27 +55,21 @@ const UserDropdown = ({
 
   // Get user initial
   const getUserInitial = () => {
-    return user?.first_name ? user.first_name.charAt(0).toUpperCase() : "U";
+    return user[0]?.first_name
+      ? user[0]?.first_name?.charAt(0).toUpperCase()
+      : "U";
   };
 
   return (
-    <div className={`relative  ${className}`} ref={dropdownRef}>
+    <div className={`relative ${className}`} ref={dropdownRef}>
       {/* Avatar Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex cursor-pointer items-center justify-center w-10 h-10 rounded-full font-medium 
-          hover:opacity-90 transition-opacity ${avatarBgColor} ${avatarTextColor}
-          ${scrolled ? "ring-2 ring-white" : ""}`}
+        className={`flex cursor-pointer items-center justify-center aspect-square bg-gray-800 shadow-md w-10 h-10 rounded-full font-medium 
+          hover:opacity-90 transition-opacity 
+          `}
       >
-        {user?.avatar ? (
-          <img
-            src={user?.avatar}
-            alt={user?.name}
-            className="w-full h-full rounded-full object-cover"
-          />
-        ) : (
-          getUserInitial()
-        )}
+        {getUserInitial()}
       </button>
 
       {/* Dropdown Menu */}
@@ -89,10 +83,12 @@ const UserDropdown = ({
         >
           {/* User Info */}
           <div className="px-4 py-3 border-b">
-            <p className="text-sm font-medium text-gray-900 truncate">
-              {user.name}
+            <p className="text-sm font-medium !text-gray-900 truncate">
+              {user[0]?.first_name} {user[0]?.last_name}
             </p>
-            <p className="text-xs text-gray-500 truncate">{user.email}</p>
+            <p className="text-xs !text-black truncate">
+              {user[0]?.user?.email}
+            </p>
           </div>
 
           {/* Menu Items */}
@@ -133,14 +129,3 @@ const UserDropdown = ({
 };
 
 export default UserDropdown;
-
-// usage: <UserDropdown
-//   user={{
-//     name: user.name,
-//     email: user.email,
-//     avatar: user.avatar,
-//   }}
-//   onSignOut={handleSignOut}
-//   scrolled={scrolled}
-//   avatarBgColor={scrolled ? "bg-primary" : "bg-black"}
-// />;
