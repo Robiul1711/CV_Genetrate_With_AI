@@ -38,6 +38,8 @@
     "react-router-dom": "^7.0.2",
     "react-spinners": "^0.17.0",
     "react-toastify": "^11.0.5",
+    "sass-embedded": "^1.90.0",
+    "sweetalert2": "^11.22.2",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7"
   },
