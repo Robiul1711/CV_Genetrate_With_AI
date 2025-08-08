@@ -25,6 +25,7 @@ import AIHelp from "@/pages/aiHelp/AIHelp";
 import EditResumePage from "@/pages/edit_resume_page/EditResumePage";
 import Design from "@/pages/edit_resume_page/Design";
 import FinalReview from "@/components/UpdateExistingResumeComponent/FinalReview";
+import ResumeEight from "@/components/All_Templates/ResumeEight";
 
 const router = createBrowserRouter([
   {
@@ -132,6 +133,10 @@ const router = createBrowserRouter([
   {
     path: "/success-new-password",
     element: <SuccessfullyPasswordChange />,
+  },
+  {
+    path: "/cv",
+    element: <ResumeEight />,
   },
 ]);
 
