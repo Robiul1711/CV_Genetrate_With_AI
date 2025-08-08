@@ -43,7 +43,7 @@ const ResumeOne = () => {
       </div>
 
       {/* Body */}
-      <div className="flex justify-between gap-5 mt-20">
+      <div className="flex justify-between gap-5 mt-6">
         {/* Left Column */}
         <div className="w-[35%] space-y-6">
           <div>
@@ -60,7 +60,7 @@ const ResumeOne = () => {
           </div>
 
           <div>
-            <h2 className="text-sm tracking-[2px] pb-10 text-[#666] leading-[24px]">
+            <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
               CONTACT
             </h2>
             <div className="space-y-3 ">
@@ -76,7 +76,7 @@ const ResumeOne = () => {
           </div>
 
           <div>
-            <h2 className="text-sm tracking-[2px] pb-20 text-[#666] leading-[24px]">
+            <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
               LANGUAGE
             </h2>
             <p className="text-xs flex justify-between items-center ">German <span>Native</span></p>

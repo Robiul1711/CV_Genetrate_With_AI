@@ -20,6 +20,9 @@ body {
 .urbanist{
   font-family:"Urbanist, sans-serif";
 }
+.playfair{
+  font-family:"Playfair Display, serif";
+}
 @layer base {
   :root {
     --radius: 0.5rem;
