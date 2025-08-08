@@ -8,14 +8,15 @@ import {
   Google,
   Lock,
 } from "@/components/CustomIcons/CustomIcon";
-import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
+import { Link, ScrollRestoration, useNavigate,useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks/useAuth";
-
 const SignIn = () => {
+   const [searchParams] = useSearchParams();
+    const redirectPath = searchParams.get("redirect") || "/";
   const {
     register,
     handleSubmit,
@@ -40,7 +41,7 @@ const SignIn = () => {
     onSuccess: (data) => {
       setServerError(null);
       toast.success("Login Successfully");
-      navigate("/");
+    navigate(redirectPath);
 
       // Save tokens to context
       setToken(data.access);
