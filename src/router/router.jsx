@@ -26,6 +26,9 @@ import EditResumePage from "@/pages/edit_resume_page/EditResumePage";
 import Design from "@/pages/edit_resume_page/Design";
 import FinalReview from "@/components/UpdateExistingResumeComponent/FinalReview";
 import ResumeEight from "@/components/All_Templates/ResumeEight";
+import ResumeFive from "@/components/All_Templates/ResumeFive";
+import ResumeSeven from "@/components/All_Templates/ResumeSeven";
+import ResumeNine from "@/components/All_Templates/ResumeNine";
 
 const router = createBrowserRouter([
   {
@@ -136,7 +139,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/cv",
-    element: <ResumeEight />,
+    element: <ResumeSeven/>,
   },
 ]);
 
