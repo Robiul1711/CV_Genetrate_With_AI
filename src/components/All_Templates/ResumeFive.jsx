@@ -37,7 +37,7 @@ const ResumeFive = () => {
       </div>
       <div
         ref={resumeRef}
-        className="bg-white text-black px-5   w-[595px] mx-auto !urbanist"
+        className="bg-white text-black px-5  w-[210mm] mx-auto !urbanist"
       >
         {/* Body */}
         <div className="flex justify-between gap-5 ">

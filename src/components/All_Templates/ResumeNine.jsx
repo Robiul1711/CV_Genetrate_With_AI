@@ -13,7 +13,7 @@ const ResumeNine = () => {
   return (
     <div className=" flex flex-col gap-4 p-6 bg-white w-[210mm] mx-auto mt-10">
       <div className=" flex flex-col">
-        <div className=" flex flex-col z-50 justify-center items-center gap-4">
+        <div className=" flex flex-col z-10 justify-center items-center gap-4">
           <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
             The resume of
           </p>
@@ -33,7 +33,7 @@ const ResumeNine = () => {
             <p className=" px-6 text-[#0D0D0D]  z-50 text-xs !urbanist font-medium leading-[12px] tracking-[8px] uppercase">
               PROFESSIONAL TITLE
             </p>
-            <div className=" px-6 flex flex-col gap-2 z-50">
+            <div className=" px-6 flex flex-col gap-2 z-40">
               <p className="text-[#171717] !urbanist font-normal text-xs leading-[18px]">
                 Experienced Senior Project Manager with over 10 years in the
                 German tech industry. Specializing in agile methodologies,

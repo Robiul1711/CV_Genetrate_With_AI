@@ -25,7 +25,7 @@ const ResumeThree = () => {
   };
 
   return (
-    <div className="min-h-screen w-[595px] ">
+    <div className="min-h-screen  ">
       <div className="text-center mb-4">
         <button
           onClick={handleDownload}
@@ -34,7 +34,7 @@ const ResumeThree = () => {
           Download as PDF
         </button>
       </div>
-      <div ref={resumeRef} className="bg-white text-black px-5 py-8  mx-auto ">
+      <div ref={resumeRef} className="bg-white text-black px-5 py-8 w-[210mm]  mx-auto ">
         {/* Header */}
         <div className="flex w-full justify-between">
           <div className="w-[60%]">

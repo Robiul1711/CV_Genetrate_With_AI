@@ -19,7 +19,7 @@ const ResumeEleven = () => {
   };
 
   return (
-    <div className="min-h-screen w-[595px] ">
+    <div className="min-h-screen ">
       <div className="text-center mb-4">
         <button
           onClick={handleDownload}
@@ -28,7 +28,7 @@ const ResumeEleven = () => {
           Download as PDF
         </button>
       </div>
-    <div ref={resumeRef} className="bg-white text-black px-4 py-8  mx-auto !  urbanist">
+    <div ref={resumeRef} className="bg-white text-black px-4 py-8 w-[210mm]  mx-auto !urbanist">
       {/* Header */}
       <div className="text-center ">
         <h1 className="text-[32px] font-bold tracking-[2px] text-[#484848] ">
