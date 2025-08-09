@@ -97,13 +97,16 @@ const Navbar = () => {
             />
           </div>
         ) : user ? (
-          <UserDropdown
-            user={{
-              name: user.first_name + " " + user.last_name,
+          <div className="hidden lg:flex items-center gap-5">
+            <UserDropdown
+              user={{
+                name: user.first_name + " " + user.last_name,
 
-              email: user?.user?.email,
-            }}
-          />
+                email: user?.user?.email,
+              }}
+            />
+            <LanguageDropdown />
+          </div>
         ) : (
           <div className="hidden lg:flex items-center gap-5">
             <Link to={"/sign-in"}>
@@ -113,7 +116,7 @@ const Navbar = () => {
             </Link>
             <Link to={"/sign-up"}>
               <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg">
-                Sign Up
+                Sign Upd
               </button>
             </Link>
             <LanguageDropdown />

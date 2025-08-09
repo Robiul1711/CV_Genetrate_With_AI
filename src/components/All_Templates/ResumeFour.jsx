@@ -26,7 +26,7 @@ const ResumeFour = () => {
   };
 
   return (
-    <div className="min-h-screen w-[595px] ">
+    <div className="min-h-screen  ">
       <div className="text-center mb-4">
         <button
           onClick={handleDownload}
@@ -37,7 +37,7 @@ const ResumeFour = () => {
       </div>
       <div
         ref={resumeRef}
-        className="bg-white text-black px-5 py-8  mx-auto urbanist"
+        className="bg-white text-black px-5 py-8  w-[210mm] mx-auto urbanist"
       >
         {/* Header */}
         <div className="flex w-full justify-between items-start gap-4">

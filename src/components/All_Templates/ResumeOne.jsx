@@ -28,7 +28,7 @@ const ResumeOne = () => {
           Download as PDF
         </button>
       </div>
-    <div ref={resumeRef} className="bg-white text-black px-10 py-8  mx-auto urbanist">
+    <div ref={resumeRef} className="bg-white text-black px-4 py-8  mx-auto !urbanist">
       {/* Header */}
       <div className="text-center border-b border-[#D9D9D9] pb-5">
         <h1 className="text-[32px] font-light tracking-[7px] text-[#484848]">

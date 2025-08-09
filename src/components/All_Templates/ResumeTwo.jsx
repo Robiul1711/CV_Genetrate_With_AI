@@ -34,10 +34,10 @@ const ResumeTwo = () => {
           Download as PDF
         </button>
       </div>
-      <div ref={resumeRef} className="bg-white text-black px-10 py-8  mx-auto ">
+      <div ref={resumeRef} className="bg-white text-black px-4 py-8  mx-auto ">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-[32px] font-light tracking-[7px] text-[#484848] playfair">
+          <h1 className="text-[32px] font-light tracking-[7px] text-[#484848] !playfair">
             ALEX <span className="font-semibold ">STEVENS</span>
           </h1>
         </div>
@@ -162,7 +162,7 @@ const ResumeTwo = () => {
                 </p>
               </div>
             </div>
-   <div className="border-b border-[#D9D9D9] "></div>
+            <div className="border-b border-[#D9D9D9] "></div>
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] ">
                 TRAINING
@@ -190,7 +190,7 @@ const ResumeTwo = () => {
                 </p>
               </div>
             </div>
-               <div className="border-b border-[#D9D9D9] "></div>
+            <div className="border-b border-[#D9D9D9] "></div>
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
                 SKILL
@@ -202,7 +202,7 @@ const ResumeTwo = () => {
                 <li>Communication Skills</li>
               </ul>
             </div>
-               <div className="border-b border-[#D9D9D9] "></div>
+            <div className="border-b border-[#D9D9D9] "></div>
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
                 LANGUAGE
