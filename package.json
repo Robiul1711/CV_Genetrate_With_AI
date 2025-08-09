@@ -17,6 +17,7 @@
     "@radix-ui/react-progress": "^1.1.7",
     "@radix-ui/react-radio-group": "^1.3.7",
     "@radix-ui/react-select": "^2.1.2",
+    "@react-pdf/renderer": "^4.3.0",
     "@tanstack/react-query": "^5.83.0",
     "axios": "^1.10.0",
     "class-variance-authority": "^0.7.1",
