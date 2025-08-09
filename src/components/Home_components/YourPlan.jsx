@@ -33,7 +33,7 @@ const YourPlan = () => {
   return (
     <div className="pb-12 py-6 md:py-10">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[24px] md:text-[28px] font-bold">
+        <h1 className="text-[24px] md:text-[28px] font-bold ">
           Choose Your Plan
         </h1>
         <p className="text-[15px] md:text-base text-[#9B9B9B] pt-2">
