@@ -1,13 +1,19 @@
+import { useResume } from "@/providers/ResumeContext";
 import React from "react";
 import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 
 export default function CoverLetter() {
+  const { coverLetter } = useResume();
+  const cover = coverLetter?.data;
+  console.log(cover);
   return (
-    <div className="w-[210mm] h-[297mm] bg-white shadow-lg py-12 px-20 mx-auto !outfit">
+    <div className="w-[210mm]  bg-white shadow-lg py-12 px-20 mx-auto !outfit">
       {/* Header */}
       <div className="">
-        <h1 className="text-2xl font-bold text-[#2E2E48]">Angelo Libero</h1>
-        <p className="text-[#516CF7] font-medium text-lg">Full-Stack Designer</p>
+        <h1 className="text-2xl font-bold text-[#2E2E48]">
+          {cover?.first_name} {cover?.last_name}
+        </h1>
+        <p className="text-[#516CF7] font-medium text-lg">{cover?.job_title}</p>
 
         {/* Contact Info */}
         <div className="mt-8 flex items-center justify-between w-full">
@@ -15,7 +21,7 @@ export default function CoverLetter() {
             <MdEmail className="text-[#79819A] text-3xl p-1.5 bg-[#79819A]/20 rounded-full" />
             <div>
               <p className="text-xs text-[#79819A]">Email</p>
-              <p className="text-sm text-[#47516B]">angelo.libero@gmail.com</p>
+              <p className="text-sm text-[#47516B]">{cover?.email}</p>
             </div>
           </div>
 
@@ -23,7 +29,7 @@ export default function CoverLetter() {
             <MdPhone className="text-[#79819A] text-3xl p-1.5 bg-[#79819A]/20 rounded-full" />
             <div>
               <p className="text-xs text-[#79819A]">Phone</p>
-              <p className="text-sm text-[#47516B]">(+39) 333 0123 765</p>
+              <p className="text-sm text-[#47516B]">{cover?.phone_number}</p>
             </div>
           </div>
 
@@ -31,7 +37,7 @@ export default function CoverLetter() {
             <MdLocationOn className="text-[#79819A] text-3xl p-1.5 bg-[#79819A]/20 rounded-full" />
             <div>
               <p className="text-xs text-[#79819A]">Address</p>
-              <p className="text-sm text-[#47516B]">Bologna, Italy</p>
+              <p className="text-sm text-[#47516B]">{cover?.address}</p>
             </div>
           </div>
         </div>
@@ -42,16 +48,19 @@ export default function CoverLetter() {
 
       {/* Body */}
       <div className=" text-sm text-gray-800 leading-relaxed">
-        <p className="text-[#2E2E48] font-medium">[Today’s Date]</p>
+        <p className="text-[#2E2E48] font-medium">
+          {new Date().toLocaleDateString("en-US", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })}
+        </p>
+
         <p className="mt-2 text-[#2E2E48] font-medium">Dear [Manager’s Name]</p>
 
         <p className="mt-6 tracking-[0.5px] leading-[16px] text-[#47516B]">
-          Omnis minima inventore minus. Aut et incidunt. Aut fugiat culpa illum
-          optio dolorum aut maxime ipsa. Laborum incidunt enim consectetur
-          perspiciatis. Dolore ullam dolor impedit dolorum recusandae facilis
-          quo et. Et ipsam vel sunt qui ut officia voluptatem.
+          {cover?.resume_content}
         </p>
-
 
         <div className="mt-8 text-[#2E2E48] font-medium">
           <p>Sincerely,</p>

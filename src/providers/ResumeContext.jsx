@@ -3,12 +3,12 @@ import React, { createContext, useContext, useState } from "react";
 const ResumeContext = createContext();
 
 export const ResumeProvider = ({ children }) => {
-  const [formData, setFormData] = useState({});
+  const [coverLetter, setCoverLetter] = useState({});
   const [selectedTemplate, setSelectedTemplate] = useState("resumeOne");
 
   return (
     <ResumeContext.Provider
-      value={{ formData, setFormData, selectedTemplate, setSelectedTemplate }}
+      value={{ coverLetter, setCoverLetter, selectedTemplate, setSelectedTemplate }}
     >
       {children}
     </ResumeContext.Provider>
