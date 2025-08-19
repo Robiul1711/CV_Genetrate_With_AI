@@ -14,13 +14,36 @@ import { Link } from "react-router-dom";
 import StepProgressBar from "@/components/common/StepProgressBar";
 import { useForm, FormProvider } from "react-hook-form";
 import SelectLangaugeStep from "@/components/createResumeComponents/SelectLangaugeStep";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useMutation } from "@tanstack/react-query";
 
 const CreateNewResume = () => {
   const methods = useForm({
     mode: "onChange",
   });
-
   const [activeStep, setActiveStep] = useState(0);
+  const axiosSecure = useAxiosSecure();
+    const ResumeMutation = useMutation({
+    mutationFn: async (formData) => {
+      const response = await axiosSecure.post(
+        "/create-resume/",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      toast.success(data?.message);
+      setCoverLetter(data);
+      // console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error(error?.response?.data?.message || "Something went wrong!");
+    },
+  });
 
   const steps = [
     { label: "Choose Your Goal", component: <Step1 /> },
@@ -67,6 +90,10 @@ const CreateNewResume = () => {
   };
   const onSubmit = (data) => {
     console.log("✅ Final Form Data:", data);
+      data.goal = String(data.goal).trim();
+
+  // Now send the updated data
+  ResumeMutation.mutate(data);
 
     if (activeStep === 7) {
       setActiveStep(8);
@@ -74,6 +101,7 @@ const CreateNewResume = () => {
       console.log("🎉 All steps completed. Submitting final data...");
     }
   };
+
 
   return (
     <FormProvider {...methods}>

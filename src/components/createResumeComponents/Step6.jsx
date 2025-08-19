@@ -72,10 +72,7 @@ const Step6 = () => {
                   <option value="">Select</option>
                   <option value="German">German</option>
                   <option value="English">English</option>
-                  <option value="Russian">Russian</option>
-                  <option value="Arabic">Arabic</option>
-                  <option value="Spanish">Spanish</option>
-                  <option value="Turkish">Turkish</option>
+
                 </select>
                 {errors.languages?.[index]?.language && (
                   <span className="text-red-500 text-xs">

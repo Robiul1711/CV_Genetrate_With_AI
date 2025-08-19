@@ -37,7 +37,8 @@ const [loading, setLoading] = useState(false);
       return res.data;
     },
  onSuccess: (res) => {
-  const botResponse = res?.data?.answer;
+  console.log(res);
+  const botResponse = res?.data;
   const newId = Date.now();
   setMessages((prev) => [
     ...prev,
