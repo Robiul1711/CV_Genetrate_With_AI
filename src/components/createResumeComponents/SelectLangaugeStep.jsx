@@ -23,12 +23,9 @@ const SelectLanguageStep = () => {
               <option value="" disabled>
                 Select a language
               </option>
-              <option value="german">German</option>
-              <option value="english">English</option>
-              <option value="russian">Russian</option>
-              <option value="arabic">Arabic</option>
-              <option value="spanish">Spanish</option>
-              <option value="turkish">Turkish</option>
+              <option value="de">German</option>
+              <option value="en">English</option>
+
             </select>
             {errors.resume_language && (
               <p className="text-red-500 text-xs">{errors.resume_language.message}</p>
