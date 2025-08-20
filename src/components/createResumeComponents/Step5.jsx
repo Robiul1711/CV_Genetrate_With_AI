@@ -24,20 +24,22 @@ const Step5 = () => {
     setValue,
     watch,
     register,
-    getValues,
     formState: { errors },
   } = useFormContext();
 
   const skills = watch("skills") || [];
   const [search, setSearch] = useState("");
 
-  // Add skill object { skill: skill }
+  // Register the skills field with validation
+  register("skills", { 
+    validate: (value) => value.length > 0 || "Please select at least one skill"
+  });
+
   const handleSelectSkill = (skill) => {
     const updated = [...skills, { skill }];
     setValue("skills", updated, { shouldValidate: true });
   };
 
-  // Remove skill by value
   const handleRemoveSkill = (skillToRemove) => {
     const updated = skills.filter((s) => s.skill !== skillToRemove);
     setValue("skills", updated, { shouldValidate: true });
@@ -52,26 +54,23 @@ const Step5 = () => {
   return (
     <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="w-[800px] mx-auto">
-        {/* Mobile title */}
+        {/* Title */}
         <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
           <Title level="title24">Highlight Your Skills</Title>
           <Title level="title14">
-            Showcase both your technical expertise and soft skills to match job
-            requirements.
+            Showcase both your technical expertise and soft skills to match job requirements.
           </Title>
         </div>
-        {/* Desktop title */}
         <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
           <Title level="title40">Highlight Your Skills</Title>
           <Title level="title20">
-            Showcase both your technical expertise and soft skills to match job
-            requirements.
+            Showcase both your technical expertise and soft skills to match job requirements.
           </Title>
         </div>
 
         {/* Selected Skills */}
-        <p className="text-sm mb-2">Selected Skills</p>
-        <div className="flex flex-wrap gap-3 mb-6">
+        <p className="text-sm mb-2">Selected Skills *</p>
+        <div className="flex flex-wrap gap-3 mb-1">
           {skills.map((skillObj) => (
             <div
               key={skillObj.skill}
@@ -84,6 +83,11 @@ const Step5 = () => {
             </div>
           ))}
         </div>
+
+        {/* Error Message */}
+        {errors.skills && (
+          <p className="text-red-500 text-xs mb-2">{errors.skills.message}</p>
+        )}
 
         {/* Search Input */}
         <p className="text-sm mb-2">Skill</p>

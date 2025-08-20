@@ -34,6 +34,7 @@ const Step7 = () => {
   return (
     <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="w-[800px] mx-auto">
+        {/* Titles */}
         <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
           <Title level="title24">Courses and Training Details</Title>
           <Title level="title14">
@@ -71,57 +72,74 @@ const Step7 = () => {
               </button>
             </div>
 
+            {/* Name of Institute */}
             <div className="flex flex-col gap-2 mb-2">
               <label className="text-sm text-white">Name Of Institute *</label>
               <input
                 type="text"
                 {...register(
                   `courses_and_training_details.${index}.name_of_institute`,
-                  { required: true }
+                  { required: "Institute name is required" }
                 )}
-                placeholder="Polytechnic Institute"
+                placeholder="Name of Institute"
                 className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               />
+              {errors?.courses_and_training_details?.[index]?.name_of_institute && (
+                <p className="text-red-500 text-xs">
+                  {errors.courses_and_training_details[index].name_of_institute.message}
+                </p>
+              )}
             </div>
 
+            {/* Course Name */}
             <div className="flex flex-col gap-2 mb-2">
               <label className="text-sm text-white">Course Name *</label>
               <input
                 type="text"
-                {...register(
-                  `courses_and_training_details.${index}.course_name`,
-                  { required: true }
-                )}
-                placeholder="Diploma"
+                {...register(`courses_and_training_details.${index}.course_name`, {
+                  required: "Course name is required",
+                })}
+                placeholder="Course Name"
                 className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               />
+              {errors?.courses_and_training_details?.[index]?.course_name && (
+                <p className="text-red-500 text-xs">
+                  {errors.courses_and_training_details[index].course_name.message}
+                </p>
+              )}
             </div>
 
+            {/* Dates */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <label className="text-sm text-white">Start Date *</label>
                 <input
                   type="date"
-                  {...register(
-                    `courses_and_training_details.${index}.start_date`,
-                    { required: true }
-                  )}
+                  {...register(`courses_and_training_details.${index}.start_date`, {
+                    required: "Start date is required",
+                  })}
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 />
+                {errors?.courses_and_training_details?.[index]?.start_date && (
+                  <p className="text-red-500 text-xs">
+                    {errors.courses_and_training_details[index].start_date.message}
+                  </p>
+                )}
               </div>
+
               <div className="flex flex-col gap-2">
                 <label className="text-sm text-white">End Date</label>
                 <input
                   type="date"
-                  {...register(
-                    `courses_and_training_details.${index}.end_date`
-                  )}
+                  {...register(`courses_and_training_details.${index}.end_date`)}
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 />
               </div>
             </div>
           </div>
         ))}
+
+        {/* Add Button and Modal */}
         <div className="flex items-center justify-between">
           <button
             type="button"

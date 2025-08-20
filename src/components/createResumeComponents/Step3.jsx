@@ -15,21 +15,21 @@ const Step3 = () => {
     formState: { errors },
   } = useFormContext();
 
-  const { fields, append, remove, update } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "work_experiences",
   });
 
-  // Append one default item on mount if empty
+  // Append default item if empty
   useEffect(() => {
     if (fields.length === 0) {
       append({
         job_title: "",
-  company_name: "",
-  start_date: "",
-  end_date: "",
-  still_working_here: false,
-  responsibilities: "",
+        company_name: "",
+        start_date: "",
+        end_date: "",
+        still_working_here: false,
+        responsibilities: "",
       });
     }
   }, [append, fields.length]);
@@ -37,11 +37,11 @@ const Step3 = () => {
   const handleAdd = () => {
     append({
       job_title: "",
-  company_name: "",
-  start_date: "",
-  end_date: "",
-  still_working_here: false,
-  responsibilities: "",
+      company_name: "",
+      start_date: "",
+      end_date: "",
+      still_working_here: false,
+      responsibilities: "",
     });
   };
 
@@ -52,15 +52,13 @@ const Step3 = () => {
         <div className="text-center mb-8">
           <Title level="title40">Your Work Experience</Title>
           <Title level="title20">
-            List your previous jobs and responsibilities. Start with your most
-            recent experience. You can add multiple positions.
+            List your previous jobs and responsibilities. Start with your most recent experience. You can add multiple positions.
           </Title>
         </div>
 
-        {/* work_experiences */}
+        {/* Work Experience Cards */}
         {fields.map((item, index) => {
-        const isCurrent = watch(`work_experiences.${index}.still_working_here`);
-
+          const isCurrent = watch(`work_experiences.${index}.still_working_here`);
 
           return (
             <div
@@ -74,16 +72,13 @@ const Step3 = () => {
                   </Title>
                   <GoDotFill className="text-white" />
                   <Title level="title24">
-                    {watch(`work_experiences.${index}.job_title`) || "Company"}
+                    {watch(`work_experiences.${index}.company_name`) || "Company"}
                   </Title>
                 </div>
                 <div className="flex gap-2">
                   <CiEdit
                     className="text-white cursor-pointer p-1 border border-white/30 rounded-full"
                     size={28}
-                    onClick={() => {
-                      // Optional: add toggle edit mode
-                    }}
                   />
                   <button
                     type="button"
@@ -100,36 +95,51 @@ const Step3 = () => {
                   <label className="text-sm">Job Title *</label>
                   <input
                     type="text"
-                    {...register(`work_experiences.${index}.job_title`)}
+                    {...register(`work_experiences.${index}.job_title`, { required: "Job Title is required" })}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
+                  {errors?.work_experiences?.[index]?.job_title && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.work_experiences[index].job_title.message}
+                    </p>
+                  )}
                 </div>
+
                 <div className="flex flex-col gap-2">
                   <label className="text-sm">Company Name *</label>
                   <input
                     type="text"
-                    {...register(`work_experiences.${index}.company_name`)}
+                    {...register(`work_experiences.${index}.company_name`, { required: "Company Name is required" })}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
+                  {errors?.work_experiences?.[index]?.company_name && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.work_experiences[index].company_name.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <label className="text-sm">Start Date *</label>
                   <input
                     type="date"
-                    {...register(`work_experiences.${index}.start_date`)}
+                    {...register(`work_experiences.${index}.start_date`, { required: "Start Date is required" })}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
+                  {errors?.work_experiences?.[index]?.start_date && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.work_experiences[index].start_date.message}
+                    </p>
+                  )}
                 </div>
+
                 <div className="flex flex-col gap-2">
                   <label className="text-sm">End Date</label>
                   <input
                     type="date"
                     disabled={isCurrent}
                     {...register(`work_experiences.${index}.end_date`)}
-                    className={`bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white ${
-                      isCurrent ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
+                    className={`bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white ${isCurrent ? "opacity-50 cursor-not-allowed" : ""}`}
                   />
                 </div>
 
@@ -140,13 +150,11 @@ const Step3 = () => {
                       setValue(`work_experiences.${index}.still_working_here`, checked)
                     }
                   />
-                  <label className="text-sm">I&apos;m still working here</label>
+                  <label className="text-sm">I'm still working here</label>
                 </div>
 
                 <div className="md:col-span-2 flex flex-col gap-2">
-                  <label className="text-sm">
-                    Responsibilities / Achievements (Optional)
-                  </label>
+                  <label className="text-sm">Responsibilities / Achievements (Optional)</label>
                   <textarea
                     rows={3}
                     {...register(`work_experiences.${index}.responsibilities`)}
