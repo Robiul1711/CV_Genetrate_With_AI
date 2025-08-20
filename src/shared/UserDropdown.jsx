@@ -10,6 +10,7 @@ const UserDropdown = ({
   avatarTextColor = "text-white",
   dropdownItems = [],
   scrolled = false,
+  
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);

@@ -7,88 +7,133 @@ import { useEmail } from "@/hooks/useEmail";
 import { useMutation } from "@tanstack/react-query";
 import bot from "@/assets/images/bot.png";
 
-const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatWithData }) => {
+const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatWithData, history }) => {
   const axiosSecure = useAxiosSecure();
   const { language } = useEmail();
-const [loading, setLoading] = useState(false);
 
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      text: "Hey there! How's it going?",
-      sender: "other",
-      senderProfile: {
-        name: "Bot",
-        avatar: bot
-      },
-      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-      reaction: null
-    }
-  ]);
-
+  const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [reactingTo, setReactingTo] = useState(null);
+
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
+  // Mutation for sending message to bot
   const ChatMutation = useMutation({
     mutationFn: async (data) => {
       const res = await axiosSecure.post("/chats/", data);
       return res.data;
     },
- onSuccess: (res) => {
-  console.log(res);
-  const botResponse = res?.data;
-  const newId = Date.now();
-  setMessages((prev) => [
-    ...prev,
-    {
-      id: newId,
-      text: botResponse,
-      sender: "other",
-      senderProfile: {
-        name: "Bot",
-        avatar: bot
-      },
-      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-      reaction: null
-    }
-  ]);
-  setLoading(false); // 👈 Hide typing indicator
-}
+    onSuccess: (res) => {
+      const botResponse = res?.data;
+      const newId = Date.now();
 
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: newId,
+          text: botResponse,
+          sender: "other",
+          senderProfile: {
+            name: "Bot",
+            avatar: bot,
+          },
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          reaction: null,
+        },
+      ]);
+
+      setLoading(false);
+    },
   });
 
-const handleSendMessage = () => {
-  if (!newMessage.trim()) return;
-  const newId = Date.now();
+  // Initialize chat history (old messages top, latest bottom)
+  useEffect(() => {
+    if (history?.length) {
+      // Reverse the history array to show oldest first, newest last
+      const reversedHistory = [...history].reverse();
+      const formattedHistory = [];
 
-  setMessages((prev) => [
-    ...prev,
-    {
-      id: newId,
-      text: newMessage,
-      sender: "me",
-      senderProfile: {
-        name: "You",
-        avatar: "https://i.pravatar.cc/40?img=1"
-      },
-      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-      reaction: null
+      reversedHistory.forEach((item) => {
+        // User question (right)
+        if (item.question) {
+          formattedHistory.push({
+            id: Date.now() + Math.random(),
+            text: item.question,
+            sender: "me",
+            senderProfile: { name: "You", avatar: "https://i.pravatar.cc/40?img=1" },
+            timestamp: new Date(item.created_at || Date.now()).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+            reaction: null,
+          });
+        }
+
+        // Bot answer (left)
+        if (item.answer) {
+          formattedHistory.push({
+            id: Date.now() + Math.random(),
+            text: item.answer,
+            sender: "other",
+            senderProfile: { name: "Bot", avatar: bot },
+            timestamp: new Date(item.created_at || Date.now()).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+            reaction: null,
+          });
+        }
+      });
+
+      setMessages(formattedHistory);
+    } else {
+      setMessages([
+        {
+          id: 1,
+          text: "Hey there! How's it going?",
+          sender: "other",
+          senderProfile: { name: "Bot", avatar: bot },
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          reaction: null,
+        },
+      ]);
     }
-  ]);
+  }, [history]);
 
-  setLoading(true); // 👈 Show typing indicator
-  ChatMutation.mutate({ question: newMessage, language });
-  setNewMessage("");
-  inputRef.current?.focus();
-};
+  // Scroll to bottom whenever messages update
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, loading]);
 
+  // Send message handler
+  const handleSendMessage = (messageText = newMessage) => {
+    if (!messageText.trim()) return;
+
+    const newId = Date.now();
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: newId,
+        text: messageText,
+        sender: "me",
+        senderProfile: { name: "You", avatar: "https://i.pravatar.cc/40?img=1" },
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        reaction: null,
+      },
+    ]);
+
+    setLoading(true);
+    ChatMutation.mutate({ question: messageText, language });
+    setNewMessage("");
+    inputRef.current?.focus();
+  };
+
+  // Handle reaction
   const handleReaction = (messageId, reaction) => {
     setMessages((prev) =>
-      prev.map((m) =>
-        m.id === messageId ? { ...m, reaction: m.reaction === reaction ? null : reaction } : m
-      )
+      prev.map((m) => (m.id === messageId ? { ...m, reaction: m.reaction === reaction ? null : reaction } : m))
     );
     setReactingTo(null);
   };
@@ -97,123 +142,80 @@ const handleSendMessage = () => {
     setReactingTo((prev) => (prev === id ? null : id));
   };
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
+  // Handle clicked suggested question
   useEffect(() => {
     if (clickedQuestion && showChatWithData) {
-      const newId = Date.now();
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: newId,
-          text: clickedQuestion,
-          sender: "me",
-          senderProfile: {
-            name: "You",
-            avatar: "https://i.pravatar.cc/40?img=1",
-          },
-          timestamp: new Date().toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-          reaction: null,
-        },
-      ]);
-
-      ChatMutation.mutate({ question: clickedQuestion, language });
+      handleSendMessage(clickedQuestion);
     }
   }, [clickedQuestion, showChatWithData]);
 
   return (
-    <div className="flex flex-col w-full max-w-6xl mx-auto bg-[#0E0E10] rounded-md custom-scrollbar overflow-hidden shadow-md h-[90vh]">
+    <div className="flex flex-col w-full max-w-6xl mx-auto bg-[#0E0E10] rounded-md custom-scrollbar overflow-hidden shadow-md h-[90vh] relative">
+      {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-   <AnimatePresence>
-  {messages.map((msg) => (
-    <motion.div
-      key={msg.id}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      className={`flex items-end gap-2 ${
-        msg.sender === "me" ? "justify-end" : "justify-start"
-      }`}
-    >
-      {msg.sender === "other" && (
-        <img src={msg.senderProfile.avatar} alt="" className="w-8 h-8 rounded-full" />
-      )}
-      <div>
-        <div
-          className={`px-4 py-2 text-sm rounded-xl ${
-            msg.sender === "me"
-              ? "bg-blue-600 text-white rounded-br-none"
-              : "bg-gray-200 dark:bg-slate-700 text-black rounded-bl-none"
-          }`}
-        >
-          {msg.text}
-        </div>
-        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-          {msg.timestamp}
-        </div>
-      </div>
-      {msg.sender === "me" && (
-        <img src={msg.senderProfile.avatar} alt="" className="w-8 h-8 rounded-full" />
-      )}
+        <AnimatePresence>
+          {messages.map((msg) => (
+            <motion.div
+              key={msg.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className={`flex items-end gap-2 ${msg.sender === "me" ? "justify-end" : "justify-start"}`}
+            >
+              {msg.sender === "other" && <img src={msg.senderProfile.avatar} alt="" className="w-8 h-8 rounded-full" />}
+              <div>
+                <div
+                  className={`px-4 py-2 text-sm rounded-xl ${
+                    msg.sender === "me"
+                      ? "bg-blue-600 text-white rounded-br-none"
+                      : "bg-gray-200 dark:bg-slate-700 text-black rounded-bl-none"
+                  }`}
+                >
+                  {msg.text}
+                </div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{msg.timestamp}</div>
+              </div>
+              {msg.sender === "me" && <img src={msg.senderProfile.avatar} alt="" className="w-8 h-8 rounded-full" />}
 
-      {msg.reaction && (
-        <span
-          className="text-xs ml-2 cursor-pointer"
-          onClick={() => toggleReactionMenu(msg.id)}
-        >
-          {msg.reaction === "love" && <LuHeart size={16} color="red" />}
-          {msg.reaction === "like" && <LuThumbsUp size={16} color="blue" />}
-          {msg.reaction === "smile" && <FaRegSmile size={16} color="gold" />}
-        </span>
-      )}
-      {!msg.reaction && msg.sender === "other" && (
-        <button
-          onClick={() => toggleReactionMenu(msg.id)}
-          className="text-gray-400 hover:text-gray-600 dark:hover:text-white"
-        >
-          <FaRegSmile size={16} />
-        </button>
-      )}
-    </motion.div>
-  ))}
+              {msg.reaction && (
+                <span className="text-xs ml-2 cursor-pointer" onClick={() => toggleReactionMenu(msg.id)}>
+                  {msg.reaction === "love" && <LuHeart size={16} color="red" />}
+                  {msg.reaction === "like" && <LuThumbsUp size={16} color="blue" />}
+                  {msg.reaction === "smile" && <FaRegSmile size={16} color="gold" />}
+                </span>
+              )}
+              {!msg.reaction && msg.sender === "other" && (
+                <button
+                  onClick={() => toggleReactionMenu(msg.id)}
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-white"
+                >
+                  <FaRegSmile size={16} />
+                </button>
+              )}
+            </motion.div>
+          ))}
 
-  {/* Typing indicator here */}
-  {loading && (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="flex items-center gap-2"
-    >
-      <img src={bot} alt="Bot" className="w-8 h-8 rounded-full" />
-      <div className="bg-gray-200 dark:bg-slate-700 rounded-xl px-3 py-2 flex items-center gap-1">
-        <span
-          className="dot w-2 h-2 bg-gray-500 rounded-full animate-bounce"
-          style={{ animationDelay: "0s" }}
-        ></span>
-        <span
-          className="dot w-2 h-2 bg-gray-500 rounded-full animate-bounce"
-          style={{ animationDelay: "0.2s" }}
-        ></span>
-        <span
-          className="dot w-2 h-2 bg-gray-500 rounded-full animate-bounce"
-          style={{ animationDelay: "0.4s" }}
-        ></span>
-      </div>
-    </motion.div>
-  )}
-</AnimatePresence>
-
-<div ref={messagesEndRef} />
-
+          {/* Typing indicator */}
+          {loading && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex items-center gap-2"
+            >
+              <img src={bot} alt="Bot" className="w-8 h-8 rounded-full" />
+              <div className="bg-gray-200 dark:bg-slate-700 rounded-xl px-3 py-2 flex items-center gap-1">
+                <span className="dot w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "0s" }}></span>
+                <span className="dot w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></span>
+                <span className="dot w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "0.4s" }}></span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <div ref={messagesEndRef} />
       </div>
 
+      {/* Reaction menu */}
       <AnimatePresence>
         {reactingTo && (
           <motion.div
@@ -235,6 +237,7 @@ const handleSendMessage = () => {
         )}
       </AnimatePresence>
 
+      {/* Input */}
       <div className="p-4 border-t border-gray-200">
         <div className="flex gap-2 items-center">
           <input

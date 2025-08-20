@@ -39,6 +39,7 @@ const ChatBox = () => {
     setShowChatWithData(true); // Show chatbox
   };
 
+
   const HandleModal = () => {
     Swal.fire({
       title: "Login Required",
@@ -59,13 +60,15 @@ const ChatBox = () => {
     });
   };
 
+  console.log(History?.data?.data)
+ 
   return (
     <>
       {user ? (
         <div className="flex flex-col md:flex-row w-full">
           {/* Sidebar */}
           <div className="flex-col w-full hidden md:block md:w-[25%] bg-[#0E0E10] p-5 rounded-lg">
-            {History?.data?.data?.length > 0 && (
+            {/* {History?.data?.data?.length > 0 && (
               <h2 className="text-white text-lg font-semibold pb-2">
                 Chat History
               </h2>
@@ -83,7 +86,7 @@ const ChatBox = () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             <div className="pt-14">
               <h2 className="text-white text-lg font-semibold">
@@ -112,6 +115,7 @@ const ChatBox = () => {
               suggestedQuestions={suggestedQuestionsData?.data?.data}
               clickedQuestion={clickedQuestion} // ✅ pass clicked question
               showChatWithData={showChatWithData}
+              history={History?.data?.data}
             />
           </div>
         </div>

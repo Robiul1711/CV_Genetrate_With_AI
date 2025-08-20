@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 import { CiEdit } from "react-icons/ci";
 import Title from "../common/Title";
 import { useAuth } from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 import ProfileImage from "./ProfileImage";
 
 const ProfileSetting = () => {
@@ -14,15 +14,29 @@ const ProfileSetting = () => {
   const userEmail = user?.[0]?.user?.email;
   const axiosSecure = useAxiosSecure();
 
+  // Default values
+  const defaultValues = {
+    first_name: user?.[0]?.first_name || "",
+    last_name: user?.[0]?.last_name || "",
+    email: userEmail || "",
+    phone_number: user?.[0]?.phone_number || "",
+  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues,
+  });
 
+  // Keep form values synced when user data changes
+  useEffect(() => {
+    reset(defaultValues);
+  }, [user]);
 
-
+  // Mutation for profile update
   const UpdateMutation = useMutation({
     mutationFn: async (data) => {
       const response = await axiosSecure.put(`/update-profile/`, data);
@@ -30,20 +44,17 @@ const ProfileSetting = () => {
     },
     onSuccess: (data) => {
       toast.success(data?.message);
-      console.log(data);
+      setIsEditing(false);
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || "Update failed");
       console.log(error);
     },
   });
 
   const onSubmit = (data) => {
-    console.log("Submitted Data:", data);
     UpdateMutation.mutate({ ...data, email: userEmail });
-    setIsEditing(false);
   };
-
 
   return (
     <div className="max-w-6xl w-full p-3 lg:p-6">
@@ -52,7 +63,7 @@ const ProfileSetting = () => {
         Update your personal information
       </Title>
 
-<ProfileImage />
+      <ProfileImage />
 
       {/* Form */}
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -62,13 +73,17 @@ const ProfileSetting = () => {
             <label className="text-sm text-white">First Name *</label>
             <input
               type="text"
-              defaultValue={user?.[0]?.first_name}
               disabled={!isEditing}
               {...register("first_name", { required: "First name is required" })}
               className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] text-white ${
                 !isEditing ? "opacity-50 cursor-not-allowed" : ""
               }`}
             />
+            {errors.first_name && (
+              <span className="text-red-500 text-xs">
+                {errors.first_name.message}
+              </span>
+            )}
           </div>
 
           {/* Last Name */}
@@ -76,13 +91,17 @@ const ProfileSetting = () => {
             <label className="text-sm text-white">Last Name *</label>
             <input
               type="text"
-              defaultValue={user?.[0]?.last_name}
               disabled={!isEditing}
               {...register("last_name", { required: "Last name is required" })}
               className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] text-white ${
                 !isEditing ? "opacity-50 cursor-not-allowed" : ""
               }`}
             />
+            {errors.last_name && (
+              <span className="text-red-500 text-xs">
+                {errors.last_name.message}
+              </span>
+            )}
           </div>
 
           {/* Email */}
@@ -90,7 +109,6 @@ const ProfileSetting = () => {
             <label className="text-sm text-white">Email *</label>
             <input
               type="email"
-              defaultValue={userEmail}
               disabled
               {...register("email")}
               className="bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] text-white opacity-50 cursor-not-allowed"
@@ -101,19 +119,25 @@ const ProfileSetting = () => {
           <div className="flex flex-col gap-2">
             <label className="text-sm text-white">Phone Number *</label>
             <div
-              className={`flex items-center rounded-[10px] px-3 py-1.5 text-xs sm:text-sm md:text-base border border-[#262626] bg-[#0E0E10] text-white ${
+              className={`flex items-center rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] bg-[#0E0E10] text-white ${
                 !isEditing ? "opacity-50" : ""
               }`}
             >
-              <span className="pr-2">🇬🇧</span>
+              <span className="pr-2">📞</span>
               <input
                 type="text"
-                defaultValue={user?.[0]?.phone_number}
                 disabled={!isEditing}
-                {...register("phone_number", { required: "Phone number is required" })}
+                {...register("phone_number", {
+                  required: "Phone number is required",
+                })}
                 className="bg-transparent text-xs w-full focus:outline-none text-white"
               />
             </div>
+            {errors.phone_number && (
+              <span className="text-red-500 text-xs">
+                {errors.phone_number.message}
+              </span>
+            )}
           </div>
         </div>
 
@@ -123,26 +147,25 @@ const ProfileSetting = () => {
             <button
               type="button"
               onClick={() => setIsEditing(true)}
-              className="font-semibold border border-white text-white px-2 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
+              className="flex items-center gap-1 font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
             >
-              Edit Profile
+              <CiEdit /> Edit Profile
             </button>
           ) : (
             <>
               <button
                 type="button"
                 onClick={() => {
-                  reset();
-                  setPreviewImage(null); // reset preview
+                  reset(defaultValues); // restore original values
                   setIsEditing(false);
                 }}
-                className="font-semibold border border-white text-white px-2 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
+                className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="font-semibold border border-white text-white px-2 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
+                className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
               >
                 Save Changes
               </button>
