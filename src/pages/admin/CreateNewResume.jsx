@@ -16,10 +16,14 @@ import { useForm, FormProvider } from "react-hook-form";
 import SelectLangaugeStep from "@/components/createResumeComponents/SelectLangaugeStep";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const CreateNewResume = () => {
   const methods = useForm({
     mode: "onChange",
+     defaultValues :{
+      work_experiences: [],    
+     }
   });
   const [activeStep, setActiveStep] = useState(0);
   const axiosSecure = useAxiosSecure();
@@ -35,13 +39,14 @@ const CreateNewResume = () => {
       return response.data;
     },
     onSuccess: (data) => {
+      console.log("Resume created successfully:", data);
       toast.success(data?.message);
       setCoverLetter(data);
       // console.log(data);
     },
     onError: (error) => {
       console.log(error);
-      toast.error(error?.response?.data?.message || "Something went wrong!");
+      toast.error(error?.message || "Something went wrong!");
     },
   });
 

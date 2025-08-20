@@ -9,7 +9,7 @@ const SelectLanguageStep = () => {
     <div className="text-white flex items-center justify-center">
       <div className="w-[800px] mx-auto">
         <div className="text-center flex flex-col items-center gap-4 mb-5">
-          <Title level="title40">Cover Letter Language</Title>
+          <Title level="title40">Resume Language</Title>
         </div>
 
         <form className="flex flex-col gap-4">

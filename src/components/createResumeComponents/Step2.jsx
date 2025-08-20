@@ -124,7 +124,7 @@ const Step2 = () => {
             <label className="text-sm text-white">First Name *</label>
             <input
               type="text"
-              placeholder="John"
+              placeholder="First Name"
               {...register("first_name", { required: "First name is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
@@ -136,7 +136,7 @@ const Step2 = () => {
             <label className="text-sm text-white">Last Name *</label>
             <input
               type="text"
-              placeholder="Smith"
+              placeholder="Last Name"
               {...register("last_name", { required: "Last name is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
@@ -148,7 +148,7 @@ const Step2 = () => {
             <label className="text-sm text-white">Email *</label>
             <input
               type="email"
-              placeholder="johnsmith@gmail.com"
+              placeholder="Email Address"
               {...register("email", { required: "Email is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
@@ -162,7 +162,7 @@ const Step2 = () => {
               <span className="pr-2">🇬🇧</span>
               <input
                 type="text"
-                placeholder="123 456 8455"
+                placeholder="Enter your phone number"
                 {...register("phone_number", { required: "Phone number is required" })}
                 className="bg-transparent w-full focus:outline-none text-white"
               />
@@ -175,10 +175,11 @@ const Step2 = () => {
             <label className="text-sm text-white">Address</label>
             <input
               type="text"
-              placeholder="Berlin, Germany"
-              {...register("address")}
+              placeholder="Enter your address"
+              {...register("address", { required: "Address is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
+            {errors.address && <p className="text-red-400 text-xs">{errors.address.message}</p>}
           </div>
 
           {/* Date of Birth */}
@@ -186,9 +187,10 @@ const Step2 = () => {
             <label className="text-sm text-white">Date of Birth</label>
             <input
               type="date"
-              {...register("dob")}
+              {...register("dob", { required: "Date of birth is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
+            {errors.dob && <p className="text-red-400 text-xs">{errors.dob.message}</p>}
           </div>
 
           {/* Job Title */}
@@ -196,7 +198,7 @@ const Step2 = () => {
             <label className="text-sm text-white">Job Title *</label>
             <input
               type="text"
-              placeholder="UI/UX Designer"
+              placeholder="Enter your job title"
               {...register("job_title", { required: "Job title is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
