@@ -29,7 +29,7 @@ const CreateNewResume = () => {
         "/create-resume/",
         formData,
         {
-          headers: { "Content-Type": "multipart/form-data" },
+          headers: { "Content-Type": "application/json" }
         }
       );
       return response.data;

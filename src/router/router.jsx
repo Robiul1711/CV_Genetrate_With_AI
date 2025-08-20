@@ -139,7 +139,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/cv",
-    element: <ResumeSeven/>,
+    element: <ResumeNine/>,
   },
 ]);
 

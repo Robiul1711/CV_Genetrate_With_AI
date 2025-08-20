@@ -1,0 +1,352 @@
+/* cv.css */
+.resume-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background-color: white;
+  width: 210mm;
+  margin: 40px auto 0;
+}
+
+.download-btn {
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-subtitle {
+  color: #0D0D0D;
+  font-size: 12px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 500;
+  letter-spacing: 8px;
+  line-height: 12px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.header-title {
+  font-size: 32px;
+  letter-spacing: 7px;
+  font-family: 'Playfair Display', serif;
+  line-height: 48px;
+  color: #0D0D0D;
+  font-weight: 700;
+  margin: 0;
+}
+
+.content-row {
+  width: 100%;
+  display: flex;
+  gap: 24px;
+}
+
+.profile-image-container {
+  width: 33.33%;
+  position: relative;
+  height: 200px;
+  margin-top: -20px;
+}
+
+.profile-image-bg {
+  position: absolute;
+  inset: 0;
+  background-color: #F7DCD1;
+}
+
+.profile-image {
+  width: 133px;
+  height: 166px;
+  position: relative;
+  top: 64px;
+  left: 80px;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.professional-title {
+  padding: 0 24px;
+  color: #0D0D0D;
+  z-index: 50;
+  font-size: 12px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 500;
+  line-height: 12px;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.profile-description {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 40;
+}
+
+.description-text {
+  color: #171717;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  margin: 0;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  max-width: 400px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contact-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E0D5C9;
+}
+
+.contact-text {
+  line-height: 12px;
+  color: #171717;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 12px;
+  font-family: 'Playfair Display', serif;
+  margin: 0;
+}
+
+.decorative-box {
+  width: 122px;
+  height: 154px;
+  position: absolute;
+  z-index: 10;
+  top: -64px;
+  right: 125px;
+  background-color: #EDE9E6;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.education-section {
+  width: 250px;
+  padding: 24px;
+  background-color: #B0B3AC;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-title {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: white;
+  font-family: 'Urbanist', sans-serif;
+  text-align: center;
+  margin: 0;
+}
+
+.education-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.education-institution {
+  line-height: 20px;
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+  font-family: 'Urbanist', sans-serif;
+  margin: 0;
+}
+
+.education-degree {
+  line-height: 16px;
+  font-size: 12px;
+  color: white;
+  font-weight: 400;
+  font-family: 'Urbanist', sans-serif;
+  margin: 0;
+}
+
+.education-period {
+  line-height: 16px;
+  font-size: 12px;
+  color: white;
+  font-weight: 400;
+  font-family: 'Urbanist', sans-serif;
+  margin: 0;
+}
+
+.experience-header {
+  width: 90%;
+  padding: 24px 60px;
+  background-color: #293946;
+  text-align: center;
+}
+
+.experience-title {
+  line-height: 16px;
+  letter-spacing: 2px;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.experience-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.job-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.job-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.job-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.job-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  font-family: 'Urbanist', sans-serif;
+  color: #171717;
+  margin: 0;
+}
+
+.job-period {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  font-family: 'Urbanist', sans-serif;
+  color: #171717;
+  margin: 0;
+}
+
+.job-company {
+  line-height: 16px;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #171717;
+  margin: 0;
+}
+
+.job-description {
+  line-height: 16px;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #171717;
+  padding-right: 16px;
+  margin: 0;
+}
+
+.skills-section {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  gap: 12px;
+}
+
+.skills-title {
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0D0D0D;
+  text-transform: uppercase;
+  font-family: 'Urbanist', sans-serif;
+  margin: 0;
+}
+
+.skill-item {
+  line-height: 20px;
+  font-size: 12px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 400;
+  color: #171717;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.training-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  margin-top: -48px;
+}
+
+.training-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
