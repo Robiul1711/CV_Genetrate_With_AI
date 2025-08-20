@@ -230,7 +230,7 @@ const SignIn = () => {
         </div>
 
         {/* Social Icons */}
-        <div className="flex justify-center items-center gap-5 mb-4">
+        {/* <div className="flex justify-center items-center gap-5 mb-4">
           {[Facebook, Google, Apple].map((Icon, index) => (
             <div
               key={index}
@@ -239,7 +239,7 @@ const SignIn = () => {
               <Icon size={18} />
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Sign Up */}
         <p className="text-center py-2 text-sm">

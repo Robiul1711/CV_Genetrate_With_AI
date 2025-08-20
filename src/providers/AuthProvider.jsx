@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import { AuthContext } from "@/context";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { toast } from "react-toastify";
+
 
 // Utility to get tokens
 const getStoredAccessToken = () => localStorage.getItem("auth_token") || "";
@@ -73,6 +75,7 @@ const AuthProvider = ({ children }) => {
 
     // 🧹 Invalidate & remove user cache
     queryClient.removeQueries({ queryKey: ["authUser"] });
+    toast.success("Logout Successfully");
   };
 
   const {

@@ -104,6 +104,7 @@ const Navbar = () => {
 
                 email: user?.user?.email,
               }}
+            
             />
             <LanguageDropdown />
           </div>
