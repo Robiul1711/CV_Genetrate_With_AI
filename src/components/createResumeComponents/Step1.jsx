@@ -27,6 +27,8 @@ const Step1 = () => {
     register("goal", { required: "Please select your goal" });
   }, [register]);
 
+  console.log(watch())
+
   return (
     <div className="flex flex-col items-center justify-center mt-4">
       {/* Title Section */}

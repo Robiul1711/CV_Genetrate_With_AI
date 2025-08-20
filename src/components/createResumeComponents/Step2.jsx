@@ -1,13 +1,58 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { CiEdit } from "react-icons/ci";
+import { RxCross2 } from "react-icons/rx";
 import Title from "../common/Title";
 import { useFormContext } from "react-hook-form";
 
 const Step2 = () => {
   const {
     register,
+    setValue,
+    watch,
     formState: { errors },
   } = useFormContext();
+  
+  const fileInputRef = useRef(null);
+  const [profilePreview, setProfilePreview] = useState("https://randomuser.me/api/portraits/men/32.jpg");
+  
+  // Watch the profile_photo field to update preview
+  const profilePhoto = watch("profile_photo");
+
+  // Convert file to base64 and set it in react-hook-form
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (reader.result) {
+        const base64String = reader.result.toString();
+        // ✅ Save base64 string to form state
+        setValue("profile_photo", base64String, { shouldValidate: true });
+        // Update local preview
+        setProfilePreview(base64String);
+      }
+    };
+    reader.readAsDataURL(file); // convert to base64
+  };
+
+  // Handle removing the profile photo
+  const handleRemovePhoto = (e) => {
+    e.stopPropagation(); // Prevent triggering the file input
+    setValue("profile_photo", "", { shouldValidate: true });
+    setProfilePreview("https://randomuser.me/api/portraits/men/32.jpg"); // Reset to default
+    // Reset the file input value
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  // Handle clicking on the avatar to trigger file input
+  const handleAvatarClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   return (
     <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
@@ -31,15 +76,44 @@ const Step2 = () => {
         <div className="flex flex-col gap-4 mb-8">
           <p className="text-sm text-white">Upload your photo *</p>
           <div className="relative w-16 h-16 rounded-full border-2 border-white">
-            <img
-              src="https://randomuser.me/api/portraits/men/32.jpg"
-              alt="Profile"
-              className="w-full h-full object-cover rounded-full"
-            />
-            <label className="absolute -bottom-1.5 border border-[#81FB84]/30 right-0 w-8 h-8 bg-dark rounded-full flex items-center justify-center cursor-pointer z-50">
+            <div 
+              className="w-full h-full rounded-full overflow-hidden cursor-pointer"
+              onClick={handleAvatarClick}
+            >
+              <img
+                src={profilePreview}
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            
+            {/* Edit button */}
+            <div 
+              className="absolute -bottom-1.5 border border-[#81FB84]/30 right-0 w-8 h-8 bg-dark rounded-full flex items-center justify-center cursor-pointer z-50"
+              onClick={handleAvatarClick}
+            >
               <CiEdit size={20} className="text-white" />
-              <input type="file" className="hidden" {...register("profile_photo")} />
-            </label>
+            </div>
+            
+            {/* Hidden file input */}
+            <input 
+              ref={fileInputRef}
+              id="profile-photo-input"
+              type="file" 
+              accept="image/*" 
+              className="hidden" 
+              onChange={handleFileChange} 
+            />
+            
+            {/* Close icon shown when a custom image is selected */}
+            {profilePhoto && profilePhoto !== "" && (
+              <div 
+                className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center cursor-pointer z-50"
+                onClick={handleRemovePhoto}
+              >
+                <RxCross2 size={12} className="text-white" />
+              </div>
+            )}
           </div>
         </div>
 
