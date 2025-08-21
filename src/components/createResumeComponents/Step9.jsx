@@ -1,8 +1,16 @@
-import React from "react";
-import resume from "../../assets/images/resume.png";
+import React, { useEffect } from "react";
 import { Download } from "lucide-react";
+import { resumeData } from "./Step8";
 
-const Step9 = () => {
+
+const Step9 = ({resumeId}) => {
+  
+  const [resume, setResume] = React.useState(null);
+  useEffect(() =>{
+    const cv=resumeData.find((item) => parseInt(item.id) === parseInt(resumeId));
+    setResume(cv);
+  },[resumeId])
+  console.log("Resume ID:", resume);
   return (
     <div className=" text-white flex items-center justify-center">
       <div className=" w-full">
@@ -10,7 +18,13 @@ const Step9 = () => {
           <div className="w-full flex flex-col sm:flex-row  justify-between gap-6 md:gap-14">
             {/* Image */}
             <div className="sm:w-1/2">
-              <img src={resume} alt="resume" className="w-full" />
+
+            <div>
+              {
+                resume && resume.cvComponet
+              }
+            </div>
+          
             </div>
             <div className="sm:w-1/2 flex flex-col justify-end">
               <div className="flex flex-col gap-2">

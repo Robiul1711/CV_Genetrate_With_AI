@@ -17,16 +17,22 @@ import SelectLangaugeStep from "@/components/createResumeComponents/SelectLangau
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useResume } from "@/providers/ResumeContext";
+
 
 const CreateNewResume = () => {
+  const { setAllResumeData } = useResume();
+    const [activeStep, setActiveStep] = useState(0);
+  const [resumeId,setResumeId] =useState(null);
+  const axiosSecure = useAxiosSecure();
+// Initialize resumeData state
   const methods = useForm({
     mode: "onChange",
      defaultValues :{
       work_experiences: [],    
      }
   });
-  const [activeStep, setActiveStep] = useState(0);
-  const axiosSecure = useAxiosSecure();
+
     const ResumeMutation = useMutation({
     mutationFn: async (formData) => {
       const response = await axiosSecure.post(
@@ -39,7 +45,7 @@ const CreateNewResume = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      console.log("Resume created successfully:", data);
+      setAllResumeData(data);
       toast.success(data?.message);
 
     },
@@ -76,12 +82,12 @@ const CreateNewResume = () => {
     {
       label: "Choose Resume",
       component: (
-        <Step8 activeStep={activeStep} setActiveStep={setActiveStep} />
+        <Step8 activeStep={activeStep} setActiveStep={setActiveStep} resumeId={resumeId} setResumeId={setResumeId} />
       ),
     },
     {
       label: "Preview & Download",
-      component: <Step9 />,
+      component: <Step9 resumeId={resumeId} setResumeId={setResumeId}  />,
     },
   ];
 
