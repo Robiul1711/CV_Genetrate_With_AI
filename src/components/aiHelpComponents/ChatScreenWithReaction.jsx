@@ -7,7 +7,7 @@ import { useEmail } from "@/hooks/useEmail";
 import { useMutation } from "@tanstack/react-query";
 import bot from "@/assets/images/bot.png";
 
-const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatWithData, history }) => {
+const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatWithData, history,  onQuestionProcessed  }) => {
   const axiosSecure = useAxiosSecure();
   const { language } = useEmail();
 
@@ -143,12 +143,12 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
   };
 
   // Handle clicked suggested question
-  useEffect(() => {
+ useEffect(() => {
     if (clickedQuestion && showChatWithData) {
       handleSendMessage(clickedQuestion);
+      onQuestionProcessed && onQuestionProcessed();
     }
   }, [clickedQuestion, showChatWithData]);
-
   return (
     <div className="flex flex-col w-full max-w-6xl mx-auto bg-[#0E0E10] rounded-md custom-scrollbar overflow-hidden shadow-md h-[90vh] relative">
       {/* Messages */}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { CiEdit } from "react-icons/ci";
 import Title from "../common/Title";
@@ -8,18 +8,21 @@ import { useAuth } from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import ProfileImage from "./ProfileImage";
 
-const ProfileSetting = () => {
+const ProfileSetting = ({ userData }) => {
   const [isEditing, setIsEditing] = useState(false);
   const { user } = useAuth();
-  const userEmail = user?.[0]?.user?.email;
   const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
 
-  // Default values
+  // Extract user email safely
+  const userEmail = userData?.[0]?.user?.email || "";
+
+  // Initialize form with default values
   const defaultValues = {
-    first_name: user?.[0]?.first_name || "",
-    last_name: user?.[0]?.last_name || "",
-    email: userEmail || "",
-    phone_number: user?.[0]?.phone_number || "",
+    first_name: userData?.[0]?.first_name || "",
+    last_name: userData?.[0]?.last_name || "",
+    email: userEmail,
+    phone_number: userData?.[0]?.phone_number || "",
   };
 
   const {
@@ -31,29 +34,35 @@ const ProfileSetting = () => {
     defaultValues,
   });
 
-  // Keep form values synced when user data changes
+  // Keep form values synced when userData changes
   useEffect(() => {
-    reset(defaultValues);
-  }, [user]);
+    reset({
+      first_name: userData?.[0]?.first_name || "",
+      last_name: userData?.[0]?.last_name || "",
+      email: userEmail,
+      phone_number: userData?.[0]?.phone_number || "",
+    });
+  }, [userData, reset, userEmail]);
 
   // Mutation for profile update
-  const UpdateMutation = useMutation({
+  const updateMutation = useMutation({
     mutationFn: async (data) => {
-      const response = await axiosSecure.put(`/update-profile/`, data);
+      const response = await axiosSecure.put("/update-profile/", data);
       return response.data;
     },
     onSuccess: (data) => {
-      toast.success(data?.message);
+      toast.success(data?.message || "Profile updated successfully!");
       setIsEditing(false);
+      queryClient.invalidateQueries(["userProfile"]);
     },
     onError: (error) => {
       toast.error(error?.response?.data?.message || "Update failed");
-      console.log(error);
+      console.error(error);
     },
   });
 
   const onSubmit = (data) => {
-    UpdateMutation.mutate({ ...data, email: userEmail });
+    updateMutation.mutate({ ...data, email: userEmail });
   };
 
   return (
@@ -63,10 +72,10 @@ const ProfileSetting = () => {
         Update your personal information
       </Title>
 
-      <ProfileImage />
+      <ProfileImage userData={userData} />
 
       {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* First Name */}
           <div className="flex flex-col gap-2">
@@ -80,9 +89,7 @@ const ProfileSetting = () => {
               }`}
             />
             {errors.first_name && (
-              <span className="text-red-500 text-xs">
-                {errors.first_name.message}
-              </span>
+              <span className="text-red-500 text-xs">{errors.first_name.message}</span>
             )}
           </div>
 
@@ -98,9 +105,7 @@ const ProfileSetting = () => {
               }`}
             />
             {errors.last_name && (
-              <span className="text-red-500 text-xs">
-                {errors.last_name.message}
-              </span>
+              <span className="text-red-500 text-xs">{errors.last_name.message}</span>
             )}
           </div>
 
@@ -127,16 +132,12 @@ const ProfileSetting = () => {
               <input
                 type="text"
                 disabled={!isEditing}
-                {...register("phone_number", {
-                  required: "Phone number is required",
-                })}
+                {...register("phone_number", { required: "Phone number is required" })}
                 className="bg-transparent text-xs w-full focus:outline-none text-white"
               />
             </div>
             {errors.phone_number && (
-              <span className="text-red-500 text-xs">
-                {errors.phone_number.message}
-              </span>
+              <span className="text-red-500 text-xs">{errors.phone_number.message}</span>
             )}
           </div>
         </div>
@@ -156,7 +157,7 @@ const ProfileSetting = () => {
               <button
                 type="button"
                 onClick={() => {
-                  reset(defaultValues); // restore original values
+                  reset(defaultValues);
                   setIsEditing(false);
                 }}
                 className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
