@@ -35,8 +35,13 @@ const ChatBox = () => {
   });
 
   const handleQuestionClick = (question) => {
-    setClickedQuestion(question); // Store the clicked question
-    setShowChatWithData(true); // Show chatbox
+    setClickedQuestion(question);
+    setShowChatWithData(true);
+  };
+
+  const handleQuestionProcessed = () => {
+    setClickedQuestion(null);
+    setShowChatWithData(false);
   };
 
 
@@ -116,6 +121,7 @@ const ChatBox = () => {
               clickedQuestion={clickedQuestion} // ✅ pass clicked question
               showChatWithData={showChatWithData}
               history={History?.data?.data}
+                onQuestionProcessed={handleQuestionProcessed}
             />
           </div>
         </div>
