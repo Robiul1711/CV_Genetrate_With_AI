@@ -41,8 +41,7 @@ const CreateNewResume = () => {
     onSuccess: (data) => {
       console.log("Resume created successfully:", data);
       toast.success(data?.message);
-      setCoverLetter(data);
-      // console.log(data);
+
     },
     onError: (error) => {
       console.log(error);
