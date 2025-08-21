@@ -1,5 +1,7 @@
 import React from "react";
 import Image from "@/assets/images/cv8.png";
+import { useResume } from "@/providers/ResumeContext";
+import dayjs from "dayjs";
 
 const TitleSection = ({ name }) => {
   return (
@@ -26,22 +28,27 @@ export const SectionArea = ({ children }) => {
 };
 
 const ResumeEight = () => {
+  const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
+  const { allRedumeData } = useResume();
+  const resumeData = allRedumeData?.data || [];
+  console.log("Resume Data:", resumeData);
+
   return (
     <div className=" flex flex-col bg-[#404040] gap-3 w-[210mm] mx-auto mt-10">
       <header
         className={` bg-[#1F1F1F] pl-[153px] relative  pt-[34px] pb-4 pr-[172px] w-full`}
       >
-        <div className=" flex flex-col gap-2">
+        <div className=" flex flex-col gap-2 justify-end items-end w-full">
           <p className=" text-[32px] font-[800] !urbanist traking-[4px] leading-[30px] text-[#FFC805] ">
-            ALEX STEVENS
+            {resumeData?.first_name} {resumeData?.last_name}
           </p>
           <p className=" text-[#D7D7D7] !urbanist text-sm font-medium capitalize leading-[20px] traking-[1px]">
-            Project Manager
+            {resumeData?.job_title}
           </p>
         </div>
 
         <img
-          src={Image}
+          src={VITE_IMG_URL + resumeData?.profile_photo || Image}
           className=" absolute top-4 right-4 z-50 w-[140px] h-[140px] "
         />
       </header>
@@ -52,11 +59,7 @@ const ResumeEight = () => {
             <div className=" flex flex-col gap-1">
               <TitleSection name={`Profile`} />
               <p className=" text-xs  text-white font-normal leading-[18px] !urbanist">
-                Experienced Senior Project Manager with over 10 years in the
-                German tech industry. Specializing in agile methodologies,
-                cross-functional team leadership, and delivering complex
-                software solutions. Passionate about driving innovation and
-                exceeding client expectations.
+                {resumeData?.about}
               </p>
             </div>
           </SectionArea>
@@ -65,7 +68,33 @@ const ResumeEight = () => {
             <div className=" flex flex-col gap-2">
               <TitleSection name={`Experience`} />
               <div className=" flex flex-col gap-2 w-full">
-                <div className=" flex flex-row gap-2">
+                {resumeData?.work_experiences &&
+                  resumeData.work_experiences.map((experience, index) => (
+                    <div
+                      key={index}
+                      className=" flex flex-row gap-2 items-start"
+                    >
+                      <div className=" w-[117px] flex flex-col gap-2">
+                        <p className="text-white !urbanist text-xs font-medium leading-[15px] ">
+                          {experience?.company_name}
+                        </p>
+                        <p className="text-white !urbanist text-xs font-normal leading-[15px]">
+                          {dayjs(experience?.start_date).format("YYYY")} –{" "}
+                          {dayjs(experience?.end_date).format("YYYY")}
+                        </p>
+                      </div>
+                      <div className=" flex-1  flex-col gap-2">
+                        <p className=" text-sm font-semibold leading-[18px]  !text-[#FECB00] !urbanist">
+                          {experience?.job_title}
+                        </p>
+                        <p className=" text-xs  text-white font-normal leading-[18px] !urbanist">
+                          {experience?.responsibilities}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+
+                {/* <div className=" flex flex-row gap-2">
                   <div className=" w-[117px] flex flex-col gap-2">
                     <p className="text-white !urbanist text-xs font-medium leading-[15px] ">
                       Deutsche Digital Solutions GmbH,Berlin
@@ -104,7 +133,7 @@ const ResumeEight = () => {
                       smooth communication between technical teams and clients
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </SectionArea>
@@ -113,38 +142,18 @@ const ResumeEight = () => {
             <div className=" flex flex-col gap-2">
               <TitleSection name={`Skills`} />
               <div className=" grid grid-cols-2  gap-2">
-                <div className="  flex gap-2 items-center">
-                  <div className=" w-1/2 ">
-                    <p className="text-xs  text-white font-normal leading-[18px] !urbanist">
-                      Project Management
-                    </p>
-                  </div>
-                  <div className=" flex-1 rounded-[16px] bg-[#FECB00] h-1"></div>
-                </div>
-                <div className="  flex gap-2 items-center">
-                  <div className=" w-1/2 ">
-                    <p className="text-xs  text-white font-normal leading-[18px] !urbanist">
-                      Time Management
-                    </p>
-                  </div>
-                  <div className=" flex-1 rounded-[16px] bg-[#FECB00] h-1"></div>
-                </div>
-                <div className=" flex gap-2 items-center">
-                  <div className=" w-1/2 ">
-                    <p className="text-xs  text-white font-normal leading-[18px] !urbanist">
-                      Team Leadership
-                    </p>
-                  </div>
-                  <div className=" flex-1 rounded-[16px] bg-[#FECB00] h-1"></div>
-                </div>
-                <div className="flex gap-2 items-center">
-                  <div className=" w-1/2 ">
-                    <p className="text-xs  text-white font-normal leading-[18px] !urbanist">
-                      Communication Skills
-                    </p>
-                  </div>
-                  <div className=" flex-1 rounded-[16px] bg-[#FECB00] h-1"></div>
-                </div>
+                {resumeData?.skills &&
+                  resumeData.skills.map((skill, index) => (
+                    <div
+                      key={index}
+                      className=" flex gap-2 items-center justify-between"
+                    >
+                      <p className="text-xs  text-white font-normal leading-[18px] !urbanist">
+                        {skill?.skill}
+                      </p>
+                      <div className=" flex-1 rounded-[16px] bg-[#FECB00] h-1"></div>
+                    </div>
+                  ))}
               </div>
             </div>
           </SectionArea>
@@ -154,22 +163,20 @@ const ResumeEight = () => {
               <TitleSection name={`Language`} />
 
               <div className=" grid grid-cols-2">
-                <div className=" flex gap-2 items-center">
-                  <p className="text-xs pl-4 pr-6  text-white font-normal leading-[18px] !urbanist">
-                    German
-                  </p>
-                  <p className="text-xs  text-white font-normal leading-[18px] !urbanist">
-                    Native / C2
-                  </p>
-                </div>
-                <div className=" flex gap-2 items-center">
-                  <p className="text-xs pl-4 pr-6  text-white font-normal leading-[18px] !urbanist">
-                    English
-                  </p>
-                  <p className="text-xs  text-white font-normal leading-[18px] !urbanist">
-                    B1 – Intermediate
-                  </p>
-                </div>
+                {resumeData?.languages &&
+                  resumeData.languages.map((language, index) => (
+                    <div
+                      key={index}
+                      className=" flex gap-2 items-center justify-between"
+                    >
+                      <p className="text-xs pl-4 pr-6  text-white font-normal leading-[18px] !urbanist">
+                        {language?.language}
+                      </p>
+                      <p className="text-xs  text-white font-normal leading-[18px] !urbanist">
+                        {language?.level}
+                      </p>
+                    </div>
+                  ))}
               </div>
             </div>
           </SectionArea>
@@ -179,7 +186,25 @@ const ResumeEight = () => {
               <TitleSection name={`Training`} />
 
               <div className=" grid gap-1 grid-cols-1">
-                <div className=" flex  gap-2">
+                {resumeData?.courses_and_training_details &&
+                  resumeData.courses_and_training_details.map(
+                    (training, index) => (
+                      <div key={index} className=" flex  gap-2">
+                        <div className=" flex flex-col gap-1 w-[171px]">
+                          <p className=" text-xs text-white leading-[15px] font-medium !urbanist">
+                            {training?.name_of_institute}
+                          </p>
+                          <p className="text-[10px] text-white  font-normal !urbanist">
+                            {training?.start_date} - {training?.end_date}
+                          </p>
+                        </div>
+                        <p className=" !urbanist text-xs w-[144px] text-[#FECB00] font-semibold leading-[18px]">
+                          {training?.course_name}
+                        </p>
+                      </div>
+                    )
+                  )}
+                {/* <div className=" flex  gap-2">
                   <div className=" flex flex-col gap-1 w-[171px]">
                     <p className=" text-xs text-white leading-[15px] font-medium !urbanist">
                       Siemens Training Centre, Berlin
@@ -204,7 +229,7 @@ const ResumeEight = () => {
                   <p className=" !urbanist text-xs w-[144px] text-[#FECB00] font-semibold leading-[18px]">
                     SAP ERP Implementation and Integration
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
           </SectionArea>
@@ -216,39 +241,21 @@ const ResumeEight = () => {
               <TitleSection2 name={`Education`} />
             </div>
             <div className=" grid  gap-2 mt-9">
-              <div className=" flex flex-col gap-1">
-                <p className=" text-[10px] text-white !urbanist leading-[15px] font-normal">
-                  2018 – 2023
-                </p>
-                <p className="text-[#FECB00] text-xs leading-[18px] font-semibold">
-                  Master of Science in Computer Science
-                </p>
-                <p className=" !urbanist text-xs leading-[18px] font-medium text-white">
-                  Technische Universität München (TUM)
-                </p>
-              </div>
-              <div className=" flex flex-col gap-1">
-                <p className=" text-[10px] text-white !urbanist leading-[15px] font-normal">
-                  2009 – 2013
-                </p>
-                <p className="text-[#FECB00] text-xs leading-[18px] font-semibold">
-                  Bachelors of  Engineering in Information Technology
-                </p>
-                <p className=" !urbanist text-xs leading-[18px] font-medium text-white">
-                  Hochschule München University of Applied Sciences
-                </p>
-              </div>
-              <div className=" flex flex-col gap-1">
-                <p className=" text-[10px] text-white !urbanist leading-[15px] font-normal">
-                  2000 – 2008
-                </p>
-                <p className="text-[#FECB00] text-xs leading-[18px] font-semibold">
-                  Abitur (German High School Diploma)
-                </p>
-                <p className=" !urbanist text-xs leading-[18px] font-medium text-white">
-                  Gymnasium Frankfurt West
-                </p>
-              </div>
+              {resumeData?.educations &&
+                resumeData.educations.map((education, index) => (
+                  <div className=" flex flex-col gap-1">
+                    <p className=" text-[10px] text-white !urbanist leading-[15px] font-normal">
+                      {dayjs(education?.start_date).format("YYYY")} –{" "}
+                      {dayjs(education?.end_date).format("YYYY")}
+                    </p>
+                    <p className="text-[#FECB00] text-xs leading-[18px] font-semibold">
+                      {education?.degree}
+                    </p>
+                    <p className=" !urbanist text-xs leading-[18px] font-medium text-white">
+                      {education?.institute_name}
+                    </p>
+                  </div>
+                ))}
             </div>
           </SectionArea>
 
@@ -262,7 +269,7 @@ const ResumeEight = () => {
                     Phone
                   </p>
                   <p className=" text-[10px] font-normal leading-[16px] text-white !urbanist">
-                    +49 1512 3456789
+                    {resumeData?.phone_number}
                   </p>
                 </div>
                 <div className=" flex flex-col gap-1">
@@ -270,7 +277,7 @@ const ResumeEight = () => {
                     Location
                   </p>
                   <p className=" text-[10px] font-normal leading-[16px] text-white !urbanist">
-                    Schillerstraße 22, 60313 Frankfurt am Main, Germany
+                    {resumeData?.address}
                   </p>
                 </div>
                 <div className=" flex flex-col gap-1">
@@ -278,24 +285,34 @@ const ResumeEight = () => {
                     E-mail
                   </p>
                   <p className=" text-[10px] font-normal leading-[16px] text-white !urbanist">
-                    alexstevens@gmail.com
+                    {resumeData?.email}
                   </p>
                 </div>
                 <div className=" flex flex-col gap-1">
                   <p className=" text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
                     Linked-in
                   </p>
-                  <p className=" text-[10px] font-normal leading-[16px] text-white !urbanist">
-                    linkedin.com/in/Alex- Stevens
-                  </p>
+                  <a
+                    href={resumeData?.linked_in_profile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-normal leading-[16px] text-white !urbanist break-words underline"
+                  >
+                    {resumeData?.linked_in_profile}
+                  </a>
                 </div>
                 <div className=" flex flex-col gap-1">
                   <p className=" text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
                     Xing
                   </p>
-                  <p className=" text-[10px] font-normal leading-[16px] text-white !urbanist">
-                    xing.com/profile/Alex- Stevens
-                  </p>
+                  <a
+                    href={resumeData?.xing_profile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-normal leading-[16px] text-white !urbanist break-words underline "
+                  >
+                    {resumeData?.xing_profile}
+                  </a>
                 </div>
               </div>
             </div>

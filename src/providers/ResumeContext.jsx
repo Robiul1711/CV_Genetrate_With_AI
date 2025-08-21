@@ -4,11 +4,11 @@ const ResumeContext = createContext();
 
 export const ResumeProvider = ({ children }) => {
   const [coverLetter, setCoverLetter] = useState({});
-  const [selectedTemplate, setSelectedTemplate] = useState("resumeOne");
+  const [allRedumeData, setAllResumeData] = useState({});
 
   return (
     <ResumeContext.Provider
-      value={{ coverLetter, setCoverLetter, selectedTemplate, setSelectedTemplate }}
+      value={{ coverLetter, setCoverLetter, allRedumeData, setAllResumeData }}
     >
       {children}
     </ResumeContext.Provider>

@@ -8,7 +8,7 @@ import StepThree from "@/components/Edit_Resume_Components/StepThree";
 import StepFour from "@/components/Edit_Resume_Components/StepFour";
 import StepFive from "@/components/Edit_Resume_Components/StepFive";
 import StepSix from "@/components/Edit_Resume_Components/StepSix";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const steps = [
   { title: "Personal Info", component: <StepOne /> },
@@ -20,6 +20,7 @@ const steps = [
 ];
 
 const EditResumePage = () => {
+  const { resumeId } = useParams();
   const [activeStep, setActiveStep] = useState(0);
 
   return (
