@@ -8,7 +8,13 @@ import {
   FaEnvelope,
   FaXing,
 } from "react-icons/fa";
+import dayjs from "dayjs";
+import { useResume } from "@/providers/ResumeContext";
 const ResumeFour = () => {
+  const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
+  const { allRedumeData } = useResume();
+  const resumeData = allRedumeData?.data || [];
+
   const resumeRef = useRef();
 
   const handleDownload = () => {
@@ -44,18 +50,18 @@ const ResumeFour = () => {
           {/* Left: Name and Title */}
           <div className="w-[80%]">
             <h1 className="text-[24px] font-light tracking-[2px] text-[#484848] leading-tight">
-              ALEX <br />
-              <span className="font-semibold">STEVENS</span>
+              {resumeData?.first_name} <br />
+              <span className="font-semibold">{resumeData?.last_name}</span>
             </h1>
             <p className="tracking-[3px] text-[#484848] border-y border-[#D9D9D9] py-2 uppercase leading-[24px] mt-2">
-              PROJECT MANAGER
+              {resumeData?.job_title}
             </p>
           </div>
 
           {/* Right: Profile Image */}
           <div className="w-[100px] h-[100px] shrink-0">
             <img
-              src={user}
+              src={resumeData?.profile_photo=== null ? user : VITE_IMG_URL + resumeData?.profile_photo}
               alt="Alex Stevens"
               className="w-full h-full object-cover rounded-full border border-[#D9D9D9]"
             />
@@ -74,54 +80,63 @@ const ResumeFour = () => {
               <div className="space-y-3 ">
                 <p className="text-xs flex items-center gap-2 leading-[18px]">
                   <FaPhoneAlt className="text-[12px] " />
-                  +49 1512 3456789
+                  {resumeData?.phone_number}
                 </p>
                 <p className="text-xs flex items-center gap-2">
                   <FaMapMarkerAlt className="text-[12px]" />
-                  Schillerstraße 22, 60313 Frankfurt am Main, Germany
+                  {resumeData?.address}
                 </p>
                 <p className="text-xs flex items-center gap-2">
                   <FaEnvelope className="text-[12px]" />
-                  alexstevens@gmail.com
+                  {resumeData?.email}
                 </p>
-                <p className="text-xs flex items-center gap-2">
-                  <FaLinkedin className="text-[12px]" />
-                  linkedin.com/in/Alex-Stevens
-                </p>
-                <p className="text-xs flex items-center gap-2">
-                  <FaXing className="text-[12px]" />
-                  xing.com/profile/Alex-Stevens
-                </p>
+                {resumeData?.linked_in_profile && (
+                  <a
+                    href={resumeData?.linked_in_profile}
+                    target="_blank"
+                    className="text-xs flex items-center gap-2"
+                  >
+                    <FaLinkedin className="text-[12px]" />
+                    {resumeData?.linked_in_profile}
+                  </a>
+                )}
+                {resumeData?.xing_profile && (
+                  <a
+                    href={resumeData?.xing_profile}
+                    target="_blank"
+                    className="text-xs flex items-center gap-2"
+                  >
+                    <FaXing className="text-[12px]" />
+                    {resumeData?.xing_profile}
+                  </a>
+                )}
               </div>
             </div>
 
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] ">
+              <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] ">
                 TRAINING
               </h2>
-              <div className="">
-                <p className="font-medium leading-[18px] text-xs">
-                  Siemens Training Center, Berlin
-                </p>
-                <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
-                  Advanced Project Management Certification
-                </p>
-                <p className="text-xs leading-[20px]">
-                  February 2021 – April 2021
-                </p>
-              </div>
-              <div className="mt-4">
-                <p className="font-medium leading-[18px] text-xs">
-                  AP Academy, Walldorf
-                </p>
-                <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
-                  SAP ERP Implementation and Integration
-                </p>
-                <p className="text-xs leading-[20px]">
-                  June 2019 – August 2019
-                </p>
-              </div>
+              {resumeData?.courses_and_training_details?.map(
+                (training, index) => (
+                  <div key={index} className="mt-3">
+                    <p className="font-medium leading-[18px] text-xs">
+                      {training.course_name}
+                    </p>
+                    <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
+                      {training.name_of_institute}
+                    </p>
+                    <p className="text-xs leading-[20px]">
+                      {dayjs(training.start_date).format("MMMM YYYY")} –{" "}
+                      {training.end_date
+                        ? dayjs(training.end_date).format("MMMM YYYY")
+                        : "Present"}
+                      {/* June 2019 – August 2019 */}
+                    </p>
+                  </div>
+                )
+              )}
             </div>
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
@@ -129,10 +144,11 @@ const ResumeFour = () => {
                 SKILL
               </h2>
               <ul className="text-xs space-y-3">
-                <li>Project Management</li>
-                <li>Time Management</li>
-                <li>Team Leadership</li>
-                <li>Communication Skills</li>
+                {resumeData?.skills?.map((skill, index) => (
+                  <li key={index} className="">
+                    {skill.skill}
+                  </li>
+                ))}
               </ul>
             </div>
             <div className="border-b border-[#D9D9D9] "></div>
@@ -140,12 +156,17 @@ const ResumeFour = () => {
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
                 LANGUAGE
               </h2>
-              <p className="text-xs flex justify-between items-center ">
-                German <span>Native</span>
-              </p>
-              <p className="text-xs flex justify-between items-center mt-2">
-                English <span>Fluent</span>{" "}
-              </p>
+              {resumeData?.languages?.map((language, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-center text-xs py-1 border-b border-gray-200/20"
+                >
+                  <span className="font-medium text-gray-800">
+                    {language.language}
+                  </span>
+                  <span className="text-gray-600">{language.level}</span>
+                </div>
+              ))}
             </div>
           </div>
           <div className="w-[1px] bg-[#D9D9D9]"></div>
@@ -156,80 +177,55 @@ const ResumeFour = () => {
                 ABOUT
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
-                Experienced Senior Project Manager with over 10 years in the
-                German tech industry. Specializing in agile methodologies,
-                cross-functional team leadership, and delivering complex
-                software solutions. Passionate about driving innovation and
-                exceeding client expectations.
+                {resumeData?.about}
               </p>
             </div>
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
+              <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px]">
                 EXPERIENCE
               </h2>
-              <div className="">
-                <p className="font-medium leading-[18px] text-xs">
-                  Senior Project Manager
-                </p>
-                <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
-                  Deutsche Digital Solutions GmbH, Berlin
-                  <span>2018 – 2023</span>
-                </p>
-                <p className="text-xs leading-[20px] mt-2">
-                  At Deutsche Digital Solutions GmbH, I led cross-functional
-                  project teams of up to 15 members, managing software
-                  development projects from concept through delivery.
-                </p>
-              </div>
-              <div className="mt-4">
-                <p className="font-medium leading-[18px] text-xs">
-                  IT Project Coordinator
-                </p>
-                <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
-                  Bavaria Tech Systems AG, Munich <span>2015 – 2018</span>
-                </p>
-                <p className="text-xs leading-[20px] mt-2">
-                  Assisted in planning and scheduling IT infrastructure projects
-                  while maintaining smooth communication between technical teams
-                  and clients.
-                </p>
-              </div>
+              {resumeData?.work_experiences?.map((experience, index) => (
+                <div key={index} className="mt-3">
+                  <p className="font-medium leading-[18px] text-xs">
+                    {experience.job_title}
+                  </p>
+                  <p className="text-xs leading-[18px] font-medium flex justify-between items-center mt-1">
+                    {experience.company_name}{" "}
+                    <span>
+                      {dayjs(experience.start_date).format("MMM YYYY")} –{" "}
+                      {experience.end_date
+                        ? dayjs(experience.end_date).format("MMM YYYY")
+                        : "Present"}
+                    </span>
+                  </p>
+                  <p className="text-xs leading-[20px] mt-2">
+                    {experience.responsibilities}
+                  </p>
+                </div>
+              ))}
             </div>
-               <div className="border-b border-[#D9D9D9] "></div>
+            <div className="border-b border-[#D9D9D9] "></div>
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
+              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px]">
                 EDUCATION
               </h2>
-              <div className="">
-                <p className="font-medium leading-[18px] text-xs">
-                  Technische Universität München (TUM)
-                </p>
-                <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
-                  Master of Science in Computer Science
-                </p>
-                <p className="text-xs leading-[18px]">
-                  October 2013 – September 2015
-                </p>
-              </div>
-              <div className="mt-4">
-                <p className="font-medium leading-[18px] text-xs">
-                  Hochschule München University of Applied Sciences
-                </p>
-                <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
-                  Bachelor of Engineering in Information Technology
-                </p>
-                <p className="text-xs">October 2009 – September 2013</p>
-              </div>
-              <div className="mt-4">
-                <p className="font-medium leading-[18px] text-xs">
-                  Gymnasium Frankfurt West
-                </p>
-                <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
-                  Abitur (German High School Diploma)
-                </p>
-                <p className="text-xs">September 2000 – June 2008</p>
-              </div>
+              {resumeData?.educations?.map((education, index) => (
+                <div key={index} className="mt-3 ">
+                  <p className="font-medium leading-[18px] text-xs">
+                    {education.degree}
+                  </p>
+                  <p className="text-xs leading-[18px] font-medium flex justify-between items-center mt-1">
+                    {education.institute_name}
+                  </p>
+                  <p className="text-xs mt-1">
+                    {dayjs(education.start_date).format("MMM YYYY")} –{" "}
+                    {education.end_date
+                      ? dayjs(education.end_date).format("MMM YYYY")
+                      : "Present"}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

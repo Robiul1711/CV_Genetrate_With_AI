@@ -31,7 +31,6 @@ const ResumeEight = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const { allRedumeData } = useResume();
   const resumeData = allRedumeData?.data || [];
-  console.log("Resume Data:", resumeData);
 
   return (
     <div className=" flex flex-col bg-[#404040] gap-3 w-[210mm] mx-auto mt-10">
