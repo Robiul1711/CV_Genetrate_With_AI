@@ -105,11 +105,11 @@ const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
             one that fits your goals best.
           </Title>
         </div>
-        <div className="sm:mt-14 grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="sm:mt-14 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
           {resumeData.map((item, index) => (
             <div
               key={index}
-              className="p-2 sm:p-5 relative group border border-[#262626] rounded-xl bg-[#0E0E10]"
+              className="p-2 sm:p-3 relative group border border-[#262626] rounded-xl bg-[#0E0E10]"
             >
               {/* Image */}
               <img src={item.resume} alt="resume" className="rounded-xl" />
@@ -119,9 +119,9 @@ const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
                   <Link
                     to={`/dashboard/edit-resume/${item.id}`}
-                    className="border px-4 bg-black/40 py-2 rounded-full flex items-center gap-2 text-white hover:bg-black/60 transition"
+                    className="border px-3 py-1 bg-black/40  rounded-full flex items-center gap-2 text-white hover:bg-black/60 transition"
                   >
-                    Edit <Edit2 size={18} />
+                    Edit <Edit2 size={14} />
                   </Link>
 
                   <button
@@ -131,9 +131,9 @@ const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
                       setActiveStep(activeStep + 1, item.id);
                       setResumeId(item.id);
                     }}
-                    className="border px-4 bg-black/40 py-2 rounded-full flex items-center gap-2 text-white hover:bg-black/60 transition"
+                    className="border px-3 bg-black/40  rounded-full flex items-center gap-2 text-white hover:bg-black/60 transition"
                   >
-                    Preview <FaEye size={18} />
+                    Preview <FaEye size={14} />
                   </button>
                 </div>
               </div>

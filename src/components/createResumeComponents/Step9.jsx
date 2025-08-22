@@ -1,57 +1,66 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Download } from "lucide-react";
 import { resumeData } from "./Step8";
 
+const Step9 = ({ resumeId }) => {
+  const [resume, setResume] = useState(null);
 
-const Step9 = ({resumeId}) => {
-  
-  const [resume, setResume] = React.useState(null);
-  useEffect(() =>{
-    const cv=resumeData.find((item) => parseInt(item.id) === parseInt(resumeId));
+  useEffect(() => {
+    const cv = resumeData.find(
+      (item) => parseInt(item.id) === parseInt(resumeId)
+    );
     setResume(cv);
-  },[resumeId])
-  console.log("Resume ID:", resume);
-  return (
-    <div className=" text-white flex items-center justify-center">
-      <div className=" w-full">
-        <div className="">
-          <div className="w-full flex flex-col sm:flex-row  justify-between gap-6 md:gap-14">
-            {/* Image */}
-            <div className="sm:w-1/2">
+  }, [resumeId]);
 
-            <div>
-              {
-                resume && resume.cvComponet
-              }
-            </div>
-          
-            </div>
-            <div className="sm:w-1/2 flex flex-col justify-end">
-              <div className="flex flex-col gap-2">
-                <label className="text-sm text-white">Resume name</label>
-                <input
-                  type="text"
-                  placeholder="Write here..."
-                  className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white"
-                />
-              </div>
-              <div className="sm:mt-10 mt-5 flex flex-col w-full gap-4">
-                <label className="text-sm text-white">Download Type</label>
-                <div className="flex flex-col md:flex-row sm:pb-5  gap-2">
-                  <div className="flex flex-col w-full gap-2">
-                    <select className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white">
-                      <option value="beginner">PDF</option>
-                      <option value="intermediate">PNG</option>
-                      <option value="advanced">JPG</option>
-                    </select>
-                  </div>
-                  <button className="font-semibold my-4 flex items-center justify-center max-w-sm gap-2 border-white bg-white text-black py-1.5 text-sm  px-2 rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
-                    <Download size={18} /> Download
-                  </button>
-                </div>
-              </div>
-            </div>
+  console.log("Resume ID:", resume);
+
+  return (
+    <div className=" flex items-center justify-center py-5 px-4 text-white">
+      <div className="w-full max-w-4xl bg-[#1A1A1D] rounded-2xl shadow-lg p-6 sm:p-10">
+        {/* Preview */}
+        <div className="w-full bg-[#0E0E10] rounded-xl p-4 border border-[#262626]">
+          <h2 className="text-lg font-semibold mb-4 text-gray-200">Resume Preview</h2>
+          <div className="bg-black/30  flex items-center justify-center">
+            {resume && resume.cvComponet ? (
+              resume.cvComponet
+            ) : (
+              <p className="text-gray-500 text-sm">No resume selected</p>
+            )}
           </div>
+        </div>
+
+        {/* Settings */}
+        <div className="mt-10 grid sm:grid-cols-2 gap-6">
+          {/* Resume Name */}
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-300">
+              Resume Name
+            </label>
+            <input
+              type="text"
+              placeholder="e.g. My Portfolio Resume"
+              className="bg-[#0E0E10] px-4 py-2 text-sm rounded-lg border border-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#69CA6A] text-white placeholder-gray-500"
+            />
+          </div>
+
+          {/* Download Type */}
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-300">
+              Download Type
+            </label>
+            <select className="bg-[#0E0E10] px-4 py-2 text-sm rounded-lg border border-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#69CA6A] text-white">
+              <option value="pdf">PDF</option>
+              <option value="png">PNG</option>
+              <option value="jpg">JPG</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Download Button */}
+        <div className="mt-10 flex justify-end">
+          <button className="font-semibold flex items-center gap-2 bg-[#69CA6A] text-black px-6 py-2 rounded-lg shadow-md hover:bg-[#58b258] transition-all duration-300">
+            <Download size={18} /> Download Resume
+          </button>
         </div>
       </div>
     </div>
