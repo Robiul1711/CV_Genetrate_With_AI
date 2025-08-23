@@ -9,7 +9,9 @@ import StepFour from "@/components/Edit_Resume_Components/StepFour";
 import StepFive from "@/components/Edit_Resume_Components/StepFive";
 import StepSix from "@/components/Edit_Resume_Components/StepSix";
 import { Link, useParams } from "react-router-dom";
-
+import ResumeOneEdit from "@/components/All_Edit_template/ResumeOneEdit";
+import { useResume } from "@/providers/ResumeContext";
+import { useForm, FormProvider } from "react-hook-form";
 const steps = [
   { title: "Personal Info", component: <StepOne /> },
   { title: "Experience", component: <StepTwo /> },
@@ -19,13 +21,27 @@ const steps = [
   { title: "Train", component: <StepSix /> },
 ];
 
+
 const EditResumePage = () => {
   const { resumeId } = useParams();
   const [activeStep, setActiveStep] = useState(0);
+  const {allRedumeData, setAllResumeData} =useResume();
+  console.log("Resume Data:", allRedumeData?.data);
+const data = allRedumeData?.data;
+const methods= useForm({
+  mode: "onChange",
+})
 
+ const onSubmit = (data) => {
+    console.log("✅ Final Form Data:", data);
+  
+  };
   return (
     <div>
-      <Link to={"/dashboard/create-New-resume"} className="flex items-center gap-2">
+      <Link
+        to={"/dashboard/create-New-resume"}
+        className="flex items-center gap-2"
+      >
         <FaAngleLeft className="cursor-pointer text-xl p-1 border border-white/30 rounded-full" />
         <Title level="title32">Edit Resume</Title>
       </Link>
@@ -34,10 +50,11 @@ const EditResumePage = () => {
         Let AI help improve your resume content.
       </Title>
 
-      <div className=" mt-5 flex flex-col md:flex-row gap-5 md:gap-10 justify-between">
-        {/* Left Image */}
-        <div className="md:w-1/2">
-          <img src={resume} alt="resume" />
+      <FormProvider {...methods} className=" ">
+       <div className=" mt-5 flex flex-row  gap-5 md:gap-10 justify-between">
+         {/* Left Image */}
+        <div className="">
+          <ResumeOneEdit data={data} />
         </div>
 
         {/* Right Content */}
@@ -47,7 +64,10 @@ const EditResumePage = () => {
             <button className="font-semibold border w-full border-white/10 text-white   px-2 py-2 rounded-md bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
               Edit Content
             </button>
-            <Link to={"/dashboard/edit-design"} className="font-semibold border text-center w-full border-white/10 text-white   px-2 py-2 rounded-md  hover:bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            <Link
+              to={"/dashboard/edit-design"}
+              className="font-semibold border text-center w-full border-white/10 text-white   px-2 py-2 rounded-md  hover:bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               Design
             </Link>
           </div>
@@ -71,15 +91,19 @@ const EditResumePage = () => {
           </div>
 
           {/* Active Step */}
-          <div className="mt-3">
+          <div >
+            <form onSubmit={methods.handleSubmit(onSubmit)} className="mt-3">
             {steps[activeStep].component}
 
             <button className="font-semibold border bg-white mt-4 md:mt-4 w-full border-white/30 text-black px-4 py-2 text-sm rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
               Apply Changes
             </button>
+          </form>
           </div>
         </div>
-      </div>
+
+       </div>
+      </FormProvider>
     </div>
   );
 };
