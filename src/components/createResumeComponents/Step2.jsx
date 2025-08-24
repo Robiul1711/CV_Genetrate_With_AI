@@ -3,6 +3,7 @@ import { CiEdit } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
 import Title from "../common/Title";
 import { useFormContext } from "react-hook-form";
+import { useResume } from "@/providers/ResumeContext";
 
 const Step2 = () => {
   const {
@@ -11,10 +12,14 @@ const Step2 = () => {
     watch,
     formState: { errors },
   } = useFormContext();
-  
+
   const fileInputRef = useRef(null);
-  const [profilePreview, setProfilePreview] = useState("https://randomuser.me/api/portraits/men/32.jpg");
-  
+  const [profilePreview, setProfilePreview] = useState(
+    "https://randomuser.me/api/portraits/men/32.jpg"
+  );
+
+  const { imageString,setImageString } =useResume()
+
   // Watch the profile_photo field to update preview
   const profilePhoto = watch("profile_photo");
 
@@ -27,6 +32,7 @@ const Step2 = () => {
     reader.onloadend = () => {
       if (reader.result) {
         const base64String = reader.result.toString();
+        setImageString(base64String)
         // ✅ Save base64 string to form state
         setValue("profile_photo", base64String, { shouldValidate: true });
         // Update local preview
@@ -57,18 +63,19 @@ const Step2 = () => {
   return (
     <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="w-[800px] mx-auto">
-
         {/* Header */}
         <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
           <Title level="title24">Add Your Personal Details</Title>
           <Title level="title14">
-            Please enter your basic details. These help employers get to know you and ensure your resume is complete.
+            Please enter your basic details. These help employers get to know
+            you and ensure your resume is complete.
           </Title>
         </div>
         <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
           <Title level="title40">Add Your Personal Details</Title>
           <Title level="title20">
-            Please enter your basic details. These help employers get to know you and ensure your resume is complete.
+            Please enter your basic details. These help employers get to know
+            you and ensure your resume is complete.
           </Title>
         </div>
 
@@ -76,7 +83,7 @@ const Step2 = () => {
         <div className="flex flex-col gap-4 mb-8">
           <p className="text-sm text-white">Upload your photo *</p>
           <div className="relative w-16 h-16 rounded-full border-2 border-white">
-            <div 
+            <div
               className="w-full h-full rounded-full overflow-hidden cursor-pointer"
               onClick={handleAvatarClick}
             >
@@ -86,28 +93,28 @@ const Step2 = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            
+
             {/* Edit button */}
-            <div 
+            <div
               className="absolute -bottom-1.5 border border-[#81FB84]/30 right-0 w-8 h-8 bg-dark rounded-full flex items-center justify-center cursor-pointer z-50"
               onClick={handleAvatarClick}
             >
               <CiEdit size={20} className="text-white" />
             </div>
-            
+
             {/* Hidden file input */}
-            <input 
+            <input
               ref={fileInputRef}
               id="profile-photo-input"
-              type="file" 
-              accept="image/*" 
-              className="hidden" 
-              onChange={handleFileChange} 
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileChange}
             />
-            
+
             {/* Close icon shown when a custom image is selected */}
             {profilePhoto && profilePhoto !== "" && (
-              <div 
+              <div
                 className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center cursor-pointer z-50"
                 onClick={handleRemovePhoto}
               >
@@ -125,10 +132,16 @@ const Step2 = () => {
             <input
               type="text"
               placeholder="First Name"
-              {...register("first_name", { required: "First name is required" })}
+              {...register("first_name", {
+                required: "First name is required",
+              })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.first_name && <p className="text-red-400 text-xs">{errors.first_name.message}</p>}
+            {errors.first_name && (
+              <p className="text-red-400 text-xs">
+                {errors.first_name.message}
+              </p>
+            )}
           </div>
 
           {/* Last Name */}
@@ -140,7 +153,9 @@ const Step2 = () => {
               {...register("last_name", { required: "Last name is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.last_name && <p className="text-red-400 text-xs">{errors.last_name.message}</p>}
+            {errors.last_name && (
+              <p className="text-red-400 text-xs">{errors.last_name.message}</p>
+            )}
           </div>
 
           {/* Email */}
@@ -152,7 +167,9 @@ const Step2 = () => {
               {...register("email", { required: "Email is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.email && <p className="text-red-400 text-xs">{errors.email.message}</p>}
+            {errors.email && (
+              <p className="text-red-400 text-xs">{errors.email.message}</p>
+            )}
           </div>
 
           {/* Phone Number */}
@@ -163,11 +180,17 @@ const Step2 = () => {
               <input
                 type="text"
                 placeholder="Enter your phone number"
-                {...register("phone_number", { required: "Phone number is required" })}
+                {...register("phone_number", {
+                  required: "Phone number is required",
+                })}
                 className="bg-transparent w-full focus:outline-none text-white"
               />
             </div>
-            {errors.phone_number && <p className="text-red-400 text-xs">{errors.phone_number.message}</p>}
+            {errors.phone_number && (
+              <p className="text-red-400 text-xs">
+                {errors.phone_number.message}
+              </p>
+            )}
           </div>
 
           {/* Address */}
@@ -179,7 +202,9 @@ const Step2 = () => {
               {...register("address", { required: "Address is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.address && <p className="text-red-400 text-xs">{errors.address.message}</p>}
+            {errors.address && (
+              <p className="text-red-400 text-xs">{errors.address.message}</p>
+            )}
           </div>
 
           {/* Date of Birth */}
@@ -190,7 +215,9 @@ const Step2 = () => {
               {...register("dob", { required: "Date of birth is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.dob && <p className="text-red-400 text-xs">{errors.dob.message}</p>}
+            {errors.dob && (
+              <p className="text-red-400 text-xs">{errors.dob.message}</p>
+            )}
           </div>
 
           {/* Job Title */}
@@ -202,7 +229,9 @@ const Step2 = () => {
               {...register("job_title", { required: "Job title is required" })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.job_title && <p className="text-red-400 text-xs">{errors.job_title.message}</p>}
+            {errors.job_title && (
+              <p className="text-red-400 text-xs">{errors.job_title.message}</p>
+            )}
           </div>
 
           {/* About */}
@@ -217,7 +246,9 @@ const Step2 = () => {
 
           {/* LinkedIn */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">LinkedIn Profile (optional)</label>
+            <label className="text-sm text-white">
+              LinkedIn Profile (optional)
+            </label>
             <input
               type="url"
               placeholder="https://www.linkedin.com/in/your-username/"
@@ -228,7 +259,9 @@ const Step2 = () => {
 
           {/* Xing */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">XING Profile (optional)</label>
+            <label className="text-sm text-white">
+              XING Profile (optional)
+            </label>
             <input
               type="url"
               placeholder="https://www.xing.com/in/your-username/"
