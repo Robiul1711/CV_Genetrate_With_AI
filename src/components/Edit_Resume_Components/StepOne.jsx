@@ -1,7 +1,8 @@
 import { useResume } from "@/providers/ResumeContext";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import { CiEdit } from "react-icons/ci";
+import { RxCross2 } from "react-icons/rx";
 
 const StepOne = () => {
   const {
@@ -9,35 +10,51 @@ const StepOne = () => {
     reset,
     watch,
     handleSubmit,
+    setValue,
+    control,
     formState: { errors },
   } = useFormContext();
-  const { allRedumeData, setAllResumeData } = useResume();
+  const {imageString, allRedumeData, setAllResumeData } = useResume();
+  const profilePhoto = watch("profile_photo");
   const data = allRedumeData?.data;
-  useEffect(() => {
-    if (data) {
-      reset({
-        first_name: data.first_name || "",
-        last_name: data.last_name || "",
-        email: data.email || "",
-        phone_number: data.phone_number || "",
-        address: data.address || "",
-        dob: data.dob || "",
-        job_title: data.job_title || "",
-        about: data.about || "",
-        linked_in_profile: data.linked_in_profile || "",
-        xing_profile: data.xing_profile || "",
-        profile_photo: data.profile_photo || "",
-      });
-    }
-  }, [data, reset]);
+  const fileInputRef = useRef(null);
+  const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
+  const [profilePreview, setProfilePreview] = useState(
+    VITE_IMG_URL + data?.profile_photo
+  );
+  const liveTitle = watch("job_title");
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-  const onSubmit = (formValues) => {
-    console.log("Updated values:", formValues);
-    // Call API to save updated form values here
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (reader.result) {
+        const base64String = reader.result.toString();
+        // ✅ Save base64 string to form state
+        setValue("profile_photo", base64String, { shouldValidate: true });
+        // Update local preview
+        setProfilePreview(base64String);
+      }
+    };
+    reader.readAsDataURL(file); // convert to base64
+  };
+  const handleRemovePhoto = (e) => {
+    e.stopPropagation(); // Prevent triggering the file input
+    setValue("profile_photo", "", { shouldValidate: true });
+    setProfilePreview(VITE_IMG_URL + data?.profile_photo); // Reset to default
+    // Reset the file input value
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
-  // Watch for live updates (e.g., CV Title)
-  const liveTitle = watch("job_title");
+  const handleAvatarClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+  console.log(allRedumeData?.data);
 
   return (
     <div>
@@ -47,7 +64,7 @@ const StepOne = () => {
       {/* Upload Section */}
       <div className="flex flex-col gap-4 mb-4">
         <p className="text-sm text-white">Upload your photo *</p>
-        <div className="relative w-16 h-16 rounded-full border-2 border-white">
+        {/* <div className="relative w-16 h-16 rounded-full border-2 border-white">
           <img
             src={watch("profile_photo") || "https://via.placeholder.com/150"}
             alt="Profile"
@@ -61,14 +78,52 @@ const StepOne = () => {
               // Optional: handle image upload change here
             />
           </label>
+        </div> */}
+
+        <div className="relative w-16 h-16 rounded-full border-2 border-white">
+          <div
+            className="w-full h-full rounded-full overflow-hidden cursor-pointer"
+            onClick={handleAvatarClick}
+          >
+            <img
+              src={profilePreview}
+              alt="Profile"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Edit button */}
+          <div
+            className="absolute -bottom-1.5 border border-[#81FB84]/30 right-0 w-8 h-8 bg-dark rounded-full flex items-center justify-center cursor-pointer z-50"
+            onClick={handleAvatarClick}
+          >
+            <CiEdit size={20} className="text-white" />
+          </div>
+
+          {/* Hidden file input */}
+          <input
+            ref={fileInputRef}
+            id="profile-photo-input"
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+
+          {/* Close icon shown when a custom image is selected */}
+          {profilePhoto && profilePhoto !== "" && (
+            <div
+              className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center cursor-pointer z-50"
+              onClick={handleRemovePhoto}
+            >
+              <RxCross2 size={12} className="text-white" />
+            </div>
+          )}
         </div>
       </div>
 
       {/* Form */}
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4"
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex flex-col gap-2">
           <label className="text-sm text-white">First Name *</label>
           <input
@@ -163,16 +218,7 @@ const StepOne = () => {
             className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
           />
         </div>
-
-        <div className="md:col-span-2">
-          <button
-            type="submit"
-            className="bg-green-600 text-white px-4 py-2 rounded-lg"
-          >
-            Save
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
   );
 };

@@ -17,11 +17,11 @@ const StepThree = () => {
     name: "educations",
   });
 
-  useEffect(() => {
-    if (data?.educations?.length) {
-      reset({ educations: data.educations });
-    }
-  }, [data, reset]);
+  // useEffect(() => {
+  //   if (data?.educations?.length) {
+  //     reset({ educations: data.educations });
+  //   }
+  // }, [data, reset]);
 
   return (
     <div>

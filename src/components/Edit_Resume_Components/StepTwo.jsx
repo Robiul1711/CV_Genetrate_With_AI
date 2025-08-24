@@ -13,6 +13,8 @@ const StepTwo = () => {
     name: "work_experiences",
   });
 
+
+
   const handleAdd = () => {
     append({
       job_title: "",
@@ -23,13 +25,13 @@ const StepTwo = () => {
       responsibilities: "",
     });
   };
-  useEffect(() => {
-    if (data?.work_experiences) {
-     reset({
-        work_experiences: data?.work_experiences,
-      });
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data?.work_experiences) {
+  //    reset({
+  //       work_experiences: data?.work_experiences,
+  //     });
+  //   }
+  // }, [data]);
 
   return (
     <div className="w-full">
