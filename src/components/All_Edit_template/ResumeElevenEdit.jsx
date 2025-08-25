@@ -8,7 +8,7 @@ const ResumeElevenEdit = () => {
   const { allRedumeData } = useResume();
   const { watch } = useFormContext();
   const formData = watch();
-  const resumeRef = useRef<HTMLDivElement>(null);
+  const resumeRef = useRef(null);
 
   const [profilePreview, setProfilePreview] = useState("");
 

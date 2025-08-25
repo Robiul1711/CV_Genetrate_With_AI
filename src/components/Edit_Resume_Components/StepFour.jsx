@@ -3,39 +3,56 @@ import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { useFormContext } from "react-hook-form";
-
-const allSkills = [
-  "html",
-  "Java",
-  "Photoshop",
-  "Figma",
-  "Sketch",
-  "Adobe XD",
-  "InVision",
-  "Axure RP",
-  "Balsamiq",
-  "Zeplin",
-  "Data Analysis",
-  "Project Management",
-];
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useAuth } from "@/hooks/useAuth";
 
 const StepFour = () => {
   const { allRedumeData } = useResume();
   const data = allRedumeData?.data;
 
-  // Access React Hook Form context
-  const { setValue, watch } = useFormContext();
-  console.log(watch())
+  const { language } = useAuth();
+  const axiosPublic = useAxiosPublic();
 
-  // Watch the form's current skills array
+  const {
+    setValue,
+    watch,
+    register,
+    formState: { errors },
+  } = useFormContext();
+
   const formSkills = watch("skills") || [];
 
-  // Local state for search
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  // When context data loads, update form value
+  // Debounce search input
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 400);
+    return () => clearTimeout(handler);
+  }, [search]);
 
-  // Add skill
+  // Register skills field with validation
+  register("skills", {
+    validate: (value) =>
+      (Array.isArray(value) && value.length > 0) ||
+      "Please select at least one skill",
+  });
+
+  // Fetch skills from API
+  const { data: skillsAll, isLoading } = useQuery({
+    queryKey: ["resume-edit-skills", language, debouncedSearch],
+    queryFn: async () => {
+      const res = await axiosPublic.get(
+        `/search-skills/?lan=${language}&q=${debouncedSearch}`
+      );
+      return res.data;
+    },
+    enabled: !!language,
+  });
+
   const handleSelectSkill = (skill) => {
     if (!formSkills.some((s) => s.skill === skill)) {
       const updated = [...formSkills, { skill }];
@@ -43,23 +60,15 @@ const StepFour = () => {
     }
   };
 
-  // Remove skill
   const handleRemoveSkill = (skillToRemove) => {
     const updated = formSkills.filter((s) => s.skill !== skillToRemove);
     setValue("skills", updated, { shouldValidate: true, shouldDirty: true });
   };
 
-  // Filter suggestions
-  const filteredSkills = allSkills.filter(
-    (skill) =>
-      skill.toLowerCase().includes(search.toLowerCase()) &&
-      !formSkills.some((s) => s.skill === skill)
-  );
-
   return (
     <div className="w-full text-white">
       {/* Selected Skills */}
-      <p className="text-sm mb-2">Selected Skills</p>
+      <p className="text-sm mb-2">Selected Skills *</p>
       <div className="flex flex-wrap gap-3 mb-3">
         {formSkills.map((skillObj) => (
           <div
@@ -77,6 +86,11 @@ const StepFour = () => {
         ))}
       </div>
 
+      {/* Error */}
+      {errors.skills && (
+        <p className="text-red-500 text-xs mb-2">{errors.skills.message}</p>
+      )}
+
       {/* Search Input */}
       <p className="text-sm mb-2">Skill</p>
       <div className="relative w-full">
@@ -93,16 +107,23 @@ const StepFour = () => {
       {/* Suggested Skills */}
       <p className="mt-5 text-sm">Suggested Skills</p>
       <div className="flex flex-wrap gap-3 mt-3">
-        {filteredSkills.map((skill) => (
-          <button
-            key={skill}
-            type="button"
-            onClick={() => handleSelectSkill(skill)}
-            className="px-3 py-1.5 rounded-full text-sm border border-[#2A2A2A] bg-[#0E0E10] hover:border-white"
-          >
-            {skill}
-          </button>
-        ))}
+        {isLoading && <p className="text-xs text-gray-400">Loading...</p>}
+        {!isLoading &&
+          skillsAll?.data?.map((skill, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => handleSelectSkill(skill?.name)}
+              disabled={formSkills.some((s) => s.skill === skill?.name)}
+              className={`px-3 py-1.5 rounded-full text-sm border border-[#2A2A2A] bg-[#0E0E10] hover:border-white ${
+                formSkills.some((s) => s.skill === skill?.name)
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
+              }`}
+            >
+              {skill?.name}
+            </button>
+          ))}
       </div>
     </div>
   );

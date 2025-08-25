@@ -20,6 +20,8 @@ const Step3 = () => {
     name: "work_experiences",
   });
 
+  console.log(watch())
+
   // Append default item if empty
   useEffect(() => {
     if (fields.length === 0) {
@@ -27,7 +29,7 @@ const Step3 = () => {
         job_title: "",
         company_name: "",
         start_date: "",
-        end_date: "",
+        end_date: null,
         still_working_here: false,
         responsibilities: "",
       });
@@ -39,11 +41,19 @@ const Step3 = () => {
       job_title: "",
       company_name: "",
       start_date: "",
-      end_date: "",
+      end_date: null,
       still_working_here: false,
       responsibilities: "",
     });
   };
+  useEffect(() => {
+    fields.forEach((_, index) => {
+      const endDate = watch(`work_experiences.${index}.end_date`);
+      if (endDate === "") {
+        setValue(`work_experiences.${index}.end_date`, null);
+      }
+    });
+  }, [fields, watch, setValue]);
 
   return (
     <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">

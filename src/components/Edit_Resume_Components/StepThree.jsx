@@ -17,11 +17,14 @@ const StepThree = () => {
     name: "educations",
   });
 
-  // useEffect(() => {
-  //   if (data?.educations?.length) {
-  //     reset({ educations: data.educations });
-  //   }
-  // }, [data, reset]);
+  useEffect(() => {
+    fields.forEach((_, index) => {
+      const endDate = watch(`educations.${index}.end_date`);
+      if (endDate === "") {
+        setValue(`educations.${index}.end_date`, null);
+      }
+    });
+  }, [fields, watch, setValue]);
 
   return (
     <div>
@@ -85,7 +88,7 @@ const StepThree = () => {
                     checked={field.value || false}
                     onCheckedChange={(checked) => {
                       field.onChange(checked)
-                      if (checked) setValue(`educations.${index}.end_date`, "");
+                      if (checked) setValue(`educations.${index}.end_date`, null);
                     }}
                   />
                 )}

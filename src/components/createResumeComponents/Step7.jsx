@@ -10,6 +10,7 @@ const Step7 = () => {
     register,
     control,
     watch,
+    setValue,
     formState: { errors },
   } = useFormContext();
 
@@ -30,6 +31,15 @@ const Step7 = () => {
       });
     }
   }, [courses, append]);
+
+  useEffect(() => {
+    fields.forEach((_, index) => {
+      const endDate = watch(`courses_and_training_details.${index}.end_date`);
+      if (endDate === "") {
+        setValue(`courses_and_training_details.${index}.end_date`, null);
+      }
+    });
+  }, [fields, watch, setValue]);
 
   return (
     <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">

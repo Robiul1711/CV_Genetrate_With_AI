@@ -4,6 +4,30 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 
+const TitleSection = ({ name }) => {
+  return (
+    <h2 className="bg-[#FFFFFF] -ml-4 rounded-tr-[16px] py-1.5 w-[140px] flex justify-center items-center text-base text-[#0D0D0D] font-semibold leading-[20px] tracking-[2px]">
+      {name}
+    </h2>
+  );
+};
+
+const TitleSection2 = ({ name }) => {
+  return (
+    <h2 className="bg-[#FFFFFF] absolute top-4 right-0 rounded-tl-[16px] py-1.5 w-[120px] flex justify-center items-center text-base text-[#0D0D0D] font-semibold leading-[20px] tracking-[2px]">
+      {name}
+    </h2>
+  );
+};
+
+const SectionArea = ({ children }) => {
+  return (
+    <div className="bg-[#1F1F1F] rounded-t-[16px] rounded-bl-[16px] px-4 pb-2 pt-4 relative">
+      {children}
+    </div>
+  );
+};
+
 const ResumeEightEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const { allRedumeData } = useResume();
@@ -11,7 +35,7 @@ const ResumeEightEdit = () => {
   const formData = watch();
   const [profilePreview, setProfilePreview] = useState(Image);
 
-  // Merge formData and context data
+  // Merge form and context data
   const resumeData = {
     first_name: formData?.first_name || allRedumeData?.data?.first_name || "",
     last_name: formData?.last_name || allRedumeData?.data?.last_name || "",
@@ -24,7 +48,9 @@ const ResumeEightEdit = () => {
     email: formData?.email || allRedumeData?.data?.email || "",
     address: formData?.address || allRedumeData?.data?.address || "",
     linked_in_profile:
-      formData?.linked_in_profile || allRedumeData?.data?.linked_in_profile || "",
+      formData?.linked_in_profile ||
+      allRedumeData?.data?.linked_in_profile ||
+      "",
     xing_profile:
       formData?.xing_profile || allRedumeData?.data?.xing_profile || "",
     educations: formData?.educations || allRedumeData?.data?.educations || [],
@@ -40,7 +66,7 @@ const ResumeEightEdit = () => {
       [],
   };
 
-  // Set profile photo preview
+  // Set profile preview
   useEffect(() => {
     if (formData?.profile_photo && !formData.profile_photo.startsWith("/media")) {
       setProfilePreview(formData.profile_photo);
@@ -52,7 +78,7 @@ const ResumeEightEdit = () => {
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
   return (
-    <div className="flex flex-col bg-[#404040] gap-3 w-[210mm] mx-auto mt-10 shadow-lg">
+    <div className="flex flex-col bg-[#404040] gap-3 w-[210mm] mx-auto mt-10">
       {/* Header */}
       <header className="bg-[#1F1F1F] pl-[153px] relative pt-[34px] pb-4 pr-[172px] w-full">
         <div className="flex flex-col gap-2 justify-end items-end w-full">
@@ -66,131 +92,209 @@ const ResumeEightEdit = () => {
         <img
           src={profilePreview}
           alt="Profile"
-          className="absolute top-4 right-4 z-50 w-[140px] h-[140px] rounded-full object-cover border-4 border-[#FFC805]"
+          className="absolute top-4 right-4 z-50 w-[140px] h-[140px]"
         />
       </header>
 
-      {/* Content */}
       <div className="flex gap-3 w-full p-3">
-        {/* Left Side */}
+        {/* Left Column */}
         <div className="flex flex-col justify-between gap-3 w-[75%]">
           {/* Profile */}
-          <div className="bg-[#1F1F1F] rounded-t-[16px] rounded-bl-[16px] px-4 pb-2 pt-4 relative">
-            <h2 className="bg-[#FFFFFF] -ml-4 rounded-tr-[16px] py-1.5 w-[140px] flex justify-center items-center text-base text-[#0D0D0D] font-semibold leading-[20px] tracking-[2px]">
-              Profile
-            </h2>
-            <p className="text-xs text-white font-normal leading-[18px] !urbanist">
-              {resumeData.about}
-            </p>
-          </div>
+          <SectionArea>
+            <div className="flex flex-col gap-1">
+              <TitleSection name="Profile" />
+              <p className="text-xs text-white font-normal leading-[18px] !urbanist">
+                {resumeData.about}
+              </p>
+            </div>
+          </SectionArea>
 
-          {/* Work Experience */}
-          <div className="bg-[#1F1F1F] rounded-lg p-4 flex flex-col gap-3">
-            <h2 className="text-[#FFC805] text-lg font-bold tracking-[2px] mb-2">
-              Experience
-            </h2>
-            {resumeData.work_experiences.map((exp, i) => (
-              <div key={i} className="text-white text-xs border-b border-[#333] pb-2">
-                <p className="font-semibold">{exp.job_title}</p>
-                <p className="italic">{exp.company_name}</p>
-                <p>
-                  {dayjs(exp.start_date).format("MMM YYYY")} –{" "}
-                  {exp.end_date ? dayjs(exp.end_date).format("MMM YYYY") : "Present"}
-                </p>
-                <p>{exp.responsibilities}</p>
+          {/* Experience */}
+          <SectionArea>
+            <div className="flex flex-col gap-2">
+              <TitleSection name="Experience" />
+              <div className="flex flex-col gap-2 w-full">
+                {resumeData.work_experiences.map((exp, i) => (
+                  <div key={i} className="flex flex-row gap-2 items-start">
+                    <div className="w-[117px] flex flex-col gap-2">
+                      <p className="text-white !urbanist text-xs font-medium leading-[15px]">
+                        {exp.company_name}
+                      </p>
+                      <p className="text-white !urbanist text-xs font-normal leading-[15px]">
+                        {dayjs(exp.start_date).format("YYYY")} –{" "}
+                        {exp.end_date
+                          ? dayjs(exp.end_date).format("YYYY")
+                          : "Present"}
+                      </p>
+                    </div>
+                    <div className="flex-1 flex-col gap-2">
+                      <p className="text-sm font-semibold leading-[18px] !text-[#FECB00] !urbanist">
+                        {exp.job_title}
+                      </p>
+                      <p className="text-xs text-white font-normal leading-[18px] !urbanist">
+                        {exp.responsibilities}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          </SectionArea>
 
           {/* Skills */}
-          <div className="bg-[#1F1F1F] rounded-lg p-4 flex flex-col gap-2">
-            <h2 className="text-[#FFC805] text-lg font-bold tracking-[2px] mb-2">
-              Skills
-            </h2>
-            {resumeData.skills.map((skill, i) => (
-              <p key={i} className="text-white text-xs">
-                {skill.skill}
-              </p>
-            ))}
-          </div>
+          <SectionArea>
+            <div className="flex flex-col gap-2">
+              <TitleSection name="Skills" />
+              <div className="grid grid-cols-2 gap-2">
+                {resumeData.skills.map((skill, i) => (
+                  <div
+                    key={i}
+                    className="flex gap-2 items-center justify-between"
+                  >
+                    <p className="text-xs text-white font-normal leading-[18px] !urbanist">
+                      {skill.skill}
+                    </p>
+                    <div className="flex-1 rounded-[16px] bg-[#FECB00] h-1"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </SectionArea>
 
           {/* Languages */}
-          <div className="bg-[#1F1F1F] rounded-lg p-4 flex flex-col gap-2">
-            <h2 className="text-[#FFC805] text-lg font-bold tracking-[2px] mb-2">
-              Languages
-            </h2>
-            {resumeData.languages.map((lang, i) => (
-              <p key={i} className="text-white text-xs">
-                {lang.language} - {lang.level}
-              </p>
-            ))}
-          </div>
-
-          {/* Trainings */}
-          <div className="bg-[#1F1F1F] rounded-lg p-4 flex flex-col gap-2">
-            <h2 className="text-[#FFC805] text-lg font-bold tracking-[2px] mb-2">
-              Trainings
-            </h2>
-            {resumeData.courses_and_training_details.map((training, i) => (
-              <div key={i} className="text-white text-xs border-b border-[#333] pb-2">
-                <p className="font-semibold">{training.course_name}</p>
-                <p className="italic">{training.name_of_institute}</p>
-                <p>
-                  {dayjs(training.start_date).format("MMM YYYY")} –{" "}
-                  {training.end_date ? dayjs(training.end_date).format("MMM YYYY") : "Ongoing"}
-                </p>
-                <p>{training.description}</p>
+          <SectionArea>
+            <div className="flex flex-col gap-2">
+              <TitleSection name="Language" />
+              <div className="grid grid-cols-2">
+                {resumeData.languages.map((lang, i) => (
+                  <div
+                    key={i}
+                    className="flex gap-2 items-center justify-between"
+                  >
+                    <p className="text-xs pl-4 pr-6 text-white font-normal leading-[18px] !urbanist">
+                      {lang.language}
+                    </p>
+                    <p className="text-xs text-white font-normal leading-[18px] !urbanist">
+                      {lang.level}
+                    </p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          </SectionArea>
+
+          {/* Training */}
+          <SectionArea>
+            <div className="flex flex-col gap-2">
+              <TitleSection name="Training" />
+              <div className="grid gap-1 grid-cols-1">
+                {resumeData.courses_and_training_details.map((training, i) => (
+                  <div key={i} className="flex gap-2">
+                    <div className="flex flex-col gap-1 w-[171px]">
+                      <p className="text-xs text-white leading-[15px] font-medium !urbanist">
+                        {training.name_of_institute}
+                      </p>
+                      <p className="text-[10px] text-white font-normal !urbanist">
+                        {training.start_date} - {training.end_date}
+                      </p>
+                    </div>
+                    <p className="!urbanist text-xs w-[144px] text-[#FECB00] font-semibold leading-[18px]">
+                      {training.course_name}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </SectionArea>
         </div>
 
-        {/* Right Side */}
+        {/* Right Column */}
         <div className="w-[25%] mt-8 flex flex-col gap-3">
           {/* Education */}
-          <div className="bg-[#1F1F1F] rounded-lg p-4 flex flex-col gap-3">
-            <h2 className="text-[#FFC805] text-lg font-bold tracking-[2px] mb-2">
-              Education
-            </h2>
-            {resumeData.educations.map((edu, i) => (
-              <div key={i} className="text-white text-xs border-b border-[#333] pb-2">
-                <p className="font-semibold">{edu.degree}</p>
-                <p className="italic">{edu.institute_name}</p>
-                <p>
-                  {dayjs(edu.start_date).format("MMM YYYY")} –{" "}
-                  {dayjs(edu.end_date).format("MMM YYYY")}
-                </p>
-              </div>
-            ))}
-          </div>
+          <SectionArea>
+            <div className="flex flex-col gap-2">
+              <TitleSection2 name="Education" />
+            </div>
+            <div className="grid gap-2 mt-9">
+              {resumeData.educations.map((edu, i) => (
+                <div key={i} className="flex flex-col gap-1">
+                  <p className="text-[10px] text-white !urbanist leading-[15px] font-normal">
+                    {dayjs(edu.start_date).format("YYYY")} –{" "}
+                    {dayjs(edu.end_date).format("YYYY")}
+                  </p>
+                  <p className="text-[#FECB00] text-xs leading-[18px] font-semibold">
+                    {edu.degree}
+                  </p>
+                  <p className="!urbanist text-xs leading-[18px] font-medium text-white">
+                    {edu.institute_name}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </SectionArea>
 
           {/* Contact */}
-          <div className="bg-[#1F1F1F] rounded-lg p-4 flex flex-col gap-2">
-            <h2 className="text-[#FFC805] text-lg font-bold tracking-[2px] mb-2">
-              Contact
-            </h2>
-            <p className="text-white text-xs">{resumeData.phone_number}</p>
-            <p className="text-white text-xs">{resumeData.email}</p>
-            <p className="text-white text-xs">{resumeData.address}</p>
-            {resumeData.linked_in_profile && (
-              <a
-                href={resumeData.linked_in_profile}
-                target="_blank"
-                className="text-[#FFC805] text-xs underline"
-              >
-                LinkedIn
-              </a>
-            )}
-            {resumeData.xing_profile && (
-              <a
-                href={resumeData.xing_profile}
-                target="_blank"
-                className="text-[#FFC805] text-xs underline"
-              >
-                Xing
-              </a>
-            )}
-          </div>
+          <SectionArea>
+            <div className="flex flex-col gap-2">
+              <TitleSection2 name="Contact" />
+              <div className="grid gap-2 mt-9">
+                <div className="flex flex-col gap-1">
+                  <p className="text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
+                    Phone
+                  </p>
+                  <p className="text-[10px] font-normal leading-[16px] text-white !urbanist">
+                    {resumeData.phone_number}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
+                    Location
+                  </p>
+                  <p className="text-[10px] font-normal leading-[16px] text-white !urbanist">
+                    {resumeData.address}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
+                    E-mail
+                  </p>
+                  <p className="text-[10px] font-normal leading-[16px] text-white !urbanist">
+                    {resumeData.email}
+                  </p>
+                </div>
+                {resumeData.linked_in_profile && (
+                  <div className="flex flex-col gap-1">
+                    <p className="text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
+                      Linked-in
+                    </p>
+                    <a
+                      href={resumeData.linked_in_profile}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-normal leading-[16px] text-white !urbanist break-words underline"
+                    >
+                      {resumeData.linked_in_profile}
+                    </a>
+                  </div>
+                )}
+                {resumeData.xing_profile && (
+                  <div className="flex flex-col gap-1">
+                    <p className="text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
+                      Xing
+                    </p>
+                    <a
+                      href={resumeData.xing_profile}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-normal leading-[16px] text-white !urbanist break-words underline"
+                    >
+                      {resumeData.xing_profile}
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          </SectionArea>
         </div>
       </div>
     </div>

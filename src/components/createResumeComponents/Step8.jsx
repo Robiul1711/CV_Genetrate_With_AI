@@ -3,7 +3,7 @@ import Title from "../common/Title";
 import resume from "../../assets/images/resume.png";
 import { Edit2 } from "lucide-react";
 import { FaEye } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ImageAssets } from "@/lib/ImageProvider";
 import ResumeOne from "../All_Templates/ResumeOne";
 import ResumeTwo from "../All_Templates/ResumeTwo";
@@ -16,6 +16,8 @@ import ResumeEight from "../All_Templates/ResumeEight";
 import ResumeNine from "../All_Templates/ResumeNine";
 import ResumeTen from "../All_Templates/ResumeTen";
 import ResumeEleven from "../All_Templates/ResumeEleven";
+import { useMutation } from "@tanstack/react-query";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 export const resumeData = [
   {
     id: 1,
@@ -39,7 +41,7 @@ export const resumeData = [
     id: 4,
     title: "Resume 4",
     resume: ImageAssets.Resume4,
-        cvComponet: <ResumeFour/>,
+    cvComponet: <ResumeFour />,
   },
   {
     id: 5,
@@ -75,7 +77,7 @@ export const resumeData = [
     id: 10,
     title: "Resume 10",
     resume: ImageAssets.Resume7,
-    cvComponet: <ResumeTen/>, // Assuming ResumeNine is the component for Resume 10
+    cvComponet: <ResumeTen />, // Assuming ResumeNine is the component for Resume 10
   },
   {
     id: 11,
@@ -86,6 +88,22 @@ export const resumeData = [
 ];
 
 const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
+  const axiosSecure = useAxiosSecure();
+
+  const IdSetupMutation = useMutation({
+    mutationFn: async (body) => {
+      const res = await axiosSecure.post(`/update-template-id/`, body);
+      return res.data;
+    },
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const navigate = useNavigate();
   return (
     <div className=" text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className=" w-full">
@@ -117,23 +135,36 @@ const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
               {/* Hover Overlay */}
               <div className="absolute inset-0 bg-[#0E0E10]/70 rounded-xl opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-                  <Link
-                    to={`/dashboard/edit-resume/${item.id}`}
+                  <button
+                    onClick={() => {
+                      const payload = {
+                        template_id: item?.id,
+                      };
+                      IdSetupMutation.mutate(payload);
+                      navigate(`/dashboard/edit-resume/${item.id}`);
+                    }}
                     className="border px-3 py-1 bg-black/40  rounded-full flex items-center gap-2 text-white hover:bg-black/60 transition"
                   >
-                    Edit <Edit2 size={14} />
-                  </Link>
+                    {IdSetupMutation.isPending ? "Editing.." : "Edit"}{" "}
+                    <Edit2 size={14} />
+                  </button>
 
                   <button
                     onClick={() => {
-                      // pass id here
+                      const payload = {
+                        template_id: item?.id,
+                      };
+                      IdSetupMutation.mutate(payload);
                       console.log("Preview resume id:", item.id);
                       setActiveStep(activeStep + 1, item.id);
                       setResumeId(item.id);
                     }}
                     className="border px-3 bg-black/40  rounded-full flex items-center gap-2 text-white hover:bg-black/60 transition"
                   >
-                    Preview <FaEye size={14} />
+                    {IdSetupMutation.isPending
+                      ? "Preparing preview..."
+                      : "Preview"}{" "}
+                    <FaEye size={14} />
                   </button>
                 </div>
               </div>

@@ -50,13 +50,13 @@ const AdminLayout = () => {
       path: "/dashboard/create-cover-letter",
       sublink: false,
     },
-    {
-      id: 5,
-      icon: <ApplicationPackageIcon />,
-      text: "Application Package",
-      path: "/dashboard/application-package",
-      sublink: false,
-    },
+    // {
+    //   id: 5,
+    //   icon: <ApplicationPackageIcon />,
+    //   text: "Application Package",
+    //   path: "/dashboard/application-package",
+    //   sublink: false,
+    // },
     {
       id: 5,
       icon: <HistoryIcon />,
