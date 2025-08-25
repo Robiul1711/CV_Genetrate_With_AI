@@ -41,7 +41,15 @@ const Step4 = () => {
       currently_enrolled: false,
     });
   };
-
+  
+  useEffect(() => {
+    fields.forEach((_, index) => {
+      const endDate = watch(`educations.${index}.end_date`);
+      if (endDate === "") {
+        setValue(`educations.${index}.end_date`, null);
+      }
+    });
+  }, [fields, watch, setValue]);
   return (
     <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="w-full max-w-3xl mx-auto">

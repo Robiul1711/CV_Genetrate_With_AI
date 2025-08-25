@@ -67,6 +67,7 @@ const EditResumePage = () => {
     },
 
     onSuccess: (data, _variables, context) => {
+      console.log(data)
       setAllResumeData(data);
       // Set the resume ID from response if available
 

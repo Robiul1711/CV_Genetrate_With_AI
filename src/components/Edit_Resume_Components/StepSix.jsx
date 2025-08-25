@@ -8,7 +8,7 @@ const StepSix = () => {
   const { allRedumeData } = useResume();
   const data = allRedumeData?.data;
 
-  const { register, control, watch } = useFormContext();
+  const { register, control, watch, setValue } = useFormContext();
 
   // Manage dynamic courses/training array
   const { fields, append, remove } = useFieldArray({
@@ -35,6 +35,15 @@ const StepSix = () => {
   }, [data, append, fields.length]);
 
   const watchCourses = watch("courses_and_training_details") || [];
+
+  useEffect(() => {
+    fields.forEach((_, index) => {
+      const endDate = watch(`courses_and_training_details.${index}.end_date`);
+      if (endDate === "") {
+        setValue(`courses_and_training_details.${index}.end_date`, null);
+      }
+    });
+  }, [fields, watch, setValue]);
 
   return (
     <div className="w-full">

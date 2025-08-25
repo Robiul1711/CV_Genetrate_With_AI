@@ -73,7 +73,7 @@ const ResumeSevenEdit = () => {
   };
 
   return (
-    <div>
+    <div className=" ">
       <button
         onClick={handleDownload}
         className="bg-pink-500 text-white px-4 py-2 rounded mb-4"
@@ -99,7 +99,7 @@ const ResumeSevenEdit = () => {
         <div className="flex w-full px-6 justify-between items-center gap-5">
           <div className="w-1/3 text-center">
             <p className="uppercase text-sm font-semibold">Profile</p>
-            <p className="italic text-xs">{resumeData.about}</p>
+            <p className="italic text-xs !text-black">{resumeData.about}</p>
           </div>
 
           <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-2 border-[#E0D5C9]">
@@ -111,19 +111,19 @@ const ResumeSevenEdit = () => {
           </div>
 
           <div className="w-1/3 flex flex-col gap-1">
-            <p className="uppercase text-sm font-semibold text-center">Contact</p>
+            <p className="uppercase text-sm font-semibold text-center !text-black">Contact</p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-1">
-                <PhoneIcon className="size-3" />
-                <span className="text-xs italic">{resumeData.phone_number}</span>
+                <PhoneIcon className="size-3 " />
+                <span className="text-xs italic !text-black">{resumeData.phone_number}</span>
               </div>
               <div className="flex items-center gap-1">
                 <AddressIcon className="size-3" />
-                <span className="text-xs italic">{resumeData.address}</span>
+                <span className="text-xs italic !text-black">{resumeData.address}</span>
               </div>
               <div className="flex items-center gap-1">
                 <EmailIcon className="size-3" />
-                <span className="text-xs italic">{resumeData.email}</span>
+                <span className="text-xs italic !text-black">{resumeData.email}</span>
               </div>
               {resumeData.linked_in_profile && (
                 <div className="flex items-center gap-1">
@@ -131,19 +131,19 @@ const ResumeSevenEdit = () => {
                   <a
                     href={resumeData.linked_in_profile}
                     target="_blank"
-                    className="text-xs italic"
+                    className="text-xs italic !text-black"
                   >
                     {resumeData.linked_in_profile}
                   </a>
                 </div>
               )}
               {resumeData.xing_profile && (
-                <div className="flex items-center gap-1">
-                  <XingIcon className="size-3" />
+                <div className="flex items-center gap-1 !text-black">
+                  <XingIcon className="size-3 !text-black "/>
                   <a
                     href={resumeData.xing_profile}
                     target="_blank"
-                    className="text-xs italic"
+                    className="text-xs italic !text-black"
                   >
                     {resumeData.xing_profile}
                   </a>
@@ -155,7 +155,7 @@ const ResumeSevenEdit = () => {
 
         {/* Education / Skills / Languages */}
         <div className="px-6">
-          <div className="grid grid-cols-3 bg-[#E1E2E6] text-center font-semibold py-2 border border-[#9A9A9A]">
+          <div className="grid grid-cols-3 bg-[#E1E2E6] !text-black text-center font-semibold py-2 border border-[#9A9A9A]">
             <div>Education</div>
             <div>Professional Skills</div>
             <div>Expertise</div>
@@ -165,9 +165,9 @@ const ResumeSevenEdit = () => {
             <div className="flex flex-col gap-3">
               {resumeData.educations.map((edu, i) => (
                 <div key={i} className="text-center">
-                  <p className="font-medium text-xs">{edu.degree}</p>
-                  <p className="italic text-xs">{edu.institute_name}</p>
-                  <p className="italic text-xs">
+                  <p className="font-medium text-xs !text-black">{edu.degree}</p>
+                  <p className="italic text-xs !text-black">{edu.institute_name}</p>
+                  <p className="italic text-xs !text-black">
                     {dayjs(edu.start_date).format("MMM YYYY")} - {dayjs(edu.end_date).format("MMM YYYY")}
                   </p>
                 </div>
@@ -177,8 +177,8 @@ const ResumeSevenEdit = () => {
             <div className="flex flex-col items-center gap-2">
               {resumeData.skills.map((skill, i) => (
                 <div key={i} className="flex items-center gap-4">
-                  <p className="w-[75px] italic text-xs">{skill.skill}</p>
-                  <span className="w-[80px] h-1 bg-[#E0D5C9] rounded"></span>
+                  <p className="w-[75px] italic text-xs !text-black">{skill.skill}</p>
+                  <span className="w-[80px] h-1 bg-[#E0D5C9] rounded !text-black"></span>
                 </div>
               ))}
             </div>
@@ -186,8 +186,8 @@ const ResumeSevenEdit = () => {
             <div className="flex flex-col items-center gap-2">
               {resumeData.languages.map((lang, i) => (
                 <div key={i} className="flex gap-4">
-                  <p className="text-xs">{lang.language}</p>
-                  <p className="text-xs">{lang.level}</p>
+                  <p className="text-xs !text-black">{lang.language}</p>
+                  <p className="text-xs !text-black">{lang.level}</p>
                 </div>
               ))}
             </div>
@@ -203,13 +203,13 @@ const ResumeSevenEdit = () => {
                 className="bg-[#F8F8F8] rounded-lg shadow-sm border p-4 flex flex-col gap-3"
               >
                 <div className="flex justify-between text-xs italic">
-                  <p className="font-semibold">{exp.company_name}</p>
-                  <p>
+                  <p className="font-semibold !text-black">{exp.company_name}</p>
+                  <p className="!text-black">
                     {dayjs(exp.start_date).format("MMM YYYY")} – {exp.end_date ? dayjs(exp.end_date).format("MMM YYYY") : "Present"}
                   </p>
                 </div>
-                <p className="italic font-semibold text-sm">{exp.job_title}</p>
-                <p className="italic text-xs text-justify">{exp.responsibilities}</p>
+                <p className="italic font-semibold text-sm !text-black">{exp.job_title}</p>
+                <p className="italic text-xs text-justify !text-black">{exp.responsibilities}</p>
               </div>
             ))}
           </div>
@@ -221,13 +221,13 @@ const ResumeSevenEdit = () => {
                 className="bg-[#F8F8F8] rounded-lg shadow-sm border p-4 flex flex-col gap-3"
               >
                 <div className="flex justify-between text-xs italic">
-                  <p className="font-semibold">{training.name_of_institute}</p>
-                  <p>
+                  <p className="font-semibold !text-black">{training.name_of_institute}</p>
+                  <p className="!text-black">
                     {dayjs(training.start_date).format("MMM YYYY")} – {training.end_date ? dayjs(training.end_date).format("MMM YYYY") : "Ongoing"}
                   </p>
                 </div>
-                <p className="italic font-semibold text-sm">{training.course_name}</p>
-                <p className="italic text-xs text-justify">{training.description}</p>
+                <p className="italic font-semibold text-sm !text-black">{training.course_name}</p>
+                <p className="italic text-xs text-justify !text-black">{training.description}</p>
               </div>
             ))}
           </div>

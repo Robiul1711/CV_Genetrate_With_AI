@@ -14,15 +14,38 @@ const StepOne = () => {
     control,
     formState: { errors },
   } = useFormContext();
-  const {imageString, allRedumeData, setAllResumeData } = useResume();
+  const { imageString, setImageString, allRedumeData, setAllResumeData } =
+    useResume();
   const profilePhoto = watch("profile_photo");
   const data = allRedumeData?.data;
   const fileInputRef = useRef(null);
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
+  console.log(VITE_IMG_URL);
+
+  // Initialize profilePreview with the current profile photo from form data
   const [profilePreview, setProfilePreview] = useState(
     VITE_IMG_URL + data?.profile_photo
   );
+
+  console.log(profilePhoto);
+
+  // Update profilePreview when profile_photo changes
+  useEffect(() => {
+    if (profilePhoto?.startsWith("/media")) {
+      setProfilePreview(VITE_IMG_URL + data?.profile_photo);
+    } else {
+      if(!profilePhoto){
+        setProfilePreview(VITE_IMG_URL + data?.profile_photo);
+
+      }else{
+        setProfilePreview(profilePhoto)
+
+      }
+    }
+  }, [profilePhoto, data?.profile_photo, VITE_IMG_URL]);
+
   const liveTitle = watch("job_title");
+
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -33,16 +56,22 @@ const StepOne = () => {
         const base64String = reader.result.toString();
         // ✅ Save base64 string to form state
         setValue("profile_photo", base64String, { shouldValidate: true });
+        setImageString(base64String);
         // Update local preview
         setProfilePreview(base64String);
+        console.log(base64String);
       }
     };
     reader.readAsDataURL(file); // convert to base64
   };
+
   const handleRemovePhoto = (e) => {
     e.stopPropagation(); // Prevent triggering the file input
     setValue("profile_photo", "", { shouldValidate: true });
+
     setProfilePreview(VITE_IMG_URL + data?.profile_photo); // Reset to default
+
+    console.log(VITE_IMG_URL + data?.profile_photo);
     // Reset the file input value
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -54,7 +83,7 @@ const StepOne = () => {
       fileInputRef.current.click();
     }
   };
-  console.log(allRedumeData?.data);
+  console.log(allRedumeData?.data?.profile_photo);
 
   return (
     <div>
@@ -64,21 +93,6 @@ const StepOne = () => {
       {/* Upload Section */}
       <div className="flex flex-col gap-4 mb-4">
         <p className="text-sm text-white">Upload your photo *</p>
-        {/* <div className="relative w-16 h-16 rounded-full border-2 border-white">
-          <img
-            src={watch("profile_photo") || "https://via.placeholder.com/150"}
-            alt="Profile"
-            className="w-full h-full object-cover rounded-full"
-          />
-          <label className="absolute -bottom-1.5 right-0 w-8 h-8 bg-dark rounded-full flex items-center justify-center cursor-pointer border border-[#81FB84]/30 z-50">
-            <CiEdit size={20} className="text-white" />
-            <input
-              type="file"
-              className="hidden"
-              // Optional: handle image upload change here
-            />
-          </label>
-        </div> */}
 
         <div className="relative w-16 h-16 rounded-full border-2 border-white">
           <div

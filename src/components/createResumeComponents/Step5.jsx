@@ -1,23 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Title from "../common/Title";
 import { FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { useFormContext } from "react-hook-form";
-
-const allSkills = [
-  "html",
-  "Java",
-  "Photoshop",
-  "Figma",
-  "Sketch",
-  "Adobe XD",
-  "InVision",
-  "Axure RP",
-  "Balsamiq",
-  "Zeplin",
-  "Data Analysis",
-  "Project Management",
-];
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useAuth } from "@/hooks/useAuth";
 
 const Step5 = () => {
   const {
@@ -26,16 +14,45 @@ const Step5 = () => {
     register,
     formState: { errors },
   } = useFormContext();
+  const axiosPublic = useAxiosPublic();
+  const { language } = useAuth();
 
+  // Selected skills
   const skills = watch("skills") || [];
-  const [search, setSearch] = useState("");
 
-  // Register the skills field with validation
-  register("skills", { 
-    validate: (value) => value.length > 0 || "Please select at least one skill"
+  // Search state
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  // Debounce effect
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 400);
+    return () => clearTimeout(handler);
+  }, [search]);
+
+  // Register field with safe validation
+  register("skills", {
+    validate: (value) =>
+      (Array.isArray(value) && value.length > 0) ||
+      "Please select at least one skill",
+  });
+
+  // Query for search skills
+  const { data: skillsAll, isLoading } = useQuery({
+    queryKey: ["search-skills", language, debouncedSearch],
+    queryFn: async () => {
+      const res = await axiosPublic.get(
+        `/search-skills/?lan=${language}&q=${debouncedSearch}`
+      );
+      return res.data;
+    },
+    enabled: !!language, // run only when language is available
   });
 
   const handleSelectSkill = (skill) => {
+    if (skills.some((s) => s.skill === skill)) return;
     const updated = [...skills, { skill }];
     setValue("skills", updated, { shouldValidate: true });
   };
@@ -45,12 +62,6 @@ const Step5 = () => {
     setValue("skills", updated, { shouldValidate: true });
   };
 
-  const filteredSkills = allSkills.filter(
-    (skill) =>
-      skill.toLowerCase().includes(search.toLowerCase()) &&
-      !skills.some((s) => s.skill === skill)
-  );
-
   return (
     <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="w-[800px] mx-auto">
@@ -58,13 +69,15 @@ const Step5 = () => {
         <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
           <Title level="title24">Highlight Your Skills</Title>
           <Title level="title14">
-            Showcase both your technical expertise and soft skills to match job requirements.
+            Showcase both your technical expertise and soft skills to match job
+            requirements.
           </Title>
         </div>
         <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
           <Title level="title40">Highlight Your Skills</Title>
           <Title level="title20">
-            Showcase both your technical expertise and soft skills to match job requirements.
+            Showcase both your technical expertise and soft skills to match job
+            requirements.
           </Title>
         </div>
 
@@ -77,14 +90,17 @@ const Step5 = () => {
               className="flex items-center bg-[#0E0E10] border border-[#2A2A2A] px-3 py-1.5 rounded-full text-sm"
             >
               <span className="mr-2">{skillObj.skill}</span>
-              <button onClick={() => handleRemoveSkill(skillObj.skill)}>
+              <button
+                type="button"
+                onClick={() => handleRemoveSkill(skillObj.skill)}
+              >
                 <IoClose className="text-white hover:text-red-400" size={14} />
               </button>
             </div>
           ))}
         </div>
 
-        {/* Error Message */}
+        {/* Error */}
         {errors.skills && (
           <p className="text-red-500 text-xs mb-2">{errors.skills.message}</p>
         )}
@@ -105,15 +121,23 @@ const Step5 = () => {
         {/* Suggested Skills */}
         <p className="mt-5 text-sm">Suggested Skills</p>
         <div className="flex flex-wrap gap-2 mt-2">
-          {filteredSkills.map((skill) => (
-            <button
-              key={skill}
-              onClick={() => handleSelectSkill(skill)}
-              className="px-3 py-1.5 rounded-full text-sm border border-[#2A2A2A] bg-[#0E0E10] hover:border-white"
-            >
-              {skill}
-            </button>
-          ))}
+          {isLoading && <p className="text-xs text-gray-400">Loading...</p>}
+          {!isLoading &&
+            skillsAll?.data?.map((skill, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => handleSelectSkill(skill?.name)}
+                disabled={skills.some((s) => s.skill === skill?.name)}
+                className={`px-3 py-1.5 rounded-full text-sm border border-[#2A2A2A] bg-[#0E0E10] hover:border-white ${
+                  skills.some((s) => s.skill === skill?.name)
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""
+                }`}
+              >
+                {skill?.name}
+              </button>
+            ))}
         </div>
       </div>
     </div>
