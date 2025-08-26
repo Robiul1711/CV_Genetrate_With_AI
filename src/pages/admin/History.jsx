@@ -1,5 +1,4 @@
 import React from "react";
-
 import Title from "@/components/common/Title";
 import { ImageAssets } from "@/lib/ImageProvider";
 import ResumeOneEdit from "@/components/All_Edit_template/ResumeOneEdit";
@@ -21,80 +20,26 @@ import { useResume } from "@/providers/ResumeContext";
 
 // Resume data array
 export const resumeData = [
-  {
-    id: 1,
-    title: "Resume 1",
-    resume: ImageAssets.Resume1,
-    cvComponet: <ResumeOneEdit />,
-  },
-  {
-    id: 2,
-    title: "Resume 2",
-    resume: ImageAssets.Resume2,
-    cvComponet: <ResumeTwoEdit />,
-  },
-  {
-    id: 3,
-    title: "Resume 3",
-    resume: ImageAssets.Resume3,
-    cvComponet: <ResumeThreeEdit />,
-  },
-  {
-    id: 4,
-    title: "Resume 4",
-    resume: ImageAssets.Resume4,
-    cvComponet: <ResumeFourEdit />,
-  },
-  {
-    id: 5,
-    title: "Resume 5",
-    resume: ImageAssets.Resume5,
-    cvComponet: <ResumeFiveEdit />,
-  },
-  {
-    id: 6,
-    title: "Resume 6",
-    resume: ImageAssets.Resume6,
-    cvComponet: <ResumeSixEdit />,
-  },
-  {
-    id: 7,
-    title: "Resume 7",
-    resume: ImageAssets.Resume9,
-    cvComponet: <ResumeSevenEdit />,
-  },
-  {
-    id: 8,
-    title: "Resume 8",
-    resume: ImageAssets.Resume8,
-    cvComponet: <ResumeEightEdit />,
-  },
-  {
-    id: 9,
-    title: "Resume 9",
-    resume: ImageAssets.Resume10,
-    cvComponet: <ResumeNineEdit />,
-  },
-  {
-    id: 10,
-    title: "Resume 10",
-    resume: ImageAssets.Resume7,
-    cvComponet: <ResumeTenEdit />,
-  },
-  {
-    id: 11,
-    title: "Resume 11",
-    resume: ImageAssets.Resume11,
-    cvComponet: <ResumeElevenEdit />,
-  },
+  { id: 1, title: "Resume 1", resume: ImageAssets.Resume1, cvComponet: <ResumeOneEdit /> },
+  { id: 2, title: "Resume 2", resume: ImageAssets.Resume2, cvComponet: <ResumeTwoEdit /> },
+  { id: 3, title: "Resume 3", resume: ImageAssets.Resume3, cvComponet: <ResumeThreeEdit /> },
+  { id: 4, title: "Resume 4", resume: ImageAssets.Resume4, cvComponet: <ResumeFourEdit /> },
+  { id: 5, title: "Resume 5", resume: ImageAssets.Resume5, cvComponet: <ResumeFiveEdit /> },
+  { id: 6, title: "Resume 6", resume: ImageAssets.Resume6, cvComponet: <ResumeSixEdit /> },
+  { id: 7, title: "Resume 7", resume: ImageAssets.Resume9, cvComponet: <ResumeSevenEdit /> },
+  { id: 8, title: "Resume 8", resume: ImageAssets.Resume8, cvComponet: <ResumeEightEdit /> },
+  { id: 9, title: "Resume 9", resume: ImageAssets.Resume10, cvComponet: <ResumeNineEdit /> },
+  { id: 10, title: "Resume 10", resume: ImageAssets.Resume7, cvComponet: <ResumeTenEdit /> },
+  { id: 11, title: "Resume 11", resume: ImageAssets.Resume11, cvComponet: <ResumeElevenEdit /> },
 ];
 
 const History = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
-  const { imageString, allRedumeData, setAllResumeData } = useResume();
+  const { setAllResumeData } = useResume();
+
   // Fetch resume history from API
-  const { data: allCvData, isLoading } = useQuery({
+  const { data: allCvData, isLoading, error } = useQuery({
     queryKey: ["all-cv-data"],
     queryFn: async () => {
       const res = await axiosSecure.get("/resume-histories/");
@@ -103,36 +48,43 @@ const History = () => {
   });
 
   const handleClick = (templateData) => {
-    const newData = {
-      data: templateData,
-    };
-
-    setAllResumeData(newData);
+    setAllResumeData({ data: templateData });
     navigate(`/dashboard/edit-resume/${templateData?.template_id}`);
-
-    console.log(newData);
   };
 
-  // Loading skeleton
+  // Loading state
   if (isLoading) {
     return (
       <div className="flex flex-col items-center gap-4 mt-10 px-4">
         <Title level="title40">Loading your documents...</Title>
         <div className="grid grid-cols-3 gap-6 w-full">
-          {Array(6)
-            .fill(0)
-            .map((_, i) => (
-              <div
-                key={i}
-                className="w-full h-48 bg-gray-200 animate-pulse rounded-md"
-              />
-            ))}
+          {Array(6).fill(0).map((_, i) => (
+            <div key={i} className="w-full h-48 bg-gray-200 animate-pulse rounded-md" />
+          ))}
         </div>
       </div>
     );
   }
 
+  // Error state if no resume found
+  if (error?.response?.data?.message === "No resume found for this user") {
+    return (
+      <div className="flex flex-col items-center gap-4 mt-10 px-4">
+        <Title level="title40">No resume found</Title>
+        <p className="text-gray-600">You have not created any resumes yet.</p>
+      </div>
+    );
+  }
+
   // Empty state
+  if (allCvData?.data?.length === 0) {
+    return (
+      <div className="flex flex-col items-center gap-4 mt-10 px-4">
+        <Title level="title40">No documents found</Title>
+        <p className="text-gray-600">You haven't created any documents yet.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-10 px-4">
@@ -140,7 +92,7 @@ const History = () => {
         Your Generated Documents
       </Title>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-        {allCvData.data.map((cv, index) => {
+        {allCvData?.data?.map((cv, index) => {
           const template = resumeData.find(
             (item) => Number(item.id) === Number(cv.template_id)
           );
@@ -154,7 +106,7 @@ const History = () => {
               <img
                 src={template.resume}
                 alt={template.title}
-                className="w-full  object-cover"
+                className="w-full object-cover"
               />
               <button
                 onClick={() => handleClick(cv)}

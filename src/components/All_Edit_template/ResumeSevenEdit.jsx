@@ -12,6 +12,7 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import CvImage from "@/assets/images/cv7.png";
 import user from "@/assets/images/user.png";
+import DownloadButton from "../common/DownloadButton";
 
 const ResumeSevenEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
@@ -60,26 +61,11 @@ const ResumeSevenEdit = () => {
     }
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
-  const handleDownload = () => {
-    if (!resumeRef.current) return;
-    const element = resumeRef.current;
-    const options = {
-      filename: `${resumeData.first_name || "Resume"}_CV.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-    };
-    html2pdf().from(element).set(options).save();
-  };
+
 
   return (
     <div className=" ">
-      <button
-        onClick={handleDownload}
-        className="bg-pink-500 text-white px-4 py-2 rounded mb-4"
-      >
-        Download PDF
-      </button>
+              <DownloadButton resumeRef={resumeRef}  />
 
       <div
         ref={resumeRef}

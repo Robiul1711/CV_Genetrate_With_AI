@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Cv9 from "@/assets/images/cv9.png";
 import { PhoneIcon } from "lucide-react";
+import html2pdf from "html2pdf.js";
 import {
   AddressIcon,
   AkabakaIcon,
@@ -11,6 +12,7 @@ import {
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
+import DownloadButton from "../common/DownloadButton";
 
 const ResumeNineEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
@@ -56,8 +58,15 @@ const ResumeNineEdit = () => {
     }
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
+      const resumeRef = useRef();
+
+
   return (
-    <div className="flex flex-col gap-4 p-6 bg-white w-[210mm] mx-auto mt-10">
+    <div className=" min-h-screen">
+
+              <DownloadButton resumeRef={resumeRef}  />
+
+      <div ref={resumeRef} className="flex flex-col gap-4 p-6 bg-white w-[210mm] mx-auto mt-10">
       {/* Header */}
       <div className="flex flex-col z-10 justify-center items-center gap-4">
         <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
@@ -263,6 +272,8 @@ const ResumeNineEdit = () => {
           </div>
         </div>
       </div>
+    </div>
+
     </div>
   );
 };

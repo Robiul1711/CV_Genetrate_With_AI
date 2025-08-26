@@ -2,18 +2,23 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Title from "../common/Title";
-
 import { useAuth } from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useMutation } from "@tanstack/react-query";
-
+import { toast } from "react-toastify";
+import {
+  showLoadingToast,
+  updateToastError,
+  updateToastSuccess,
+} from "@/lib/utils";
 const ChangePassword = () => {
+  const [showOld, setShowOld] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const {user}=useAuth()
-  const userEmail = user?.[0]?.user?.email;
+  const { user } = useAuth();
+  const userEmail = user?.profile?.user?.email;
   const axiosSecure = useAxiosSecure();
-  console.log(userEmail);
+
   const {
     register,
     handleSubmit,
@@ -22,25 +27,37 @@ const ChangePassword = () => {
     reset,
   } = useForm();
 
-  const PassCngMutation=useMutation({
+  const updatePasswordMutation = useMutation({
     mutationFn: async (data) => {
-      const response = await axiosSecure.post(`/password-reset/change-password/`, data);
+      const response = await axiosSecure.post("/update-password/", data);
       return response.data;
     },
-    onSuccess: (data) => {
-      toast.success(data?.message);
-      console.log(data);
+    onMutate: () => {
+      const toastId = showLoadingToast("Password Updating...");
+      return { toastId };
+    },
+    onSuccess: (data, _variables, context) => {
+ ;
+      updateToastSuccess(
+        context.toastId,
+        data?.message || "Password updated successfully."
+      );
+      reset();
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.message);
-      console.log(error);
+      toast.error(
+        error?.response?.data?.message || "Failed to update password."
+      );
     },
-  })
+  });
+
   const onSubmit = (data) => {
-    console.log("Password data:", data);
-    PassCngMutation.mutate({...data,email:userEmail});
-    // call API here
-    reset();
+    updatePasswordMutation.mutate({
+      email: userEmail,
+      old_password: data.old_password,
+      new_password: data.new_password,
+      confirm_password: data.confirm_password,
+    });
   };
 
   return (
@@ -52,15 +69,44 @@ const ChangePassword = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-6 mt-6">
+          {/* Old Password */}
+          <div className="flex flex-col gap-2 w-full">
+            <label htmlFor="old_password" className="text-sm text-white">
+              Old Password
+            </label>
+            <div className="relative">
+              <input
+                type={showOld ? "text" : "password"}
+                id="old_password"
+                placeholder="Enter old password"
+                className="w-full border border-[#262626] bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs text-white"
+                {...register("old_password", {
+                  required: "Old password is required",
+                })}
+              />
+              <span
+                onClick={() => setShowOld((prev) => !prev)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white cursor-pointer"
+              >
+                {showOld ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+              </span>
+            </div>
+            {errors.old_password && (
+              <p className="text-red-500 text-xs">
+                {errors.old_password.message}
+              </p>
+            )}
+          </div>
+
           {/* New Password */}
           <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="new" className="text-sm text-white">
+            <label htmlFor="new_password" className="text-sm text-white">
               New Password
             </label>
             <div className="relative">
               <input
                 type={showNew ? "text" : "password"}
-                id="new"
+                id="new_password"
                 placeholder="Enter new password"
                 className="w-full border border-[#262626] bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs text-white"
                 {...register("new_password", {
@@ -87,20 +133,19 @@ const ChangePassword = () => {
 
           {/* Confirm Password */}
           <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="confirm" className="text-sm text-white">
+            <label htmlFor="confirm_password" className="text-sm text-white">
               Confirm New Password
             </label>
             <div className="relative">
               <input
                 type={showConfirm ? "text" : "password"}
-                id="confirm"
+                id="confirm_password"
                 placeholder="Confirm new password"
                 className="w-full border border-[#262626] bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs text-white"
-                {...register("confirmPassword", {
+                {...register("confirm_password", {
                   required: "Please confirm your password",
                   validate: (value) =>
-                    value === watch("new_password") ||
-                    "Passwords do not match",
+                    value === watch("new_password") || "Passwords do not match",
                 })}
               />
               <span
@@ -110,9 +155,9 @@ const ChangePassword = () => {
                 {showConfirm ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
               </span>
             </div>
-            {errors.confirmPassword && (
+            {errors.confirm_password && (
               <p className="text-red-500 text-xs">
-                {errors.confirmPassword.message}
+                {errors.confirm_password.message}
               </p>
             )}
           </div>

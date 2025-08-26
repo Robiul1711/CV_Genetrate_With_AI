@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import Image from "@/assets/images/cv8.png";
 import { useResume } from "@/providers/ResumeContext";
 import dayjs from "dayjs";
+import html2pdf from "html2pdf.js";
+import DownloadButton from "../common/DownloadButton";
 
 const TitleSection = ({ name }) => {
   return (
@@ -32,8 +34,16 @@ const ResumeEight = () => {
   const { allRedumeData } = useResume();
   const resumeData = allRedumeData?.data || [];
 
+    const resumeRef = useRef();
+  
+ 
+
   return (
-    <div className=" flex flex-col bg-[#404040] gap-3 w-[210mm] mx-auto mt-10">
+    <div className=" min-h-screen">
+
+         <DownloadButton resumeRef={resumeRef}  />
+
+      <div ref={resumeRef} className=" flex flex-col bg-[#404040] gap-3 w-[210mm] mx-auto mt-10">
       <header
         className={` bg-[#1F1F1F] pl-[153px] relative  pt-[34px] pb-4 pr-[172px] w-full`}
       >
@@ -318,6 +328,8 @@ const ResumeEight = () => {
           </SectionArea>
         </div>
       </div>
+    </div>
+
     </div>
   );
 };

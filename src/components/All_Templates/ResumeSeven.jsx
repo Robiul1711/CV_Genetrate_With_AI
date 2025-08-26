@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import CvImage from "@/assets/images/cv7.png";
+import html2pdf from "html2pdf.js";
 import {
   AddressIcon,
   EmailIcon,
@@ -9,12 +10,18 @@ import {
 } from "../common/CustomIcons";
 import { useResume } from "@/providers/ResumeContext";
 import dayjs from "dayjs";
+import DownloadButton from "../common/DownloadButton";
 const ResumeSeven = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const { allRedumeData } = useResume();
   const resumeData = allRedumeData?.data || [];
+    const resumeRef = useRef();
+
+    
   return (
-    <div className="flex flex-col bg-white mt-10 py-5 gap-4 w-[210mm] mx-auto shadow-lg">
+   <div className=" min-h-screen">
+   <DownloadButton resumeRef={resumeRef}  />
+     <div       ref={resumeRef} className="flex flex-col bg-white mt-10 py-5 gap-4 w-[210mm] mx-auto shadow-lg">
       <header className="w-full text-center justify-center items-center flex flex-col gap-1">
         <h1 className="text-[32px] uppercase !urbanist font-bold leading-[48px] tracking-[12px] text-[#484848]">
           {resumeData?.first_name} {resumeData?.last_name}
@@ -243,6 +250,8 @@ const ResumeSeven = () => {
         </div>
       </div>
     </div>
+
+   </div>
   );
 };
 

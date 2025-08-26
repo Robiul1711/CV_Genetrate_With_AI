@@ -29,7 +29,7 @@ const steps = [
   { title: "Train", component: <StepSix /> },
 ];
 
-const EditResumePage = () => {
+const UpdateExistingResumeEdit = () => {
   const { resumeId } = useParams();
   const [activeStep, setActiveStep] = useState(0);
   const { imageString, allRedumeData, setAllResumeData } = useResume();
@@ -51,16 +51,25 @@ const EditResumePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // run only once
 
+  const IdSetupMutation = useMutation({
+    mutationFn: async (body) => {
+      const res = await axiosSecure.post(`/update-template-id/`, body);
+      return res.data;
+    },
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const ResumeMutation = useMutation({
     mutationFn: async (formData) => {
       // Set loading state when API call starts
-      const response = await axiosSecure.put(
-        `/update-resume/${resumeId}/`,
-        formData,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await axiosSecure.post(`/create-resume/}/`, formData, {
+        headers: { "Content-Type": "application/json" },
+      });
       return response.data;
     },
 
@@ -73,7 +82,7 @@ const EditResumePage = () => {
       console.log(data);
       setAllResumeData(data);
       // Set the resume ID from response if available
-
+      IdSetupMutation.mutate({ template_id: resumeId });
       // ✅ Replace loading toast with success
       updateToastSuccess(
         context.toastId,
@@ -163,12 +172,12 @@ const EditResumePage = () => {
               <div>
                 {steps[activeStep].component}
 
-                <button
+                {/* <button
                   type="submit"
                   className="font-semibold border bg-white mt-4 md:mt-4 w-full border-white/30 text-black px-4 py-2 text-sm rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Apply Changes
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
@@ -178,4 +187,4 @@ const EditResumePage = () => {
   );
 };
 
-export default EditResumePage;
+export default UpdateExistingResumeEdit;

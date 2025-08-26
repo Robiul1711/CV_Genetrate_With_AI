@@ -29,12 +29,14 @@ import ResumeEight from "@/components/All_Templates/ResumeEight";
 import ResumeFive from "@/components/All_Templates/ResumeFive";
 import ResumeSeven from "@/components/All_Templates/ResumeSeven";
 import ResumeNine from "@/components/All_Templates/ResumeNine";
+import UploadAResume from "@/components/upload_exgisting_resume/UploadAResume";
+import UpdateExistingResumeEdit from "@/pages/edit_resume_page/UpdateExistingResumeEdit";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -89,7 +91,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/update-existing-resume",
-        element: <UpdateExistingResume />,
+        element: <UploadAResume />,
+      },
+      {
+        path: "/dashboard/update-existing-resume-edit/:resumeId",
+        element: <UpdateExistingResumeEdit/>,
       },
       {
         path: "/dashboard/final-review",

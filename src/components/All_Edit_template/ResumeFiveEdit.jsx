@@ -10,6 +10,7 @@ import {
 import dayjs from "dayjs";
 import { useFormContext } from "react-hook-form";
 import { useResume } from "@/providers/ResumeContext";
+import DownloadButton from "../common/DownloadButton";
 
 const ResumeFiveEdit = () => {
   const { watch } = useFormContext();
@@ -33,28 +34,11 @@ const ResumeFiveEdit = () => {
   const trainings = watch("courses_and_training_details") || resumeData.courses_and_training_details || [];
   const languages = watch("languages") || resumeData.languages || [];
 
-  const handleDownload = () => {
-    const element = resumeRef.current;
-    const opt = {
-      margin: 0,
-      filename: "alex-stevens-resume.pdf",
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "pt", format: "a4", orientation: "portrait" },
-    };
-    html2pdf().set(opt).from(element).save();
-  };
+
 
   return (
     <div className="min-h-screen">
-      <div className="text-center mb-4">
-        <button
-          onClick={handleDownload}
-          className="bg-black border text-white px-5 py-2 rounded hover:bg-gray-800 transition-all"
-        >
-          Download as PDF
-        </button>
-      </div>
+             <DownloadButton resumeRef={resumeRef}  />
       <div
         ref={resumeRef}
         className="bg-white text-black px-5 w-[210mm] mx-auto !urbanist"

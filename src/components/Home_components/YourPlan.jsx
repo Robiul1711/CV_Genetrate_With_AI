@@ -28,7 +28,6 @@ const YourPlan = () => {
     },
     onSuccess: (data) => {
       setLoadingPlanId(null);
-      // Open Stripe checkout in a new tab
       window.open(data?.data, "_blank");
     },
     onError: (error) => {
@@ -62,10 +61,16 @@ const YourPlan = () => {
     planMutation.mutate(payload);
   };
 
+  const getPlanType = (type) => {
+    if (!type) return "Unlimited";
+    if (type === "month") return "month";
+    return type;
+  };
+
   return (
     <div className="pb-12 py-6 md:py-10">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[24px] md:text-[28px] font-bold ">Choose Your Plan</h1>
+        <h1 className="text-[24px] md:text-[28px] font-bold">Choose Your Plan</h1>
         <p className="text-[15px] md:text-base text-[#9B9B9B] pt-2">
           Flexible options for every job seeker.
         </p>
@@ -85,7 +90,9 @@ const YourPlan = () => {
 
               <p className="text-2xl md:text-3xl font-bold">
                 €{plan.price}{" "}
-                <span className="text-gray-500 text-xl">/{plan.type === "month" ? "month" : "month"}</span>
+                <span className="text-gray-500 text-xl">
+                  /{getPlanType(plan.type)}
+                </span>
               </p>
 
               <div className="flex flex-col flex-grow justify-between">

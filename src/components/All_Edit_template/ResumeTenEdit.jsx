@@ -11,6 +11,7 @@ import {
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
+import DownloadButton from "../common/DownloadButton";
 
 const ResumeTenEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
@@ -59,28 +60,11 @@ const ResumeTenEdit = () => {
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
   // PDF download
-  const handleDownload = () => {
-    if (!resumeRef.current) return;
-    const opt = {
-      margin: 0,
-      filename: `${resumeData.first_name}-${resumeData.last_name}-resume.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "pt", format: "a4", orientation: "portrait" },
-    };
-    html2pdf().set(opt).from(resumeRef.current).save();
-  };
+
 
   return (
     <div className="min-h-screen">
-      <div className="text-center mb-4">
-        <button
-          onClick={handleDownload}
-          className="bg-black border text-white px-5 py-2 rounded hover:bg-gray-800 transition-all"
-        >
-          Download as PDF
-        </button>
-      </div>
+         <DownloadButton resumeRef={resumeRef}  />
 
       <div ref={resumeRef} className="bg-white text-black w-[210mm] mx-auto !urbanist">
         {/* Left Column */}

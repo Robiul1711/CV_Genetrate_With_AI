@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DocumentIcon } from "@/components/AllIcons/DashboardAllIcons";
 import Title from "@/components/common/Title";
 import { IoIosCloseCircleOutline } from "react-icons/io";
@@ -14,11 +14,33 @@ const Step_3 = () => {
   } = useFormContext();
 
   const uploadedFile = watch("upload_resume");
+  const [progress, setProgress] = useState(0);
+
+  // Simulate progress bar when a file is selected
+  useEffect(() => {
+    if (uploadedFile && uploadedFile.length > 0) {
+      setProgress(0);
+      const interval = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            return 100;
+          }
+          return prev + 10;
+        });
+      }, 100);
+      return () => clearInterval(interval);
+    } else {
+      setProgress(0);
+    }
+  }, [uploadedFile]);
+
+  const file = uploadedFile && uploadedFile.length > 0 ? uploadedFile[0] : null;
 
   return (
     <div className="max-w-[800px] mx-auto">
       <div className="text-center flex flex-col items-center gap-4 mb-5">
-        <Title level="title32"> Upload Resume</Title>
+        <Title level="title32">Upload Resume</Title>
       </div>
 
       <div className="flex items-center justify-center w-full">
@@ -43,8 +65,7 @@ const Step_3 = () => {
               />
             </svg>
             <p className="mb-2 text-xs text-gray-500">
-              <span className="font-semibold">Click to upload</span> or drag
-              and drop
+              <span className="font-semibold">Click to upload</span>
             </p>
             <p className="text-xs text-gray-500">PDF, DOCX (Max 5MB)</p>
           </div>
@@ -58,31 +79,37 @@ const Step_3 = () => {
         </label>
       </div>
 
-      {uploadedFile && (
+      {file && (
         <div className="border border-[#262626] w-full p-4 rounded-xl mt-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <DocumentIcon />
               <div className="flex flex-col">
-                <h1 className="text-xs font-semibold">{uploadedFile.name}</h1>
+                <h1 className="text-xs font-semibold break-all">
+                  {file.name}
+                </h1>
                 <p className="text-[#9B9B9B] text-xs">
-                  {(uploadedFile.size / 1024).toFixed(2)} KB
+                  {(file.size / 1024).toFixed(2)} KB
                 </p>
               </div>
             </div>
             <IoIosCloseCircleOutline
               className="text-base cursor-pointer"
-              onClick={() => setValue("upload_resume", null, { shouldValidate: true })}
+              onClick={() =>
+                setValue("upload_resume", null, { shouldValidate: true })
+              }
             />
           </div>
           <div className="mt-4">
-            <Progress value={80} className="h-3" />
+            <Progress value={progress} className="h-3" />
           </div>
         </div>
       )}
 
       {errors.upload_resume && (
-        <p className="text-red-500 text-xs mt-2">{errors.upload_resume.message}</p>
+        <p className="text-red-500 text-xs mt-2">
+          {errors.upload_resume.message}
+        </p>
       )}
     </div>
   );
