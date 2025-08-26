@@ -1,59 +1,71 @@
-import React from 'react'
-import dashboard from '../../assets/images/dashboard.png'
-import hi from '../../assets/images/hi.png'
-import Title from '@/components/common/Title'
-import { CreateCoverLetterIcon, CreateNewResumeIcon, UpdateExistingResumeIcon } from '@/components/AllIcons/DashboardAllIcons'
-import { icons } from 'lucide-react'
+import React from "react";
+import dashboard from "../../assets/images/dashboard.png";
+import hi from "../../assets/images/hi.png";
+import Title from "@/components/common/Title";
+import {
+  CreateCoverLetterIcon,
+  CreateNewResumeIcon,
+  UpdateExistingResumeIcon,
+} from "@/components/AllIcons/DashboardAllIcons";
+import { icons } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const data=[
+const data = [
   {
-    id:1,
-    title:"Create New Resume",
-    descript:"Let AI help you craft a job-winning resume from zero",
-    icons:<CreateNewResumeIcon/>
+    id: 1,
+    title: "Create New Resume",
+    descript: "Let AI help you craft a job-winning resume from zero",
+    icons: <CreateNewResumeIcon />,
+    link:"/dashboard/create-new-resume"
   },
   {
-    id:2,
-    title:"Update Existing Resume",
-    descript:"Upload your current resume and let AI enhance it for success.",
-    icons:<UpdateExistingResumeIcon/>
+    id: 2,
+    title: "Update Existing Resume",
+    descript: "Upload your current resume and let AI enhance it for success.",
+    icons: <UpdateExistingResumeIcon />,
+    link:"/dashboard/update-existing-resume"
   },
   {
-    id:3,
-    title:"Create Cover Letter",
-    descript:"Personalized letters matched to your resume and target job.",
-    icons:<CreateCoverLetterIcon/>
-  }
-]
+    id: 3,
+    title: "Create Cover Letter",
+    descript: "Personalized letters matched to your resume and target job.",
+    icons: <CreateCoverLetterIcon />,
+    link:"/dashboard/create-cover-letter"
+  },
+];
 const AdminDashboard = () => {
   return (
     <div>
-      <div className='bg-[#0E0E10] p-5 rounded-[8px] flex gap-6 justify-around'>
-<div className='flex flex-col gap-6 px-4'>
-  <div className='flex items-center text-sm gap-4'>
-<Title level="title28">Welcome to Your Clever CV Dashboard!</Title>
-    <img src={hi} alt="" />
-  </div>
-<Title level="title20">Craft, Optimize, Impress, Land Your Dream Job — All in One Smart Platform</Title>
-</div>
-<div className='hidden md:block px-4'>
-  <img src={dashboard} alt="" className='w-full size-32 xl:size-48' />
-</div>
+      <div className="bg-[#0E0E10] p-5 rounded-[8px] flex gap-6 justify-around">
+        <div className="flex flex-col gap-6 px-4">
+          <div className="flex items-center text-sm gap-4">
+            <Title level="title28">Welcome to Your Clever CV Dashboard!</Title>
+            <img src={hi} alt="" />
+          </div>
+          <Title level="title20">
+            Craft, Optimize, Impress, Land Your Dream Job — All in One Smart
+            Platform
+          </Title>
+        </div>
+        <div className="hidden md:block px-4">
+          <img src={dashboard} alt="" className="w-full size-32 xl:size-48" />
+        </div>
       </div>
-<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 xl:gap-6 mt-4 xl:mt-6'>
-  {
-    data.map((item, index)=>(
-      <div key={index} className='bg-[#0E0E10] p-4 xl:p-10  rounded-[16px] flex flex-col gap-3 xl:gap-6 items-center text-center justify-center'>
-        <span>{item.icons}</span>
-        <Title level="title32">{item.title}</Title>
-        <Title level="title16">{item.descript}</Title>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 xl:gap-6 mt-4 xl:mt-6">
+        {data.map((item, index) => (
+          <Link
+          to={item?.link}
+            key={index}
+            className="bg-[#0E0E10] p-4 xl:p-10  rounded-[16px] flex flex-col gap-3 xl:gap-6 items-center text-center justify-center"
+          >
+            <span>{item.icons}</span>
+            <Title level="title32">{item.title}</Title>
+            <Title level="title16">{item.descript}</Title>
+          </Link>
+        ))}
       </div>
-    ))
-  }
-</div>
-     
     </div>
-  )
-}
+  );
+};
 
-export default AdminDashboard
+export default AdminDashboard;

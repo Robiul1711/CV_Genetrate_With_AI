@@ -17,7 +17,7 @@ const Setting = () => {
     },
   });
 
-  console.log("User Data:", userData?.data);
+
 
   const renderContent = () => {
     switch (activeTab) {
@@ -32,6 +32,8 @@ const Setting = () => {
     }
   };
 
+  console.log(userData);
+
   return (
     <div className="h-[calc(100vh-200px)] overflow-hidden flex lg:gap-2">
       {/* Sidebar */}
@@ -40,21 +42,22 @@ const Setting = () => {
         <div className="flex items-center gap-3 mb-3">
           <img
             src={
-              `${import.meta.env.VITE_IMG_URL}${
-                userData?.[0]?.profile_image
-              }` || DummyUser
+   userData?.data?.profile?.profile_image
+                ? `${import.meta.env.VITE_IMG_URL}${
+                    userData?.data?.profile?.profile_image
+                  }`
+                : DummyUser
             }
             alt="Profile"
-            className="sm:w-12 size-6 sm:h-10 object-cover rounded-full"
+            className="sm:w-16 size-6 sm:h-16 object-cover rounded-full"
           />
           <div>
-            <h1 className="text-sm font-semibold text-white">John Doe</h1>
-            <p className="text-xs text-[#9B9B9B]">Admin</p>
+            <h1 className="text-sm font-semibold text-white">{userData?.data?.profile?.first_name} {userData?.data?.profile?.last_name}</h1>
           </div>
         </div>
 
         {/* Nav Links */}
-        <div className="flex flex-col gap-4 text-xs sm:text-base lg:gap-4 text-white">
+        <div className="flex flex-1 flex-col gap-4 text-xs sm:text-base lg:gap-4 text-white">
           <button
             onClick={() => setActiveTab("profile")}
             className={`flex items-center gap-2 transition-colors ${

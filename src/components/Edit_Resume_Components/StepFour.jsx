@@ -70,9 +70,9 @@ const StepFour = () => {
       {/* Selected Skills */}
       <p className="text-sm mb-2">Selected Skills *</p>
       <div className="flex flex-wrap gap-3 mb-3">
-        {formSkills.map((skillObj) => (
+        {formSkills.map((skillObj,idx) => (
           <div
-            key={skillObj.skill}
+            key={idx}
             className="flex items-center bg-[#0E0E10] border border-[#2A2A2A] px-2 py-1.5 rounded-full text-sm"
           >
             <span className="mr-2">{skillObj.skill}</span>

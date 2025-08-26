@@ -15,7 +15,7 @@ const ProfileSetting = ({ userData }) => {
   const queryClient = useQueryClient();
 
   // Extract user email safely
-  const userEmail = userData?.[0]?.user?.email || "";
+  const userEmail = userData?.profile?.user?.email || "";
 
   // Initialize form with default values
   const defaultValues = {
@@ -37,12 +37,14 @@ const ProfileSetting = ({ userData }) => {
   // Keep form values synced when userData changes
   useEffect(() => {
     reset({
-      first_name: userData?.[0]?.first_name || "",
-      last_name: userData?.[0]?.last_name || "",
+      first_name: userData?.profile.first_name || "",
+      last_name: userData?.profile?.last_name || "",
       email: userEmail,
-      phone_number: userData?.[0]?.phone_number || "",
+      phone_number: userData?.profile?.phone_number || "",
     });
   }, [userData, reset, userEmail]);
+
+  console.log("User Data in ProfileSetting:", userData);
 
   // Mutation for profile update
   const updateMutation = useMutation({

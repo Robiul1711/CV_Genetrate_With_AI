@@ -32,9 +32,9 @@ const Design = () => {
             <Link to={"/dashboard/edit-resume"} className="font-semibold border w-full text-center border-white/10 text-white    px-2 py-2 text-lg rounded-md hover:bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
               Edit Content
             </Link>
-            <Link to={"/dashboard/edit-design"} className="font-semibold border w-full text-center border-white/10 text-white    px-2 py-2 text-lg rounded-md bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            {/* <Link to={"/dashboard/edit-design"} className="font-semibold border w-full text-center border-white/10 text-white    px-2 py-2 text-lg rounded-md bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
               Design
-            </Link>
+            </Link> */}
           </div>
 
 

@@ -15,18 +15,19 @@ const UserDropdown = ({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { user, logout, isLoadingUser } = useAuth();
+  console.log(user)
 
   // Default dropdown items
   const defaultItems = [
     {
-      label: "Profile",
+      label: "Dashboard",
       icon: <User className="w-4 h-4 mr-3" />,
-      href: "/profile",
+      href: "/dashboard",
     },
     {
       label: "Settings",
       icon: <Settings className="w-4 h-4 mr-3" />,
-      href: "/settings",
+      href: "/dashboard/setting",
     },
     {
       label: "Sign Out",
@@ -35,7 +36,7 @@ const UserDropdown = ({
     },
   ];
 
-  console.log(user[0]?.first_name);
+  console.log(user?.profile?.first_name);
 
   // Combine default and custom items
   const items = dropdownItems.length > 0 ? dropdownItems : defaultItems;
@@ -56,8 +57,8 @@ const UserDropdown = ({
 
   // Get user initial
   const getUserInitial = () => {
-    return user[0]?.first_name
-      ? user[0]?.first_name?.charAt(0).toUpperCase()
+    return user?.profile?.first_name
+      ? user?.profile?.first_name?.charAt(0).toUpperCase()
       : "U";
   };
 
@@ -85,10 +86,10 @@ const UserDropdown = ({
           {/* User Info */}
           <div className="px-4 py-3 border-b">
             <p className="text-sm font-medium !text-gray-900 truncate">
-              {user[0]?.first_name} {user[0]?.last_name}
+              {user?.profile?.first_name} {user?.profile?.last_name}
             </p>
             <p className="text-xs !text-black truncate">
-              {user[0]?.user?.email}
+              {user?.profile?.user?.email}
             </p>
           </div>
 

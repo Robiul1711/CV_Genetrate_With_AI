@@ -27,7 +27,7 @@ const StepTwo = () => {
   useEffect(() => {
     fields.forEach((_, index) => {
       const endDate = watch(`work_experiences.${index}.end_date`);
-      if (endDate === "") {
+      if (endDate === "" || endDate === 'Present') {
         setValue(`work_experiences.${index}.end_date`, null);
       }
     });

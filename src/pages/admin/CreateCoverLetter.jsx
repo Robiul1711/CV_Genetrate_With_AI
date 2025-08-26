@@ -16,12 +16,16 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useResume } from "@/providers/ResumeContext";
-
+import {
+  showLoadingToast,
+  updateToastError,
+  updateToastSuccess,
+} from "@/lib/utils";
 const CreateCoverLetter = () => {
   const methods = useForm({
     mode: "onChange",
   });
-    const { coverLetter, setCoverLetter } = useResume();
+  const { coverLetter, setCoverLetter } = useResume();
   const [activeStep, setActiveStep] = useState(0);
   const axiosSecure = useAxiosSecure();
   const CoverMutation = useMutation({
@@ -35,14 +39,24 @@ const CreateCoverLetter = () => {
       );
       return response.data;
     },
-    onSuccess: (data) => {
-      toast.success(data?.message);
+
+    onMutate: () => {
+      const toastId = showLoadingToast("Creating Cover Letter...");
+      return { toastId };
+    },
+    onSuccess: (data, _variables, context) => {
+    
       setCoverLetter(data);
       // console.log(data);
+      updateToastSuccess(
+        context.toastId,
+         "Cover letter Created Successfully!"
+      );
     },
     onError: (error) => {
       console.log(error);
       toast.error(error?.response?.data?.message || "Something went wrong!");
+       updateToastError(context.toastId, errorMessage);
     },
   });
 
@@ -168,17 +182,16 @@ const CreateCoverLetter = () => {
             <div />
           )}
 
-         {activeStep < steps.length - 1 && (
-  <button
-    type="button" // prevent form submit on non-final steps
-    className="font-semibold border-white bg-white text-black px-8 py-2 text-xs rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-    onClick={handleNext}
-    disabled={CoverMutation.isLoading}
-  >
-    {activeStep === 5 ? "Combine & Continue" : "Next"}
-  </button>
-)}
-
+          {activeStep < steps.length - 1 && (
+            <button
+              type="button" // prevent form submit on non-final steps
+              className="font-semibold border-white bg-white text-black px-8 py-2 text-xs rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={handleNext}
+              disabled={CoverMutation.isLoading}
+            >
+              {activeStep === 5 ? "Combine & Continue" : "Next"}
+            </button>
+          )}
         </div>
       </form>
     </FormProvider>
