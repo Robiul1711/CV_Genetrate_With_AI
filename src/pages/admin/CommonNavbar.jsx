@@ -49,7 +49,7 @@ const CommonNavbar = ({ open, setOpen }) => {
 
         <div className="flex items-center gap-3">
           {/* Notification & Avatar */}
-          <Popover>
+          {/* <Popover>
             <PopoverTrigger>
               <span className="w-[30px] h-[30px] rounded-full border-[1px] border-[#ECEEF0] justify-center items-center flex">
                 <NotificationIcon />
@@ -87,13 +87,13 @@ const CommonNavbar = ({ open, setOpen }) => {
                 </div>
               </div>
             </PopoverContent>
-          </Popover>
+          </Popover> */}
           {/* Langauge  */}
 
           <LanguageDropdown />
 
           {/* aVATAR  */}
-          <Popover>
+          {/* <Popover>
             <PopoverTrigger asChild>
               <div className="w-[30px] h-[30px] rounded-full cursor-pointer">
                 <img
@@ -123,7 +123,7 @@ const CommonNavbar = ({ open, setOpen }) => {
                 </div>
               </div>
             </PopoverContent>
-          </Popover>
+          </Popover> */}
         </div>
       </div>
 
