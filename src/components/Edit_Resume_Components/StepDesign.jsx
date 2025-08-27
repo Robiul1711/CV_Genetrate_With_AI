@@ -1,9 +1,23 @@
+import { useResume } from "@/providers/ResumeContext";
 import React from "react";
 
 const StepDesign = () => {
+  const { color, setColor } = useResume();
+const colors = [
+  "#FFFFFF", // white
+  "#000000", // black
+  "#F5F5F5", // light gray (good for background)
+  "#CB6E17", // orange accent
+  "#17CBA7", // teal accent
+  "#17A4CB", // blue accent
+  "#CB175F"  // pink/magenta accent
+];
+
+
+  console.log(color);
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
+      {/* <div className="flex flex-col gap-2">
         <label className="text-sm text-white">Change Language</label>
         <select className="bg-[#0E0E10] px-3 py-1.5  text-xs  rounded-lg border border-[#262626] text-white">
                 <option value="beginner">German</option>
@@ -13,25 +27,31 @@ const StepDesign = () => {
               <option value="advanced">Spanish</option>
               <option value="advanced">Turkish</option>
         </select>
-      </div>
+      </div> */}
       <div>
         <p className="text-sm text-white mb-4">Change Color</p>
-        <div className="flex items-center gap-3 ">
-          <div className="w-10 h-10 rounded-md bg-[#CB6E17]"></div>
-          <div className="w-10 h-10 rounded-md bg-[#17CBA7]"></div>
-          <div className="w-10 h-10 rounded-md bg-[#17A4CB]"></div>
-          <div className="w-10 h-10 rounded-md bg-[#fff]"></div>
-          <div className="w-10 h-10 rounded-md bg-[#CB175F]"></div>
+        <div className="flex items-center gap-3">
+          {colors.map((c, idx) => (
+            <div
+              key={idx}
+              className="w-10 h-10 rounded-md cursor-pointer border-2"
+              style={{
+                backgroundColor: c,
+                borderColor: color === c ? "#FFD700" : "transparent",
+              }}
+              onClick={() => setColor(c)}
+            />
+          ))}
         </div>
       </div>
-      <div className="flex flex-col gap-2">
+      {/* <div className="flex flex-col gap-2">
         <label className="text-sm text-white">Font Style</label>
         <select className="bg-[#0E0E10] px-3 py-1.5  text-xs rounded-lg border border-[#262626] text-white">
           <option value="beginner">Inter</option>
           <option value="intermediate">Intermediate</option>
           <option value="advanced">Advanced</option>
         </select>
-      </div>
+      </div> */}
     </div>
   );
 };

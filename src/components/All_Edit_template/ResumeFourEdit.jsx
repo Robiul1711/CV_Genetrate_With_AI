@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import html2pdf from "html2pdf.js";
 import user from "../../assets/images/user.png";
 import {
   FaPhoneAlt,
@@ -36,34 +35,31 @@ const ResumeFourEdit = () => {
     skills: formData.skills?.length ? formData.skills : allRedumeData?.data?.skills || [],
     work_experiences: formData.work_experiences?.length ? formData.work_experiences : allRedumeData?.data?.work_experiences || [],
     educations: formData.educations?.length ? formData.educations : allRedumeData?.data?.educations || [],
-    courses_and_training_details: formData.courses_and_training_details?.length
-      ? formData.courses_and_training_details
-      : allRedumeData?.data?.courses_and_training_details || [],
+    courses_and_training_details:
+      formData.courses_and_training_details?.length
+        ? formData.courses_and_training_details
+        : allRedumeData?.data?.courses_and_training_details || [],
     languages: formData.languages?.length ? formData.languages : allRedumeData?.data?.languages || [],
   };
 
-  // Handle profile photo preview
   useEffect(() => {
     if (formData.profile_photo && !formData.profile_photo.startsWith("/media")) {
       setProfilePreview(formData.profile_photo);
-      console.log("formdata")
     } else if (resumeData.profile_photo) {
-      setProfilePreview(VITE_IMG_URL+resumeData.profile_photo);
-       console.log("formdata")
+      setProfilePreview(VITE_IMG_URL + resumeData.profile_photo);
     } else {
       setProfilePreview(user);
     }
   }, [formData.profile_photo, resumeData.profile_photo, VITE_IMG_URL]);
- console.log(profilePreview)
-
-
-
 
   return (
     <div className="min-h-screen">
-            <DownloadButton resumeRef={resumeRef}  />
+      <DownloadButton resumeRef={resumeRef} />
 
-      <div ref={resumeRef} className="bg-white text-black px-5 py-8 w-[210mm] mx-auto urbanist">
+      <div
+        ref={resumeRef}
+        className="bg-white text-black px-5 py-8 w-[210mm] mx-auto urbanist h-[297mm] overflow-hidden"
+      >
         <div className="flex w-full justify-between items-start gap-4">
           <div className="w-[80%]">
             <h1 className="text-[24px] font-light tracking-[2px] text-[#484848] leading-tight">
@@ -83,13 +79,15 @@ const ResumeFourEdit = () => {
           </div>
         </div>
 
-        <div className="border-b border-[#D9D9D9] mt-6"></div>
+        <div className="border-b border-[#D9D9D9] mt-6 "></div>
 
-        <div className="flex justify-between gap-5 mt-6">
+        <div className="flex justify-between gap-5 mt-6 h-full">
           <div className="w-[40%] space-y-3 rounded-md">
             {/* CONTACT */}
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">CONTACT</h2>
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
+                CONTACT
+              </h2>
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-2 leading-[18px]">
                   <FaPhoneAlt className="text-[12px]" /> {resumeData?.phone_number}
@@ -101,12 +99,23 @@ const ResumeFourEdit = () => {
                   <FaEnvelope className="text-[12px]" /> {resumeData?.email}
                 </p>
                 {resumeData?.linked_in_profile && (
-                  <a href={resumeData?.linked_in_profile} target="_blank" rel="noopener noreferrer" className="text-xs flex items-center gap-2">
-                    <FaLinkedin className="text-[12px]" /> {resumeData?.linked_in_profile}
+                  <a
+                    href={resumeData?.linked_in_profile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs flex items-center gap-2"
+                  >
+                    <FaLinkedin className="text-[12px]" />{" "}
+                    {resumeData?.linked_in_profile}
                   </a>
                 )}
                 {resumeData?.xing_profile && (
-                  <a href={resumeData?.xing_profile} target="_blank" rel="noopener noreferrer" className="text-xs flex items-center gap-2">
+                  <a
+                    href={resumeData?.xing_profile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs flex items-center gap-2"
+                  >
                     <FaXing className="text-[12px]" /> {resumeData?.xing_profile}
                   </a>
                 )}
@@ -117,13 +126,22 @@ const ResumeFourEdit = () => {
 
             {/* TRAINING */}
             <div>
-              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px]">TRAINING</h2>
+              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px]">
+                TRAINING
+              </h2>
               {resumeData?.courses_and_training_details?.map((training, index) => (
                 <div key={index} className="mt-3">
-                  <p className="font-medium leading-[18px] text-xs">{training.course_name}</p>
-                  <p className="text-xs leading-[18px] font-medium">{training.name_of_institute}</p>
+                  <p className="font-medium leading-[18px] text-xs">
+                    {training.course_name}
+                  </p>
+                  <p className="text-xs leading-[18px] font-medium">
+                    {training.name_of_institute}
+                  </p>
                   <p className="text-xs leading-[20px]">
-                    {dayjs(training.start_date).format("MMMM YYYY")} – {training.end_date ? dayjs(training.end_date).format("MMMM YYYY") : "Present"}
+                    {dayjs(training.start_date).format("MMMM YYYY")} –{" "}
+                    {training.end_date
+                      ? dayjs(training.end_date).format("MMMM YYYY")
+                      : "Present"}
                   </p>
                 </div>
               ))}
@@ -133,7 +151,9 @@ const ResumeFourEdit = () => {
 
             {/* SKILL */}
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">SKILL</h2>
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
+                SKILL
+              </h2>
               <ul className="text-xs space-y-3">
                 {resumeData?.skills?.map((skill, index) => (
                   <li key={index}>{skill.skill}</li>
@@ -145,10 +165,17 @@ const ResumeFourEdit = () => {
 
             {/* LANGUAGE */}
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">LANGUAGE</h2>
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
+                LANGUAGE
+              </h2>
               {resumeData?.languages?.map((language, index) => (
-                <div key={index} className="flex justify-between items-center text-xs py-1 border-b border-gray-200/20">
-                  <span className="font-medium text-gray-800">{language.language}</span>
+                <div
+                  key={index}
+                  className="flex justify-between items-center text-xs py-1 border-b border-gray-200/20"
+                >
+                  <span className="font-medium text-gray-800">
+                    {language.language}
+                  </span>
                   <span className="text-gray-600">{language.level}</span>
                 </div>
               ))}
@@ -160,22 +187,38 @@ const ResumeFourEdit = () => {
           <div className="w-[60%] space-y-3">
             {/* ABOUT */}
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">ABOUT</h2>
-              <p className="text-xs leading-[18px] text-[#171717]">{resumeData?.about}</p>
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
+                ABOUT
+              </h2>
+              <p className="text-xs leading-[18px] text-[#171717]">
+                {resumeData?.about}
+              </p>
             </div>
 
             <div className="border-b border-[#D9D9D9]"></div>
 
             {/* EXPERIENCE */}
             <div>
-              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px]">EXPERIENCE</h2>
+              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px]">
+                EXPERIENCE
+              </h2>
               {resumeData?.work_experiences?.map((experience, index) => (
                 <div key={index} className="mt-3">
-                  <p className="font-medium leading-[18px] text-xs">{experience.job_title}</p>
-                  <p className="text-xs leading-[18px] font-medium flex justify-between items-center mt-1">
-                    {experience.company_name} <span>{dayjs(experience.start_date).format("MMM YYYY")} – {experience.end_date ? dayjs(experience.end_date).format("MMM YYYY") : "Present"}</span>
+                  <p className="font-medium leading-[18px] text-xs">
+                    {experience.job_title}
                   </p>
-                  <p className="text-xs leading-[20px] mt-2">{experience.responsibilities}</p>
+                  <p className="text-xs leading-[18px] font-medium flex justify-between items-center mt-1">
+                    {experience.company_name}{" "}
+                    <span>
+                      {dayjs(experience.start_date).format("MMM YYYY")} –{" "}
+                      {experience.end_date
+                        ? dayjs(experience.end_date).format("MMM YYYY")
+                        : "Present"}
+                    </span>
+                  </p>
+                  <p className="text-xs leading-[20px] mt-2">
+                    {experience.responsibilities}
+                  </p>
                 </div>
               ))}
             </div>
@@ -184,12 +227,23 @@ const ResumeFourEdit = () => {
 
             {/* EDUCATION */}
             <div>
-              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px]">EDUCATION</h2>
+              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px]">
+                EDUCATION
+              </h2>
               {resumeData?.educations?.map((education, index) => (
                 <div key={index} className="mt-3">
-                  <p className="font-medium leading-[18px] text-xs">{education.degree}</p>
-                  <p className="text-xs leading-[18px] font-medium mt-1">{education.institute_name}</p>
-                  <p className="text-xs mt-1">{dayjs(education.start_date).format("MMM YYYY")} – {education.end_date ? dayjs(education.end_date).format("MMM YYYY") : "Present"}</p>
+                  <p className="font-medium leading-[18px] text-xs">
+                    {education.degree}
+                  </p>
+                  <p className="text-xs leading-[18px] font-medium mt-1">
+                    {education.institute_name}
+                  </p>
+                  <p className="text-xs mt-1">
+                    {dayjs(education.start_date).format("MMM YYYY")} –{" "}
+                    {education.end_date
+                      ? dayjs(education.end_date).format("MMM YYYY")
+                      : "Present"}
+                  </p>
                 </div>
               ))}
             </div>

@@ -18,7 +18,7 @@ const ResumeOne = () => {
         />
       <div
         ref={resumeRef}
-        className="bg-white text-black px-4 py-8 w-[210mm]  mx-auto urbanist "
+        className="bg-white text-black px-4 py-8 w-[210mm]  mx-auto urbanist  h-[297mm] overflow-hidden"
       >
         {/* Header */}
         <div className="text-center border-b border-[#D9D9D9] pb-5">
@@ -34,7 +34,7 @@ const ResumeOne = () => {
         </div>
 
         {/* Body */}
-        <div className="flex justify-between gap-5 mt-6">
+        <div className="flex justify-between gap-5 mt-6 h-full">
           {/* Left Column */}
           <div className="w-[35%] space-y-6">
             <div>

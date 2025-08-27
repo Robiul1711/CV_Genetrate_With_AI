@@ -4,6 +4,13 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
+import {
+  FaEnvelope,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaXing,
+} from "react-icons/fa";
 
 const ResumeElevenEdit = () => {
   const { allRedumeData } = useResume();
@@ -26,7 +33,9 @@ const ResumeElevenEdit = () => {
     email: formData?.email || allRedumeData?.data?.email || "",
     address: formData?.address || allRedumeData?.data?.address || "",
     linked_in_profile:
-      formData?.linked_in_profile || allRedumeData?.data?.linked_in_profile || "",
+      formData?.linked_in_profile ||
+      allRedumeData?.data?.linked_in_profile ||
+      "",
     xing_profile:
       formData?.xing_profile || allRedumeData?.data?.xing_profile || "",
     educations: formData?.educations || allRedumeData?.data?.educations || [],
@@ -43,22 +52,28 @@ const ResumeElevenEdit = () => {
   // Handle profile preview if needed
   useEffect(() => {
     const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-    if (formData?.profile_photo && !formData.profile_photo.startsWith("/media")) {
+    if (
+      formData?.profile_photo &&
+      !formData.profile_photo.startsWith("/media")
+    ) {
       setProfilePreview(formData.profile_photo);
     } else if (resumeData.profile_photo) {
-      setProfilePreview(import.meta.env.VITE_IMG_URL + resumeData.profile_photo);
+      setProfilePreview(
+        import.meta.env.VITE_IMG_URL + resumeData.profile_photo
+      );
     } else {
       setProfilePreview("");
     }
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
-
-
   return (
     <div className="min-h-screen">
-        <DownloadButton resumeRef={resumeRef}  />
+      <DownloadButton resumeRef={resumeRef} />
 
-      <div ref={resumeRef} className="bg-white text-black px-4 py-8 w-[210mm] mx-auto !urbanist">
+      <div
+        ref={resumeRef}
+        className="bg-white text-black px-4 py-8 w-[210mm] mx-auto !urbanist h-[297mm] overflow-hidden"
+      >
         {/* Header */}
         <div className="text-center">
           <h1 className="text-[32px] font-bold tracking-[2px] text-[#484848]">
@@ -70,14 +85,16 @@ const ResumeElevenEdit = () => {
         </p>
 
         {/* Body */}
-        <div className="flex justify-between gap-5 mt-6">
+        <div className="flex justify-between gap-5 mt-6 h-full">
           {/* Left Column */}
           <div className="w-[40%] space-y-6">
             <div>
               <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
                 ABOUT
               </h2>
-              <p className="text-xs leading-[18px] text-[#171717]">{resumeData.about}</p>
+              <p className="text-xs leading-[18px] text-[#171717]">
+                {resumeData.about}
+              </p>
             </div>
 
             <div>
@@ -85,17 +102,42 @@ const ResumeElevenEdit = () => {
                 CONTACT
               </h2>
               <div className="space-y-3">
-                <p className="text-xs leading-[18px]">{resumeData.phone_number}</p>
-                <p className="text-xs">{resumeData.address}</p>
-                <p className="text-xs">{resumeData.email}</p>
+                <p className="text-xs flex items-center gap-1">
+                  <FaPhoneAlt className="text-[12px]" />
+                  {resumeData.phone_number}
+                </p>
+
+                <p className="text-xs flex items-center gap-1">
+                  <FaMapMarkerAlt className="text-[12px]" />
+                  {resumeData.address}
+                </p>
+
+                <p className="text-xs flex items-center gap-1">
+                  <FaEnvelope className="text-[12px]" />
+                  {resumeData.email}
+                </p>
+
                 <div className="space-y-3 flex flex-col">
                   {resumeData.linked_in_profile && (
-                    <a href={resumeData.linked_in_profile} target="_blank" className="text-xs">
+                    <a
+                      href={resumeData.linked_in_profile}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs flex items-center gap-1"
+                    >
+                      <FaLinkedin className="text-[12px]" />
                       {resumeData.linked_in_profile}
                     </a>
                   )}
+
                   {resumeData.xing_profile && (
-                    <a href={resumeData.xing_profile} target="_blank" className="text-xs">
+                    <a
+                      href={resumeData.xing_profile}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs flex items-center gap-1"
+                    >
+                      <FaXing className="text-[12px]" />
                       {resumeData.xing_profile}
                     </a>
                   )}
@@ -109,12 +151,15 @@ const ResumeElevenEdit = () => {
               </h2>
               {resumeData.educations.map((edu, idx) => (
                 <div key={idx} className="mt-3">
-                  <p className="font-medium leading-[18px] text-xs">{edu.institute_name}</p>
+                  <p className="font-medium leading-[18px] text-xs">
+                    {edu.institute_name}
+                  </p>
                   <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
                     {edu.degree}
                   </p>
                   <p className="text-xs leading-[18px]">
-                    {dayjs(edu.start_date).format("MMMM YYYY")} - {dayjs(edu.end_date).format("MMMM YYYY")}
+                    {dayjs(edu.start_date).format("MMMM YYYY")} -{" "}
+                    {dayjs(edu.end_date).format("MMMM YYYY")}
                   </p>
                 </div>
               ))}
@@ -132,14 +177,19 @@ const ResumeElevenEdit = () => {
               </h2>
               {resumeData.work_experiences.map((exp, idx) => (
                 <div key={idx} className="mt-3">
-                  <p className="font-medium leading-[18px] text-xs">{exp.job_title}</p>
+                  <p className="font-medium leading-[18px] text-xs">
+                    {exp.job_title}
+                  </p>
                   <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
                     {exp.company_name}{" "}
                     <span>
-                      {dayjs(exp.start_date).format("YYYY")} - {dayjs(exp.end_date).format("YYYY")}
+                      {dayjs(exp.start_date).format("YYYY")} -{" "}
+                      {dayjs(exp.end_date).format("YYYY")}
                     </span>
                   </p>
-                  <p className="text-xs leading-[20px] mt-2">{exp.responsibilities}</p>
+                  <p className="text-xs leading-[20px] mt-2">
+                    {exp.responsibilities}
+                  </p>
                 </div>
               ))}
             </div>
@@ -151,12 +201,15 @@ const ResumeElevenEdit = () => {
               </h2>
               {resumeData.courses_and_training_details.map((training, idx) => (
                 <div key={idx} className="mt-3">
-                  <p className="font-medium leading-[18px] text-xs">{training.course_name}</p>
+                  <p className="font-medium leading-[18px] text-xs">
+                    {training.course_name}
+                  </p>
                   <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
                     {training.name_of_institute}
                   </p>
                   <p className="text-xs leading-[20px]">
-                    {dayjs(training.start_date).format("MMMM YYYY")} - {dayjs(training.end_date).format("MMMM YYYY")}
+                    {dayjs(training.start_date).format("MMMM YYYY")} -{" "}
+                    {dayjs(training.end_date).format("MMMM YYYY")}
                   </p>
                 </div>
               ))}

@@ -18,8 +18,10 @@ import {
   updateToastError,
   updateToastSuccess,
 } from "@/lib/utils";
-
 import { resumeDataEdits } from "@/lib/data";
+import Design from "./Design";
+// Import the Design component
+
 const steps = [
   { title: "Personal Info", component: <StepOne /> },
   { title: "Experience", component: <StepTwo /> },
@@ -32,6 +34,7 @@ const steps = [
 const UpdateExistingResumeEdit = () => {
   const { resumeId } = useParams();
   const [activeStep, setActiveStep] = useState(0);
+  const [activeTab, setActiveTab] = useState("edit"); // 'edit' or 'design'
   const { imageString, allRedumeData, setAllResumeData } = useResume();
   const axiosSecure = useAxiosSecure();
 
@@ -99,6 +102,7 @@ const UpdateExistingResumeEdit = () => {
       updateToastError(context.toastId, errorMessage);
     },
   });
+  
   const onSubmit = (data) => {
     console.log("✅ Final Form Data:", data);
 
@@ -109,6 +113,7 @@ const UpdateExistingResumeEdit = () => {
     };
     ResumeMutation.mutate(payload);
   };
+  
   return (
     <div>
       <Link
@@ -137,48 +142,61 @@ const UpdateExistingResumeEdit = () => {
 
             {/* Right Content */}
             <div className="md:w-1/2">
-              {/* Top buttons */}
+              {/* Top buttons - Tab Navigation */}
               <div className="lg:p-4 p-2 rounded-xl bg-[#0E0E10] flex items-center justify-center gap-3 border border-[#262626]">
-                <div className="font-semibold text-center border w-full border-white/10 text-white   px-2 py-2 rounded-md bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                <button
+                  type="button"
+                  className={`font-semibold text-center border w-full border-white/10 text-white px-2 py-2 rounded-md transition-colors duration-300 ${
+                    activeTab === "edit" 
+                      ? "bg-linearbg" 
+                      : "hover:bg-linearbg"
+                  }`}
+                  onClick={() => setActiveTab("edit")}
+                >
                   Edit Content
-                </div>
-                {/* <Link
-                  to={"/dashboard/edit-design"}
-                  className="font-semibold border text-center w-full border-white/10 text-white   px-2 py-2 rounded-md  hover:bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                </button>
+                <button
+                  type="button"
+                  className={`font-semibold border text-center w-full border-white/10 text-white px-2 py-2 rounded-md transition-colors duration-300 ${
+                    activeTab === "design" 
+                      ? "bg-linearbg" 
+                      : "hover:bg-linearbg"
+                  }`}
+                  onClick={() => setActiveTab("design")}
                 >
                   Design
-                </Link> */}
+                </button>
               </div>
 
-              {/* Step Nav */}
-              <div className="mt-3 flex flex-wrap items-center gap-4 sm:gap-0   sm:justify-between border-b ">
-                {steps.map((step, index) => (
-                  <Title
-                    key={index}
-                    level="title14"
-                    className={`cursor-pointer pb-1 border-b-2  ${
-                      activeStep === index
-                        ? "border-[#fff] text-white bg-linearbg"
-                        : "border-transparent text-white/70"
-                    } text-sm`}
-                    onClick={() => setActiveStep(index)}
-                  >
-                    {step.title}
-                  </Title>
-                ))}
-              </div>
+              {/* Content based on active tab */}
+              {activeTab === "edit" ? (
+                <>
+                  {/* Step Nav */}
+                  <div className="mt-3 flex flex-wrap items-center gap-4 sm:gap-0 sm:justify-between border-b">
+                    {steps.map((step, index) => (
+                      <Title
+                        key={index}
+                        level="title14"
+                        className={`cursor-pointer pb-1 border-b-2 ${
+                          activeStep === index
+                            ? "border-[#fff] text-white bg-linearbg"
+                            : "border-transparent text-white/70"
+                        } text-sm`}
+                        onClick={() => setActiveStep(index)}
+                      >
+                        {step.title}
+                      </Title>
+                    ))}
+                  </div>
 
-              {/* Active Step */}
-              <div>
-                {steps[activeStep].component}
-
-                {/* <button
-                  type="submit"
-                  className="font-semibold border bg-white mt-4 md:mt-4 w-full border-white/30 text-black px-4 py-2 text-sm rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Apply Changes
-                </button> */}
-              </div>
+                  {/* Active Step */}
+                  <div>
+                    {steps[activeStep].component}
+                  </div>
+                </>
+              ) : (
+                <Design />
+              )}
             </div>
           </div>
         </form>

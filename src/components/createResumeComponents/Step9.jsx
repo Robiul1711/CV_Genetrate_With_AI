@@ -29,9 +29,9 @@ const Step9 = ({ resumeId }) => {
           </div>
         </div>
 
-        {/* Settings */}
-        <div className="mt-10 grid sm:grid-cols-2 gap-6">
-          {/* Resume Name */}
+ 
+        {/* <div className="mt-10 grid sm:grid-cols-2 gap-6">
+
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-gray-300">
               Resume Name
@@ -43,7 +43,7 @@ const Step9 = ({ resumeId }) => {
             />
           </div>
 
-          {/* Download Type */}
+       
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-gray-300">
               Download Type
@@ -54,14 +54,14 @@ const Step9 = ({ resumeId }) => {
               <option value="jpg">JPG</option>
             </select>
           </div>
-        </div>
+        </div> */}
 
-        {/* Download Button */}
-        <div className="mt-10 flex justify-end">
+
+        {/* <div className="mt-10 flex justify-end">
           <button className="font-semibold flex items-center gap-2 bg-[#69CA6A] text-black px-6 py-2 rounded-lg shadow-md hover:bg-[#58b258] transition-all duration-300">
             <Download size={18} /> Download Resume
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -40,7 +40,7 @@ const UploadAResume = () => {
       setUploading(false);
       console.log("Upload success:", data);
       setAllResumeData({ data: data?.data });
-      navigate(`/dashboard/update-existing-resume-edit/4`);
+      navigate(`/dashboard/update-existing-resume-edit/12`);
     },
     onError: (error) => {
       setUploading(false);

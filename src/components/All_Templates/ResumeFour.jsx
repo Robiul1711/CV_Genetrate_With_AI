@@ -25,7 +25,7 @@ const ResumeFour = () => {
          <DownloadButton resumeRef={resumeRef}  />
       <div
         ref={resumeRef}
-        className="bg-white text-black px-5 py-8  w-[210mm] mx-auto urbanist"
+        className="bg-white text-black px-5 py-8  w-[210mm]  h-[297mm] overflow-hidden mx-auto urbanist"
       >
         {/* Header */}
         <div className="flex w-full justify-between items-start gap-4">
@@ -50,7 +50,7 @@ const ResumeFour = () => {
           </div>
         </div>
 
-        <div className="border-b border-[#D9D9D9] mt-6"></div>
+        <div className="border-b border-[#D9D9D9] h-full mt-6"></div>
         {/* Body */}
         <div className="flex justify-between gap-5 mt-6">
           {/* Left Column */}

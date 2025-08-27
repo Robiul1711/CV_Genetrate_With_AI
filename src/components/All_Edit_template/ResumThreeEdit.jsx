@@ -44,7 +44,7 @@ const ResumeThreeEdit = () => {
     <div className="min-h-screen">
        <DownloadButton resumeRef={resumeRef}  />
 
-      <div ref={resumeRef} className="bg-white text-black px-5 py-8 w-[210mm] mx-auto">
+      <div ref={resumeRef} className="bg-white text-black px-5 py-8 w-[210mm] mx-auto h-[297mm] overflow-hidden">
         {/* Header */}
         <div className="flex w-full justify-between">
           <div className="w-[60%]">
@@ -77,7 +77,7 @@ const ResumeThreeEdit = () => {
         <div className="border-b border-[#D9D9D9] mt-6"></div>
 
         {/* Body */}
-        <div className="flex justify-between gap-5 mt-6">
+        <div className="flex justify-between gap-5 mt-6 h-full">
           {/* Left Column */}
           <div className="w-[45%] space-y-3 bg-[#F5F5F5] p-4 rounded-md">
             {about && (

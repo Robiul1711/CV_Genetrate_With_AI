@@ -43,7 +43,7 @@ const ResumeEight = () => {
 
          <DownloadButton resumeRef={resumeRef}  />
 
-      <div ref={resumeRef} className=" flex flex-col bg-[#404040] gap-3 w-[210mm] mx-auto mt-10">
+      <div ref={resumeRef} className=" flex flex-col bg-[#404040] gap-3 w-[210mm] h-[297mm] mx-auto mt-10">
       <header
         className={` bg-[#1F1F1F] pl-[153px] relative  pt-[34px] pb-4 pr-[172px] w-full`}
       >
@@ -62,7 +62,7 @@ const ResumeEight = () => {
         />
       </header>
 
-      <div className=" flex gap-3 w-full  p-3">
+      <div className=" flex gap-3 w-full h-full p-3">
         <div className=" flex flex-col justify-between gap-3 w-[75%]">
           <SectionArea>
             <div className=" flex flex-col gap-1">

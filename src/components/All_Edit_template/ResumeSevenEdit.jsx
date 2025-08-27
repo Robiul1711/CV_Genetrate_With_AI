@@ -13,7 +13,13 @@ import { useFormContext } from "react-hook-form";
 import CvImage from "@/assets/images/cv7.png";
 import user from "@/assets/images/user.png";
 import DownloadButton from "../common/DownloadButton";
-
+import {
+  FaPhoneAlt,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaLinkedin,
+  FaXing,
+} from "react-icons/fa";
 const ResumeSevenEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const { allRedumeData } = useResume();
@@ -35,16 +41,16 @@ const ResumeSevenEdit = () => {
     email: formData?.email || allRedumeData?.data?.email || "",
     address: formData?.address || allRedumeData?.data?.address || "",
     linked_in_profile:
-      formData?.linked_in_profile || allRedumeData?.data?.linked_in_profile || "",
+      formData?.linked_in_profile ||
+      allRedumeData?.data?.linked_in_profile ||
+      "",
     xing_profile:
       formData?.xing_profile || allRedumeData?.data?.xing_profile || "",
     educations: formData?.educations || allRedumeData?.data?.educations || [],
     skills: formData?.skills || allRedumeData?.data?.skills || [],
     languages: formData?.languages || allRedumeData?.data?.languages || [],
     work_experiences:
-      formData?.work_experiences ||
-      allRedumeData?.data?.work_experiences ||
-      [],
+      formData?.work_experiences || allRedumeData?.data?.work_experiences || [],
     courses_and_training_details:
       formData?.courses_and_training_details ||
       allRedumeData?.data?.courses_and_training_details ||
@@ -52,7 +58,10 @@ const ResumeSevenEdit = () => {
   };
 
   useEffect(() => {
-    if (formData?.profile_photo && !formData.profile_photo.startsWith("/media")) {
+    if (
+      formData?.profile_photo &&
+      !formData.profile_photo.startsWith("/media")
+    ) {
       setProfilePreview(formData.profile_photo);
     } else if (resumeData.profile_photo) {
       setProfilePreview(VITE_IMG_URL + resumeData.profile_photo);
@@ -61,15 +70,13 @@ const ResumeSevenEdit = () => {
     }
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
-
-
   return (
     <div className=" ">
-              <DownloadButton resumeRef={resumeRef}  />
+      <DownloadButton resumeRef={resumeRef} />
 
       <div
         ref={resumeRef}
-        className="flex flex-col bg-white mt-10 py-5 gap-4 w-[210mm] mx-auto shadow-lg"
+        className="flex flex-col bg-white mt-10 py-5 gap-4 w-[210mm] mx-auto shadow-lg h-[297mm] overflow-hidden"
       >
         {/* Header */}
         <header className="w-full text-center flex flex-col gap-1">
@@ -96,24 +103,32 @@ const ResumeSevenEdit = () => {
             />
           </div>
 
-          <div className="w-1/3 flex flex-col gap-1">
-            <p className="uppercase text-sm font-semibold text-center !text-black">Contact</p>
+          <div className="w-1/3 flex flex-col gap-1 h-full">
+            <p className="uppercase text-sm font-semibold text-center !text-black">
+              Contact
+            </p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-1">
-                <PhoneIcon className="size-3 " />
-                <span className="text-xs italic !text-black">{resumeData.phone_number}</span>
+                <FaPhoneAlt className="text-sm text-black" />
+                <span className="text-xs italic !text-black">
+                  {resumeData.phone_number}
+                </span>
               </div>
               <div className="flex items-center gap-1">
-                <AddressIcon className="size-3" />
-                <span className="text-xs italic !text-black">{resumeData.address}</span>
+                <FaMapMarkerAlt className="text-sm text-black" />
+                <span className="text-xs italic !text-black">
+                  {resumeData.address}
+                </span>
               </div>
               <div className="flex items-center gap-1">
-                <EmailIcon className="size-3" />
-                <span className="text-xs italic !text-black">{resumeData.email}</span>
+                <FaEnvelope className="text-sm text-black" />
+                <span className="text-xs italic !text-black">
+                  {resumeData.email}
+                </span>
               </div>
               {resumeData.linked_in_profile && (
                 <div className="flex items-center gap-1">
-                  <LinkdinIcon className="size-3" />
+                  <FaLinkedin className="text-sm text-black" />
                   <a
                     href={resumeData.linked_in_profile}
                     target="_blank"
@@ -124,8 +139,8 @@ const ResumeSevenEdit = () => {
                 </div>
               )}
               {resumeData.xing_profile && (
-                <div className="flex items-center gap-1 !text-black">
-                  <XingIcon className="size-3 !text-black "/>
+                <div className="flex items-center gap-1">
+                  <FaXing className="text-sm text-black" />
                   <a
                     href={resumeData.xing_profile}
                     target="_blank"
@@ -140,21 +155,26 @@ const ResumeSevenEdit = () => {
         </div>
 
         {/* Education / Skills / Languages */}
-        <div className="px-6">
+        <div className="px-6 relative">
           <div className="grid grid-cols-3 bg-[#E1E2E6] !text-black text-center font-semibold py-2 border border-[#9A9A9A]">
             <div>Education</div>
             <div>Professional Skills</div>
             <div>Expertise</div>
           </div>
 
-          <div className="grid grid-cols-3 text-sm px-4 py-6 border border-[#9A9A9A] border-t-0">
+          <div className="grid grid-cols-3 text-sm px-4 py-6 border border-[#ccc6c6] border-t-0">
             <div className="flex flex-col gap-3">
               {resumeData.educations.map((edu, i) => (
                 <div key={i} className="text-center">
-                  <p className="font-medium text-xs !text-black">{edu.degree}</p>
-                  <p className="italic text-xs !text-black">{edu.institute_name}</p>
+                  <p className="font-medium text-xs !text-black">
+                    {edu.degree}
+                  </p>
                   <p className="italic text-xs !text-black">
-                    {dayjs(edu.start_date).format("MMM YYYY")} - {dayjs(edu.end_date).format("MMM YYYY")}
+                    {edu.institute_name}
+                  </p>
+                  <p className="italic text-xs !text-black">
+                    {dayjs(edu.start_date).format("MMM YYYY")} -{" "}
+                    {dayjs(edu.end_date).format("MMM YYYY")}
                   </p>
                 </div>
               ))}
@@ -163,7 +183,9 @@ const ResumeSevenEdit = () => {
             <div className="flex flex-col items-center gap-2">
               {resumeData.skills.map((skill, i) => (
                 <div key={i} className="flex items-center gap-4">
-                  <p className="w-[75px] italic text-xs !text-black">{skill.skill}</p>
+                  <p className="w-[75px] italic text-xs !text-black">
+                    {skill.skill}
+                  </p>
                   <span className="w-[80px] h-1 bg-[#E0D5C9] rounded !text-black"></span>
                 </div>
               ))}
@@ -178,6 +200,12 @@ const ResumeSevenEdit = () => {
               ))}
             </div>
           </div>
+          <div className=" absolute -bottom-5 left-24  bg-[#b1aaaa] p-2">
+             Experiences
+          </div>
+          <div className=" absolute -bottom-5 right-24  bg-[#b1aaaa] p-2">
+             Trainings
+          </div>
         </div>
 
         {/* Work Experience / Trainings */}
@@ -189,13 +217,22 @@ const ResumeSevenEdit = () => {
                 className="bg-[#F8F8F8] rounded-lg shadow-sm border p-4 flex flex-col gap-3"
               >
                 <div className="flex justify-between text-xs italic">
-                  <p className="font-semibold !text-black">{exp.company_name}</p>
+                  <p className="font-semibold !text-black">
+                    {exp.company_name}
+                  </p>
                   <p className="!text-black">
-                    {dayjs(exp.start_date).format("MMM YYYY")} – {exp.end_date ? dayjs(exp.end_date).format("MMM YYYY") : "Present"}
+                    {dayjs(exp.start_date).format("MMM YYYY")} –{" "}
+                    {exp.end_date
+                      ? dayjs(exp.end_date).format("MMM YYYY")
+                      : "Present"}
                   </p>
                 </div>
-                <p className="italic font-semibold text-sm !text-black">{exp.job_title}</p>
-                <p className="italic text-xs text-justify !text-black">{exp.responsibilities}</p>
+                <p className="italic font-semibold text-sm !text-black">
+                  {exp.job_title}
+                </p>
+                <p className="italic text-xs text-justify !text-black">
+                  {exp.responsibilities}
+                </p>
               </div>
             ))}
           </div>
@@ -207,13 +244,22 @@ const ResumeSevenEdit = () => {
                 className="bg-[#F8F8F8] rounded-lg shadow-sm border p-4 flex flex-col gap-3"
               >
                 <div className="flex justify-between text-xs italic">
-                  <p className="font-semibold !text-black">{training.name_of_institute}</p>
+                  <p className="font-semibold !text-black">
+                    {training.name_of_institute}
+                  </p>
                   <p className="!text-black">
-                    {dayjs(training.start_date).format("MMM YYYY")} – {training.end_date ? dayjs(training.end_date).format("MMM YYYY") : "Ongoing"}
+                    {dayjs(training.start_date).format("MMM YYYY")} –{" "}
+                    {training.end_date
+                      ? dayjs(training.end_date).format("MMM YYYY")
+                      : "Ongoing"}
                   </p>
                 </div>
-                <p className="italic font-semibold text-sm !text-black">{training.course_name}</p>
-                <p className="italic text-xs text-justify !text-black">{training.description}</p>
+                <p className="italic font-semibold text-sm !text-black">
+                  {training.course_name}
+                </p>
+                <p className="italic text-xs text-justify !text-black">
+                  {training.description}
+                </p>
               </div>
             ))}
           </div>

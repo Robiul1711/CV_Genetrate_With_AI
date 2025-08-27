@@ -2,12 +2,12 @@ import { useResume } from "@/providers/ResumeContext";
 import React from "react";
 import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 
-export default function CoverLetter() {
+export default function CoverLetter({resumeRef}) {
   const { coverLetter } = useResume();
   const cover = coverLetter?.data;
   console.log(cover);
   return (
-    <div className="w-[210mm]  bg-white shadow-lg py-12 px-20 mx-auto !outfit">
+    <div ref={resumeRef} className="w-[210mm]  bg-white shadow-lg py-12 px-20 mx-auto !outfit">
       {/* Header */}
       <div className="">
         <h1 className="text-2xl font-bold text-[#2E2E48]">

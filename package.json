@@ -25,6 +25,7 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "framer-motion": "^12.15.0",
+    "html-to-image": "^1.11.13",
     "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.10.3",
     "jspdf": "^3.0.1",

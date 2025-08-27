@@ -117,7 +117,7 @@ const Navbar = () => {
             </Link>
             <Link to={"/sign-up"}>
               <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg">
-                Sign Upd
+                Sign Up
               </button>
             </Link>
             <LanguageDropdown />

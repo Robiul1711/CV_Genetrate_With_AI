@@ -24,10 +24,10 @@ const ResumeTen = () => {
          <DownloadButton resumeRef={resumeRef}  />
       <div
         ref={resumeRef}
-        className="bg-white text-black w-[210mm]  mx-auto  !urbanist"
+        className="bg-white text-black w-[210mm]  mx-auto  !urbanist h-[297mm] overflow-hidden"
       >
         {/* Body */}
-        <div className="flex justify-between  w-full">
+        <div className="flex justify-between  w-full h-full">
           {/* Left Column */}
           <div className="w-[40%] space-y-6 bg-[#1B1E2F]  text-white py-10 ">
             {/* Header */}
@@ -134,7 +134,7 @@ const ResumeTen = () => {
             </div>
           </div>
           {/* Right Column */}
-          <div className="w-[60%] space-y-6 py-8 mt-8 ">
+          <div className="w-[60%] space-y-6 py-8 mt-8  ">
             <div className="bg-[#F7F7F7] px-4 py-5 border-l-[5px] border-[#FECB00]">
               <h2 className="text-2xl font-bold tracking-[0.5px] pb-3 text-[#0D0D0D] leading-[24px]">
                 {resumeData?.first_name} {resumeData?.last_name}

@@ -66,7 +66,7 @@ const ResumeNineEdit = () => {
 
               <DownloadButton resumeRef={resumeRef}  />
 
-      <div ref={resumeRef} className="flex flex-col gap-4 p-6 bg-white w-[210mm] mx-auto mt-10">
+      <div ref={resumeRef} className="flex flex-col gap-4 p-6 bg-white w-[210mm] h-[297mm] overflow-hidden mx-auto mt-10">
       {/* Header */}
       <div className="flex flex-col z-10 justify-center items-center gap-4">
         <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
