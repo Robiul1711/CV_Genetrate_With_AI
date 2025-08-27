@@ -38,6 +38,7 @@ const CreateNewResume = () => {
       work_experiences: [],
     },
   });
+  console.log(resumeId)
 
   const ResumeMutation = useMutation({
     mutationFn: async (formData) => {
@@ -182,54 +183,44 @@ const CreateNewResume = () => {
             <div />
           )}
 
-          {activeStep === 7 ? (
-            <>
-              <button
-                type="submit"
-                className="font-semibold border border-white text-white  px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                disabled={isCreatingResume}
-              >
-                {isCreatingResume ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Generating...
-                  </>
-                ) : (
-                  "Generate Resume With AI"
-                )}
-              </button>
-            </>
-          ) : (
-            <button
-              type="button"
-              className={`font-semibold border-white  bg-white text-black  ${
-                activeStep === steps.length - 1 ? "" : " px-3 py-2  "
-              }text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed`}
-              onClick={methods.handleSubmit(() => {
-                if (activeStep < 9) {
-                  handleNext();
-                }
-              })}
-              disabled={isCreatingResume || activeStep === steps.length - 1}
-            >
-              {activeStep === steps.length - 1 ? (
-                <Link
-                  to="/dashboard/edit-resume"
-                  className={`flex items-center gap-2  ${
-                    activeStep === steps.length - 1 ? " px-3 py-2" : ""
-                  }`}
-                >
-                  <Edit size={18} /> Edit Resume
-                </Link>
-              ) : activeStep === 9 ? (
-                "Generate Resume With AI"
-              ) : activeStep === 8 || activeStep === 9 ? (
-                "Choose Resume Template"
-              ) : (
-                "Next"
-              )}
-            </button>
-          )}
+         {activeStep === 7 ? (
+  // Step 7: Generate Resume with AI (form submit)
+  <button
+    type="submit"
+    className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+    disabled={isCreatingResume}
+  >
+    {isCreatingResume ? (
+      <>
+        <Loader2 className="h-4 w-4 animate-spin" />
+        Generating...
+      </>
+    ) : (
+      "Generate Resume With AI"
+    )}
+  </button>
+) : activeStep === steps.length - 1 ? (
+  // Last step: Edit Resume (navigation only)
+  <Link
+    to={`/dashboard/edit-resume/${resumeId}`}
+    className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md flex items-center gap-2 hover:bg-white hover:text-black transition-colors duration-300"
+  >
+    <Edit size={18} /> Edit Resume
+  </Link>
+) : (
+  // Other steps: Next or Choose Resume Template
+  <button
+    type="button"
+    className="font-semibold border border-white bg-white text-black px-3 py-2 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:cursor-not-allowed"
+    onClick={methods.handleSubmit(() => {
+      if (activeStep < steps.length - 1) handleNext();
+    })}
+    disabled={isCreatingResume}
+  >
+    {activeStep === 8 ? "Choose Resume Template" : "Next"}
+  </button>
+)}
+
         </div>
       </form>
     </FormProvider>

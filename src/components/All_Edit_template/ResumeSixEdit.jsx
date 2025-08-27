@@ -63,7 +63,7 @@ const ResumeSixEdit = () => {
 
       <div
         ref={resumeRef}
-        className="bg-white text-black w-[210mm] mx-auto !urbanist"
+        className="bg-white text-black w-[210mm] mx-auto !urbanist h-[297mm]"
       >
         {/* Header */}
         <div className="flex w-full relative justify-between px-12 py-9 bg-[#373739]">

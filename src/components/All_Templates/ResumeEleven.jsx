@@ -15,7 +15,7 @@ const ResumeEleven = () => {
          <DownloadButton resumeRef={resumeRef}  />
       <div
         ref={resumeRef}
-        className="bg-white text-black px-4 py-8 w-[210mm]  mx-auto !urbanist"
+        className="bg-white text-black px-4 py-8 w-[210mm] h-[297mm] overflow-hidden  mx-auto !urbanist"
       >
         {/* Header */}
         <div className="text-center ">
@@ -30,7 +30,7 @@ const ResumeEleven = () => {
         </div>
 
         {/* Body */}
-        <div className="flex justify-between gap-5 mt-6">
+        <div className="flex justify-between gap-5 mt-6 h-full">
           {/* Left Column */}
           <div className="w-[40%] space-y-6">
             <div>

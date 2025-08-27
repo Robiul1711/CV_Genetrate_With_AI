@@ -24,7 +24,7 @@ const ResumeSix = () => {
         <DownloadButton resumeRef={resumeRef}  />
       <div
         ref={resumeRef}
-        className="bg-white text-black  w-[210mm] mx-auto !urbanist"
+        className="bg-white text-black  w-[210mm] mx-auto !urbanist h-[297mm] overflow-hidden"
       >
         {/* Header */}
         <div className="flex w-full relative justify-between px-12 py-9 bg-[#373739]">
@@ -49,7 +49,7 @@ const ResumeSix = () => {
         </div>
 
         {/* Body */}
-        <div className="flex justify-between gap-5 px-6 py-8 mt-12">
+        <div className="flex justify-between gap-5 px-6 py-8 mt-12 h-full">
           {/* Left Column */}
           <div className="w-[50%] space-y-4  rounded-md">
             <div>

@@ -26,21 +26,21 @@ const ResumeNine = () => {
 
       <div
         ref={resumeRef}
-        className=" flex flex-col gap-4 p-6 bg-white w-[210mm] mx-auto mt-10"
+        className=" flex flex-col gap-4 p-6 bg-white w-[210mm] h-[297mm] overflow-hidden mx-auto mt-10"
       >
         <div className=" flex flex-col">
           <div className=" flex flex-col z-10 justify-center items-center gap-4">
             <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
               The resume of
             </p>
-            <h1 className=" text-[32px] tracking-[7px] playfair leading-[48px] text-[#0D0D0D] font-bold ">
+            <h1 className=" text-[32px] tracking-[7px] playfair leading-[48px] text-[#0D0D0D] font-bold   ">
               {resumeData?.first_name} {resumeData?.last_name}
             </h1>
           </div>
 
           <div className=" w-full flex gap-6  ">
             <div className=" w-1/3 relative h-[200px] -mt-5">
-              <div className=" absolute inset-0 bg-[#F7DCD1]"></div>
+              <div className=" absolute  inset-0 bg-[#F7DCD1]"></div>
               <div className=" w-[133px] h-[166px] relative top-16 left-20 ">
                 <img
                   src={VITE_IMG_URL + resumeData?.profile_photo || Cv9}
@@ -116,7 +116,7 @@ const ResumeNine = () => {
                 <AkabakaIcon />
               </span>
 
-              <div className=" w-[122px] h-[154px] absolute z-10 -top-16 right-[125px] bg-[#EDE9E6]"></div>
+              {/* <div className=" w-[122px] h-[154px] absolute z-0 -top-16 right-[125px] bg-[#EDE9E6]"></div> */}
             </div>
           </div>
 
@@ -204,7 +204,7 @@ const ResumeNine = () => {
                 </p>
               </div>
             </div>
-            <div className=" flex flex-col gap-4 flex-1 -mt-12">
+            <div className=" flex flex-col gap-4 flex-1 ">
               <div className=" w-[90%] px-[60px] py-6 bg-[#293946] text-center">
                 <p className=" leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
                   training

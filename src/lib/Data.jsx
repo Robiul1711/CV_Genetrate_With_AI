@@ -7,6 +7,7 @@ import ResumeOneEdit from "@/components/All_Edit_template/ResumeOneEdit";
 import ResumeSevenEdit from "@/components/All_Edit_template/ResumeSevenEdit";
 import ResumeSixEdit from "@/components/All_Edit_template/ResumeSixEdit";
 import ResumeTenEdit from "@/components/All_Edit_template/ResumeTenEdit";
+import ResumeTwelveEdit from "@/components/All_Edit_template/ResumeTwelveEdit";
 import ResumeTwoEdit from "@/components/All_Edit_template/ResumeTwoEdit";
 import ResumeThreeEdit from "@/components/All_Edit_template/ResumThreeEdit";
 
@@ -65,5 +66,10 @@ export const resumeDataEdits = [
     id: 11,
     title: "Resume 11",
     cvComponet: <ResumeElevenEdit />,
+  },
+  {
+    id: 12,
+    title: "Resume 12",
+    cvComponet: <ResumeTwelveEdit />,
   },
 ];

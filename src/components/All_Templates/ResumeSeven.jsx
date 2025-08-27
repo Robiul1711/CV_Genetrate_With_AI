@@ -21,7 +21,7 @@ const ResumeSeven = () => {
   return (
    <div className=" min-h-screen">
    <DownloadButton resumeRef={resumeRef}  />
-     <div       ref={resumeRef} className="flex flex-col bg-white mt-10 py-5 gap-4 w-[210mm] mx-auto shadow-lg">
+     <div   ref={resumeRef} className="flex flex-col bg-white mt-10 py-5 gap-4 w-[210mm] mx-auto shadow-lg h-[297mm] overflow-hidden">
       <header className="w-full text-center justify-center items-center flex flex-col gap-1">
         <h1 className="text-[32px] uppercase !urbanist font-bold leading-[48px] tracking-[12px] text-[#484848]">
           {resumeData?.first_name} {resumeData?.last_name}

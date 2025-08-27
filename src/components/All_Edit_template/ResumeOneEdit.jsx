@@ -40,6 +40,8 @@ const ResumeOneEdit = () => {
   const languages =
     formValues.languages || allRedumeData?.data?.languages || [];
 
+   const traingings = formValues?.courses_and_training_details || []
+ console.log("traingings",traingings)
 
 
   return (
@@ -48,7 +50,7 @@ const ResumeOneEdit = () => {
 
       <div
         ref={resumeRef}
-        className="bg-white text-black px-4 py-8 w-[210mm] mx-auto urbanist"
+        className="bg-white text-black px-4 py-8 w-[210mm] mx-auto urbanist h-[297mm] overflow-hidden"
       >
         {/* Header */}
         <div className="text-center border-b border-[#D9D9D9] pb-5">
@@ -60,7 +62,7 @@ const ResumeOneEdit = () => {
           {job_title}
         </p>
 
-        <div className="flex justify-between gap-5 mt-6">
+        <div className="flex justify-between gap-5 mt-6 h-full">
           {/* Left Column */}
           <div className="w-[35%] space-y-6">
             {/* About */}
@@ -102,7 +104,7 @@ const ResumeOneEdit = () => {
             {/* Skills */}
             {skills?.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
+                <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px]">
                   SKILL
                 </h2>
                 <ul className="text-xs space-y-3">
@@ -121,12 +123,12 @@ const ResumeOneEdit = () => {
             {/* Experience */}
             {workExperiences?.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px] pb-3 text-[#666]">
+                <h2 className="text-sm tracking-[2px] text-[#666]">
                   EXPERIENCE
                 </h2>
                 {workExperiences.map((exp, idx) => (
                   <div key={idx} className="mt-4">
-                    <p className="font-medium text-xs">{exp.job_title}</p>
+                    <p className="font-medium text-sm">{exp.job_title}</p>
                     <p className="text-xs flex justify-between items-center mt-1">
                       {exp.company_name}
                       <span>
@@ -155,7 +157,7 @@ const ResumeOneEdit = () => {
                 </h2>
                 {educations.map((edu, idx) => (
                   <div key={idx} className="mt-4">
-                    <p className="font-medium text-xs">{edu.institute_name}</p>
+                    <p className="font-medium text-sm">{edu.institute_name}</p>
                     <p className="text-xs flex justify-between items-center mt-1">
                       {edu.degree}
                       <span>
@@ -170,6 +172,34 @@ const ResumeOneEdit = () => {
                           : "YYYY"}
                       </span>
                     </p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+              {workExperiences?.length > 0 && (
+              <div>
+                <h2 className="text-sm tracking-[2px]  text-[#666]">
+                 Trainings
+                </h2>
+                {traingings.map((exp, idx) => (
+                  <div key={idx} className="mt-4">
+                    <p className="font-medium text-sm">{exp.course_name}</p>
+                    <p className="text-xs flex justify-between items-center mt-1">
+                      {exp.name_of_institute}
+                      <span>
+                        {exp.start_date
+                          ? dayjs(exp.start_date).format("YYYY")
+                          : "YYYY"}{" "}
+                        –{" "}
+                        {exp.still_working_here
+                          ? "Present"
+                          : exp.end_date
+                          ? dayjs(exp.end_date).format("YYYY")
+                          : "YYYY"}
+                      </span>
+                    </p>
+                    <p className="text-xs mt-2">{exp.responsibilities}</p>
                   </div>
                 ))}
               </div>

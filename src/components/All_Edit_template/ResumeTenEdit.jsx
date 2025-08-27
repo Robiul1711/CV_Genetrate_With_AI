@@ -66,9 +66,9 @@ const ResumeTenEdit = () => {
     <div className="min-h-screen">
          <DownloadButton resumeRef={resumeRef}  />
 
-      <div ref={resumeRef} className="bg-white text-black w-[210mm] mx-auto !urbanist">
+      <div ref={resumeRef} className="bg-white text-black w-[210mm] mx-auto !urbanist h-[297mm] overflow-hidden ">
         {/* Left Column */}
-        <div className="flex justify-between w-full">
+        <div className="flex justify-between w-full h-full ">
           <div className="w-[40%] space-y-6 bg-[#1B1E2F] text-white py-10">
             {/* Profile Image */}
             <div className="w-[100px] h-[100px] mx-auto shrink-0">

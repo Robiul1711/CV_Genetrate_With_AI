@@ -41,9 +41,9 @@ const ResumeFiveEdit = () => {
              <DownloadButton resumeRef={resumeRef}  />
       <div
         ref={resumeRef}
-        className="bg-white text-black px-5 w-[210mm] mx-auto !urbanist"
+        className="bg-white text-black px-5 w-[210mm] h-[297mm] overflow-hidden mx-auto !urbanist"
       >
-        <div className="flex justify-between gap-5">
+        <div className="flex justify-between gap-5 h-full">
           {/* Left Column */}
           <div className="w-[40%] space-y-6 rounded-md py-10">
             <div className="flex w-full flex-col text-center">
@@ -90,11 +90,11 @@ const ResumeFiveEdit = () => {
           {/* Right Column */}
           <div className="w-[60%] space-y-6 py-8 mt-8">
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px] pb-3 text-[#0D0D0D] leading-[24px]">ABOUT</h2>
+              <h2 className="text-sm font-semibold tracking-[2px]  text-[#0D0D0D] leading-[24px]">ABOUT</h2>
               <p className="text-xs leading-[18px]">{about}</p>
             </div>
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px] pb-3 text-[#0D0D0D] leading-[24px]">EXPERIENCE</h2>
+              <h2 className="text-sm font-semibold tracking-[2px]  text-[#0D0D0D] leading-[24px]">EXPERIENCE</h2>
               <div className="space-y-3 mt-3">
                 {work_experiences.map((exp, i) => (
                   <div key={i}>
@@ -106,7 +106,7 @@ const ResumeFiveEdit = () => {
               </div>
             </div>
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px] pb-3 text-[#0D0D0D] leading-[24px]">TRAINING</h2>
+              <h2 className="text-sm font-semibold tracking-[2px]  text-[#0D0D0D] leading-[24px]">TRAINING</h2>
               <div className="space-y-3 mt-3">
                 {trainings.map((t, i) => (
                   <div key={i}>
