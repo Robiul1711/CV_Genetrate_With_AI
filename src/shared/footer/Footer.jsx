@@ -1,30 +1,68 @@
 import React from "react";
 import footer from "../../assets/images/logo.png";
-// import { Instragram } from "@/components/common/icon";
 import { Link } from "react-router-dom";
 import { FaFacebookF } from "react-icons/fa";
 import { FaMedium } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
+import { useEmail } from "@/hooks/useEmail";
+
 const Footer = () => {
+  const { language } = useEmail();
+
+  const texts = {
+    en: {
+      company: "Company",
+      service: "Service",
+      home: "Home",
+      pricing: "Pricing",
+      contact: "Contact",
+      aiResumeBuilder: "AI Resume Builder",
+      aiResumeOptimizer: "AI Resume Optimizer",
+      createCoverLetter: "Create Cover Letter",
+      multilingualResume: "Multilingual Resume",
+      privacyPolicy: "Privacy Policy",
+      termsOfService: "Terms of Service",
+      imprint: "Imprint",
+      description:
+        "CleverCV is an AI-powered resume and cover letter builder that helps you stand out with confidence. Whether you're starting from scratch or improving an existing CV, our platform gives you step-by-step guidance, smart design suggestions, and powerful language enhancements.",
+      copyright: "© 2024 FutureTech. All rights reserved.",
+    },
+    de: {
+      company: "Unternehmen",
+      service: "Dienstleistungen",
+      home: "Startseite",
+      pricing: "Preise",
+      contact: "Kontakt",
+      aiResumeBuilder: "KI-Lebenslauf-Builder",
+      aiResumeOptimizer: "KI-Lebenslauf-Optimierer",
+      createCoverLetter: "Anschreiben erstellen",
+      multilingualResume: "Mehrsprachiger Lebenslauf",
+      privacyPolicy: "Datenschutzrichtlinie",
+      termsOfService: "Nutzungsbedingungen",
+      imprint: "Impressum",
+      description:
+        "CleverCV ist ein KI-gestützter Lebenslauf- und Anschreiben-Builder, der Ihnen hilft, selbstbewusst hervorzustechen. Egal, ob Sie von Grund auf beginnen oder einen bestehenden Lebenslauf verbessern, unsere Plattform bietet Schritt-für-Schritt-Anleitungen, intelligente Designvorschläge und leistungsstarke Sprachverbesserungen.",
+      copyright: "© 2024 FutureTech. Alle Rechte vorbehalten.",
+    },
+  };
+
+  const t = texts[language] || texts.en;
+
   return (
     <div className="bg-Primary w-full section-padding-x pt-10 md:pt-[70px] pb-5 md:pb-10">
       {/* Top Section */}
       <div className="flex flex-col md:flex-row md:justify-between gap-10">
         {/* Left: Logo & Description */}
-        <div className="  w-full md:w-[40%]">
-          <Link to={"/"} className=" ">
+        <div className="w-full md:w-[40%]">
+          <Link to={"/"}>
             <img
               src={footer}
               alt="icon"
-              className="mb-4 w-[40px] md:w-[60px] text-white cursor-pointer "
+              className="mb-4 w-[40px] md:w-[60px] text-white cursor-pointer"
             />
           </Link>
           <p className="text-[15px] md:text-base text-[#666] leading-relaxed">
-            CleverCV is an AI-powered resume and cover letter builder that helps
-            you stand out with confidence. Whether you're starting from scratch
-            or improving an existing CV, our platform gives you step-by-step
-            guidance, smart design suggestions, and powerful language
-            enhancements.
+            {t.description}
           </p>
         </div>
 
@@ -34,30 +72,21 @@ const Footer = () => {
           <div className="flex justify-start md:justify-end">
             <ul className="text-[#666] space-y-3">
               <p className="text-white text-[18px] md:text-[20px] font-semibold mb-5">
-                Company
+                {t.company}
               </p>
               <li>
-                <Link
-                  to="/"
-                  className="text-[15px] md:text-base cursor-pointer hover:text-white"
-                >
-                  Home
+                <Link to="/" className="text-[15px] md:text-base hover:text-white">
+                  {t.home}
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/price"
-                  className="text-[15px] md:text-base cursor-pointer hover:text-white"
-                >
-                  Pricing
+                <Link to="/price" className="text-[15px] md:text-base hover:text-white">
+                  {t.pricing}
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/contact"
-                  className="text-[15px] md:text-base cursor-pointer hover:text-white"
-                >
-                  Contact
+                <Link to="/contact" className="text-[15px] md:text-base hover:text-white">
+                  {t.contact}
                 </Link>
               </li>
             </ul>
@@ -67,31 +96,31 @@ const Footer = () => {
           <div className="flex justify-start md:justify-end">
             <ul className="text-[#666] space-y-3 flex flex-col items-start">
               <p className="text-white text-[18px] md:text-[20px] font-semibold mb-3">
-                Service
+                {t.service}
               </p>
               <Link
                 to="/dashboard/create-new-resume"
-                className="text-[15px] md:text-base cursor-pointer hover:text-white"
+                className="text-[15px] md:text-base hover:text-white"
               >
-                AI Resume Builder
+                {t.aiResumeBuilder}
               </Link>
               <Link
                 to="/dashboard/create-new-resume"
-                className="text-[15px] md:text-base cursor-pointer hover:text-white "
+                className="text-[15px] md:text-base hover:text-white"
               >
-                AI Resume Optimizer
+                {t.aiResumeOptimizer}
               </Link>
               <Link
                 to="/dashboard/create-new-resume"
-                className="text-[15px] md:text-base cursor-pointer hover:text-white"
+                className="text-[15px] md:text-base hover:text-white"
               >
-                Create Cover Letter
+                {t.createCoverLetter}
               </Link>
               <Link
                 to="/dashboard/create-new-resume"
-                className="text-[15px] md:text-base cursor-pointer hover:text-white"
+                className="text-[15px] md:text-base hover:text-white"
               >
-                Multilingual Resume
+                {t.multilingualResume}
               </Link>
             </ul>
           </div>
@@ -106,18 +135,18 @@ const Footer = () => {
         {/* Left Text */}
         <div className="flex flex-wrap justify-center gap-4 text-[#666] md:text-[16px]">
           <Link to={"/privacy-policy"}>
-            <p className="underline text-[15px] md:text-base cursor-pointer hover:text-white">
-              Privacy Policy
+            <p className="underline text-[15px] md:text-base hover:text-white">
+              {t.privacyPolicy}
             </p>
           </Link>
           <Link to={"/tearms-and-condition"}>
-            <p className="underline text-[15px] md:text-base cursor-pointer hover:text-white">
-              Terms of Service
+            <p className="underline text-[15px] md:text-base hover:text-white">
+              {t.termsOfService}
             </p>
           </Link>
           <Link to={"/imprint"}>
-            <p className="underline text-[15px] md:text-base cursor-pointer hover:text-white">
-              Imprint
+            <p className="underline text-[15px] md:text-base hover:text-white">
+              {t.imprint}
             </p>
           </Link>
         </div>
@@ -131,7 +160,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="text-[15px] md:text-base text-[#666] text-center">
-          <p>© 2024 FutureTech. All rights reserved.</p>
+          <p>{t.copyright}</p>
         </div>
       </div>
     </div>

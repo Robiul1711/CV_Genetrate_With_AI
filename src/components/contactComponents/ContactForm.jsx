@@ -29,6 +29,55 @@ const ContactForm = () => {
   const axiosSecure = useAxiosSecure();
   const { language } = useEmail();
 
+  const texts = {
+    en: {
+      title: "Get in Touch Clever CV",
+      firstName: "First Name",
+      lastName: "Last Name",
+      email: "Email",
+      phone: "Phone Number",
+      message: "Message",
+      placeholderFirstName: "Enter First Name",
+      placeholderLastName: "Enter Last Name",
+      placeholderEmail: "Enter your Email",
+      placeholderPhone: "Enter Phone Number",
+      placeholderMessage: "Enter your Message",
+      checkbox: "I agree to the terms of service and privacy policy",
+      sendButton: "Send Message",
+      sendingButton: "Sending...",
+      faqTitle: "Asked Questions",
+      faqDescription:
+        "If the question is not available on our FAQ section, feel free to contact us personally, we will resolve your respective doubts.",
+      askQuestion: "Ask Question",
+      fillRequired: "Please fill in all required fields.",
+      agreeTerms: "You must agree to the terms of service.",
+    },
+    de: {
+      title: "Kontaktieren Sie Clever CV",
+      firstName: "Vorname",
+      lastName: "Nachname",
+      email: "E-Mail",
+      phone: "Telefonnummer",
+      message: "Nachricht",
+      placeholderFirstName: "Geben Sie den Vornamen ein",
+      placeholderLastName: "Geben Sie den Nachnamen ein",
+      placeholderEmail: "Geben Sie Ihre E-Mail ein",
+      placeholderPhone: "Geben Sie die Telefonnummer ein",
+      placeholderMessage: "Geben Sie Ihre Nachricht ein",
+      checkbox: "Ich stimme den Nutzungsbedingungen und der Datenschutzrichtlinie zu",
+      sendButton: "Nachricht senden",
+      sendingButton: "Wird gesendet...",
+      faqTitle: "Häufig gestellte Fragen",
+      faqDescription:
+        "Wenn die Frage nicht in unserem FAQ-Bereich verfügbar ist, kontaktieren Sie uns gerne persönlich, wir werden Ihre jeweiligen Zweifel klären.",
+      askQuestion: "Frage stellen",
+      fillRequired: "Bitte füllen Sie alle erforderlichen Felder aus.",
+      agreeTerms: "Sie müssen den Nutzungsbedingungen zustimmen.",
+    },
+  };
+
+  const t = texts[language] || texts.en;
+
   const ContactMutation = useMutation({
     mutationFn: async (data) => {
       const res = await axiosSecure.post("/contact-us/", data);
@@ -53,37 +102,27 @@ const ContactForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    // Basic validation
     if (!formData.first_name || !formData.last_name || !formData.email || !formData.message) {
-      toast.error("Please fill in all required fields.");
+      toast.error(t.fillRequired);
       return;
     }
     if (!checked) {
-      toast.error("You must agree to the terms of service.");
+      toast.error(t.agreeTerms);
       return;
     }
 
-    ContactMutation.mutate({
-      ...formData,
-      agree_terms: checked,
-    });
+    ContactMutation.mutate({ ...formData, agree_terms: checked });
   };
 
   const { data } = useQuery({
     queryKey: ["faqs", language],
     queryFn: () =>
-      axiosPublic.get("/faqs", {
-        params: { lan: language },
-      }),
+      axiosPublic.get("/faqs", { params: { lan: language } }),
   });
 
   const FaqData = data?.data?.data;
@@ -93,72 +132,70 @@ const ContactForm = () => {
       <div className="relative">
         <div className="hidden lg:block absolute top-0 bottom-0 left-[48%] w-px bg-[#262626] transform -translate-x-1/4 z-0" />
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12 pb-12 md:pb-20 section-padding-x">
-          {/* Left Side Title */}
           <div className="flex items-center">
-            <h2 className="text-3xl md:text-3xl text-center font-semibold">
-              Get in Touch Clever CV
-            </h2>
+            <h2 className="text-3xl md:text-3xl text-center font-semibold">{t.title}</h2>
           </div>
 
-          {/* Form */}
           <form onSubmit={onSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block mb-1">First Name</label>
+                <label className="block mb-1">{t.firstName}</label>
                 <input
                   name="first_name"
                   value={formData.first_name}
                   onChange={handleChange}
                   type="text"
-                  placeholder="Enter First Name"
+                  placeholder={t.placeholderFirstName}
                   className="w-full bg-[#0E0E10] border border-[#262626] p-3 rounded-md"
                 />
               </div>
               <div>
-                <label className="block mb-1">Last Name</label>
+                <label className="block mb-1">{t.lastName}</label>
                 <input
                   name="last_name"
                   value={formData.last_name}
                   onChange={handleChange}
                   type="text"
-                  placeholder="Enter Last Name"
+                  placeholder={t.placeholderLastName}
                   className="w-full bg-[#0E0E10] border border-[#262626] p-3 rounded-md"
                 />
               </div>
               <div>
-                <label className="block mb-1">Email</label>
+                <label className="block mb-1">{t.email}</label>
                 <input
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   type="email"
-                  placeholder="Enter your Email"
+                  placeholder={t.placeholderEmail}
                   className="w-full bg-[#0E0E10] border border-[#262626] p-3 rounded-md"
                 />
               </div>
               <div>
-                <label className="block mb-1">Phone Number</label>
+                <label className="block mb-1">{t.phone}</label>
                 <input
                   name="phone_number"
                   value={formData.phone_number}
                   onChange={handleChange}
                   type="tel"
-                  placeholder="Enter Phone Number"
+                  placeholder={t.placeholderPhone}
                   className="w-full bg-[#0E0E10] border border-[#262626] p-3 rounded-md"
                 />
               </div>
             </div>
+
             <div>
-              <label className="block mb-1">Message</label>
+              <label className="block mb-1">{t.message}</label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 rows="4"
-                placeholder="Enter your Message"
+                placeholder={t.placeholderMessage}
                 className="w-full bg-[#0E0E10] border border-[#262626] p-3 rounded-md"
-              ></textarea>
+              />
             </div>
+
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 my-4">
               <div className="my-6 text-sm">
                 <label className="flex items-center gap-3 cursor-pointer">
@@ -177,11 +214,10 @@ const ContactForm = () => {
                     className="hidden"
                   />
 
-                  <span className="text-sm">
-                    I agree to the terms of service and privacy policy
-                  </span>
+                  <span className="text-sm">{t.checkbox}</span>
                 </label>
               </div>
+
               <button
                 type="submit"
                 disabled={ContactMutation.isPending}
@@ -189,33 +225,7 @@ const ContactForm = () => {
                   ContactMutation.isPending ? "bg-gray-400" : "bg-[#FFF]"
                 } text-black py-2 my-3 text-sm font-medium rounded-xl flex justify-center items-center gap-2`}
               >
-                {ContactMutation.isPending ? (
-                  <>
-                    <svg
-                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-black"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    Sending...
-                  </>
-                ) : (
-                  "Send Message"
-                )}
+                {ContactMutation.isPending ? t.sendingButton : t.sendButton}
               </button>
             </div>
           </form>
@@ -230,14 +240,14 @@ const ContactForm = () => {
           <div className="flex flex-col items-start justify-center">
             <div className="flex flex-col items-start gap-3 mb-4">
               <Flower className="w-18 h-18" />
-              <h2 className="text-2xl font-semibold">Asked question</h2>
+              <h2 className="text-2xl font-semibold">{t.faqTitle}</h2>
             </div>
-            <p className="text-gray-400 mb-6 w-full md:w-[60%]">
-              If the question is not available on our FAQ section, feel free to
-              contact us personally, we will resolve your respective doubts.
-            </p>
-            <Link to="/ai-help" className="bg-black border flex items-center gap-2 border-[#81FB84]/20 text-[#FFF] px-5 py-2 hover:bg-white hover:text-dark transition-all duration-300 rounded-lg">
-              Ask Question <MoveUpRight size={18} />
+            <p className="text-gray-400 mb-6 w-full md:w-[60%]">{t.faqDescription}</p>
+            <Link
+              to="/ai-help"
+              className="bg-black border flex items-center gap-2 border-[#81FB84]/20 text-[#FFF] px-5 py-2 hover:bg-white hover:text-dark transition-all duration-300 rounded-lg"
+            >
+              {t.askQuestion} <MoveUpRight size={18} />
             </Link>
           </div>
 
@@ -249,9 +259,7 @@ const ContactForm = () => {
                   onClick={() => toggleAccordion(idx)}
                 >
                   {faq.question}
-                  <span className="text-2xl">
-                    {openIndex === idx ? "−" : "+"}
-                  </span>
+                  <span className="text-2xl">{openIndex === idx ? "−" : "+"}</span>
                 </h3>
                 {openIndex === idx && (
                   <p

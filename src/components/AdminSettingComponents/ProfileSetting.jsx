@@ -7,22 +7,52 @@ import Title from "../common/Title";
 import { useAuth } from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import ProfileImage from "./ProfileImage";
+import { useEmail } from "@/hooks/useEmail"; // Custom hook for language
 
 const ProfileSetting = ({ userData }) => {
   const [isEditing, setIsEditing] = useState(false);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
+  const { language } = useEmail(); // "en" or "de"
+
+  // Translation texts
+  const texts = {
+    en: {
+      profileSettings: "Profile Settings",
+      updateInfo: "Update your personal information",
+      firstName: "First Name *",
+      lastName: "Last Name *",
+      email: "Email *",
+      phoneNumber: "Phone Number *",
+      editProfile: "Edit Profile",
+      cancel: "Cancel",
+      saveChanges: "Save Changes",
+    },
+    de: {
+      profileSettings: "Profile-Einstellungen",
+      updateInfo: "Aktualisieren Sie Ihre persönlichen Informationen",
+      firstName: "Vorname *",
+      lastName: "Nachname *",
+      email: "E-Mail *",
+      phoneNumber: "Telefonnummer *",
+      editProfile: "Profil bearbeiten",
+      cancel: "Abbrechen",
+      saveChanges: "Änderungen speichern",
+    },
+  };
+
+  const t = language === "de" ? texts.de : texts.en;
 
   // Extract user email safely
   const userEmail = userData?.profile?.user?.email || "";
 
   // Initialize form with default values
   const defaultValues = {
-    first_name: userData?.[0]?.first_name || "",
-    last_name: userData?.[0]?.last_name || "",
+    first_name: userData?.profile?.first_name || "",
+    last_name: userData?.profile?.last_name || "",
     email: userEmail,
-    phone_number: userData?.[0]?.phone_number || "",
+    phone_number: userData?.profile?.phone_number || "",
   };
 
   const {
@@ -37,14 +67,12 @@ const ProfileSetting = ({ userData }) => {
   // Keep form values synced when userData changes
   useEffect(() => {
     reset({
-      first_name: userData?.profile.first_name || "",
+      first_name: userData?.profile?.first_name || "",
       last_name: userData?.profile?.last_name || "",
       email: userEmail,
       phone_number: userData?.profile?.phone_number || "",
     });
   }, [userData, reset, userEmail]);
-
-  console.log("User Data in ProfileSetting:", userData);
 
   // Mutation for profile update
   const updateMutation = useMutation({
@@ -69,9 +97,9 @@ const ProfileSetting = ({ userData }) => {
 
   return (
     <div className="max-w-6xl w-full p-3 lg:p-6">
-      <Title level="title22">Profile Settings</Title>
+      <Title level="title22">{t.profileSettings}</Title>
       <Title level="title16" className="my-2">
-        Update your personal information
+        {t.updateInfo}
       </Title>
 
       <ProfileImage userData={userData} />
@@ -81,11 +109,11 @@ const ProfileSetting = ({ userData }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* First Name */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">First Name *</label>
+            <label className="text-sm text-white">{t.firstName}</label>
             <input
               type="text"
               disabled={!isEditing}
-              {...register("first_name", { required: "First name is required" })}
+              {...register("first_name", { required: t.firstName })}
               className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] text-white ${
                 !isEditing ? "opacity-50 cursor-not-allowed" : ""
               }`}
@@ -97,11 +125,11 @@ const ProfileSetting = ({ userData }) => {
 
           {/* Last Name */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">Last Name *</label>
+            <label className="text-sm text-white">{t.lastName}</label>
             <input
               type="text"
               disabled={!isEditing}
-              {...register("last_name", { required: "Last name is required" })}
+              {...register("last_name", { required: t.lastName })}
               className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] text-white ${
                 !isEditing ? "opacity-50 cursor-not-allowed" : ""
               }`}
@@ -113,7 +141,7 @@ const ProfileSetting = ({ userData }) => {
 
           {/* Email */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">Email *</label>
+            <label className="text-sm text-white">{t.email}</label>
             <input
               type="email"
               disabled
@@ -124,7 +152,7 @@ const ProfileSetting = ({ userData }) => {
 
           {/* Phone Number */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">Phone Number *</label>
+            <label className="text-sm text-white">{t.phoneNumber}</label>
             <div
               className={`flex items-center rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] bg-[#0E0E10] text-white ${
                 !isEditing ? "opacity-50" : ""
@@ -134,7 +162,7 @@ const ProfileSetting = ({ userData }) => {
               <input
                 type="text"
                 disabled={!isEditing}
-                {...register("phone_number", { required: "Phone number is required" })}
+                {...register("phone_number", { required: t.phoneNumber })}
                 className="bg-transparent text-xs w-full focus:outline-none text-white"
               />
             </div>
@@ -152,7 +180,7 @@ const ProfileSetting = ({ userData }) => {
               onClick={() => setIsEditing(true)}
               className="flex items-center gap-1 font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
             >
-              <CiEdit /> Edit Profile
+              <CiEdit /> {t.editProfile}
             </button>
           ) : (
             <>
@@ -164,13 +192,13 @@ const ProfileSetting = ({ userData }) => {
                 }}
                 className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
               >
-                Cancel
+                {t.cancel}
               </button>
               <button
                 type="submit"
                 className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
               >
-                Save Changes
+                {t.saveChanges}
               </button>
             </>
           )}

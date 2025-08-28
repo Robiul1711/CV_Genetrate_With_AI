@@ -9,7 +9,7 @@ import Step6 from "@/components/createResumeComponents/Step6";
 import Step7 from "@/components/createResumeComponents/Step7";
 import Step8 from "@/components/createResumeComponents/Step8";
 import Step9 from "@/components/createResumeComponents/Step9";
-import { Edit, Loader2 } from "lucide-react"; // Added Loader2 for loading indicator
+import { Edit, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import StepProgressBar from "@/components/common/StepProgressBar";
 import { useForm, FormProvider } from "react-hook-form";
@@ -18,93 +18,82 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useResume } from "@/providers/ResumeContext";
-import {
-  showLoadingToast,
-  updateToastError,
-  updateToastSuccess,
-} from "@/lib/utils";
+import { showLoadingToast, updateToastError, updateToastSuccess } from "@/lib/utils";
+import { useEmail } from "@/hooks/useEmail";
+
+const textMap = {
+  en: {
+    pageTitle: "Create New Resume",
+    pageSubTitle: "Build your resume step-by-step with AI assistance",
+    next: "Next",
+    back: "Back",
+    generate: "Generate Resume With AI",
+    generating: "Generating...",
+    chooseTemplate: "Choose Resume Template",
+    editResume: "Edit Resume",
+  },
+  de: {
+    pageTitle: "Neuen Lebenslauf erstellen",
+    pageSubTitle: "Erstellen Sie Ihren Lebenslauf Schritt für Schritt mit KI-Unterstützung",
+    next: "Weiter",
+    back: "Zurück",
+    generate: "Lebenslauf mit KI generieren",
+    generating: "Wird generiert...",
+    chooseTemplate: "Lebenslaufvorlage auswählen",
+    editResume: "Lebenslauf bearbeiten",
+  },
+};
 
 const CreateNewResume = () => {
   const { setAllResumeData } = useResume();
   const [activeStep, setActiveStep] = useState(0);
   const [resumeId, setResumeId] = useState(null);
-  const [isCreatingResume, setIsCreatingResume] = useState(false); // New loading state
+  const [isCreatingResume, setIsCreatingResume] = useState(false);
   const axiosSecure = useAxiosSecure();
-  
-  // Initialize resumeData state
+  const { language } = useEmail(); // 'en' or 'de'
+
   const methods = useForm({
     mode: "onChange",
-    defaultValues: {
-      work_experiences: [],
-    },
+    defaultValues: { work_experiences: [], resume_language: "en" },
   });
-  console.log(resumeId)
+
+  const resume_language = language
+  const t = textMap[resume_language];
 
   const ResumeMutation = useMutation({
     mutationFn: async (formData) => {
-      setIsCreatingResume(true); // Set loading state when API call starts
+      setIsCreatingResume(true);
       const response = await axiosSecure.post("/create-resume/", formData, {
         headers: { "Content-Type": "application/json" },
       });
       return response.data;
     },
-
-    onMutate: () => {
-      const toastId = showLoadingToast("Creating Resume...");
-      return { toastId };
-    },
-
+    onMutate: () => ({ toastId: showLoadingToast(t.generate) }),
     onSuccess: (data, _variables, context) => {
       setAllResumeData(data);
-      setResumeId(data.id || data.resumeId); // Set the resume ID from response if available
-
-      // ✅ Replace loading toast with success
-      updateToastSuccess(
-        context.toastId,
-        data?.message || "Resume Created Successfully!"
-      );
-      
-      // ✅ Only advance to next step after successful API call
+      setResumeId(data.id || data.resumeId);
+      updateToastSuccess(context.toastId, data?.message || "Resume Created Successfully!");
       setActiveStep(8);
-      setIsCreatingResume(false); // Clear loading state
+      setIsCreatingResume(false);
     },
-
     onError: (error, _variables, context) => {
-      const errorMessage =
-        error?.response?.data?.message || "Something went wrong!";
-
-      // ✅ Replace loading toast with error
+      const errorMessage = error?.response?.data?.message || "Something went wrong!";
       updateToastError(context.toastId, errorMessage);
-      setIsCreatingResume(false); // Clear loading state even on error
+      setIsCreatingResume(false);
     },
   });
 
   const steps = [
-    { label: "Choose Your Goal", component: <Step1 /> },
-    { label: "Personal Info", component: <Step2 /> },
+    { label: resume_language === "de" ? "Ziel wählen" : "Choose Your Goal", component: <Step1 /> },
+    { label: resume_language === "de" ? "Persönliche Infos" : "Personal Info", component: <Step2 /> },
+    { label: resume_language === "de" ? "Erfahrung" : "Experience", component: <Step3 /> },
+    { label: resume_language === "de" ? "Bildung" : "Education", component: <Step4 /> },
+    { label: resume_language === "de" ? "Fähigkeiten" : "Skills", component: <Step5 /> },
+    { label: resume_language === "de" ? "Sprachkenntnisse" : "Languages Proficiency", component: <Step6 /> },
+    { label: resume_language === "de" ? "Zertifikate / Training" : "Certificate / Train", component: <Step7 /> },
+    { label: resume_language === "de" ? "Sprache" : "Language", component: <SelectLangaugeStep /> },
     {
-      label: "Experience",
-      component: <Step3 />,
-    },
-    {
-      label: "Education",
-      component: <Step4 />,
-    },
-    { label: "Skills", component: <Step5 /> },
-    {
-      label: "Languages Proficiency",
-      component: <Step6 />,
-    },
-    {
-      label: "Certificate / Train",
-      component: <Step7 />,
-    },
-    {
-      label: "Language",
-      component: <SelectLangaugeStep />,
-    },
-    {
-      label: "Choose Resume",
+      label: resume_language === "de" ? "Lebenslauf wählen" : "Choose Resume",
       component: (
         <Step8
           activeStep={activeStep}
@@ -115,28 +104,18 @@ const CreateNewResume = () => {
       ),
     },
     {
-      label: "Preview & Download",
+      label: resume_language === "de" ? "Vorschau & Download" : "Preview & Download",
       component: <Step9 resumeId={resumeId} setResumeId={setResumeId} />,
     },
   ];
 
-  const handleNext = () => {
-    if (activeStep < steps.length - 1) setActiveStep((prev) => prev + 1);
-  };
+  const handleNext = () => { if (activeStep < steps.length - 1) setActiveStep(prev => prev + 1); };
+  const handleBack = () => { if (activeStep > 0) setActiveStep(prev => prev - 1); };
 
-  const handleBack = () => {
-    if (activeStep > 0) setActiveStep((prev) => prev - 1);
-  };
-  
   const onSubmit = (data) => {
-    console.log("✅ Final Form Data:", data);
     data.goal = String(data.goal).trim();
-
-    if (activeStep === 7) {
-      ResumeMutation.mutate(data);
-    } else {
-      handleNext();
-    }
+    if (activeStep === 7) ResumeMutation.mutate(data);
+    else handleNext();
   };
 
   return (
@@ -144,24 +123,19 @@ const CreateNewResume = () => {
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         {/* Header */}
         <div className="flex flex-col gap-2">
-          <Title level="title32">Create New Resume</Title>
-          <Title level="title22">
-            Build your resume step-by-step with AI assistance
-          </Title>
+          <Title level="title32">{t.pageTitle}</Title>
+          <Title level="title22">{t.pageSubTitle}</Title>
         </div>
 
-        {/* Step Progress Bar */}
-        <StepProgressBar
-          steps={steps.map((step) => step.label)}
-          currentStep={activeStep + 1}
-        />
+        {/* Step Progress */}
+        <StepProgressBar steps={steps.map(s => s.label)} currentStep={activeStep + 1} />
 
-        {/* Current Step Content */}
+        {/* Step Content */}
         <div className="mt-6">
           {isCreatingResume ? (
             <div className="flex flex-col items-center justify-center p-8">
               <Loader2 className="h-12 w-12 animate-spin text-white mb-4" />
-              <p className="text-white text-lg">Generating your resume with AI...</p>
+              <p className="text-white text-lg">{t.generating}</p>
             </div>
           ) : (
             steps[activeStep].component
@@ -173,54 +147,39 @@ const CreateNewResume = () => {
           {activeStep !== 0 ? (
             <button
               type="button"
-              className="font-semibold border border-white text-white  px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={handleBack}
               disabled={activeStep === 0 || isCreatingResume}
             >
-              Back
+              {t.back}
             </button>
+          ) : <div />}
+
+          {activeStep === 7 ? (
+            <button
+              type="submit"
+              className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              disabled={isCreatingResume}
+            >
+              {isCreatingResume ? <><Loader2 className="h-4 w-4 animate-spin" />{t.generating}</> : t.generate}
+            </button>
+          ) : activeStep === steps.length - 1 ? (
+            <Link
+              to={`/dashboard/edit-resume/${resumeId}`}
+              className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md flex items-center gap-2 hover:bg-white hover:text-black transition-colors duration-300"
+            >
+              <Edit size={18} /> {t.editResume}
+            </Link>
           ) : (
-            <div />
+            <button
+              type="button"
+              className="font-semibold border border-white bg-white text-black px-3 py-2 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:cursor-not-allowed"
+              onClick={methods.handleSubmit(() => handleNext())}
+              disabled={isCreatingResume}
+            >
+              {activeStep === 8 ? t.chooseTemplate : t.next}
+            </button>
           )}
-
-         {activeStep === 7 ? (
-  // Step 7: Generate Resume with AI (form submit)
-  <button
-    type="submit"
-    className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-    disabled={isCreatingResume}
-  >
-    {isCreatingResume ? (
-      <>
-        <Loader2 className="h-4 w-4 animate-spin" />
-        Generating...
-      </>
-    ) : (
-      "Generate Resume With AI"
-    )}
-  </button>
-) : activeStep === steps.length - 1 ? (
-  // Last step: Edit Resume (navigation only)
-  <Link
-    to={`/dashboard/edit-resume/${resumeId}`}
-    className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md flex items-center gap-2 hover:bg-white hover:text-black transition-colors duration-300"
-  >
-    <Edit size={18} /> Edit Resume
-  </Link>
-) : (
-  // Other steps: Next or Choose Resume Template
-  <button
-    type="button"
-    className="font-semibold border border-white bg-white text-black px-3 py-2 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:cursor-not-allowed"
-    onClick={methods.handleSubmit(() => {
-      if (activeStep < steps.length - 1) handleNext();
-    })}
-    disabled={isCreatingResume}
-  >
-    {activeStep === 8 ? "Choose Resume Template" : "Next"}
-  </button>
-)}
-
         </div>
       </form>
     </FormProvider>

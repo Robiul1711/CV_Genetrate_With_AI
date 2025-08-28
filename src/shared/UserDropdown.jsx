@@ -3,73 +3,62 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { User, Settings, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { useEmail } from "@/hooks/useEmail";
 
 const UserDropdown = ({
   className = "",
   avatarBgColor = "bg-primary",
   avatarTextColor = "text-white",
   dropdownItems = [],
-  scrolled = false,
-  
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { user, logout, isLoadingUser } = useAuth();
-  console.log(user)
+  const { user, logout } = useAuth();
+  const { language } = useEmail();
 
-  // Default dropdown items
+  // Default dropdown items with language support
   const defaultItems = [
     {
-      label: "Dashboard",
+      label: language === "de" ? "Übersicht" : "Dashboard",
       icon: <User className="w-4 h-4 mr-3" />,
       href: "/dashboard",
     },
     {
-      label: "Settings",
+      label: language === "de" ? "Einstellungen" : "Settings",
       icon: <Settings className="w-4 h-4 mr-3" />,
       href: "/dashboard/setting",
     },
     {
-      label: "Sign Out",
+      label: language === "de" ? "Abmelden" : "Sign Out",
       icon: <LogOut className="w-4 h-4 mr-3" />,
       onClick: logout,
     },
   ];
 
-  console.log(user?.profile?.first_name);
-
-  // Combine default and custom items
   const items = dropdownItems.length > 0 ? dropdownItems : defaultItems;
 
-  // Close dropdown when clicking outside
+  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Get user initial
-  const getUserInitial = () => {
-    return user?.profile?.first_name
-      ? user?.profile?.first_name?.charAt(0).toUpperCase()
-      : "U";
-  };
+  
+  
+  const getUserInitial = () =>
+    user?.profile?.first_name?.charAt(0).toUpperCase() || "U";
 
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
       {/* Avatar Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex cursor-pointer items-center justify-center aspect-square bg-gray-800 shadow-md w-10 h-10 rounded-full font-medium 
-          hover:opacity-90 transition-opacity 
-          `}
+        className={`flex cursor-pointer items-center justify-center aspect-square  bg-gray-800 w-10 h-10 rounded-full font-medium hover:opacity-90 transition-opacity`}
       >
         {getUserInitial()}
       </button>
@@ -88,9 +77,7 @@ const UserDropdown = ({
             <p className="text-sm font-medium !text-gray-900 truncate">
               {user?.profile?.first_name} {user?.profile?.last_name}
             </p>
-            <p className="text-xs !text-black truncate">
-              {user?.profile?.user?.email}
-            </p>
+            <p className="text-xs !text-black truncate">{user?.profile?.user?.email}</p>
           </div>
 
           {/* Menu Items */}
@@ -101,10 +88,7 @@ const UserDropdown = ({
                   key={index}
                   to={item.href}
                   className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                  onClick={() => {
-                    setIsOpen(false);
-                    item.onClick?.();
-                  }}
+                  onClick={() => setIsOpen(false)}
                 >
                   {item.icon}
                   {item.label}

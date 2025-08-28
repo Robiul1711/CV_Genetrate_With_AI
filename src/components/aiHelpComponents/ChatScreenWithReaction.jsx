@@ -7,7 +7,13 @@ import { useEmail } from "@/hooks/useEmail";
 import { useMutation } from "@tanstack/react-query";
 import bot from "@/assets/images/bot.png";
 
-const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatWithData, history,  onQuestionProcessed  }) => {
+const ChatScreenWithReaction = ({
+  suggestedQuestions,
+  clickedQuestion,
+  showChatWithData,
+  history,
+  onQuestionProcessed,
+}) => {
   const axiosSecure = useAxiosSecure();
   const { language } = useEmail();
 
@@ -26,20 +32,23 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
       return res.data;
     },
     onSuccess: (res) => {
-      const botResponse = res?.data;
+      // Extract string from API response
+      const botText = typeof res?.data === "string" ? res.data : res?.data?.answer || "";
+      if (!botText) return;
+
       const newId = Date.now();
 
       setMessages((prev) => [
         ...prev,
         {
           id: newId,
-          text: botResponse,
+          text: botText,
           sender: "other",
-          senderProfile: {
-            name: "Bot",
-            avatar: bot,
-          },
-          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          senderProfile: { name: "Bot", avatar: bot },
+          timestamp: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
           reaction: null,
         },
       ]);
@@ -48,19 +57,15 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
     },
   });
 
-  // Initialize chat history (old messages top, latest bottom)
+  // Initialize chat history
   useEffect(() => {
     if (history?.length) {
-      // Reverse the history array to show oldest first, newest last
-      const reversedHistory = [...history].reverse();
-      const formattedHistory = [];
-
-      reversedHistory.forEach((item) => {
-        // User question (right)
+      const formattedHistory = [...history].reverse().flatMap((item) => {
+        const msgs = [];
         if (item.question) {
-          formattedHistory.push({
+          msgs.push({
             id: Date.now() + Math.random(),
-            text: item.question,
+            text: String(item.question),
             sender: "me",
             senderProfile: { name: "You", avatar: "https://i.pravatar.cc/40?img=1" },
             timestamp: new Date(item.created_at || Date.now()).toLocaleTimeString([], {
@@ -70,12 +75,10 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
             reaction: null,
           });
         }
-
-        // Bot answer (left)
         if (item.answer) {
-          formattedHistory.push({
+          msgs.push({
             id: Date.now() + Math.random(),
-            text: item.answer,
+            text: String(item.answer),
             sender: "other",
             senderProfile: { name: "Bot", avatar: bot },
             timestamp: new Date(item.created_at || Date.now()).toLocaleTimeString([], {
@@ -85,6 +88,7 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
             reaction: null,
           });
         }
+        return msgs;
       });
 
       setMessages(formattedHistory);
@@ -102,21 +106,22 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
     }
   }, [history]);
 
-  // Scroll to bottom whenever messages update
+  // Scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
-  // Send message handler
+  // Send message
   const handleSendMessage = (messageText = newMessage) => {
-    if (!messageText.trim()) return;
+    const text = typeof messageText === "string" ? messageText : String(messageText);
+    if (!text.trim()) return;
 
     const newId = Date.now();
     setMessages((prev) => [
       ...prev,
       {
         id: newId,
-        text: messageText,
+        text,
         sender: "me",
         senderProfile: { name: "You", avatar: "https://i.pravatar.cc/40?img=1" },
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
@@ -125,7 +130,7 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
     ]);
 
     setLoading(true);
-    ChatMutation.mutate({ question: messageText, language });
+    ChatMutation.mutate({ question: text, language });
     setNewMessage("");
     inputRef.current?.focus();
   };
@@ -133,7 +138,9 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
   // Handle reaction
   const handleReaction = (messageId, reaction) => {
     setMessages((prev) =>
-      prev.map((m) => (m.id === messageId ? { ...m, reaction: m.reaction === reaction ? null : reaction } : m))
+      prev.map((m) =>
+        m.id === messageId ? { ...m, reaction: m.reaction === reaction ? null : reaction } : m
+      )
     );
     setReactingTo(null);
   };
@@ -143,12 +150,13 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
   };
 
   // Handle clicked suggested question
- useEffect(() => {
+  useEffect(() => {
     if (clickedQuestion && showChatWithData) {
       handleSendMessage(clickedQuestion);
       onQuestionProcessed && onQuestionProcessed();
     }
   }, [clickedQuestion, showChatWithData]);
+
   return (
     <div className="flex flex-col w-full max-w-6xl mx-auto bg-[#0E0E10] rounded-md custom-scrollbar overflow-hidden shadow-md h-[90vh] relative">
       {/* Messages */}
@@ -184,25 +192,20 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
                   {msg.reaction === "smile" && <FaRegSmile size={16} color="gold" />}
                 </span>
               )}
-              {!msg.reaction && msg.sender === "other" && (
+              {/* {!msg.reaction && msg.sender === "other" && (
                 <button
                   onClick={() => toggleReactionMenu(msg.id)}
                   className="text-gray-400 hover:text-gray-600 dark:hover:text-white"
                 >
                   <FaRegSmile size={16} />
                 </button>
-              )}
+              )} */}
             </motion.div>
           ))}
 
           {/* Typing indicator */}
           {loading && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="flex items-center gap-2"
-            >
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
               <img src={bot} alt="Bot" className="w-8 h-8 rounded-full" />
               <div className="bg-gray-200 dark:bg-slate-700 rounded-xl px-3 py-2 flex items-center gap-1">
                 <span className="dot w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "0s" }}></span>
@@ -216,7 +219,7 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
       </div>
 
       {/* Reaction menu */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {reactingTo && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -235,7 +238,7 @@ const ChatScreenWithReaction = ({ suggestedQuestions, clickedQuestion, showChatW
             </button>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       {/* Input */}
       <div className="p-4 border-t border-gray-200">

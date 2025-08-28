@@ -5,22 +5,23 @@ import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useEmail } from "@/hooks/useEmail";
 import { useQuery } from "@tanstack/react-query";
 const SeeWhat = () => {
-  
-
-const axiosPublic = useAxiosPublic();
-const { language } = useEmail();
-  const {data} = useQuery({
-    queryKey: ['testimonials', language],
-    queryFn: () => axiosPublic.get('/testimonials',{
-      params:{lan:language},
-    })
-  })
+  const axiosPublic = useAxiosPublic();
+  const { language } = useEmail();
+  const { data } = useQuery({
+    queryKey: ["testimonials", language],
+    queryFn: () =>
+      axiosPublic.get("/testimonials", {
+        params: { lan: language },
+      }),
+  });
 
   return (
     <div className="lg:py-20">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[24px] md:text-[28px]  font-bold">
-          See What Our Users Are Saying
+        <h1 className="text-[24px] md:text-[28px] font-bold">
+          {language === "de"
+            ? "Sehen Sie, was unsere Nutzer sagen"
+            : "See What Our Users Are Saying"}
         </h1>
       </div>
       <div>
@@ -33,7 +34,7 @@ const { language } = useEmail();
               gradient={true}
               gradientColor={["#08090A"]}
             >
-              <MarqueeComponent data={data}/>
+              <MarqueeComponent data={data} />
             </Marquee>
             <Marquee
               direction="left"

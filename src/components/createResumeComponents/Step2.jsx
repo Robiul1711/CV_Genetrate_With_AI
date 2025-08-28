@@ -4,6 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import Title from "../common/Title";
 import { useFormContext } from "react-hook-form";
 import { useResume } from "@/providers/ResumeContext";
+import { useEmail } from "@/hooks/useEmail"; // assuming it gives the language
 
 const Step2 = () => {
   const {
@@ -18,83 +19,75 @@ const Step2 = () => {
     "https://randomuser.me/api/portraits/men/32.jpg"
   );
 
-  const { imageString,setImageString } =useResume()
+  const { imageString, setImageString } = useResume();
+  const { language } = useEmail(); // "en" or "de"
 
-  // Watch the profile_photo field to update preview
   const profilePhoto = watch("profile_photo");
 
-  // Convert file to base64 and set it in react-hook-form
+  // Convert file to base64 and update state
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
     const reader = new FileReader();
     reader.onloadend = () => {
       if (reader.result) {
         const base64String = reader.result.toString();
-        setImageString(base64String)
-        // ✅ Save base64 string to form state
+        setImageString(base64String);
         setValue("profile_photo", base64String, { shouldValidate: true });
-        // Update local preview
         setProfilePreview(base64String);
       }
     };
-    reader.readAsDataURL(file); // convert to base64
+    reader.readAsDataURL(file);
   };
 
-  // Handle removing the profile photo
   const handleRemovePhoto = (e) => {
-    e.stopPropagation(); // Prevent triggering the file input
+    e.stopPropagation();
     setValue("profile_photo", "", { shouldValidate: true });
-    setProfilePreview("https://randomuser.me/api/portraits/men/32.jpg"); // Reset to default
-    // Reset the file input value
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+    setProfilePreview("https://randomuser.me/api/portraits/men/32.jpg");
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  // Handle clicking on the avatar to trigger file input
   const handleAvatarClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+    if (fileInputRef.current) fileInputRef.current.click();
   };
+
+  // Translation helper
+  const t = (en, de) => (language === "de" ? de : en);
 
   return (
     <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="w-[800px] mx-auto">
         {/* Header */}
         <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
-          <Title level="title24">Add Your Personal Details</Title>
+          <Title level="title24">{t("Add Your Personal Details", "Fügen Sie Ihre persönlichen Daten hinzu")}</Title>
           <Title level="title14">
-            Please enter your basic details. These help employers get to know
-            you and ensure your resume is complete.
+            {t(
+              "Please enter your basic details. These help employers get to know you and ensure your resume is complete.",
+              "Bitte geben Sie Ihre grundlegenden Daten ein. Diese helfen Arbeitgebern, Sie kennenzulernen und Ihren Lebenslauf zu vervollständigen."
+            )}
           </Title>
         </div>
         <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
-          <Title level="title40">Add Your Personal Details</Title>
+          <Title level="title40">{t("Add Your Personal Details", "Fügen Sie Ihre persönlichen Daten hinzu")}</Title>
           <Title level="title20">
-            Please enter your basic details. These help employers get to know
-            you and ensure your resume is complete.
+            {t(
+              "Please enter your basic details. These help employers get to know you and ensure your resume is complete.",
+              "Bitte geben Sie Ihre grundlegenden Daten ein. Diese helfen Arbeitgebern, Sie kennenzulernen und Ihren Lebenslauf zu vervollständigen."
+            )}
           </Title>
         </div>
 
         {/* Upload Section */}
         <div className="flex flex-col gap-4 mb-8">
-          <p className="text-sm text-white">Upload your photo *</p>
+          <p className="text-sm text-white">{t("Upload your photo *", "Laden Sie Ihr Foto hoch *")}</p>
           <div className="relative w-16 h-16 rounded-full border-2 border-white">
             <div
               className="w-full h-full rounded-full overflow-hidden cursor-pointer"
               onClick={handleAvatarClick}
             >
-              <img
-                src={profilePreview}
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
+              <img src={profilePreview} alt="Profile" className="w-full h-full object-cover" />
             </div>
 
-            {/* Edit button */}
             <div
               className="absolute -bottom-1.5 border border-[#81FB84]/30 right-0 w-8 h-8 bg-dark rounded-full flex items-center justify-center cursor-pointer z-50"
               onClick={handleAvatarClick}
@@ -102,7 +95,6 @@ const Step2 = () => {
               <CiEdit size={20} className="text-white" />
             </div>
 
-            {/* Hidden file input */}
             <input
               ref={fileInputRef}
               id="profile-photo-input"
@@ -112,7 +104,6 @@ const Step2 = () => {
               onChange={handleFileChange}
             />
 
-            {/* Close icon shown when a custom image is selected */}
             {profilePhoto && profilePhoto !== "" && (
               <div
                 className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center cursor-pointer z-50"
@@ -128,117 +119,95 @@ const Step2 = () => {
         <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* First Name */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">First Name *</label>
+            <label className="text-sm text-white">{t("First Name *", "Vorname *")}</label>
             <input
               type="text"
-              placeholder="First Name"
-              {...register("first_name", {
-                required: "First name is required",
-              })}
+              placeholder={t("First Name", "Vorname")}
+              {...register("first_name", { required: t("First name is required", "Vorname ist erforderlich") })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.first_name && (
-              <p className="text-red-400 text-xs">
-                {errors.first_name.message}
-              </p>
-            )}
+            {errors.first_name && <p className="text-red-400 text-xs">{errors.first_name.message}</p>}
           </div>
 
           {/* Last Name */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">Last Name *</label>
+            <label className="text-sm text-white">{t("Last Name *", "Nachname *")}</label>
             <input
               type="text"
-              placeholder="Last Name"
-              {...register("last_name", { required: "Last name is required" })}
+              placeholder={t("Last Name", "Nachname")}
+              {...register("last_name", { required: t("Last name is required", "Nachname ist erforderlich") })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.last_name && (
-              <p className="text-red-400 text-xs">{errors.last_name.message}</p>
-            )}
+            {errors.last_name && <p className="text-red-400 text-xs">{errors.last_name.message}</p>}
           </div>
 
           {/* Email */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">Email *</label>
+            <label className="text-sm text-white">{t("Email *", "E-Mail *")}</label>
             <input
               type="email"
-              placeholder="Email Address"
-              {...register("email", { required: "Email is required" })}
+              placeholder={t("Email Address", "E-Mail-Adresse")}
+              {...register("email", { required: t("Email is required", "E-Mail ist erforderlich") })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.email && (
-              <p className="text-red-400 text-xs">{errors.email.message}</p>
-            )}
+            {errors.email && <p className="text-red-400 text-xs">{errors.email.message}</p>}
           </div>
 
           {/* Phone Number */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">Phone Number *</label>
+            <label className="text-sm text-white">{t("Phone Number *", "Telefonnummer *")}</label>
             <div className="flex items-center px-3 py-1.5 text-xs rounded-lg border border-[#262626] bg-[#0E0E10] text-white">
               <span className="pr-2">🇬🇧</span>
               <input
                 type="text"
-                placeholder="Enter your phone number"
-                {...register("phone_number", {
-                  required: "Phone number is required",
-                })}
+                placeholder={t("Enter your phone number", "Geben Sie Ihre Telefonnummer ein")}
+                {...register("phone_number", { required: t("Phone number is required", "Telefonnummer ist erforderlich") })}
                 className="bg-transparent w-full focus:outline-none text-white"
               />
             </div>
-            {errors.phone_number && (
-              <p className="text-red-400 text-xs">
-                {errors.phone_number.message}
-              </p>
-            )}
+            {errors.phone_number && <p className="text-red-400 text-xs">{errors.phone_number.message}</p>}
           </div>
 
           {/* Address */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">Address</label>
+            <label className="text-sm text-white">{t("Address *", "Adresse *")}</label>
             <input
               type="text"
-              placeholder="Enter your address"
-              {...register("address", { required: "Address is required" })}
+              placeholder={t("Enter your address", "Geben Sie Ihre Adresse ein")}
+              {...register("address", { required: t("Address is required", "Adresse ist erforderlich") })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.address && (
-              <p className="text-red-400 text-xs">{errors.address.message}</p>
-            )}
+            {errors.address && <p className="text-red-400 text-xs">{errors.address.message}</p>}
           </div>
 
           {/* Date of Birth */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">Date of Birth</label>
+            <label className="text-sm text-white">{t("Date of Birth *", "Geburtsdatum *")}</label>
             <input
               type="date"
-              {...register("dob", { required: "Date of birth is required" })}
+              {...register("dob", { required: t("Date of birth is required", "Geburtsdatum ist erforderlich") })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.dob && (
-              <p className="text-red-400 text-xs">{errors.dob.message}</p>
-            )}
+            {errors.dob && <p className="text-red-400 text-xs">{errors.dob.message}</p>}
           </div>
 
           {/* Job Title */}
           <div className="md:col-span-2 flex flex-col gap-2">
-            <label className="text-sm text-white">Job Title *</label>
+            <label className="text-sm text-white">{t("Job Title *", "Berufsbezeichnung *")}</label>
             <input
               type="text"
-              placeholder="Enter your job title"
-              {...register("job_title", { required: "Job title is required" })}
+              placeholder={t("Enter your job title", "Geben Sie Ihre Berufsbezeichnung ein")}
+              {...register("job_title", { required: t("Job title is required", "Berufsbezeichnung ist erforderlich") })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
-            {errors.job_title && (
-              <p className="text-red-400 text-xs">{errors.job_title.message}</p>
-            )}
+            {errors.job_title && <p className="text-red-400 text-xs">{errors.job_title.message}</p>}
           </div>
 
           {/* About */}
           <div className="md:col-span-2 flex flex-col gap-2">
-            <label className="text-sm text-white">About (Optional)</label>
+            <label className="text-sm text-white">{t("About (Optional)", "Über mich (Optional)")}</label>
             <textarea
-              placeholder="Tell us about yourself..."
+              placeholder={t("Tell us about yourself...", "Erzählen Sie uns etwas über sich...")}
               {...register("about")}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] h-20 resize-none text-white"
             />
@@ -246,9 +215,7 @@ const Step2 = () => {
 
           {/* LinkedIn */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">
-              LinkedIn Profile (optional)
-            </label>
+            <label className="text-sm text-white">{t("LinkedIn Profile (optional)", "LinkedIn-Profil (optional)")}</label>
             <input
               type="url"
               placeholder="https://www.linkedin.com/in/your-username/"
@@ -257,11 +224,9 @@ const Step2 = () => {
             />
           </div>
 
-          {/* Xing */}
+          {/* XING */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">
-              XING Profile (optional)
-            </label>
+            <label className="text-sm text-white">{t("XING Profile (optional)", "XING-Profil (optional)")}</label>
             <input
               type="url"
               placeholder="https://www.xing.com/in/your-username/"

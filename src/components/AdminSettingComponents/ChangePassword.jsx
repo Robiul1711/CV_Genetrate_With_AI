@@ -11,6 +11,8 @@ import {
   updateToastError,
   updateToastSuccess,
 } from "@/lib/utils";
+import { useEmail } from "@/hooks/useEmail"; // For language switching
+
 const ChangePassword = () => {
   const [showOld, setShowOld] = useState(false);
   const [showNew, setShowNew] = useState(false);
@@ -18,6 +20,53 @@ const ChangePassword = () => {
   const { user } = useAuth();
   const userEmail = user?.profile?.user?.email;
   const axiosSecure = useAxiosSecure();
+  const { language } = useEmail(); // "en" or "de"
+
+  // Translation texts
+  const texts = {
+    en: {
+      title: "Change Password",
+      subtitle: "Update your password regularly to keep your account secure.",
+      oldPassword: "Old Password",
+      newPassword: "New Password",
+      confirmPassword: "Confirm New Password",
+      oldPasswordPlaceholder: "Enter old password",
+      newPasswordPlaceholder: "Enter new password",
+      confirmPasswordPlaceholder: "Confirm new password",
+      oldPasswordRequired: "Old password is required",
+      newPasswordRequired: "New password is required",
+      newPasswordMinLength: "Password must be at least 6 characters",
+      confirmPasswordRequired: "Please confirm your password",
+      passwordsMismatch: "Passwords do not match",
+      cancel: "Cancel",
+      savePassword: "Save Password",
+      updatingPassword: "Password Updating...",
+      passwordUpdated: "Password updated successfully.",
+      passwordUpdateFailed: "Failed to update password.",
+    },
+    de: {
+      title: "Passwort ändern",
+      subtitle: "Aktualisieren Sie Ihr Passwort regelmäßig, um Ihr Konto zu sichern.",
+      oldPassword: "Altes Passwort",
+      newPassword: "Neues Passwort",
+      confirmPassword: "Neues Passwort bestätigen",
+      oldPasswordPlaceholder: "Altes Passwort eingeben",
+      newPasswordPlaceholder: "Neues Passwort eingeben",
+      confirmPasswordPlaceholder: "Neues Passwort bestätigen",
+      oldPasswordRequired: "Altes Passwort ist erforderlich",
+      newPasswordRequired: "Neues Passwort ist erforderlich",
+      newPasswordMinLength: "Das Passwort muss mindestens 6 Zeichen lang sein",
+      confirmPasswordRequired: "Bitte bestätigen Sie Ihr Passwort",
+      passwordsMismatch: "Passwörter stimmen nicht überein",
+      cancel: "Abbrechen",
+      savePassword: "Passwort speichern",
+      updatingPassword: "Passwort wird aktualisiert...",
+      passwordUpdated: "Passwort erfolgreich aktualisiert.",
+      passwordUpdateFailed: "Passwort konnte nicht aktualisiert werden.",
+    },
+  };
+
+  const t = language === "de" ? texts.de : texts.en;
 
   const {
     register,
@@ -33,20 +82,19 @@ const ChangePassword = () => {
       return response.data;
     },
     onMutate: () => {
-      const toastId = showLoadingToast("Password Updating...");
+      const toastId = showLoadingToast(t.updatingPassword);
       return { toastId };
     },
     onSuccess: (data, _variables, context) => {
- ;
       updateToastSuccess(
         context.toastId,
-        data?.message || "Password updated successfully."
+        data?.message || t.passwordUpdated
       );
       reset();
     },
     onError: (error) => {
       toast.error(
-        error?.response?.data?.message || "Failed to update password."
+        error?.response?.data?.message || t.passwordUpdateFailed
       );
     },
   });
@@ -62,26 +110,24 @@ const ChangePassword = () => {
 
   return (
     <div className="max-w-6xl w-full p-2 lg:p-3">
-      <Title level="title22">Change Password</Title>
-      <Title level="title16" className="my-2">
-        Update your password regularly to keep your account secure.
-      </Title>
+      <Title level="title22">{t.title}</Title>
+      <Title level="title16" className="my-2">{t.subtitle}</Title>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-6 mt-6">
           {/* Old Password */}
           <div className="flex flex-col gap-2 w-full">
             <label htmlFor="old_password" className="text-sm text-white">
-              Old Password
+              {t.oldPassword}
             </label>
             <div className="relative">
               <input
                 type={showOld ? "text" : "password"}
                 id="old_password"
-                placeholder="Enter old password"
+                placeholder={t.oldPasswordPlaceholder}
                 className="w-full border border-[#262626] bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs text-white"
                 {...register("old_password", {
-                  required: "Old password is required",
+                  required: t.oldPasswordRequired,
                 })}
               />
               <span
@@ -92,28 +138,26 @@ const ChangePassword = () => {
               </span>
             </div>
             {errors.old_password && (
-              <p className="text-red-500 text-xs">
-                {errors.old_password.message}
-              </p>
+              <p className="text-red-500 text-xs">{errors.old_password.message}</p>
             )}
           </div>
 
           {/* New Password */}
           <div className="flex flex-col gap-2 w-full">
             <label htmlFor="new_password" className="text-sm text-white">
-              New Password
+              {t.newPassword}
             </label>
             <div className="relative">
               <input
                 type={showNew ? "text" : "password"}
                 id="new_password"
-                placeholder="Enter new password"
+                placeholder={t.newPasswordPlaceholder}
                 className="w-full border border-[#262626] bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs text-white"
                 {...register("new_password", {
-                  required: "New password is required",
+                  required: t.newPasswordRequired,
                   minLength: {
                     value: 6,
-                    message: "Password must be at least 6 characters",
+                    message: t.newPasswordMinLength,
                   },
                 })}
               />
@@ -125,27 +169,25 @@ const ChangePassword = () => {
               </span>
             </div>
             {errors.new_password && (
-              <p className="text-red-500 text-xs">
-                {errors.new_password.message}
-              </p>
+              <p className="text-red-500 text-xs">{errors.new_password.message}</p>
             )}
           </div>
 
           {/* Confirm Password */}
           <div className="flex flex-col gap-2 w-full">
             <label htmlFor="confirm_password" className="text-sm text-white">
-              Confirm New Password
+              {t.confirmPassword}
             </label>
             <div className="relative">
               <input
                 type={showConfirm ? "text" : "password"}
                 id="confirm_password"
-                placeholder="Confirm new password"
+                placeholder={t.confirmPasswordPlaceholder}
                 className="w-full border border-[#262626] bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs text-white"
                 {...register("confirm_password", {
-                  required: "Please confirm your password",
+                  required: t.confirmPasswordRequired,
                   validate: (value) =>
-                    value === watch("new_password") || "Passwords do not match",
+                    value === watch("new_password") || t.passwordsMismatch,
                 })}
               />
               <span
@@ -156,9 +198,7 @@ const ChangePassword = () => {
               </span>
             </div>
             {errors.confirm_password && (
-              <p className="text-red-500 text-xs">
-                {errors.confirm_password.message}
-              </p>
+              <p className="text-red-500 text-xs">{errors.confirm_password.message}</p>
             )}
           </div>
 
@@ -169,13 +209,13 @@ const ChangePassword = () => {
               onClick={() => reset()}
               className="border border-white text-white px-3 py-1.5 text-sm rounded-md hover:bg-white hover:text-black transition"
             >
-              Cancel
+              {t.cancel}
             </button>
             <button
               type="submit"
               className="bg-white text-black px-3 py-1.5 text-sm rounded-md hover:bg-gray-200 transition"
             >
-              Save Password
+              {t.savePassword}
             </button>
           </div>
         </div>

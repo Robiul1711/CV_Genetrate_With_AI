@@ -7,56 +7,74 @@ import {
   CreateNewResumeIcon,
   UpdateExistingResumeIcon,
 } from "@/components/AllIcons/DashboardAllIcons";
-import { icons } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEmail } from "@/hooks/useEmail"; // assuming it provides { language }
 
-const data = [
-  {
-    id: 1,
-    title: "Create New Resume",
-    descript: "Let AI help you craft a job-winning resume from zero",
-    icons: <CreateNewResumeIcon />,
-    link:"/dashboard/create-new-resume"
-  },
-  {
-    id: 2,
-    title: "Update Existing Resume",
-    descript: "Upload your current resume and let AI enhance it for success.",
-    icons: <UpdateExistingResumeIcon />,
-    link:"/dashboard/update-existing-resume"
-  },
-  {
-    id: 3,
-    title: "Create Cover Letter",
-    descript: "Personalized letters matched to your resume and target job.",
-    icons: <CreateCoverLetterIcon />,
-    link:"/dashboard/create-cover-letter"
-  },
-];
 const AdminDashboard = () => {
+  const { language } = useEmail(); // 'en' or 'de'
+
+  const data = [
+    {
+      id: 1,
+      title: language === "de" ? "Neuen Lebenslauf erstellen" : "Create New Resume",
+      descript:
+        language === "de"
+          ? "Lassen Sie die KI einen erfolgreichen Lebenslauf von Grund auf erstellen."
+          : "Let AI help you craft a job-winning resume from zero",
+      icons: <CreateNewResumeIcon />,
+      link: "/dashboard/create-new-resume",
+    },
+    {
+      id: 2,
+      title: language === "de" ? "Vorhandenen Lebenslauf aktualisieren" : "Update Existing Resume",
+      descript:
+        language === "de"
+          ? "Laden Sie Ihren aktuellen Lebenslauf hoch, und die KI verbessert ihn für den Erfolg."
+          : "Upload your current resume and let AI enhance it for success.",
+      icons: <UpdateExistingResumeIcon />,
+      link: "/dashboard/update-existing-resume",
+    },
+    {
+      id: 3,
+      title: language === "de" ? "Anschreiben erstellen" : "Create Cover Letter",
+      descript:
+        language === "de"
+          ? "Personalisierte Anschreiben, abgestimmt auf Ihren Lebenslauf und die Zielstelle."
+          : "Personalized letters matched to your resume and target job.",
+      icons: <CreateCoverLetterIcon />,
+      link: "/dashboard/create-cover-letter",
+    },
+  ];
+
   return (
     <div>
       <div className="bg-[#0E0E10] p-5 rounded-[8px] flex gap-6 justify-around">
         <div className="flex flex-col gap-6 px-4">
           <div className="flex items-center text-sm gap-4">
-            <Title level="title28">Welcome to Your Clever CV Dashboard!</Title>
+            <Title level="title28">
+              {language === "de"
+                ? "Willkommen in Ihrem Clever CV-Dashboard!"
+                : "Welcome to Your Clever CV Dashboard!"}
+            </Title>
             <img src={hi} alt="" />
           </div>
           <Title level="title20">
-            Craft, Optimize, Impress, Land Your Dream Job — All in One Smart
-            Platform
+            {language === "de"
+              ? "Erstellen, Optimieren, Beeindrucken – Ihren Traumjob finden – alles auf einer intelligenten Plattform."
+              : "Craft, Optimize, Impress, Land Your Dream Job — All in One Smart Platform"}
           </Title>
         </div>
         <div className="hidden md:block px-4">
           <img src={dashboard} alt="" className="w-full size-32 xl:size-48" />
         </div>
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 xl:gap-6 mt-4 xl:mt-6">
-        {data.map((item, index) => (
+        {data.map((item) => (
           <Link
-          to={item?.link}
-            key={index}
-            className="bg-[#0E0E10] p-4 xl:p-10  rounded-[16px] flex flex-col gap-3 xl:gap-6 items-center text-center justify-center"
+            to={item.link}
+            key={item.id}
+            className="bg-[#0E0E10] p-4 xl:p-10 rounded-[16px] flex flex-col gap-3 xl:gap-6 items-center text-center justify-center"
           >
             <span>{item.icons}</span>
             <Title level="title32">{item.title}</Title>

@@ -1,45 +1,91 @@
 import { useResume } from "@/providers/ResumeContext";
 import React, { useEffect, useRef, useState } from "react";
-import { useForm, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { CiEdit } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
+import { useEmail } from "@/hooks/useEmail"; // Language hook
 
 const StepOne = () => {
   const {
     register,
     reset,
     watch,
-    handleSubmit,
     setValue,
-    control,
     formState: { errors },
   } = useFormContext();
-  const { imageString, setImageString, allRedumeData, setAllResumeData } =
-    useResume();
+  const { imageString, setImageString, allRedumeData } = useResume();
   const profilePhoto = watch("profile_photo");
   const data = allRedumeData?.data;
   const fileInputRef = useRef(null);
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-  console.log(VITE_IMG_URL);
 
-  // Initialize profilePreview with the current profile photo from form data
+  const { language } = useEmail(); // "en" or "de"
+
+  // Language texts
+  const texts = {
+    en: {
+      uploadPhoto: "Upload your photo *",
+      firstName: "First Name *",
+      lastName: "Last Name *",
+      email: "Email *",
+      phoneNumber: "Phone Number *",
+      address: "Address",
+      dob: "Date of Birth",
+      jobTitle: "Job Title *",
+      about: "About (Optional)",
+      linkedIn: "LinkedIn Profile (optional)",
+      xing: "XING Profile (optional)",
+      firstNamePlaceholder: "John",
+      lastNamePlaceholder: "Smith",
+      emailPlaceholder: "johnsmith@gmail.com",
+      phonePlaceholder: "123 456 8455",
+      addressPlaceholder: "Berlin, Germany",
+      jobTitlePlaceholder: "UI/UX Designer",
+      aboutPlaceholder: "Tell us about yourself...",
+      linkedInPlaceholder: "https://www.linkedin.com/in/your-username/",
+      xingPlaceholder: "https://www.xing.com/in/your-username/",
+      liveTitle: "Live Title",
+    },
+    de: {
+      uploadPhoto: "Laden Sie Ihr Foto hoch *",
+      firstName: "Vorname *",
+      lastName: "Nachname *",
+      email: "E-Mail *",
+      phoneNumber: "Telefonnummer *",
+      address: "Adresse",
+      dob: "Geburtsdatum",
+      jobTitle: "Berufsbezeichnung *",
+      about: "Über mich (optional)",
+      linkedIn: "LinkedIn-Profil (optional)",
+      xing: "XING-Profil (optional)",
+      firstNamePlaceholder: "John",
+      lastNamePlaceholder: "Smith",
+      emailPlaceholder: "johnsmith@gmail.com",
+      phonePlaceholder: "123 456 8455",
+      addressPlaceholder: "Berlin, Deutschland",
+      jobTitlePlaceholder: "UI/UX Designer",
+      aboutPlaceholder: "Erzählen Sie uns etwas über sich...",
+      linkedInPlaceholder: "https://www.linkedin.com/in/your-username/",
+      xingPlaceholder: "https://www.xing.com/in/your-username/",
+      liveTitle: "Live-Titel",
+    },
+  };
+
+  const t = language === "de" ? texts.de : texts.en;
+
+  // Profile preview
   const [profilePreview, setProfilePreview] = useState(
     VITE_IMG_URL + data?.profile_photo
   );
 
-  console.log(profilePhoto);
-
-  // Update profilePreview when profile_photo changes
   useEffect(() => {
     if (profilePhoto?.startsWith("/media")) {
       setProfilePreview(VITE_IMG_URL + data?.profile_photo);
     } else {
-      if(!profilePhoto){
+      if (!profilePhoto) {
         setProfilePreview(VITE_IMG_URL + data?.profile_photo);
-
-      }else{
-        setProfilePreview(profilePhoto)
-
+      } else {
+        setProfilePreview(profilePhoto);
       }
     }
   }, [profilePhoto, data?.profile_photo, VITE_IMG_URL]);
@@ -54,45 +100,35 @@ const StepOne = () => {
     reader.onloadend = () => {
       if (reader.result) {
         const base64String = reader.result.toString();
-        // ✅ Save base64 string to form state
         setValue("profile_photo", base64String, { shouldValidate: true });
         setImageString(base64String);
-        // Update local preview
         setProfilePreview(base64String);
-        console.log(base64String);
       }
     };
-    reader.readAsDataURL(file); // convert to base64
+    reader.readAsDataURL(file);
   };
 
   const handleRemovePhoto = (e) => {
-    e.stopPropagation(); // Prevent triggering the file input
+    e.stopPropagation();
     setValue("profile_photo", "", { shouldValidate: true });
-
-    setProfilePreview(VITE_IMG_URL + data?.profile_photo); // Reset to default
-
-    console.log(VITE_IMG_URL + data?.profile_photo);
-    // Reset the file input value
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+    setProfilePreview(VITE_IMG_URL + data?.profile_photo);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const handleAvatarClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+    if (fileInputRef.current) fileInputRef.current.click();
   };
-  console.log(allRedumeData?.data?.profile_photo);
 
   return (
     <div>
-      {/* Real-time CV Title */}
-      <h2 className="text-lg text-white mb-4">Live Title: {liveTitle}</h2>
+      {/* Live Title */}
+      <h2 className="text-lg text-white mb-4">
+        {t.liveTitle}: {liveTitle}
+      </h2>
 
       {/* Upload Section */}
       <div className="flex flex-col gap-4 mb-4">
-        <p className="text-sm text-white">Upload your photo *</p>
+        <p className="text-sm text-white">{t.uploadPhoto}</p>
 
         <div className="relative w-16 h-16 rounded-full border-2 border-white">
           <div
@@ -106,7 +142,6 @@ const StepOne = () => {
             />
           </div>
 
-          {/* Edit button */}
           <div
             className="absolute -bottom-1.5 border border-[#81FB84]/30 right-0 w-8 h-8 bg-dark rounded-full flex items-center justify-center cursor-pointer z-50"
             onClick={handleAvatarClick}
@@ -114,7 +149,6 @@ const StepOne = () => {
             <CiEdit size={20} className="text-white" />
           </div>
 
-          {/* Hidden file input */}
           <input
             ref={fileInputRef}
             id="profile-photo-input"
@@ -124,7 +158,6 @@ const StepOne = () => {
             onChange={handleFileChange}
           />
 
-          {/* Close icon shown when a custom image is selected */}
           {profilePhoto && profilePhoto !== "" && (
             <div
               className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center cursor-pointer z-50"
@@ -139,53 +172,53 @@ const StepOne = () => {
       {/* Form */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex flex-col gap-2">
-          <label className="text-sm text-white">First Name *</label>
+          <label className="text-sm text-white">{t.firstName}</label>
           <input
             {...register("first_name")}
-            placeholder="John"
+            placeholder={t.firstNamePlaceholder}
             className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-sm text-white">Last Name *</label>
+          <label className="text-sm text-white">{t.lastName}</label>
           <input
             {...register("last_name")}
-            placeholder="Smith"
+            placeholder={t.lastNamePlaceholder}
             className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-sm text-white">Email *</label>
+          <label className="text-sm text-white">{t.email}</label>
           <input
             {...register("email")}
-            placeholder="jhonsmith@gmail.com"
+            placeholder={t.emailPlaceholder}
             type="email"
             className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-sm text-white">Phone Number *</label>
+          <label className="text-sm text-white">{t.phoneNumber}</label>
           <input
             {...register("phone_number")}
-            placeholder="123 456 8455"
+            placeholder={t.phonePlaceholder}
             className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-sm text-white">Address</label>
+          <label className="text-sm text-white">{t.address}</label>
           <input
             {...register("address")}
-            placeholder="Berlin, Germany"
+            placeholder={t.addressPlaceholder}
             className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-sm text-white">Date of Birth</label>
+          <label className="text-sm text-white">{t.dob}</label>
           <input
             {...register("dob")}
             type="date"
@@ -194,40 +227,38 @@ const StepOne = () => {
         </div>
 
         <div className="md:col-span-2 flex flex-col gap-2">
-          <label className="text-sm text-white">Job Title *</label>
+          <label className="text-sm text-white">{t.jobTitle}</label>
           <input
             {...register("job_title")}
-            placeholder="UI/UX Designer"
+            placeholder={t.jobTitlePlaceholder}
             className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
           />
         </div>
 
         <div className="md:col-span-2 flex flex-col gap-2">
-          <label className="text-sm text-white">About (Optional)</label>
+          <label className="text-sm text-white">{t.about}</label>
           <textarea
             {...register("about")}
-            placeholder="Tell us about yourself..."
+            placeholder={t.aboutPlaceholder}
             className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] h-20 resize-none text-white"
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-sm text-white">
-            LinkedIn Profile (optional)
-          </label>
+          <label className="text-sm text-white">{t.linkedIn}</label>
           <input
             {...register("linked_in_profile")}
-            placeholder="https://www.linkedin.com/in/your-username/"
+            placeholder={t.linkedInPlaceholder}
             type="url"
             className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-sm text-white">XING Profile (optional)</label>
+          <label className="text-sm text-white">{t.xing}</label>
           <input
             {...register("xing_profile")}
-            placeholder="https://www.xing.com/in/your-username/"
+            placeholder={t.xingPlaceholder}
             type="url"
             className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
           />

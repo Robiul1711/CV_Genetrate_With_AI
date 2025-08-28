@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import { LuCirclePlus } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
+import { useEmail } from "@/hooks/useEmail"; // Custom language hook
 
 const LANGUAGE_OPTIONS = [
   { label: "German", value: "German" },
@@ -15,7 +16,6 @@ const LANGUAGE_OPTIONS = [
 
 const LEVEL_OPTIONS = [
   { label: "Native", value: "Native" },
-  
   { label: "Intermediate", value: "Intermediate" },
   { label: "Advanced", value: "Advanced" },
 ];
@@ -31,7 +31,27 @@ const StepFive = () => {
     name: "languages",
   });
 
-  // When API data comes, append it if fields are empty
+  const { language } = useEmail(); // "en" or "de"
+
+  // Language text mapping
+  const texts = {
+    en: {
+      language: "Language *",
+      level: "Level *",
+      addLanguage: "Add Another Language",
+      selectLanguage: "Select Language",
+    },
+    de: {
+      language: "Sprache *",
+      level: "Niveau *",
+      addLanguage: "Weitere Sprache hinzufügen",
+      selectLanguage: "Sprache auswählen",
+    },
+  };
+
+  const t = language === "de" ? texts.de : texts.en;
+
+  // Initialize fields from API if empty
   useEffect(() => {
     if (data?.languages && data.languages.length > 0 && fields.length === 0) {
       const mapped = data.languages.map((lang) => {
@@ -55,7 +75,6 @@ const StepFive = () => {
       mapped.forEach((item) => append(item));
     }
   }, [data, append, fields.length]);
-  console.log(data?.languages)
 
   return (
     <div className="w-full">
@@ -64,13 +83,13 @@ const StepFive = () => {
           <div key={field.id} className="flex items-center gap-2 w-full">
             {/* Language select */}
             <div className="flex-1 flex flex-col gap-2">
-              <label className="text-sm text-white">Language *</label>
+              <label className="text-sm text-white">{t.language}</label>
               <select
                 {...register(`languages.${index}.language`)}
                 defaultValue={field.language}
                 className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               >
-                <option value="">Select Language</option>
+                <option value="">{t.selectLanguage}</option>
                 {LANGUAGE_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -81,7 +100,7 @@ const StepFive = () => {
 
             {/* Level select */}
             <div className="flex-1 flex flex-col gap-2">
-              <label className="text-sm text-white">Level *</label>
+              <label className="text-sm text-white">{t.level}</label>
               <select
                 {...register(`languages.${index}.level`)}
                 defaultValue={field.level}
@@ -113,7 +132,7 @@ const StepFive = () => {
             onClick={() => append({ language: "", level: "Native" })}
             className="font-medium px-4 py-3 text-xs rounded-lg flex items-center gap-2 border border-white/20 hover:bg-white hover:text-black transition-colors duration-200"
           >
-            <LuCirclePlus size={20} /> Add Another Language
+            <LuCirclePlus size={20} /> {t.addLanguage}
           </button>
         </div>
       </form>

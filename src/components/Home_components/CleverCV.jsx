@@ -84,14 +84,16 @@ const { language } = useEmail();
   return (
     <div className="pb-6 mt-10 lg:mt-0 md:pb-8 ">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[24px] md:text-[28px] font-bold">
-          Why Choose Clever CV?
-        </h1>
-        <p className="text-[15px] md:text-base text-[#9B9B9B] pt-1 ">
-          Build resumes that get interviews – backed by data, designed for
-          results.
-        </p>
-      </div>
+  <h1 className="text-[24px] md:text-[28px] font-bold">
+    {language === "de" ? "Warum Clever CV wählen?" : "Why Choose Clever CV?"}
+  </h1>
+  <p className="text-[15px] md:text-base text-[#9B9B9B] pt-1">
+    {language === "de"
+      ? "Erstellen Sie Lebensläufe, die zu Vorstellungsgesprächen führen – datenbasiert und ergebnisorientiert."
+      : "Build resumes that get interviews – backed by data, designed for results."}
+  </p>
+</div>
+
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-4 lg:gap-6">
         {data?.data?.data?.map((item,index) => (
           <div

@@ -3,19 +3,46 @@ import { useFormContext, useFieldArray, Controller } from "react-hook-form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { LuCirclePlus, LuTrash2 } from "react-icons/lu";
 import { useResume } from "@/providers/ResumeContext";
+import { useEmail } from "@/hooks/useEmail"; // Language hook
 
 const StepThree = () => {
   const { allRedumeData } = useResume();
   const data = allRedumeData?.data;
 
-  console.log("Education Data:", data?.educations);
-
-  const { register, control, reset, watch,setValue } = useFormContext();
+  const { register, control, watch, setValue } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "educations",
   });
+
+  const { language } = useEmail(); // "en" or "de"
+
+  // Language texts
+  const texts = {
+    en: {
+      institute: "Name Of Institute *",
+      degree: "Degree *",
+      startDate: "Start Date *",
+      endDate: "End Date",
+      currentlyEnrolled: "Currently Enrolled",
+      addEducation: "Add Education",
+      institutePlaceholder: "Polytechnic Institute",
+      degreePlaceholder: "Diploma",
+    },
+    de: {
+      institute: "Name der Einrichtung *",
+      degree: "Abschluss *",
+      startDate: "Startdatum *",
+      endDate: "Enddatum",
+      currentlyEnrolled: "Derzeit eingeschrieben",
+      addEducation: "Bildung hinzufügen",
+      institutePlaceholder: "Polytechnisches Institut",
+      degreePlaceholder: "Diplom",
+    },
+  };
+
+  const t = language === "de" ? texts.de : texts.en;
 
   useEffect(() => {
     fields.forEach((_, index) => {
@@ -36,10 +63,10 @@ const StepThree = () => {
           >
             {/* Institute Name */}
             <div className="flex flex-col gap-2">
-              <label className="text-sm text-white">Name Of Institute *</label>
+              <label className="text-sm text-white">{t.institute}</label>
               <input
                 type="text"
-                placeholder="Polytechnic Institute"
+                placeholder={t.institutePlaceholder}
                 className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 {...register(`educations.${index}.institute_name`)}
               />
@@ -47,10 +74,10 @@ const StepThree = () => {
 
             {/* Degree */}
             <div className="flex flex-col gap-2">
-              <label className="text-sm text-white">Degree *</label>
+              <label className="text-sm text-white">{t.degree}</label>
               <input
                 type="text"
-                placeholder="Diploma"
+                placeholder={t.degreePlaceholder}
                 className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 {...register(`educations.${index}.degree`)}
               />
@@ -59,7 +86,7 @@ const StepThree = () => {
             {/* Dates */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
-                <label className="text-sm text-white">Start Date *</label>
+                <label className="text-sm text-white">{t.startDate}</label>
                 <input
                   type="date"
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
@@ -68,7 +95,7 @@ const StepThree = () => {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm text-white">End Date</label>
+                <label className="text-sm text-white">{t.endDate}</label>
                 <input
                   type="date"
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
@@ -87,13 +114,14 @@ const StepThree = () => {
                   <Checkbox
                     checked={field.value || false}
                     onCheckedChange={(checked) => {
-                      field.onChange(checked)
-                      if (checked) setValue(`educations.${index}.end_date`, null);
+                      field.onChange(checked);
+                      if (checked)
+                        setValue(`educations.${index}.end_date`, null);
                     }}
                   />
                 )}
               />
-              <p className="text-xs text-white">Currently Enrolled</p>
+              <p className="text-xs text-white">{t.currentlyEnrolled}</p>
             </div>
 
             {/* Remove Button */}
@@ -121,8 +149,7 @@ const StepThree = () => {
           }
           className="font-medium px-4 py-2 rounded-lg text-xs flex items-center gap-2 border border-white/20 hover:bg-white hover:text-black transition-colors duration-200"
         >
-          <LuCirclePlus size={20} />
-          Add Education
+          <LuCirclePlus size={20} /> {t.addEducation}
         </button>
       </div>
     </div>

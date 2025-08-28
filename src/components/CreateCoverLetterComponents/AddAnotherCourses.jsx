@@ -3,50 +3,59 @@ import { useFormContext, Controller } from "react-hook-form";
 import Title from "../common/Title";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-
-const Tailor = [
-  { id: 1, title: "Professional" },
-  { id: 2, title: "Academic" },
-  { id: 3, title: "Technical" },
-  { id: 4, title: "Casual" },
-];
-
-const Gender = [
-  { id: 1, title: "Neutral" },
-  { id: 2, title: "Inclusive" },
-  { id: 3, title: "Feminine" },
-  { id: 4, title: "Masculine" },
-];
-
-const Complexity = [
-  { id: 1, title: "Simplified" },
-  { id: 2, title: "Advanced" },
-  { id: 3, title: "Academic" },
-];
-
-const Creativity = [
-  { id: 1, title: "Straightforward" },
-  { id: 2, title: "Moderate" },
-  { id: 3, title: "Highly Creative" },
-];
+import { useEmail } from "@/hooks/useEmail";
 
 const AddAnotherCourses = () => {
   const { control } = useFormContext();
+  const { language } = useEmail();
+
+  // Translation map
+  const texts = {
+    en: {
+      headerTitle: "Add Another Courses and Training Details",
+      headerSubtitle:
+        "Provide information about any professional courses or training you’ve completed.",
+      tailorTitle: "Tailor Your Document’s Voice",
+      genderTitle: "Gender Language",
+      complexityTitle: "Complexity",
+      creativityTitle: "Creativity",
+      formalityTitle: "Formality",
+      formalityOptions: ["Du", "Sie"],
+      genderOptions: ["Neutral", "Inclusive", "Feminine", "Masculine", "Painter", "Engineer"],
+      tailorOptions: ["Professional", "Academic", "Technical", "Casual"],
+      complexityOptions: ["Simplified", "Advanced", "Academic"],
+      creativityOptions: ["Straightforward", "Moderate", "Highly Creative"],
+    },
+    de: {
+      headerTitle: "Weitere Kurse und Schulungsdetails",
+      headerSubtitle:
+        "Geben Sie Informationen zu allen professionellen Kursen oder Schulungen an, die Sie abgeschlossen haben.",
+      tailorTitle: "Ton Ihres Dokuments anpassen",
+      genderTitle: "Geschlechtersprache",
+      complexityTitle: "Komplexität",
+      creativityTitle: "Kreativität",
+      formalityTitle: "Formell / Umgangssprachlich",
+      formalityOptions: ["Du", "Sie"],
+      genderOptions: ["Neutral", "Inklusiv", "Weiblich", "Männlich", "Maler:in", "Ingenieur:in"],
+      tailorOptions: ["Professionell", "Akademisch", "Technisch", "Locker"],
+      complexityOptions: ["Einfach", "Fortgeschritten", "Akademisch"],
+      creativityOptions: ["Einfach", "Mittel", "Sehr Kreativ"],
+    },
+  };
+
+  const t = language === "de" ? texts.de : texts.en;
 
   return (
     <div className="bg-black max-w-xl p-6 mx-auto rounded-md">
       {/* Header */}
       <div className="md:text-center flex flex-col md:items-center gap-4 mb-4 sm:mb-10 pt-10">
-        <Title level="title28">Add Another Courses and Training Details</Title>
-        <Title level="title16">
-          Provide information about any professional courses or training you’ve
-          completed.
-        </Title>
+        <Title level="title28">{t.headerTitle}</Title>
+        <Title level="title16">{t.headerSubtitle}</Title>
       </div>
 
       {/* Tailor */}
       <div className="sm:pb-10 pb-5">
-        <Title level="title22">Tailor Your Document’s Voice</Title>
+        <Title level="title22">{t.tailorTitle}</Title>
         <Controller
           name="tailor_documents_voice"
           control={control}
@@ -56,10 +65,10 @@ const AddAnotherCourses = () => {
               onValueChange={field.onChange}
               className="w-full mt-2 flex flex-wrap"
             >
-              {Tailor.map((item) => (
-                <div key={item.id} className="flex items-center space-x-2 mb-3">
-                  <RadioGroupItem value={item.title} id={`tailor-${item.id}`} />
-                  <Label htmlFor={`tailor-${item.id}`}>{item.title}</Label>
+              {t.tailorOptions.map((item, index) => (
+                <div key={index} className="flex items-center space-x-2 mb-3">
+                  <RadioGroupItem value={item} id={`tailor-${index}`} />
+                  <Label htmlFor={`tailor-${index}`}>{item}</Label>
                 </div>
               ))}
             </RadioGroup>
@@ -69,7 +78,7 @@ const AddAnotherCourses = () => {
 
       {/* Gender */}
       <div className="sm:pb-10 pb-5">
-        <Title level="title22">Gender Language</Title>
+        <Title level="title22">{t.genderTitle}</Title>
         <Controller
           name="gender_language"
           control={control}
@@ -79,10 +88,10 @@ const AddAnotherCourses = () => {
               onValueChange={field.onChange}
               className="w-full mt-2 flex flex-wrap"
             >
-              {Gender.map((item) => (
-                <div key={item.id} className="flex items-center space-x-2 mb-3">
-                  <RadioGroupItem value={item.title} id={`gender-${item.id}`} />
-                  <Label htmlFor={`gender-${item.id}`}>{item.title}</Label>
+              {t.genderOptions.map((item, index) => (
+                <div key={index} className="flex items-center space-x-2 mb-3">
+                  <RadioGroupItem value={item} id={`gender-${index}`} />
+                  <Label htmlFor={`gender-${index}`}>{item}</Label>
                 </div>
               ))}
             </RadioGroup>
@@ -92,7 +101,7 @@ const AddAnotherCourses = () => {
 
       {/* Complexity */}
       <div className="sm:pb-10 pb-5">
-        <Title level="title22">Complexity</Title>
+        <Title level="title22">{t.complexityTitle}</Title>
         <Controller
           name="complexity"
           control={control}
@@ -102,13 +111,10 @@ const AddAnotherCourses = () => {
               onValueChange={field.onChange}
               className="w-full mt-2 flex flex-wrap"
             >
-              {Complexity.map((item) => (
-                <div key={item.id} className="flex items-center space-x-2 mb-3">
-                  <RadioGroupItem
-                    value={item.title}
-                    id={`complexity-${item.id}`}
-                  />
-                  <Label htmlFor={`complexity-${item.id}`}>{item.title}</Label>
+              {t.complexityOptions.map((item, index) => (
+                <div key={index} className="flex items-center space-x-2 mb-3">
+                  <RadioGroupItem value={item} id={`complexity-${index}`} />
+                  <Label htmlFor={`complexity-${index}`}>{item}</Label>
                 </div>
               ))}
             </RadioGroup>
@@ -118,7 +124,7 @@ const AddAnotherCourses = () => {
 
       {/* Creativity */}
       <div className="sm:pb-10 pb-5">
-        <Title level="title22">Creativity</Title>
+        <Title level="title22">{t.creativityTitle}</Title>
         <Controller
           name="creativity"
           control={control}
@@ -128,13 +134,33 @@ const AddAnotherCourses = () => {
               onValueChange={field.onChange}
               className="w-full mt-2 flex flex-wrap"
             >
-              {Creativity.map((item) => (
-                <div key={item.id} className="flex items-center space-x-2 mb-3">
-                  <RadioGroupItem
-                    value={item.title}
-                    id={`creativity-${item.id}`}
-                  />
-                  <Label htmlFor={`creativity-${item.id}`}>{item.title}</Label>
+              {t.creativityOptions.map((item, index) => (
+                <div key={index} className="flex items-center space-x-2 mb-3">
+                  <RadioGroupItem value={item} id={`creativity-${index}`} />
+                  <Label htmlFor={`creativity-${index}`}>{item}</Label>
+                </div>
+              ))}
+            </RadioGroup>
+          )}
+        />
+      </div>
+
+      {/* Formality */}
+      <div className="sm:pb-10 pb-5">
+        <Title level="title22">{t.formalityTitle}</Title>
+        <Controller
+          name="formality"
+          control={control}
+          render={({ field }) => (
+            <RadioGroup
+              value={field.value}
+              onValueChange={field.onChange}
+              className="w-full mt-2 flex flex-wrap"
+            >
+              {t.formalityOptions.map((item, index) => (
+                <div key={index} className="flex items-center space-x-2 mb-3">
+                  <RadioGroupItem value={item} id={`formality-${index}`} />
+                  <Label htmlFor={`formality-${index}`}>{item}</Label>
                 </div>
               ))}
             </RadioGroup>

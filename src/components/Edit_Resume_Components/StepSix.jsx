@@ -3,20 +3,44 @@ import React, { useEffect } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { LuCirclePlus } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
+import { useEmail } from "@/hooks/useEmail"; // useEmail hook for language
 
 const StepSix = () => {
   const { allRedumeData } = useResume();
   const data = allRedumeData?.data;
 
   const { register, control, watch, setValue } = useFormContext();
+  const { language } = useEmail(); // Get language from useEmail
 
-  // Manage dynamic courses/training array
+  const texts = {
+    en: {
+      institute: "Name Of Institute *",
+      course: "Course Name *",
+      startDate: "Start Date *",
+      endDate: "End Date",
+      addButton: "Add Another Certificate",
+      institutePlaceholder: "Polytechnic Institute",
+      coursePlaceholder: "Diploma",
+    },
+    de: {
+      institute: "Name der Institution *",
+      course: "Kursname *",
+      startDate: "Startdatum *",
+      endDate: "Enddatum",
+      addButton: "Weitere Zertifikate hinzufügen",
+      institutePlaceholder: "Polytechnische Hochschule",
+      coursePlaceholder: "Diplom",
+    },
+  };
+
+  const t = language === "de" ? texts.de : texts.en;
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "courses_and_training_details",
   });
 
-  // Initialize with existing data from context
+  // Initialize with existing data
   useEffect(() => {
     if (
       data?.courses_and_training_details &&
@@ -34,14 +58,10 @@ const StepSix = () => {
     }
   }, [data, append, fields.length]);
 
-  const watchCourses = watch("courses_and_training_details") || [];
-
   useEffect(() => {
     fields.forEach((_, index) => {
       const endDate = watch(`courses_and_training_details.${index}.end_date`);
-      if (endDate === "") {
-        setValue(`courses_and_training_details.${index}.end_date`, null);
-      }
+      if (endDate === "") setValue(`courses_and_training_details.${index}.end_date`, null);
     });
   }, [fields, watch, setValue]);
 
@@ -49,10 +69,7 @@ const StepSix = () => {
     <div className="w-full">
       <form className="flex flex-col gap-4">
         {fields.map((field, index) => (
-          <div
-            key={field.id}
-            className="border border-[#262626] rounded-lg p-4 relative"
-          >
+          <div key={field.id} className="border border-[#262626] rounded-lg p-4 relative">
             <div className="flex justify-end">
               <button
                 type="button"
@@ -64,26 +81,26 @@ const StepSix = () => {
             </div>
 
             <div className="flex flex-col gap-2 mb-3">
-              <label className="text-sm text-white">Name Of Institute *</label>
+              <label className="text-sm text-white">{t.institute}</label>
               <input
                 {...register(`courses_and_training_details.${index}.name_of_institute`)}
-                placeholder="Polytechnic Institute"
+                placeholder={t.institutePlaceholder}
                 className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               />
             </div>
 
             <div className="flex flex-col gap-2 mb-3">
-              <label className="text-sm text-white">Course Name *</label>
+              <label className="text-sm text-white">{t.course}</label>
               <input
                 {...register(`courses_and_training_details.${index}.course_name`)}
-                placeholder="Diploma"
+                placeholder={t.coursePlaceholder}
                 className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
-                <label className="text-sm text-white">Start Date *</label>
+                <label className="text-sm text-white">{t.startDate}</label>
                 <input
                   {...register(`courses_and_training_details.${index}.start_date`)}
                   type="date"
@@ -92,7 +109,7 @@ const StepSix = () => {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm text-white">End Date</label>
+                <label className="text-sm text-white">{t.endDate}</label>
                 <input
                   {...register(`courses_and_training_details.${index}.end_date`)}
                   type="date"
@@ -116,13 +133,10 @@ const StepSix = () => {
             }
             className="font-medium px-4 py-3 text-xs rounded-lg flex items-center gap-2 border border-white/20 hover:bg-white hover:text-black transition-colors duration-200"
           >
-            <LuCirclePlus size={20} /> Add Another Certificate
+            <LuCirclePlus size={20} /> {t.addButton}
           </button>
         </div>
       </form>
-
-      {/* Optional debug */}
-      
     </div>
   );
 };

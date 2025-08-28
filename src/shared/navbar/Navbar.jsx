@@ -9,13 +9,23 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import UserDropdown from "../UserDropdown";
+import { useEmail } from "@/hooks/useEmail";
 
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "Price", path: "/price" },
-  { name: "Contact", path: "/contact" },
-  { name: "AI Help", path: "/ai-help" },
-];
+const navLinksByLanguage = {
+  en: [
+    { name: "Home", path: "/" },
+    { name: "Price", path: "/price" },
+    { name: "Contact", path: "/contact" },
+    { name: "AI Help", path: "/ai-help" },
+  ],
+  de: [
+    { name: "Startseite", path: "/" },
+    { name: "Preise", path: "/price" },
+    { name: "Kontakt", path: "/contact" },
+    { name: "KI-Hilfe", path: "/ai-help" },
+  ],
+  // add more languages here
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +33,7 @@ const Navbar = () => {
   const location = useLocation();
   const sidebarRef = useRef(null);
   const { user, logout, isLoadingUser } = useAuth();
+  const { language } = useEmail(); // <-- use the hook properly
 
   const axiosSecure = useAxiosSecure();
 
@@ -41,34 +52,27 @@ const Navbar = () => {
         setIsOpen(false);
       }
     }
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    if (isOpen) document.addEventListener("mousedown", handleClickOutside);
+    else document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
+
+  // Get nav links based on current language
+  const navLinks = navLinksByLanguage[language] || navLinksByLanguage["en"];
 
   return (
     <>
       <header
-        className={`sticky top-0 z-50 section-padding-x py-4  flex items-center justify-between transition-all duration-300 ${
-          isScrolled
-            ? "bg-[#0E0E10]/70 backdrop-blur-md shadow-lg"
-            : "bg-transparent"
+        className={`sticky top-0 z-50 section-padding-x py-4 flex items-center justify-between transition-all duration-300 ${
+          isScrolled ? "bg-[#0E0E10]/70 backdrop-blur-md shadow-lg" : "bg-transparent"
         }`}
       >
-        {/* Left: Logo + Nav Links (desktop only) */}
+        {/* Left: Logo + Desktop Nav */}
         <div className="flex items-center gap-24">
           <Link to={"/"}>
-            <img src={logo} alt="Logo" className="w-10 md:w-12  xl:w-16" />
+            <img src={logo} alt="Logo" className="w-10 md:w-12 xl:w-16" />
           </Link>
 
-          {/* Nav Links - hidden on md and below */}
           <ul className="hidden lg:flex items-center gap-4">
             {navLinks.map(({ name, path }, index) => (
               <Link
@@ -86,25 +90,18 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* Right: Buttons - hidden on md and below */}
+        {/* Right: Buttons */}
         {isLoadingUser ? (
           <div className="hidden lg:flex items-center gap-5">
-            <Skeleton
-              baseColor="#0E0E10"
-              width={200}
-              height={40}
-              borderRadius={8}
-            />
+            <Skeleton baseColor="#0E0E10" width={200} height={40} borderRadius={8} />
           </div>
         ) : user ? (
           <div className="hidden lg:flex items-center gap-5">
             <UserDropdown
               user={{
                 name: user.first_name + " " + user.last_name,
-
                 email: user?.user?.email,
               }}
-            
             />
             <LanguageDropdown />
           </div>
@@ -112,35 +109,30 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-5">
             <Link to={"/sign-in"}>
               <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg">
-                Log In
+                {language === "de" ? "Einloggen" : "Log In"}
               </button>
             </Link>
             <Link to={"/sign-up"}>
               <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg">
-                Sign Up
+                {language === "de" ? "Registrieren" : "Sign Up"}
               </button>
             </Link>
             <LanguageDropdown />
           </div>
         )}
 
-        {/* Dynamic Icon for mobile */}
+        {/* Mobile Menu Icon */}
         <div className="lg:hidden">
           <button onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? (
-              <FiX className="text-white text-2xl md:text-3xl" />
-            ) : (
-              <FiMenu className="text-white text-2xl md:text-3xl" />
-            )}
+            {isOpen ? <FiX className="text-white text-2xl md:text-3xl" /> : <FiMenu className="text-white text-2xl md:text-3xl" />}
           </button>
         </div>
       </header>
 
-      {/* Sidebar (Mobile Nav) */}
+      {/* Mobile Sidebar */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Background overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
@@ -149,7 +141,6 @@ const Navbar = () => {
               className="fixed inset-0 bg-black z-40"
             />
 
-            {/* Sidebar */}
             <motion.div
               ref={sidebarRef}
               initial={{ x: "-100%" }}
@@ -175,7 +166,7 @@ const Navbar = () => {
                 ))}
               </ul>
 
-              <div className="flex flex-col  gap-4 mt-4 w-full">
+              <div className="flex flex-col gap-4 mt-4 w-full">
                 <div className="flex justify-between gap-3 w-full">
                   <div className="w-full">
                     <Link to="/sign-in">
@@ -183,7 +174,7 @@ const Navbar = () => {
                         className="w-full font-medium py-2 md:py-3 px-5 md:px-7 border border-white rounded-lg text-white hover:bg-white hover:text-black transition"
                         onClick={() => setIsOpen(false)}
                       >
-                        Log In
+                        {language === "de" ? "Einloggen" : "Log In"}
                       </button>
                     </Link>
                   </div>
@@ -193,7 +184,7 @@ const Navbar = () => {
                         className="w-full font-medium py-2 md:py-3 px-5 md:px-7 border border-white rounded-lg text-white hover:bg-white hover:text-black transition"
                         onClick={() => setIsOpen(false)}
                       >
-                        Sign Up
+                        {language === "de" ? "Registrieren" : "Sign Up"}
                       </button>
                     </Link>
                   </div>
