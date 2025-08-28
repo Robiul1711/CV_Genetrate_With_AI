@@ -17,6 +17,7 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useResume } from "@/providers/ResumeContext";
+import { useEmail } from "@/hooks/useEmail";
 
 // Resume data array
 export const resumeData = [
@@ -37,6 +38,29 @@ const History = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { setAllResumeData } = useResume();
+  const { language } = useEmail(); // get current language
+
+  // Translation text map
+  const texts = {
+    en: {
+      loading: "Loading your documents...",
+      noResume: "No resume found",
+      noResumeDesc: "You have not created any resumes yet.",
+      noDocs: "No documents found",
+      noDocsDesc: "You haven't created any documents yet.",
+      header: "Your Generated Documents",
+    },
+    de: {
+      loading: "Ihre Dokumente werden geladen...",
+      noResume: "Kein Lebenslauf gefunden",
+      noResumeDesc: "Sie haben noch keinen Lebenslauf erstellt.",
+      noDocs: "Keine Dokumente gefunden",
+      noDocsDesc: "Sie haben noch keine Dokumente erstellt.",
+      header: "Ihre erstellten Dokumente",
+    },
+  };
+
+  const t = language === "de" ? texts.de : texts.en;
 
   // Fetch resume history from API
   const { data: allCvData, isLoading, error } = useQuery({
@@ -56,11 +80,16 @@ const History = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center gap-4 mt-10 px-4">
-        <Title level="title40">Loading your documents...</Title>
+        <Title level="title40">{t.loading}</Title>
         <div className="grid grid-cols-3 gap-6 w-full">
-          {Array(6).fill(0).map((_, i) => (
-            <div key={i} className="w-full h-48 bg-gray-200 animate-pulse rounded-md" />
-          ))}
+          {Array(6)
+            .fill(0)
+            .map((_, i) => (
+              <div
+                key={i}
+                className="w-full h-48 bg-gray-200 animate-pulse rounded-md"
+              />
+            ))}
         </div>
       </div>
     );
@@ -70,8 +99,8 @@ const History = () => {
   if (error?.response?.data?.message === "No resume found for this user") {
     return (
       <div className="flex flex-col items-center gap-4 mt-10 px-4">
-        <Title level="title40">No resume found</Title>
-        <p className="text-gray-600">You have not created any resumes yet.</p>
+        <Title level="title40">{t.noResume}</Title>
+        <p className="text-gray-600">{t.noResumeDesc}</p>
       </div>
     );
   }
@@ -80,8 +109,8 @@ const History = () => {
   if (allCvData?.data?.length === 0) {
     return (
       <div className="flex flex-col items-center gap-4 mt-10 px-4">
-        <Title level="title40">No documents found</Title>
-        <p className="text-gray-600">You haven't created any documents yet.</p>
+        <Title level="title40">{t.noDocs}</Title>
+        <p className="text-gray-600">{t.noDocsDesc}</p>
       </div>
     );
   }
@@ -89,7 +118,7 @@ const History = () => {
   return (
     <div className="mt-10 px-4">
       <Title level="title40" className="mb-6">
-        Your Generated Documents
+        {t.header}
       </Title>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {allCvData?.data?.map((cv, index) => {

@@ -4,8 +4,27 @@ import Title from "@/components/common/Title";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Progress } from "@/components/ui/progress";
 import { useFormContext } from "react-hook-form";
+import { useEmail } from "@/hooks/useEmail";
+
+const textMap = {
+  en: {
+    pageTitle: "Upload Resume",
+    clickToUpload: "Click to upload",
+    fileTypes: "PDF, DOCX (Max 5MB)",
+    requiredError: "Resume is required",
+  },
+  de: {
+    pageTitle: "Lebenslauf hochladen",
+    clickToUpload: "Zum Hochladen klicken",
+    fileTypes: "PDF, DOCX (Max. 5MB)",
+    requiredError: "Lebenslauf ist erforderlich",
+  },
+};
 
 const Step_3 = () => {
+  const { language } = useEmail();
+  const t = textMap[language || "en"];
+
   const {
     register,
     setValue,
@@ -40,7 +59,7 @@ const Step_3 = () => {
   return (
     <div className="max-w-[800px] mx-auto">
       <div className="text-center flex flex-col items-center gap-4 mb-5">
-        <Title level="title32">Upload Resume</Title>
+        <Title level="title32">{t.pageTitle}</Title>
       </div>
 
       <div className="flex items-center justify-center w-full">
@@ -65,16 +84,16 @@ const Step_3 = () => {
               />
             </svg>
             <p className="mb-2 text-xs text-gray-500">
-              <span className="font-semibold">Click to upload</span>
+              <span className="font-semibold">{t.clickToUpload}</span>
             </p>
-            <p className="text-xs text-gray-500">PDF, DOCX (Max 5MB)</p>
+            <p className="text-xs text-gray-500">{t.fileTypes}</p>
           </div>
           <input
             id="resume"
             type="file"
             className="hidden"
             accept=".pdf,.doc,.docx"
-            {...register("upload_resume", { required: "Resume is required" })}
+            {...register("upload_resume", { required: t.requiredError })}
           />
         </label>
       </div>
@@ -85,19 +104,13 @@ const Step_3 = () => {
             <div className="flex items-center gap-2">
               <DocumentIcon />
               <div className="flex flex-col">
-                <h1 className="text-xs font-semibold break-all">
-                  {file.name}
-                </h1>
-                <p className="text-[#9B9B9B] text-xs">
-                  {(file.size / 1024).toFixed(2)} KB
-                </p>
+                <h1 className="text-xs font-semibold break-all">{file.name}</h1>
+                <p className="text-[#9B9B9B] text-xs">{(file.size / 1024).toFixed(2)} KB</p>
               </div>
             </div>
             <IoIosCloseCircleOutline
               className="text-base cursor-pointer"
-              onClick={() =>
-                setValue("upload_resume", null, { shouldValidate: true })
-              }
+              onClick={() => setValue("upload_resume", null, { shouldValidate: true })}
             />
           </div>
           <div className="mt-4">
@@ -107,9 +120,7 @@ const Step_3 = () => {
       )}
 
       {errors.upload_resume && (
-        <p className="text-red-500 text-xs mt-2">
-          {errors.upload_resume.message}
-        </p>
+        <p className="text-red-500 text-xs mt-2">{errors.upload_resume.message}</p>
       )}
     </div>
   );

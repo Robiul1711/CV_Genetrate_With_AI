@@ -6,12 +6,13 @@ import { useFormContext } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useAuth } from "@/hooks/useAuth";
+import { useEmail } from "@/hooks/useEmail";
 
 const StepFour = () => {
   const { allRedumeData } = useResume();
   const data = allRedumeData?.data;
 
-  const { language } = useAuth();
+  const { language } = useEmail();
   const axiosPublic = useAxiosPublic();
 
   const {
@@ -68,7 +69,11 @@ const StepFour = () => {
   return (
     <div className="w-full text-white">
       {/* Selected Skills */}
-      <p className="text-sm mb-2">Selected Skills *</p>
+       <p className="text-sm mb-2">
+          {language === "de"
+            ? "Ausgewählte Fähigkeiten *"
+            : "Selected Skills *"}
+        </p>
       <div className="flex flex-wrap gap-3 mb-3">
         {formSkills.map((skillObj,idx) => (
           <div
@@ -92,11 +97,11 @@ const StepFour = () => {
       )}
 
       {/* Search Input */}
-      <p className="text-sm mb-2">Skill</p>
+     {language === "de" ? "Fähigkeit" : "Skill"}
       <div className="relative w-full">
         <input
           type="text"
-          placeholder="Search..."
+            placeholder={language === "de" ? "Suchen..." : "Search..."}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="w-full px-3 py-1.5 text-xs pl-10 rounded-md bg-[#0E0E10] border border-[#262626] placeholder:text-gray-400 focus:outline-none"
@@ -105,7 +110,9 @@ const StepFour = () => {
       </div>
 
       {/* Suggested Skills */}
-      <p className="mt-5 text-sm">Suggested Skills</p>
+      <p className="mt-5 text-sm">{language === "de"
+            ? "Vorgeschlagene Fähigkeiten"
+            : "Suggested Skills"}</p>
       <div className="flex flex-wrap gap-3 mt-3">
         {isLoading && <p className="text-xs text-gray-400">Loading...</p>}
         {!isLoading &&

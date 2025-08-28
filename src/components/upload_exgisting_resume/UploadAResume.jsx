@@ -7,25 +7,50 @@ import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
 import { useResume } from "@/providers/ResumeContext";
-import { useAuth } from "@/hooks/useAuth";
+import { useEmail } from "@/hooks/useEmail";
+
+const textMap = {
+  en: {
+    pageTitle: "Upload Your Resume",
+    pageSubtitle:
+      "Upload your existing resume in PDF, DOCX or PNG format. Our AI will analyze and optimize it for the German job market",
+    clickUpload: "Click to upload",
+    allowedFormats: "PDF, DOCX or PNG (max 5MB)",
+    submit: "Submit",
+    uploading: "Uploading...",
+    success: "Uploaded successfully!",
+    error: "Upload failed. Try again.",
+  },
+  de: {
+    pageTitle: "Laden Sie Ihren Lebenslauf hoch",
+    pageSubtitle:
+      "Laden Sie Ihren vorhandenen Lebenslauf im PDF-, DOCX- oder PNG-Format hoch. Unsere KI analysiert und optimiert ihn für den deutschen Arbeitsmarkt",
+    clickUpload: "Zum Hochladen klicken",
+    allowedFormats: "PDF, DOCX oder PNG (max. 5MB)",
+    submit: "Absenden",
+    uploading: "Wird hochgeladen...",
+    success: "Erfolgreich hochgeladen!",
+    error: "Upload fehlgeschlagen. Bitte erneut versuchen.",
+  },
+};
 
 const UploadAResume = () => {
   const axiosSecure = useAxiosSecure();
+  const { language } = useEmail();
+  const t = textMap[language || "en"];
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
-  const {language} =useAuth()
   const { setAllResumeData } = useResume();
+
   const { mutate, isLoading, isSuccess, isError } = useMutation({
     mutationFn: async (formData) => {
       const res = await axiosSecure.post(
         `/upload-existing-resume/?lan=${language}`,
         formData,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers: { "Content-Type": "multipart/form-data" },
           onUploadProgress: (progressEvent) => {
             const percentCompleted = Math.round(
               (progressEvent.loaded * 100) / progressEvent.total
@@ -38,7 +63,6 @@ const UploadAResume = () => {
     },
     onSuccess: (data) => {
       setUploading(false);
-      console.log("Upload success:", data);
       setAllResumeData({ data: data?.data });
       navigate(`/dashboard/update-existing-resume-edit/12`);
     },
@@ -72,11 +96,8 @@ const UploadAResume = () => {
   return (
     <div className="max-w-5xl mx-auto w-full">
       <div className="text-center flex flex-col items-center gap-4 mb-5">
-        <Title level="title32">Upload Your Resume</Title>
-        <Title level="title16">
-          Upload your existing resume in PDF, DOCX or PNG format. Our AI will
-          analyze and optimize it for the German job market
-        </Title>
+        <Title level="title32">{t.pageTitle}</Title>
+        <Title level="title16">{t.pageSubtitle}</Title>
       </div>
 
       {/* Upload Area */}
@@ -86,24 +107,11 @@ const UploadAResume = () => {
           className="flex flex-col items-center justify-center w-full sm:h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer"
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
-            <svg
-              className="w-8 h-8 mb-4 text-gray-500"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 16"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-              />
-            </svg>
+            <DocumentIcon className="w-8 h-8 mb-4 text-gray-500" />
             <p className="mb-2 text-sm text-gray-500">
-              <span className="font-semibold">Click to upload</span>
+              <span className="font-semibold">{t.clickUpload}</span>
             </p>
-            <p className="text-xs text-gray-500">PDF, DOCX or PNG (max 5MB)</p>
+            <p className="text-xs text-gray-500">{t.allowedFormats}</p>
           </div>
           <input
             id="dropzone-file"
@@ -133,24 +141,23 @@ const UploadAResume = () => {
               onClick={handleRemove}
             />
           </div>
+
           <div className="mt-8">
             <Progress value={uploadProgress} />
           </div>
+
           <div className="flex justify-end mt-4">
             <button
               onClick={handleSubmit}
               disabled={uploading || isLoading}
               className="font-semibold border border-white px-6 py-2 text-lg rounded-md bg-black text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {uploading || isLoading ? "Uploading..." : "Submit"}
+              {uploading || isLoading ? t.uploading : t.submit}
             </button>
           </div>
-          {isSuccess && (
-            <p className="text-green-600 mt-2">Uploaded successfully!</p>
-          )}
-          {isError && (
-            <p className="text-red-600 mt-2">Upload failed. Try again.</p>
-          )}
+
+          {isSuccess && <p className="text-green-600 mt-2">{t.success}</p>}
+          {isError && <p className="text-red-600 mt-2">{t.error}</p>}
         </div>
       )}
     </div>

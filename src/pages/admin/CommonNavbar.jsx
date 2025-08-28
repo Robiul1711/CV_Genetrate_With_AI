@@ -36,7 +36,7 @@ const CommonNavbar = ({ open, setOpen }) => {
           >
             <GiHamburgerMenu color="white" size={26} />
           </span>
-          <div className="p-2 max-w-[718px] w-full rounded-[16px] sm:flex hidden items-center gap-2 border border-[#262626]">
+          {/* <div className="p-2 max-w-[718px] w-full rounded-[16px] sm:flex hidden items-center gap-2 border border-[#262626]">
             <span>
               <SearchIcon />
             </span>
@@ -44,7 +44,7 @@ const CommonNavbar = ({ open, setOpen }) => {
               className="w-full border-none text-white text-sm outline-none bg-transparent placeholder-secondary  font-normal"
               placeholder="Search anything here..."
             />
-          </div>
+          </div> */}
         </div>
 
         <div className="flex items-center gap-3">

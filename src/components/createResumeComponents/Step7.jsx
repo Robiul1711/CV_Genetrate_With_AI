@@ -4,6 +4,7 @@ import { LuCirclePlus } from "react-icons/lu";
 import { GoDotFill } from "react-icons/go";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import Tailor_Modal from "./Tailor_Modal";
+import { useEmail } from "@/hooks/useEmail"; // for language ("en" or "de")
 
 const Step7 = () => {
   const {
@@ -14,6 +15,8 @@ const Step7 = () => {
     formState: { errors },
   } = useFormContext();
 
+  const { language } = useEmail(); // "en" or "de"
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "courses_and_training_details",
@@ -21,6 +24,7 @@ const Step7 = () => {
 
   const courses = watch("courses_and_training_details");
 
+  // Initialize with one empty course
   useEffect(() => {
     if (!courses || courses.length === 0) {
       append({
@@ -46,15 +50,23 @@ const Step7 = () => {
       <div className="w-[800px] mx-auto">
         {/* Titles */}
         <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
-          <Title level="title24">Courses and Training Details</Title>
+          <Title level="title24">
+            {language === "de" ? "Kurse und Schulungen" : "Courses and Training Details"}
+          </Title>
           <Title level="title14">
-            Provide information about any professional courses or training
+            {language === "de"
+              ? "Geben Sie Informationen zu beruflichen Kursen oder Schulungen an"
+              : "Provide information about any professional courses or training"}
           </Title>
         </div>
         <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
-          <Title level="title40">Courses and Training Details</Title>
+          <Title level="title40">
+            {language === "de" ? "Kurse und Schulungen" : "Courses and Training Details"}
+          </Title>
           <Title level="title20">
-            Provide information about any professional courses or training
+            {language === "de"
+              ? "Geben Sie Informationen zu beruflichen Kursen oder Schulungen an"
+              : "Provide information about any professional courses or training"}
           </Title>
         </div>
 
@@ -63,14 +75,15 @@ const Step7 = () => {
             key={field.id}
             className="border border-[#262626] bg-[#0E0E10] p-4 rounded-xl mb-5"
           >
+            {/* Preview */}
             <div className="flex justify-between items-center mb-3">
               <div className="flex items-center gap-2">
                 <Title level="title32" className="text-sm sm:text-base">
-                  {courses?.[index]?.course_name || "Course Name"}
+                  {courses?.[index]?.course_name || (language === "de" ? "Kursname" : "Course Name")}
                 </Title>
                 <GoDotFill className="text-[#fff] text-xl" />
                 <Title level="title32" className="text-sm sm:text-base">
-                  {courses?.[index]?.name_of_institute || "Institute Name"}
+                  {courses?.[index]?.name_of_institute || (language === "de" ? "Institutsname" : "Institute Name")}
                 </Title>
               </div>
               <button
@@ -78,20 +91,21 @@ const Step7 = () => {
                 onClick={() => remove(index)}
                 className="text-red-400 text-xs hover:underline"
               >
-                Remove
+                {language === "de" ? "Entfernen" : "Remove"}
               </button>
             </div>
 
             {/* Name of Institute */}
             <div className="flex flex-col gap-2 mb-2">
-              <label className="text-sm text-white">Name Of Institute *</label>
+              <label className="text-sm text-white">
+                {language === "de" ? "Name des Instituts *" : "Name Of Institute *"}
+              </label>
               <input
                 type="text"
-                {...register(
-                  `courses_and_training_details.${index}.name_of_institute`,
-                  { required: "Institute name is required" }
-                )}
-                placeholder="Name of Institute"
+                {...register(`courses_and_training_details.${index}.name_of_institute`, {
+                  required: language === "de" ? "Institutsname ist erforderlich" : "Institute name is required",
+                })}
+                placeholder={language === "de" ? "Name des Instituts" : "Name of Institute"}
                 className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               />
               {errors?.courses_and_training_details?.[index]?.name_of_institute && (
@@ -103,13 +117,15 @@ const Step7 = () => {
 
             {/* Course Name */}
             <div className="flex flex-col gap-2 mb-2">
-              <label className="text-sm text-white">Course Name *</label>
+              <label className="text-sm text-white">
+                {language === "de" ? "Kursname *" : "Course Name *"}
+              </label>
               <input
                 type="text"
                 {...register(`courses_and_training_details.${index}.course_name`, {
-                  required: "Course name is required",
+                  required: language === "de" ? "Kursname ist erforderlich" : "Course name is required",
                 })}
-                placeholder="Course Name"
+                placeholder={language === "de" ? "Kursname" : "Course Name"}
                 className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               />
               {errors?.courses_and_training_details?.[index]?.course_name && (
@@ -122,11 +138,13 @@ const Step7 = () => {
             {/* Dates */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
-                <label className="text-sm text-white">Start Date *</label>
+                <label className="text-sm text-white">
+                  {language === "de" ? "Startdatum *" : "Start Date *"}
+                </label>
                 <input
                   type="date"
                   {...register(`courses_and_training_details.${index}.start_date`, {
-                    required: "Start date is required",
+                    required: language === "de" ? "Startdatum ist erforderlich" : "Start date is required",
                   })}
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 />
@@ -138,7 +156,9 @@ const Step7 = () => {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm text-white">End Date</label>
+                <label className="text-sm text-white">
+                  {language === "de" ? "Enddatum" : "End Date"}
+                </label>
                 <input
                   type="date"
                   {...register(`courses_and_training_details.${index}.end_date`)}
@@ -164,7 +184,7 @@ const Step7 = () => {
             className="font-medium px-4 py-2 rounded-lg text-xs flex items-center gap-2 border border-white/20 hover:bg-white hover:text-black transition-colors duration-200"
           >
             <LuCirclePlus size={20} />
-            Add Another Certificate
+            {language === "de" ? "Weiteres Zertifikat hinzufügen" : "Add Another Certificate"}
           </button>
 
           <Tailor_Modal />

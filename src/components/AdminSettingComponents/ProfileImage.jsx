@@ -6,23 +6,45 @@ import { CiEdit, CiCircleRemove } from "react-icons/ci";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/useAuth";
 import DummyUser from "@/assets/images/placeholder-user.png";
+import { useEmail } from "@/hooks/useEmail"; // Custom hook for language
 
 const ProfileImage = ({ userData }) => {
   const [previewImage, setPreviewImage] = useState(null);
-  const [uploadedImage, setUploadedImage] = useState(null); // <-- NEW
+  const [uploadedImage, setUploadedImage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const fileInputRef = useRef(null);
 
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const queryClient = useQueryClient();
+  const { language } = useEmail(); // "en" or "de"
+
+  // Translation texts
+  const texts = {
+    en: {
+      saveChanges: "Save Changes",
+      cancel: "Cancel",
+      editImage: "Edit Image",
+      clickToSelect: "Click on the image to select a new profile picture",
+      selectImageError: "Please select an image first",
+      uploading: "Saving...",
+    },
+    de: {
+      saveChanges: "Änderungen speichern",
+      cancel: "Abbrechen",
+      editImage: "Bild bearbeiten",
+      clickToSelect: "Klicken Sie auf das Bild, um ein neues Profilbild auszuwählen",
+      selectImageError: "Bitte wählen Sie zuerst ein Bild aus",
+      uploading: "Speichern...",
+    },
+  };
+
+  const t = language === "de" ? texts.de : texts.en;
 
   const { register, handleSubmit, reset, setValue, watch } = useForm();
 
-  // Watch for profile_image changes
   const profileImageFile = watch("profile_image");
 
-  // Preview selected file
   useEffect(() => {
     if (profileImageFile && profileImageFile.length > 0) {
       const file = profileImageFile[0];
@@ -38,25 +60,19 @@ const ProfileImage = ({ userData }) => {
     }
   }, [profileImageFile]);
 
-  // Mutation for uploading image
   const ProfileMutation = useMutation({
     mutationFn: async (data) => {
       const formData = new FormData();
       if (data.profile_image && data.profile_image.length > 0) {
         formData.append("profile_image", data.profile_image[0]);
       }
-      const response = await axiosSecure.put(
-        "/update-profile-image/",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      const response = await axiosSecure.put("/update-profile-image/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       return response.data;
     },
     onSuccess: (data) => {
-      toast.success(data?.message || "Profile image updated successfully!");
-
-      console.log("Uploaded image data:", data);
-      // Save uploaded image path locally for immediate display
+      toast.success(data?.message || t.saveChanges);
       if (data?.profile_image) {
         setUploadedImage(data.profile_image);
       }
@@ -69,7 +85,7 @@ const ProfileImage = ({ userData }) => {
       const errorMessage =
         error?.response?.data?.message ||
         error?.response?.data?.error ||
-        "Failed to update profile image";
+        t.selectImageError;
       toast.error(errorMessage);
       console.error("Profile update error:", error);
     },
@@ -92,7 +108,7 @@ const ProfileImage = ({ userData }) => {
 
   const onSubmitImage = (data) => {
     if (!data.profile_image || data.profile_image.length === 0) {
-      toast.error("Please select an image first");
+      toast.error(t.selectImageError);
       return;
     }
     ProfileMutation.mutate(data);
@@ -107,7 +123,6 @@ const ProfileImage = ({ userData }) => {
     }
   };
 
-  // Decide which image to show
   const finalImageSrc = previewImage
     ? previewImage
     : uploadedImage
@@ -115,7 +130,7 @@ const ProfileImage = ({ userData }) => {
     : userData?.profile?.profile_image
     ? `${import.meta.env.VITE_IMG_URL}${userData?.profile?.profile_image}`
     : DummyUser;
- console.log(userData?.profile?.profile_image)
+
   return (
     <div className="my-6">
       <div className="flex items-center gap-6">
@@ -123,11 +138,7 @@ const ProfileImage = ({ userData }) => {
           className="relative w-24 h-24 rounded-full border-2 border-gray-300 overflow-hidden group cursor-pointer"
           onClick={handleImageClick}
         >
-          <img
-            src={finalImageSrc}
-            alt="Profile"
-            className="w-full h-full object-cover"
-          />
+          <img src={finalImageSrc} alt="Profile" className="w-full h-full object-cover" />
 
           {isEditing && (
             <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -168,10 +179,10 @@ const ProfileImage = ({ userData }) => {
                 {ProfileMutation.isPending ? (
                   <>
                     <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></span>
-                    Saving...
+                    {t.uploading}
                   </>
                 ) : (
-                  "Save Changes"
+                  t.saveChanges
                 )}
               </button>
               <button
@@ -179,7 +190,7 @@ const ProfileImage = ({ userData }) => {
                 disabled={ProfileMutation.isPending}
                 className="px-5 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition disabled:opacity-50"
               >
-                Cancel
+                {t.cancel}
               </button>
             </>
           ) : (
@@ -188,17 +199,13 @@ const ProfileImage = ({ userData }) => {
               className="px-5 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition flex items-center gap-2"
             >
               <CiEdit size={18} />
-              Edit Image
+              {t.editImage}
             </button>
           )}
         </div>
       </div>
 
-      {isEditing && (
-        <p className="mt-3 text-sm text-gray-500">
-          Click on the image to select a new profile picture
-        </p>
-      )}
+      {isEditing && <p className="mt-3 text-sm text-gray-500">{t.clickToSelect}</p>}
     </div>
   );
 };

@@ -70,9 +70,13 @@ const YourPlan = () => {
   return (
     <div className="pb-12 py-6 md:py-10">
       <div className="flex flex-col items-center text-center">
-        <h1 className="text-[24px] md:text-[28px] font-bold">Choose Your Plan</h1>
+        <h1 className="text-[24px] md:text-[28px] font-bold">
+          {language === "de" ? "Wählen Sie Ihren Plan" : "Choose Your Plan"}
+        </h1>
         <p className="text-[15px] md:text-base text-[#9B9B9B] pt-2">
-          Flexible options for every job seeker.
+          {language === "de"
+            ? "Flexible Optionen für jeden Arbeitssuchenden."
+            : "Flexible options for every job seeker."}
         </p>
       </div>
 
@@ -122,13 +126,21 @@ const YourPlan = () => {
                 onClick={() => handleClick(plan)}
                 disabled={loadingPlanId === plan.id}
                 className={`text-center flex justify-center items-center w-full bg-white text-sm text-black font-semibold py-2 rounded-md mt-4 transition-all ${
-                  loadingPlanId === plan.id ? "opacity-60 cursor-not-allowed" : ""
+                  loadingPlanId === plan.id
+                    ? "opacity-60 cursor-not-allowed"
+                    : ""
                 }`}
               >
                 {loadingPlanId === plan.id
-                  ? "Processing..."
+                  ? language === "de"
+                    ? "Verarbeitung..."
+                    : "Processing..."
                   : plan.name === "Free Plan"
-                  ? "Start Free Trial"
+                  ? language === "de"
+                    ? "Kostenlose Testversion starten"
+                    : "Start Free Trial"
+                  : language === "de"
+                  ? "Jetzt starten"
                   : "Get Started"}
               </button>
             </div>

@@ -1,8 +1,31 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import Title from "../common/Title";
+import { useEmail } from "@/hooks/useEmail";
+
+const textMap = {
+  en: {
+    pageTitle: "Why You’re a Good Fit",
+    jobQuestion: "Why do you want this job?",
+    experienceQuestion: "Relevant Experience/Skills for this role",
+    achievementQuestion: "Any specific achievement or project to highlight?",
+    keywordsQuestion: "Are there any keywords or values you'd like to emphasize?",
+    placeholder: "Write here...",
+  },
+  de: {
+    pageTitle: "Warum Sie gut passen",
+    jobQuestion: "Warum möchten Sie diesen Job?",
+    experienceQuestion: "Relevante Erfahrungen/Fähigkeiten für diese Rolle",
+    achievementQuestion: "Gibt es spezielle Erfolge oder Projekte hervorzuheben?",
+    keywordsQuestion: "Gibt es Schlüsselwörter oder Werte, die Sie betonen möchten?",
+    placeholder: "Hier schreiben...",
+  },
+};
 
 const Step_4 = () => {
+  const { language } = useEmail();
+  const t = textMap[language || "en"];
+
   const {
     register,
     formState: { errors },
@@ -12,15 +35,16 @@ const Step_4 = () => {
     <div className="text-white flex items-center justify-center">
       <div className="w-[800px] mx-auto">
         <div className="text-center flex flex-col items-center gap-4 mb-5">
-          <Title level="title40"> Why You’re a Good Fit</Title>
+          <Title level="title40">{t.pageTitle}</Title>
         </div>
 
         <form className="flex flex-col gap-4">
+          {/* Why this job */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">Why do you want this job?</label>
+            <label className="text-sm text-white">{t.jobQuestion}</label>
             <input
               type="text"
-              placeholder="Write here..."
+              placeholder={t.placeholder}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               {...register("why_do_you_want_this_job")}
             />
@@ -29,11 +53,12 @@ const Step_4 = () => {
             )}
           </div>
 
+          {/* Relevant Experience/Skills */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">Relevant Experience/Skills for this role</label>
+            <label className="text-sm text-white">{t.experienceQuestion}</label>
             <input
               type="text"
-              placeholder="Write here..."
+              placeholder={t.placeholder}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               {...register("relevant_experience_or_skill_for_this_role")}
             />
@@ -42,11 +67,12 @@ const Step_4 = () => {
             )}
           </div>
 
+          {/* Achievement or Project */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">Any specific achievement or project to highlight?</label>
+            <label className="text-sm text-white">{t.achievementQuestion}</label>
             <input
               type="text"
-              placeholder="Write here..."
+              placeholder={t.placeholder}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               {...register("specific_achievement_or_project_to_highlight")}
             />
@@ -55,11 +81,12 @@ const Step_4 = () => {
             )}
           </div>
 
+          {/* Keywords/Values */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">Are there any keywords or values you'd like to emphasize?</label>
+            <label className="text-sm text-white">{t.keywordsQuestion}</label>
             <input
               type="text"
-              placeholder="Write here..."
+              placeholder={t.placeholder}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               {...register("keywords_or_values_to_emphasize")}
             />

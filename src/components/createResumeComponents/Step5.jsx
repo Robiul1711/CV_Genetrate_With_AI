@@ -5,7 +5,8 @@ import { IoClose } from "react-icons/io5";
 import { useFormContext } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
-import { useAuth } from "@/hooks/useAuth";
+
+import { useEmail } from "@/hooks/useEmail";
 
 const Step5 = () => {
   const {
@@ -15,7 +16,7 @@ const Step5 = () => {
     formState: { errors },
   } = useFormContext();
   const axiosPublic = useAxiosPublic();
-  const { language } = useAuth();
+  const { language } = useEmail();
 
   // Selected skills
   const skills = watch("skills") || [];
@@ -67,22 +68,38 @@ const Step5 = () => {
       <div className="w-[800px] mx-auto">
         {/* Title */}
         <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
-          <Title level="title24">Highlight Your Skills</Title>
+          <Title level="title24">
+            {language === "de"
+              ? "Heben Sie Ihre Fähigkeiten hervor"
+              : "Highlight Your Skills"}
+          </Title>
           <Title level="title14">
-            Showcase both your technical expertise and soft skills to match job
-            requirements.
+            {language === "de"
+              ? "Zeigen Sie sowohl Ihre technischen als auch Ihre sozialen Fähigkeiten, um den Anforderungen der Stelle gerecht zu werden."
+              : "Showcase both your technical expertise and soft skills to match job requirements."}
           </Title>
         </div>
+
         <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
-          <Title level="title40">Highlight Your Skills</Title>
+          <Title level="title40">
+            {language === "de"
+              ? "Heben Sie Ihre Fähigkeiten hervor"
+              : "Highlight Your Skills"}
+          </Title>
           <Title level="title20">
-            Showcase both your technical expertise and soft skills to match job
-            requirements.
+            {language === "de"
+              ? "Zeigen Sie sowohl Ihre technischen als auch Ihre sozialen Fähigkeiten, um den Anforderungen der Stelle gerecht zu werden."
+              : "Showcase both your technical expertise and soft skills to match job requirements."}
           </Title>
         </div>
 
         {/* Selected Skills */}
-        <p className="text-sm mb-2">Selected Skills *</p>
+        <p className="text-sm mb-2">
+          {language === "de"
+            ? "Ausgewählte Fähigkeiten *"
+            : "Selected Skills *"}
+        </p>
+
         <div className="flex flex-wrap gap-3 mb-1">
           {skills.map((skillObj) => (
             <div
@@ -106,11 +123,14 @@ const Step5 = () => {
         )}
 
         {/* Search Input */}
-        <p className="text-sm mb-2">Skill</p>
+        <p className="text-sm mb-2">
+          {language === "de" ? "Fähigkeit" : "Skill"}
+        </p>
+
         <div className="relative w-full">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder={language === "de" ? "Suchen..." : "Search..."}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full p-2 pl-10 text-xs rounded-md bg-[#0E0E10] border border-[#262626] placeholder:text-gray-400 focus:outline-none"
@@ -119,7 +139,12 @@ const Step5 = () => {
         </div>
 
         {/* Suggested Skills */}
-        <p className="mt-5 text-sm">Suggested Skills</p>
+        <p className="mt-5 text-sm">
+          {language === "de"
+            ? "Vorgeschlagene Fähigkeiten"
+            : "Suggested Skills"}
+        </p>
+
         <div className="flex flex-wrap gap-2 mt-2">
           {isLoading && <p className="text-xs text-gray-400">Loading...</p>}
           {!isLoading &&
