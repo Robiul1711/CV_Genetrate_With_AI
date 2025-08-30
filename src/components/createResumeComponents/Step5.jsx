@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 
 import { useEmail } from "@/hooks/useEmail";
+import { toast } from "react-toastify";
 
 const Step5 = () => {
   const {
@@ -17,7 +18,7 @@ const Step5 = () => {
   } = useFormContext();
   const axiosPublic = useAxiosPublic();
   const { language } = useEmail();
-
+const [newSkill, setNewSkill] = useState("");
   // Selected skills
   const skills = watch("skills") || [];
 
@@ -61,6 +62,19 @@ const Step5 = () => {
   const handleRemoveSkill = (skillToRemove) => {
     const updated = skills.filter((s) => s.skill !== skillToRemove);
     setValue("skills", updated, { shouldValidate: true });
+  };
+
+  const handleAddNewSkill = async () => {
+    if (!newSkill.trim()) return;
+    try {
+      const res = await axiosPublic.post(`/add-skill/?lan=${language}`, { name: newSkill });
+      handleSelectSkill(newSkill); // add new skill to selected
+      setNewSkill(""); // clear input
+      queryClient.invalidateQueries(["search-skills", language]); // refresh skills list
+      toast.success()
+    } catch (err) {
+      toast.error(err?.response?.data?.message)
+    }
   };
 
   return (
@@ -148,7 +162,7 @@ const Step5 = () => {
         <div className="flex flex-wrap gap-2 mt-2">
           {isLoading && <p className="text-xs text-gray-400">Loading...</p>}
           {!isLoading &&
-            skillsAll?.data?.map((skill, idx) => (
+            skillsAll?.data?.slice(0,20)?.map((skill, idx) => (
               <button
                 key={idx}
                 type="button"
@@ -163,6 +177,23 @@ const Step5 = () => {
                 {skill?.name}
               </button>
             ))}
+        </div>
+
+          <div className="mt-5 flex gap-2 items-center">
+          <input
+            type="text"
+            placeholder={language === "de" ? "Neue Fähigkeit hinzufügen" : "Add new skill"}
+            value={newSkill}
+            onChange={(e) => setNewSkill(e.target.value)}
+            className="flex-1 p-2 text-xs rounded-md bg-[#0E0E10] border border-[#262626] placeholder:text-gray-400 focus:outline-none"
+          />
+          <button
+            type="button"
+            onClick={handleAddNewSkill}
+            className="px-4 py-2 text-sm rounded-md bg-blue-600 hover:bg-blue-700"
+          >
+            {language === "de" ? "Hinzufügen" : "Add"}
+          </button>
         </div>
       </div>
     </div>

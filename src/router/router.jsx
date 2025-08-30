@@ -31,6 +31,7 @@ import ResumeSeven from "@/components/All_Templates/ResumeSeven";
 import ResumeNine from "@/components/All_Templates/ResumeNine";
 import UploadAResume from "@/components/upload_exgisting_resume/UploadAResume";
 import UpdateExistingResumeEdit from "@/pages/edit_resume_page/UpdateExistingResumeEdit";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -71,7 +72,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <AdminLayout />,
+    element: (
+      <PrivateRoute>
+        <AdminLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/dashboard",
@@ -95,7 +100,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/update-existing-resume-edit/:resumeId",
-        element: <UpdateExistingResumeEdit/>,
+        element: <UpdateExistingResumeEdit />,
       },
       {
         path: "/dashboard/final-review",
@@ -145,7 +150,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/cv",
-    element: <ResumeNine/>,
+    element: <ResumeNine />,
   },
 ]);
 

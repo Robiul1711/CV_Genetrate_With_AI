@@ -25,6 +25,12 @@ const Complexity = [
   { id: 2, title_en: "Advanced", title_de: "Fortgeschritten" },
   { id: 3, title_en: "Academic", title_de: "Akademisch" },
 ];
+const GenderLanguage = [
+  { id: 1, title_en: "Neutral", title_de: "Neutral" },
+  { id: 2, title_en: "Inclusive", title_de: "Inklusiv" },
+  { id: 3, title_en: "Feminine", title_de: "Feminin" },
+  { id: 3, title_en: "Masculine", title_de: "Maskulin" },
+];
 
 const Creativity = [
   { id: 1, title_en: "Straightforward", title_de: "Einfach" },
@@ -33,8 +39,10 @@ const Creativity = [
 ];
 
 const FormOptions = [
-  { id: 1, title_en: "Du", title_de: "Du" },
-  { id: 2, title_en: "Sie", title_de: "Sie" },
+  { id: 1, title_de: "Neutral", value_de: "neutral" },
+  { id: 2, title_de: "Inklusiv", value_de: "inklusiv" },
+  { id: 3, title_de: "Feminin", value_de: "feminin" },
+  { id: 4, title_de: "Maskulin", value_de: "maskulin" },
 ];
 
 const Tailor_Modal = () => {
@@ -91,18 +99,18 @@ const Tailor_Modal = () => {
 
             {/* Form Du/Sie */}
             <div className="sm:pb-10 pb-2">
-              <Title level="title22">{language === "de" ? "Formular" : "Form"}</Title>
+              <Title level="title22">{language === "de" ? "Geschlechtssprache" : "Gender Language"}</Title>
               <Controller
                 control={control}
-                name="formality"
-                defaultValue={getTitle(FormOptions[0])}
+                name="gender_language"
+                defaultValue={getTitle(GenderLanguage[0])}
                 render={({ field }) => (
                   <RadioGroup
                     value={field.value}
                     onValueChange={field.onChange}
                     className="w-full mt-2 flex flex-wrap gap-4"
                   >
-                    {FormOptions.map((item) => (
+                    {GenderLanguage.map((item) => (
                       <div key={item.id} className="flex items-center space-x-2">
                         <RadioGroupItem value={getTitle(item)} id={`form-${item.id}`} />
                         <Label htmlFor={`form-${item.id}`}>{getTitle(item)}</Label>
