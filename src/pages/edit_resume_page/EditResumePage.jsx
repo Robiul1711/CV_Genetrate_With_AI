@@ -8,7 +8,6 @@ import StepFour from "@/components/Edit_Resume_Components/StepFour";
 import StepFive from "@/components/Edit_Resume_Components/StepFive";
 import StepSix from "@/components/Edit_Resume_Components/StepSix";
 import { Link, useParams } from "react-router-dom";
-import ResumeOneEdit from "@/components/All_Edit_template/ResumeOneEdit";
 import { useResume } from "@/providers/ResumeContext";
 import { useForm, FormProvider } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
@@ -20,28 +19,14 @@ import {
 } from "@/lib/utils";
 import { resumeDataEdits } from "@/lib/data";
 import { useEmail } from "@/hooks/useEmail";
+import StepDesign from "@/components/Edit_Resume_Components/StepDesign";
 
 const stepsData = (language) => [
-  {
-    title: language === "de" ? "Persönliche Infos" : "Personal Info",
-    component: <StepOne />,
-  },
-  {
-    title: language === "de" ? "Erfahrung" : "Experience",
-    component: <StepTwo />,
-  },
-  {
-    title: language === "de" ? "Bildung" : "Education",
-    component: <StepThree />,
-  },
-  {
-    title: language === "de" ? "Fähigkeiten" : "Skill",
-    component: <StepFour />,
-  },
-  {
-    title: language === "de" ? "Sprache" : "Language",
-    component: <StepFive />,
-  },
+  { title: language === "de" ? "Persönliche Infos" : "Personal Info", component: <StepOne /> },
+  { title: language === "de" ? "Erfahrung" : "Experience", component: <StepTwo /> },
+  { title: language === "de" ? "Bildung" : "Education", component: <StepThree /> },
+  { title: language === "de" ? "Fähigkeiten" : "Skill", component: <StepFour /> },
+  { title: language === "de" ? "Sprache" : "Language", component: <StepFive /> },
   { title: language === "de" ? "Schulungen" : "Train", component: <StepSix /> },
 ];
 
@@ -49,6 +34,7 @@ const EditResumePage = () => {
   const { language } = useEmail(); // Get current language
   const { resumeId } = useParams();
   const [activeStep, setActiveStep] = useState(0);
+  const [activeTab, setActiveTab] = useState("content"); // "content" or "design"
   const { imageString, allRedumeData, setAllResumeData } = useResume();
   const axiosSecure = useAxiosSecure();
 
@@ -70,9 +56,7 @@ const EditResumePage = () => {
       const response = await axiosSecure.put(
         `/update-resume/${resumeId}/`,
         formData,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
+        { headers: { "Content-Type": "application/json" } }
       );
       return response.data;
     },
@@ -133,9 +117,9 @@ const EditResumePage = () => {
 
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="mt-3">
-          <div className="mt-5 flex xl:flex-row   flex-col-reverse gap-5 md:gap-10 justify-between">
-            {/* Left Image */}
-            <div className="w-full overflow-x-auto">
+          <div className="mt-5 flex xl:flex-row flex-col-reverse gap-5 md:gap-10 justify-between">
+            {/* Left Image / Resume Preview */}
+            <div className=" overflow-x-auto">
               {selectedResume ? (
                 selectedResume.cvComponet
               ) : (
@@ -148,44 +132,67 @@ const EditResumePage = () => {
             </div>
 
             {/* Right Content */}
-            <div className="xl:w-1/2">
-              {/* Top buttons */}
+            <div className="flex-1">
+              {/* Tab Buttons */}
               <div className="lg:p-4 p-2 rounded-xl bg-[#0E0E10] flex items-center justify-center gap-3 border border-[#262626]">
-                <div className="font-semibold text-center border w-full border-white/10 text-white px-2 py-2 rounded-md bg-linearbg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
-                  {language === "de" ? "Inhalt bearbeiten" : "Edit Content"}
-                </div>
-              </div>
-
-              {/* Step Nav */}
-              <div className="mt-3 flex flex-wrap items-center gap-4 sm:gap-0 sm:justify-between border-b">
-                {steps.map((step, index) => (
-                  <Title
-                    key={index}
-                    level="title14"
-                    className={`cursor-pointer pb-1 border-b-2 ${
-                      activeStep === index
-                        ? "border-[#fff] text-white bg-linearbg"
-                        : "border-transparent text-white/70"
-                    } text-sm`}
-                    onClick={() => setActiveStep(index)}
-                  >
-                    {step.title}
-                  </Title>
-                ))}
-              </div>
-
-              {/* Active Step */}
-              <div>
-                {steps[activeStep].component}
-
                 <button
-                  type="submit"
-                  className="font-semibold border bg-white mt-4 md:mt-4 w-full border-white/30 text-black px-4 py-2 text-sm rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  type="button"
+                  onClick={() => setActiveTab("content")}
+                  className={`font-semibold text-center border w-full border-white/10 text-white px-2 py-2 rounded-md transition-colors duration-300 ${
+                    activeTab === "content" ? "bg-linearbg" : "bg-transparent"
+                  }`}
                 >
-                  {language === "de"
-                    ? "Änderungen übernehmen"
-                    : "Apply Changes"}
+                  {language === "de" ? "Inhalt bearbeiten" : "Edit Content"}
                 </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("design")}
+                  className={`font-semibold text-center border w-full border-white/10 text-white px-2 py-2 rounded-md transition-colors duration-300 ${
+                    activeTab === "design" ? "bg-linearbg" : "bg-transparent"
+                  }`}
+                >
+                  {language === "de" ? "Design bearbeiten" : "Edit Design"}
+                </button>
+              </div>
+
+              {/* Active Tab Content */}
+              <div className="mt-3">
+                {activeTab === "design" ? (
+                  <StepDesign />
+                ) : (
+                  <>
+                    {/* Step Nav */}
+                    <div className="mt-3 flex flex-wrap items-center gap-4 sm:gap-0 sm:justify-between border-b">
+                      {steps.map((step, index) => (
+                        <Title
+                          key={index}
+                          level="title14"
+                          className={`cursor-pointer pb-1 border-b-2 ${
+                            activeStep === index
+                              ? "border-[#fff] text-white bg-linearbg"
+                              : "border-transparent text-white/70"
+                          } text-sm`}
+                          onClick={() => setActiveStep(index)}
+                        >
+                          {step.title}
+                        </Title>
+                      ))}
+                    </div>
+
+                    {/* Active Step */}
+                    <div>{steps[activeStep].component}</div>
+                  </>
+                )}
+
+                {/* Submit button only for content tab */}
+                {activeTab === "content" && (
+                  <button
+                    type="submit"
+                    className="font-semibold border bg-white mt-4 md:mt-4 w-full border-white/30 text-black px-4 py-2 text-sm rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {language === "de" ? "Änderungen übernehmen" : "Apply Changes"}
+                  </button>
+                )}
               </div>
             </div>
           </div>
