@@ -187,7 +187,7 @@ const Step7 = () => {
             {language === "de" ? "Weiteres Zertifikat hinzufügen" : "Add Another Certificate"}
           </button>
 
-          <Tailor_Modal />
+
         </div>
       </div>
     </div>

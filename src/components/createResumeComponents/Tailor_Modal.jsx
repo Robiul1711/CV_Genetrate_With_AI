@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import Title from "../common/Title";
 import { Label } from "@/components/ui/label";
@@ -29,7 +28,7 @@ const GenderLanguage = [
   { id: 1, title_en: "Neutral", title_de: "Neutral" },
   { id: 2, title_en: "Inclusive", title_de: "Inklusiv" },
   { id: 3, title_en: "Feminine", title_de: "Feminin" },
-  { id: 3, title_en: "Masculine", title_de: "Maskulin" },
+  { id: 4, title_en: "Masculine", title_de: "Maskulin" },
 ];
 
 const Creativity = [
@@ -38,33 +37,28 @@ const Creativity = [
   { id: 3, title_en: "Highly Creative", title_de: "Sehr Kreativ" },
 ];
 
-const FormOptions = [
-  { id: 1, title_de: "Neutral", value_de: "neutral" },
-  { id: 2, title_de: "Inklusiv", value_de: "inklusiv" },
-  { id: 3, title_de: "Feminin", value_de: "feminin" },
-  { id: 4, title_de: "Maskulin", value_de: "maskulin" },
-];
-
 const Tailor_Modal = () => {
   const { control } = useFormContext();
   const { language } = useEmail(); // 'de' or 'en'
+  const [open, setOpen] = useState(false);
 
   const getTitle = (item) => (language === "de" ? item.title_de : item.title_en);
 
+  // Auto open when mounted
+  useEffect(() => {
+    setOpen(true);
+  }, []);
+
   return (
     <div>
-      <Dialog>
-        <DialogTrigger asChild>
-          <button className="font-semibold border-white bg-white text-black px-3 py-1.5 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
-            {language === "de" ? "Weiteres Zertifikat hinzufügen" : "Add Another Courses and Training"}
-          </button>
-        </DialogTrigger>
-
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="!bg-black max-w-xl">
           <DialogHeader>
             <div className="md:text-center flex flex-col md:items-center gap-4 mb-2 sm:mb-10 pt-2">
               <Title level="title28">
-                {language === "de" ? "Weitere Kurse und Schulungen hinzufügen" : "Add Another Courses and Training Details"}
+                {language === "de"
+                  ? "Passen Sie den Ton Ihres Dokuments an"
+                  : "Tailor Your Document’s Voice"}
               </Title>
               <Title level="title16">
                 {language === "de"
@@ -75,7 +69,11 @@ const Tailor_Modal = () => {
 
             {/* Tailor Voice */}
             <div className="sm:pb-10 pb-2">
-              <Title level="title22">{language === "de" ? "Stimme des Dokuments anpassen" : "Tailor Your Document's Voice"}</Title>
+              <Title level="title22">
+                {language === "de"
+                  ? "Stimme des Dokuments anpassen"
+                  : "Tailor Your Document's Voice"}
+              </Title>
               <Controller
                 control={control}
                 name="tailor_documents_voice"
@@ -97,9 +95,11 @@ const Tailor_Modal = () => {
               />
             </div>
 
-            {/* Form Du/Sie */}
+            {/* Gender Language */}
             <div className="sm:pb-10 pb-2">
-              <Title level="title22">{language === "de" ? "Geschlechtssprache" : "Gender Language"}</Title>
+              <Title level="title22">
+                {language === "de" ? "Geschlechtssprache" : "Gender Language"}
+              </Title>
               <Controller
                 control={control}
                 name="gender_language"
@@ -172,12 +172,18 @@ const Tailor_Modal = () => {
             {/* Navigation Buttons */}
             <div className="flex w-full mx-auto justify-between items-center sm:mt-10">
               <DialogClose asChild>
-                <button className="font-semibold border border-white text-white px-4 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300">
+                <button
+                  className="font-semibold border border-white text-white px-4 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300"
+                  onClick={() => setOpen(false)}
+                >
                   {language === "de" ? "Zurück" : "Back"}
                 </button>
               </DialogClose>
               <DialogClose asChild>
-                <button className="font-semibold border-white bg-white text-black px-4 text-sm py-2 rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300">
+                <button
+                  className="font-semibold border-white bg-white text-black px-4 text-sm py-2 rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300"
+                  onClick={() => setOpen(false)}
+                >
                   {language === "de" ? "Auswählen" : "Select"}
                 </button>
               </DialogClose>
