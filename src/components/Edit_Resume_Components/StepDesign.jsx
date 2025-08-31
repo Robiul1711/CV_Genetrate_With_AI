@@ -4,13 +4,11 @@ import React from "react";
 const StepDesign = () => {
   const { color, setColor } = useResume();
 const colors = [
-  "#FFFFFF", // white
-  "#000000", // black
-  "#F5F5F5", // light gray (good for background)
-  "#CB6E17", // orange accent
-  "#17CBA7", // teal accent
-  "#17A4CB", // blue accent
-  "#CB175F"  // pink/magenta accent
+  "#2E2E2E", 
+  "#34495E",
+  "#1F4F4F", 
+  "#4B2C5E",
+
 ];
 
 

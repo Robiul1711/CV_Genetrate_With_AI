@@ -1,16 +1,51 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const ResumeContext = createContext();
 
 export const ResumeProvider = ({ children }) => {
-  const [coverLetter, setCoverLetter] = useState({});
-  const [allRedumeData, setAllResumeData] = useState({});
-  const [imageString,setImageString] =useState();
-  const [color,setColor] =useState("#FFFFFF")
+  // Load from localStorage initially
+  const [coverLetter, setCoverLetter] = useState(() => {
+    return JSON.parse(localStorage.getItem("coverLetter")) || {};
+  });
+  const [allRedumeData, setAllResumeData] = useState(() => {
+    return JSON.parse(localStorage.getItem("allRedumeData")) || {};
+  });
+  const [imageString, setImageString] = useState(() => {
+    return localStorage.getItem("imageString") || "";
+  });
+  const [color, setColor] = useState(() => {
+    return localStorage.getItem("resumeColor") || "#1B1E2F";
+  });
+
+  // Save to localStorage whenever state changes
+  useEffect(() => {
+    localStorage.setItem("coverLetter", JSON.stringify(coverLetter));
+  }, [coverLetter]);
+
+  useEffect(() => {
+    localStorage.setItem("allRedumeData", JSON.stringify(allRedumeData));
+  }, [allRedumeData]);
+
+  useEffect(() => {
+    localStorage.setItem("imageString", imageString || "");
+  }, [imageString]);
+
+  useEffect(() => {
+    localStorage.setItem("resumeColor", color || "#1B1E2F");
+  }, [color]);
 
   return (
     <ResumeContext.Provider
-      value={{ coverLetter, setCoverLetter, allRedumeData, setAllResumeData,imageString,setImageString ,color,setColor}}
+      value={{
+        coverLetter,
+        setCoverLetter,
+        allRedumeData,
+        setAllResumeData,
+        imageString,
+        setImageString,
+        color,
+        setColor,
+      }}
     >
       {children}
     </ResumeContext.Provider>
