@@ -18,8 +18,14 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useResume } from "@/providers/ResumeContext";
-import { showLoadingToast, updateToastError, updateToastSuccess } from "@/lib/utils";
+import {
+  showLoadingToast,
+  updateToastError,
+  updateToastSuccess,
+} from "@/lib/utils";
 import { useEmail } from "@/hooks/useEmail";
+import Parameter from "@/components/createResumeComponents/Parameter";
+import Tailor_Modal from "@/components/createResumeComponents/Tailor_Modal";
 
 const textMap = {
   en: {
@@ -34,7 +40,8 @@ const textMap = {
   },
   de: {
     pageTitle: "Neuen Lebenslauf erstellen",
-    pageSubTitle: "Erstellen Sie Ihren Lebenslauf Schritt für Schritt mit KI-Unterstützung",
+    pageSubTitle:
+      "Erstellen Sie Ihren Lebenslauf Schritt für Schritt mit KI-Unterstützung",
     next: "Weiter",
     back: "Zurück",
     generate: "Lebenslauf mit KI generieren",
@@ -57,7 +64,7 @@ const CreateNewResume = () => {
     defaultValues: { work_experiences: [], resume_language: "en" },
   });
 
-  const resume_language = language
+  const resume_language = language;
   const t = textMap[resume_language];
 
   const ResumeMutation = useMutation({
@@ -72,26 +79,59 @@ const CreateNewResume = () => {
     onSuccess: (data, _variables, context) => {
       setAllResumeData(data);
       setResumeId(data.id || data.resumeId);
-      updateToastSuccess(context.toastId, data?.message || "Resume Created Successfully!");
+      updateToastSuccess(
+        context.toastId,
+        data?.message || "Resume Created Successfully!"
+      );
       setActiveStep(8);
       setIsCreatingResume(false);
     },
     onError: (error, _variables, context) => {
-      const errorMessage = error?.response?.data?.message || "Something went wrong!";
+      const errorMessage =
+        error?.response?.data?.message || "Something went wrong!";
       updateToastError(context.toastId, errorMessage);
       setIsCreatingResume(false);
     },
   });
 
   const steps = [
-    { label: resume_language === "de" ? "Ziel wählen" : "Choose Your Goal", component: <Step1 /> },
-    { label: resume_language === "de" ? "Persönliche Infos" : "Personal Info", component: <Step2 /> },
-    { label: resume_language === "de" ? "Erfahrung" : "Experience", component: <Step3 /> },
-    { label: resume_language === "de" ? "Bildung" : "Education", component: <Step4 /> },
-    { label: resume_language === "de" ? "Fähigkeiten" : "Skills", component: <Step5 /> },
-    { label: resume_language === "de" ? "Sprachkenntnisse" : "Languages Proficiency", component: <Step6 /> },
-    { label: resume_language === "de" ? "Zertifikate / Training" : "Certificate / Train", component: <Step7 /> },
-    { label: resume_language === "de" ? "Sprache" : "Language", component: <SelectLangaugeStep /> },
+    {
+      label: resume_language === "de" ? "Ziel wählen" : "Choose Your Goal",
+      component: <Step1 />,
+    },
+    {
+      label: resume_language === "de" ? "Persönliche Infos" : "Personal Info",
+      component: <Step2 />,
+    },
+    {
+      label: resume_language === "de" ? "Erfahrung" : "Experience",
+      component: <Step3 />,
+    },
+    {
+      label: resume_language === "de" ? "Bildung" : "Education",
+      component: <Step4 />,
+    },
+    {
+      label: resume_language === "de" ? "Fähigkeiten" : "Skills",
+      component: <Step5 />,
+    },
+    {
+      label:
+        resume_language === "de" ? "Sprachkenntnisse" : "Languages Proficiency",
+      component: <Step6 />,
+    },
+    {
+      label:
+        resume_language === "de"
+          ? "Zertifikate / Training"
+          : "Certificate / Train",
+      component: <Step7 />,
+    },
+
+    {
+      label: resume_language === "de" ? "Sprache" : "Language",
+      component: <SelectLangaugeStep />,
+    },
     {
       label: resume_language === "de" ? "Lebenslauf wählen" : "Choose Resume",
       component: (
@@ -104,16 +144,22 @@ const CreateNewResume = () => {
       ),
     },
     {
-      label: resume_language === "de" ? "Vorschau & Download" : "Preview & Download",
+      label:
+        resume_language === "de" ? "Vorschau & Download" : "Preview & Download",
       component: <Step9 resumeId={resumeId} setResumeId={setResumeId} />,
     },
   ];
 
-  const handleNext = () => { if (activeStep < steps.length - 1) setActiveStep(prev => prev + 1); };
-  const handleBack = () => { if (activeStep > 0) setActiveStep(prev => prev - 1); };
+  const handleNext = () => {
+    if (activeStep < steps.length - 1) setActiveStep((prev) => prev + 1);
+  };
+  const handleBack = () => {
+    if (activeStep > 0) setActiveStep((prev) => prev - 1);
+  };
 
   const onSubmit = (data) => {
     data.goal = String(data.goal).trim();
+    console.log(data)
     if (activeStep === 7) ResumeMutation.mutate(data);
     else handleNext();
   };
@@ -128,7 +174,10 @@ const CreateNewResume = () => {
         </div>
 
         {/* Step Progress */}
-        <StepProgressBar steps={steps.map(s => s.label)} currentStep={activeStep + 1} />
+        <StepProgressBar
+          steps={steps.map((s) => s.label)}
+          currentStep={activeStep + 1}
+        />
 
         {/* Step Content */}
         <div className="mt-6">
@@ -153,7 +202,9 @@ const CreateNewResume = () => {
             >
               {t.back}
             </button>
-          ) : <div />}
+          ) : (
+            <div />
+          )}
 
           {activeStep === 7 ? (
             <button
@@ -161,7 +212,14 @@ const CreateNewResume = () => {
               className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               disabled={isCreatingResume}
             >
-              {isCreatingResume ? <><Loader2 className="h-4 w-4 animate-spin" />{t.generating}</> : t.generate}
+              {isCreatingResume ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  {t.generating}
+                </>
+              ) : (
+                t.generate
+              )}
             </button>
           ) : activeStep === steps.length - 1 ? (
             <Link

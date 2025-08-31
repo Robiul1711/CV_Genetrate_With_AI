@@ -2,6 +2,7 @@ import React from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 import Title from '../common/Title';
 import { useEmail } from '@/hooks/useEmail';
+import Tailor_Modal from './Tailor_Modal';
 
 const SelectLanguageStep = () => {
   const { control, formState: { errors } } = useFormContext();
@@ -51,6 +52,7 @@ const SelectLanguageStep = () => {
             </div>
           )}
         />
+         <Tailor_Modal />
       </div>
     </div>
   );

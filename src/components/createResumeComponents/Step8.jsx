@@ -19,6 +19,7 @@ import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useFormContext } from "react-hook-form";
 import { useEmail } from "@/hooks/useEmail";
+import Tailor_Modal from "./Tailor_Modal";
 
 // Resume data
 export const resumeData = [
@@ -124,6 +125,7 @@ const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
               </div>
             </div>
           ))}
+             
         </div>
       </div>
     </div>
