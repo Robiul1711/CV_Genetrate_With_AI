@@ -12,9 +12,9 @@ const AddAnotherCourses = () => {
   // Translation map
   const texts = {
     en: {
-      headerTitle: "Add Another Courses and Training Details",
+      headerTitle: "Tailor Your Document’s Voice",
       headerSubtitle:
-        "Provide information about any professional courses or training you’ve completed.",
+        "Match your resume/cover letter to the company’s culture. Select one option per category",
       tailorTitle: "Tailor Your Document’s Voice",
       genderTitle: "Gender Language",
       complexityTitle: "Complexity",
@@ -146,7 +146,7 @@ const AddAnotherCourses = () => {
       </div>
 
       {/* Formality */}
-      <div className="sm:pb-10 pb-5">
+      {/* <div className="sm:pb-10 pb-5">
         <Title level="title22">{t.formalityTitle}</Title>
         <Controller
           name="formality"
@@ -166,7 +166,7 @@ const AddAnotherCourses = () => {
             </RadioGroup>
           )}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

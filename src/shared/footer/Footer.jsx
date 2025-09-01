@@ -25,7 +25,7 @@ const Footer = () => {
       imprint: "Imprint",
       description:
         "CleverCV is an AI-powered resume and cover letter builder that helps you stand out with confidence. Whether you're starting from scratch or improving an existing CV, our platform gives you step-by-step guidance, smart design suggestions, and powerful language enhancements.",
-      copyright: "© 2024 FutureTech. All rights reserved.",
+      copyright: " FutureTech. All rights reserved.",
     },
     de: {
       company: "Unternehmen",
@@ -42,7 +42,7 @@ const Footer = () => {
       imprint: "Impressum",
       description:
         "CleverCV ist ein KI-gestützter Lebenslauf- und Anschreiben-Builder, der Ihnen hilft, selbstbewusst hervorzustechen. Egal, ob Sie von Grund auf beginnen oder einen bestehenden Lebenslauf verbessern, unsere Plattform bietet Schritt-für-Schritt-Anleitungen, intelligente Designvorschläge und leistungsstarke Sprachverbesserungen.",
-      copyright: "© 2024 FutureTech. Alle Rechte vorbehalten.",
+      copyright: " FutureTech. Alle Rechte vorbehalten.",
     },
   };
 
@@ -160,7 +160,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="text-[15px] md:text-base text-[#666] text-center">
-          <p>{t.copyright}</p>
+          <p>© {new Date().getFullYear()} {t.copyright}</p>
         </div>
       </div>
     </div>

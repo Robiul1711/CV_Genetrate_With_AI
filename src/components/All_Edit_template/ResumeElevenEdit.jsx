@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import html2pdf from "html2pdf.js";
 import { useResume } from "@/providers/ResumeContext";
-import { useFormContext } from "react-hook-form";
+import { set, useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
 import {
@@ -13,7 +13,7 @@ import {
 } from "react-icons/fa";
 
 const ResumeElevenEdit = () => {
-  const { allRedumeData } = useResume();
+  const { allRedumeData,color, setColor } = useResume();
   const { watch } = useFormContext();
   const formData = watch();
   const resumeRef = useRef(null);
@@ -66,6 +66,9 @@ const ResumeElevenEdit = () => {
     }
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
+  useEffect(() => {
+    setColor('');
+  },[]);
   return (
     <div className="min-h-screen">
       <DownloadButton resumeRef={resumeRef} />
@@ -80,7 +83,7 @@ const ResumeElevenEdit = () => {
             {resumeData.first_name} {resumeData.last_name}
           </h1>
         </div>
-        <p className="tracking-[3px] text-[#484848] uppercase leading-[24px] text-center py-2 border-b mb-2 border-[#D9D9D9]">
+        <p className="tracking-[3px] text-[#484848] uppercase leading-[24px] text-center py-2 border-b mb-2 border-[#D9D9D9]" style={{ borderColor: color }}>
           {resumeData.job_title}
         </p>
 
@@ -89,7 +92,7 @@ const ResumeElevenEdit = () => {
           {/* Left Column */}
           <div className="w-[40%] space-y-6">
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
+              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
                 ABOUT
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
@@ -98,7 +101,7 @@ const ResumeElevenEdit = () => {
             </div>
 
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
+              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
                 CONTACT
               </h2>
               <div className="space-y-3">
@@ -146,7 +149,7 @@ const ResumeElevenEdit = () => {
             </div>
 
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] text-[#fff] text-center leading-[24px]">
+              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
                 EDUCATION
               </h2>
               {resumeData.educations.map((edu, idx) => (
@@ -166,13 +169,13 @@ const ResumeElevenEdit = () => {
             </div>
           </div>
 
-          <div className="w-[1px] bg-[#D9D9D9]"></div>
+          <div className="w-[1px] bg-[#D9D9D9]" style={{ backgroundColor: color }}></div>
 
           {/* Right Column */}
           <div className="w-[60%] space-y-6">
             {/* Experience */}
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
+              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
                 EXPERIENCE
               </h2>
               {resumeData.work_experiences.map((exp, idx) => (
@@ -196,7 +199,7 @@ const ResumeElevenEdit = () => {
 
             {/* Training */}
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
+              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
                 TRAINING
               </h2>
               {resumeData.courses_and_training_details.map((training, idx) => (
@@ -217,7 +220,7 @@ const ResumeElevenEdit = () => {
 
             {/* Skills */}
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
+              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
                 SKILL
               </h2>
               <ul className="text-xs space-y-3">
@@ -231,7 +234,7 @@ const ResumeElevenEdit = () => {
 
             {/* Languages */}
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
+              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
                 LANGUAGE
               </h2>
               <ul className="text-xs space-y-3">

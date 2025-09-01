@@ -56,7 +56,7 @@ export default function CoverLetter({resumeRef}) {
           })}
         </p>
 
-        <p className="mt-2 text-[#2E2E48] font-medium">Dear [Manager’s Name]</p>
+        <p className="mt-2 text-[#2E2E48] font-medium">Dear {cover?.hiring_manager_name},</p>
 
         <p className="mt-6 tracking-[0.5px] leading-[16px] text-[#47516B]">
           {cover?.resume_content}

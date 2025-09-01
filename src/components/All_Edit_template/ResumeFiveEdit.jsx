@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import html2pdf from "html2pdf.js";
 import {
   FaPhoneAlt,
@@ -14,7 +14,7 @@ import DownloadButton from "../common/DownloadButton";
 
 const ResumeFiveEdit = () => {
   const { watch } = useFormContext();
-  const { allRedumeData } = useResume();
+  const { allRedumeData, color, setColor } = useResume();
   const resumeData = allRedumeData?.data || {};
   const resumeRef = useRef();
 
@@ -26,19 +26,25 @@ const ResumeFiveEdit = () => {
   const phone_number = watch("phone_number") || resumeData.phone_number;
   const address = watch("address") || resumeData.address;
   const email = watch("email") || resumeData.email;
-  const linked_in_profile = watch("linked_in_profile") || resumeData.linked_in_profile;
+  const linked_in_profile =
+    watch("linked_in_profile") || resumeData.linked_in_profile;
   const xing_profile = watch("xing_profile") || resumeData.xing_profile;
   const skills = watch("skills") || resumeData.skills || [];
   const educations = watch("educations") || resumeData.educations || [];
-  const work_experiences = watch("work_experiences") || resumeData.work_experiences || [];
-  const trainings = watch("courses_and_training_details") || resumeData.courses_and_training_details || [];
+  const work_experiences =
+    watch("work_experiences") || resumeData.work_experiences || [];
+  const trainings =
+    watch("courses_and_training_details") ||
+    resumeData.courses_and_training_details ||
+    [];
   const languages = watch("languages") || resumeData.languages || [];
 
-
-
+  useEffect(() => {
+    setColor("");
+  }, []);
   return (
     <div className="min-h-screen">
-             <DownloadButton resumeRef={resumeRef}  />
+      <DownloadButton resumeRef={resumeRef} />
       <div
         ref={resumeRef}
         className="bg-white text-black px-5 w-[210mm] h-[297mm] overflow-hidden mx-auto !urbanist"
@@ -59,69 +65,157 @@ const ResumeFiveEdit = () => {
               <div className="border-b-[2px] max-w-[100px] mx-auto w-full border-[#0D0D0D]"></div>
             </div>
             <div className="space-y-3">
-              <p className="text-xs flex items-center gap-2"><FaPhoneAlt className="text-[12px]" />{phone_number}</p>
-              <p className="text-xs flex items-center gap-2"><FaMapMarkerAlt className="text-[12px]" />{address}</p>
-              <p className="text-xs flex items-center gap-2"><FaEnvelope className="text-[12px]" />{email}</p>
-              {linked_in_profile && (<a href={linked_in_profile} target="_blank" className="text-xs flex items-center gap-2"><FaLinkedin className="text-[12px]" />{linked_in_profile}</a>)}
-              {xing_profile && (<a href={xing_profile} target="_blank" className="text-xs flex items-center gap-2"><FaXing className="text-[12px]" />{xing_profile}</a>)}
+              <p className="text-xs flex items-center gap-2">
+                <FaPhoneAlt className="text-[12px]" />
+                {phone_number}
+              </p>
+              <p className="text-xs flex items-center gap-2">
+                <FaMapMarkerAlt className="text-[12px]" />
+                {address}
+              </p>
+              <p className="text-xs flex items-center gap-2">
+                <FaEnvelope className="text-[12px]" />
+                {email}
+              </p>
+              {linked_in_profile && (
+                <a
+                  href={linked_in_profile}
+                  target="_blank"
+                  className="text-xs flex items-center gap-2"
+                >
+                  <FaLinkedin className="text-[12px]" />
+                  {linked_in_profile}
+                </a>
+              )}
+              {xing_profile && (
+                <a
+                  href={xing_profile}
+                  target="_blank"
+                  className="text-xs flex items-center gap-2"
+                >
+                  <FaXing className="text-[12px]" />
+                  {xing_profile}
+                </a>
+              )}
             </div>
 
             <div className="flex flex-col items-center justify-center">
-              <h2 className="text-sm font-semibold tracking-[2px] pb-3 text-[#0D0D0D] leading-[24px]">SKILL</h2>
+              {/* LEFT COLUMN HEADLINES (SKILL / EDUCATION) */}
+              <h2
+                className="text-sm font-semibold tracking-[2px] pb-3 leading-[24px] text-center"
+                style={{ color: color ? color : "#0D0D0D" }}
+              >
+                SKILL
+              </h2>{" "}
               <ul className="text-xs space-y-3 text-center">
-                {skills.map((s, i) => (<li key={i}>{s.skill}</li>))}
+                {skills.map((s, i) => (
+                  <li key={i}>{s.skill}</li>
+                ))}
               </ul>
             </div>
 
             <div className="flex flex-col items-center justify-center">
-              <h2 className="text-sm font-semibold tracking-[2px] text-[#0D0D0D] leading-[24px]">EDUCATION</h2>
+              {/* LEFT COLUMN HEADLINES (SKILL / EDUCATION) */}
+              <h2
+                className="text-sm font-semibold tracking-[2px] leading-[24px] text-center"
+                style={{ color: color ? color : "#0D0D0D" }}
+              >
+                EDUCATION
+              </h2>
               <div className="space-y-3 mt-3">
                 {educations.map((edu, i) => (
                   <div key={i} className="text-center">
                     <p className="font-medium text-xs">{edu.institute_name}</p>
                     <p className="text-xs font-medium">{edu.degree}</p>
-                    <p className="text-xs">{dayjs(edu.start_date).format("MMM YYYY")} - {edu.end_date ? dayjs(edu.end_date).format("MMM YYYY") : "Present"}</p>
+                    <p className="text-xs">
+                      {dayjs(edu.start_date).format("MMM YYYY")} -{" "}
+                      {edu.end_date
+                        ? dayjs(edu.end_date).format("MMM YYYY")
+                        : "Present"}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-          <div className="w-[1px] bg-[#0D0D0D]"></div>
+          <div
+            className="w-[1px] bg-[#0D0D0D]"
+            style={{ background: color }}
+          ></div>
           {/* Right Column */}
           <div className="w-[60%] space-y-6 py-8 mt-8">
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px]  text-[#0D0D0D] leading-[24px]">ABOUT</h2>
+              <h2
+                className="text-sm font-semibold tracking-[2px] leading-[24px]"
+                style={{ color: color ? color : "#0D0D0D" }}
+              >
+                ABOUT
+              </h2>
               <p className="text-xs leading-[18px]">{about}</p>
             </div>
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px]  text-[#0D0D0D] leading-[24px]">EXPERIENCE</h2>
+              {/* EXPERIENCE */}
+              <h2
+                className="text-sm font-semibold tracking-[2px] leading-[24px]"
+                style={{ color: color ? color : "#0D0D0D" }}
+              >
+                EXPERIENCE
+              </h2>{" "}
               <div className="space-y-3 mt-3">
                 {work_experiences.map((exp, i) => (
                   <div key={i}>
                     <p className="font-medium text-xs">{exp.job_title}</p>
-                    <p className="text-xs font-medium flex justify-between"><span>{exp.company_name}</span><span>{dayjs(exp.start_date).format("YYYY")} – {exp.end_date ? dayjs(exp.end_date).format("YYYY") : "Present"}</span></p>
+                    <p className="text-xs font-medium flex justify-between">
+                      <span>{exp.company_name}</span>
+                      <span>
+                        {dayjs(exp.start_date).format("YYYY")} –{" "}
+                        {exp.end_date
+                          ? dayjs(exp.end_date).format("YYYY")
+                          : "Present"}
+                      </span>
+                    </p>
                     <p className="text-xs mt-2">{exp.responsibilities}</p>
                   </div>
                 ))}
               </div>
             </div>
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px]  text-[#0D0D0D] leading-[24px]">TRAINING</h2>
+              {/* TRAINING */}
+              <h2
+                className="text-sm font-semibold tracking-[2px] leading-[24px]"
+                style={{ color: color ? color : "#0D0D0D" }}
+              >
+                TRAINING
+              </h2>{" "}
               <div className="space-y-3 mt-3">
                 {trainings.map((t, i) => (
                   <div key={i}>
                     <p className="font-medium text-xs">{t.course_name}</p>
                     <p className="text-xs font-medium">{t.name_of_institute}</p>
-                    <p className="text-xs">{dayjs(t.start_date).format("MMM YYYY")} – {t.end_date ? dayjs(t.end_date).format("MMM YYYY") : "Present"}</p>
+                    <p className="text-xs">
+                      {dayjs(t.start_date).format("MMM YYYY")} –{" "}
+                      {t.end_date
+                        ? dayjs(t.end_date).format("MMM YYYY")
+                        : "Present"}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px] pb-3 text-[#0D0D0D] leading-[24px]">LANGUAGE</h2>
+              {/* LANGUAGE */}
+              <h2
+                className="text-sm font-semibold tracking-[2px] leading-[24px]"
+                style={{ color: color ? color : "#0D0D0D" }}
+              >
+                LANGUAGE
+              </h2>{" "}
               <div className="space-y-2 mt-3">
                 {languages.map((l, i) => (
-                  <p key={i} className="text-xs flex justify-between">{l.language}<span>{l.level}</span></p>
+                  <p key={i} className="text-xs flex justify-between">
+                    {l.language}
+                    <span>{l.level}</span>
+                  </p>
                 ))}
               </div>
             </div>

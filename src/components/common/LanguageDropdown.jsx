@@ -28,7 +28,7 @@ const LanguageDropdown = () => {
     : "w-[48%]";
 
   return (
-    <div className={`relative inline-block text-left ${dropdownWidth} lg:w-auto`}>
+    <div className={`relative inline-block text-left ${dropdownWidth} w-full`}>
       {/* Trigger */}
       <div
         onClick={() => setIsOpen(!isOpen)}

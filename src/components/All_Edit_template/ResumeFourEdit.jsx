@@ -14,7 +14,7 @@ import DownloadButton from "../common/DownloadButton";
 
 const ResumeFourEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-  const { allRedumeData } = useResume();
+  const { allRedumeData, color,setColor } = useResume();
   const { watch } = useFormContext();
   const resumeRef = useRef();
   const [profilePreview, setProfilePreview] = useState(user);
@@ -51,7 +51,9 @@ const ResumeFourEdit = () => {
       setProfilePreview(user);
     }
   }, [formData.profile_photo, resumeData.profile_photo, VITE_IMG_URL]);
-
+useEffect(() => {
+  setColor('')
+},[])
   return (
     <div className="min-h-screen">
       <DownloadButton resumeRef={resumeRef} />
@@ -66,7 +68,7 @@ const ResumeFourEdit = () => {
               {resumeData?.first_name} <br />
               <span className="font-semibold">{resumeData?.last_name}</span>
             </h1>
-            <p className="tracking-[3px] text-[#484848] border-y border-[#D9D9D9] py-2 uppercase leading-[24px] mt-2">
+            <p className={`tracking-[3px] text-[#484848]  border-y border-[#D9D9D9] py-2 uppercase leading-[24px] mt-2`}>
               {resumeData?.job_title}
             </p>
           </div>

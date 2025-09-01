@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import html2pdf from "html2pdf.js";
 import {
   FaPhoneAlt,
@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
 
 const ResumeTwoEdit = () => {
-  const { allRedumeData } = useResume();
+  const { allRedumeData , color, setColor} = useResume();
   const { watch } = useFormContext();
   const formValues = watch();
   const resumeRef = useRef();
@@ -49,7 +49,9 @@ const ResumeTwoEdit = () => {
   const languages =
     formValues.languages || allRedumeData?.data?.languages || [];
 
-
+useEffect(() => {
+  setColor('')
+},[])
 
   return (
     <div className="min-h-screen">
@@ -57,7 +59,7 @@ const ResumeTwoEdit = () => {
 
       <div
         ref={resumeRef}
-        className="bg-white text-black px-4 py-8 w-[210mm] h-[297mm] overflow-hidden mx-auto"
+        className="bg-white text-black  py-8 w-[210mm] h-[297mm] overflow-hidden mx-auto"
       >
         {/* Header */}
         <div className="text-center">
@@ -70,9 +72,11 @@ const ResumeTwoEdit = () => {
         </p>
         <div className="border-b border-[#D9D9D9] max-w-[100px] mx-auto mt-4"></div>
 
-        <div className="flex justify-between gap-5 mt-6 h-full">
+        <div className="flex justify-between gap-5  h-full">
           {/* Left Column */}
-          <div className="w-[40%] space-y-6">
+          <div className="w-[40%] space-y-6 px-4 rounded-r pt-6"
+          style={{backgroundColor: color || ""}}
+          >
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666]">ABOUT</h2>
               <p className="text-xs leading-[18px] text-[#171717]">{about}</p>
@@ -124,10 +128,10 @@ const ResumeTwoEdit = () => {
             </div>
           </div>
 
-          <div className="w-[1px] bg-[#D9D9D9]"></div>
+          <div className="w-[1px] bg-[#D9D9D9] mt-6"></div>
 
           {/* Right Column */}
-          <div className="w-[60%] space-y-3">
+          <div className="w-[60%] space-y-3 px-4 pt-6">
             <div>
               <h2 className="text-sm tracking-[2px] text-[#666]">EXPERIENCE</h2>
               {work_experiences.map((exp, idx) => (

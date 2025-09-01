@@ -30,9 +30,7 @@ export const ResumeProvider = ({ children }) => {
     localStorage.setItem("imageString", imageString || "");
   }, [imageString]);
 
-  useEffect(() => {
-    localStorage.setItem("resumeColor", color || "#1B1E2F");
-  }, [color]);
+
 
   return (
     <ResumeContext.Provider

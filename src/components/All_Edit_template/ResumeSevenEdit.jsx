@@ -22,7 +22,7 @@ import {
 } from "react-icons/fa";
 const ResumeSevenEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-  const { allRedumeData } = useResume();
+  const { allRedumeData, color, setColor } = useResume();
   const { watch } = useFormContext();
   const resumeRef = useRef(null);
   const [profilePreview, setProfilePreview] = useState(user);
@@ -70,6 +70,9 @@ const ResumeSevenEdit = () => {
     }
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
+  useEffect(() => {
+    setColor("");
+  }, []);
   return (
     <div className=" ">
       <DownloadButton resumeRef={resumeRef} />
@@ -156,13 +159,16 @@ const ResumeSevenEdit = () => {
 
         {/* Education / Skills / Languages */}
         <div className="px-6 relative">
-          <div className="grid grid-cols-3 bg-[#E1E2E6] !text-black text-center font-semibold py-2 border border-[#9A9A9A]">
+          <div
+            className="grid grid-cols-3 bg-[#E1E2E6] !text-black text-center font-semibold py-2 border border-[#9A9A9A]"
+            style={{ backgroundColor: color, borderColor: color }}
+          >
             <div>Education</div>
             <div>Professional Skills</div>
             <div>Expertise</div>
           </div>
 
-          <div className="grid grid-cols-3 text-sm px-4 py-6 border border-[#ccc6c6] border-t-0">
+          <div className="grid grid-cols-3 text-sm px-4 py-6 border border-[#ccc6c6] border-t-0" style={{ borderColor: color }} >
             <div className="flex flex-col gap-3">
               {resumeData.educations.map((edu, i) => (
                 <div key={i} className="text-center">
@@ -200,11 +206,17 @@ const ResumeSevenEdit = () => {
               ))}
             </div>
           </div>
-          <div className=" absolute -bottom-5 left-24  bg-[#b1aaaa] p-2">
-             Experiences
+          <div
+            className=" absolute -bottom-5 left-24 text-black bg-[#b1aaaa] p-2"
+            style={{ backgroundColor: color }}
+          >
+            Experiences
           </div>
-          <div className=" absolute -bottom-5 right-24  bg-[#b1aaaa] p-2">
-             Trainings
+          <div
+            className=" absolute -bottom-5 right-24 text-black bg-[#b1aaaa] p-2"
+            style={{ backgroundColor: color }}
+          >
+            Trainings
           </div>
         </div>
 
@@ -215,6 +227,7 @@ const ResumeSevenEdit = () => {
               <div
                 key={i}
                 className="bg-[#F8F8F8] rounded-lg shadow-sm border p-4 flex flex-col gap-3"
+                style={{ backgroundColor: color }}
               >
                 <div className="flex justify-between text-xs italic">
                   <p className="font-semibold !text-black">
@@ -242,6 +255,7 @@ const ResumeSevenEdit = () => {
               <div
                 key={i}
                 className="bg-[#F8F8F8] rounded-lg shadow-sm border p-4 flex flex-col gap-3"
+                style={{ backgroundColor: color }}
               >
                 <div className="flex justify-between text-xs italic">
                   <p className="font-semibold !text-black">

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import html2pdf from "html2pdf.js";
 import { useResume } from "@/providers/ResumeContext";
 import dayjs from "dayjs";
@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import DownloadButton from "../common/DownloadButton";
 
 const ResumeOneEdit = () => {
-  const { allRedumeData } = useResume();
+  const { allRedumeData , color, setColor} = useResume();
   const { watch } = useFormContext();
   const resumeRef = useRef();
 
@@ -41,16 +41,18 @@ const ResumeOneEdit = () => {
     formValues.languages || allRedumeData?.data?.languages || [];
 
    const traingings = formValues?.courses_and_training_details || []
- console.log("traingings",traingings)
+ console.log(color)
 
-
+useEffect(() => {
+  setColor('')
+},[])
   return (
     <div className="min-h-screen">
              <DownloadButton resumeRef={resumeRef}  />
 
       <div
         ref={resumeRef}
-        className="bg-white text-black px-4 py-8 w-[210mm] mx-auto urbanist h-[297mm] overflow-hidden"
+        className="bg-white text-black  py-8 w-[210mm] mx-auto urbanist h-[297mm] overflow-hidden"
       >
         {/* Header */}
         <div className="text-center border-b border-[#D9D9D9] pb-5">
@@ -62,9 +64,11 @@ const ResumeOneEdit = () => {
           {job_title}
         </p>
 
-        <div className="flex justify-between gap-5 mt-6 h-full">
+        <div className="flex justify-between gap-2  h-full">
           {/* Left Column */}
-          <div className="w-[35%] space-y-6">
+          <div className="w-[35%] space-y-6 px-4 rounded-r pt-4"
+          style={{backgroundColor: color ? color : ""}}
+          >
             {/* About */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
@@ -119,7 +123,7 @@ const ResumeOneEdit = () => {
           <div className="w-[1px] bg-[#D9D9D9]" />
 
           {/* Right Column */}
-          <div className="w-[65%] space-y-6">
+          <div className="w-[65%] space-y-6 px-4 pt-4">
             {/* Experience */}
             {workExperiences?.length > 0 && (
               <div>
