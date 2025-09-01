@@ -15,7 +15,7 @@ import DownloadButton from "../common/DownloadButton";
 
 const ResumeTenEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-  const { allRedumeData, color } = useResume();
+  const { allRedumeData, color,setColor } = useResume();
   const { watch } = useFormContext();
   const formData = watch();
   const resumeRef = useRef(null);
@@ -65,7 +65,9 @@ const ResumeTenEdit = () => {
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
   // PDF download
-
+useEffect(() => {
+  setColor('')
+},[])
   return (
     <div className="min-h-screen">
       <DownloadButton resumeRef={resumeRef} />

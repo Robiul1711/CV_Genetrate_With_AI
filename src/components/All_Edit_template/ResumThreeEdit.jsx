@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import html2pdf from "html2pdf.js";
 import {
   FaPhoneAlt,
@@ -14,7 +14,7 @@ import DownloadButton from "../common/DownloadButton";
 
 const ResumeThreeEdit = () => {
   const { watch } = useFormContext();
-  const { allRedumeData } = useResume();
+  const { allRedumeData, color,setColor } = useResume();
   const resumeRef = useRef();
 
   // Watch form values
@@ -39,7 +39,9 @@ const ResumeThreeEdit = () => {
     ? formValues.courses_and_training_details
     : resumeData.courses_and_training_details || [];
 
-
+useEffect(() => {
+  setColor('')
+},[])
   return (
     <div className="min-h-screen">
        <DownloadButton resumeRef={resumeRef}  />
@@ -79,7 +81,9 @@ const ResumeThreeEdit = () => {
         {/* Body */}
         <div className="flex justify-between gap-5 mt-6 h-full">
           {/* Left Column */}
-          <div className="w-[45%] space-y-3 bg-[#F5F5F5] p-4 rounded-md">
+          <div className="w-[45%] space-y-3  p-4 rounded-md"
+          style={{ backgroundColor: color || "#F5F5F5" }}
+          >
             {about && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666]">ABOUT</h2>

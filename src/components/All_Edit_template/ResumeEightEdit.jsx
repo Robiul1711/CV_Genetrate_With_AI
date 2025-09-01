@@ -23,9 +23,9 @@ const TitleSection2 = ({ name }) => {
   );
 };
 
-const SectionArea = ({ children }) => {
+const SectionArea = ({ children, color }) => {
   return (
-    <div className="bg-[#1F1F1F] rounded-t-[16px] rounded-bl-[16px] px-4 pb-2 pt-4 relative">
+    <div className="bg-[#1F1F1F] rounded-t-[16px] rounded-bl-[16px] px-4 pb-2 pt-4 relative" style={{ backgroundColor: color }}>
       {children}
     </div>
   );
@@ -33,7 +33,7 @@ const SectionArea = ({ children }) => {
 
 const ResumeEightEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-  const { allRedumeData } = useResume();
+  const { allRedumeData , color, setColor} = useResume();
   const { watch } = useFormContext();
   const formData = watch();
   const [profilePreview, setProfilePreview] = useState(Image);
@@ -84,13 +84,15 @@ const ResumeEightEdit = () => {
 
     
   
- 
+ useEffect(() => {
+   setColor('')
+ },[])
   return (
    <div className=" min-h-screen">
    <DownloadButton resumeRef={resumeRef} />
      <div ref={resumeRef} className="flex flex-col bg-[#404040] gap-3 w-[210mm] h-[297mm] overflow-hidden mx-auto  ">
       {/* Header */}
-      <header className="bg-[#1F1F1F] pl-[153px] relative pt-[34px] pb-4 pr-[172px] w-full">
+      <header className="bg-[#1F1F1F] pl-[153px] relative pt-[34px] pb-4 pr-[172px] w-full" style={{ backgroundColor: color }}>
         <div className="flex flex-col gap-2 justify-end items-end w-full">
           <p className="text-[32px] font-[800] !urbanist tracking-[4px] leading-[30px] text-[#FFC805]">
             {resumeData.first_name} {resumeData.last_name}
@@ -110,7 +112,7 @@ const ResumeEightEdit = () => {
         {/* Left Column */}
         <div className="flex flex-col  gap-3 w-[75%]">
           {/* Profile */}
-          <SectionArea>
+          <SectionArea color={color}>
             <div className="flex flex-col gap-1">
               <TitleSection name="Profile" />
               <p className="text-xs text-white font-normal leading-[18px] !urbanist">
@@ -120,7 +122,7 @@ const ResumeEightEdit = () => {
           </SectionArea>
 
           {/* Experience */}
-          <SectionArea>
+          <SectionArea color={color}>
             <div className="flex flex-col gap-2">
               <TitleSection name="Experience" />
               <div className="flex flex-col gap-2 w-full">
@@ -152,7 +154,7 @@ const ResumeEightEdit = () => {
           </SectionArea>
 
           {/* Skills */}
-          <SectionArea>
+          <SectionArea color={color}>
             <div className="flex flex-col gap-2">
               <TitleSection name="Skills" />
               <div className="grid grid-cols-2 gap-2">
@@ -172,7 +174,7 @@ const ResumeEightEdit = () => {
           </SectionArea>
 
           {/* Languages */}
-          <SectionArea>
+          <SectionArea color={color}>
             <div className="flex flex-col gap-2">
               <TitleSection name="Language" />
               <div className="grid grid-cols-2">
@@ -194,7 +196,7 @@ const ResumeEightEdit = () => {
           </SectionArea>
 
           {/* Training */}
-          <SectionArea>
+          <SectionArea color={color}>
             <div className="flex flex-col gap-2">
               <TitleSection name="Training" />
               <div className="grid gap-1 grid-cols-1">
@@ -221,7 +223,7 @@ const ResumeEightEdit = () => {
         {/* Right Column */}
         <div className="w-[25%] mt-8 flex flex-col gap-3">
           {/* Education */}
-          <SectionArea>
+          <SectionArea color={color}>
             <div className="flex flex-col gap-2">
               <TitleSection2 name="Education" />
             </div>
@@ -244,7 +246,7 @@ const ResumeEightEdit = () => {
           </SectionArea>
 
           {/* Contact */}
-          <SectionArea>
+          <SectionArea color={color}>
             <div className="flex flex-col gap-2">
               <TitleSection2 name="Contact" />
               <div className="grid gap-2 mt-9">

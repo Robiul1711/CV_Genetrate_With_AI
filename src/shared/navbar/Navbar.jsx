@@ -106,13 +106,13 @@ const Navbar = () => {
             <LanguageDropdown />
           </div>
         ) : (
-          <div className="hidden lg:flex items-center gap-5">
-            <Link to={"/sign-in"}>
+          <div className="hidden lg:flex items-center gap-2 ">
+            <Link to={"/sign-in"} className="w-full">
               <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg">
                 {language === "de" ? "Einloggen" : "Log In"}
               </button>
             </Link>
-            <Link to={"/sign-up"}>
+            <Link to={"/sign-up"} className="w-full">
               <button className="font-medium py-2 xl:py-3 px-5 xl:px-7 border border-white hover:bg-white hover:text-dark rounded-lg">
                 {language === "de" ? "Registrieren" : "Sign Up"}
               </button>

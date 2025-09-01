@@ -13,7 +13,7 @@ const Step_6 = () => {
     <div className="bg-black text-white flex justify-center">
       <div className="w-full flex flex-col md:flex-row gap-6 md:gap-14">
         {/* Resume Preview */}
-       <div className=" mx-auto flex flex-col gap-2 w-full overflow-x-auto">
+       <div className=" mx-auto flex flex-col gap-2 overflow-x-auto">
   <DownloadButton resumeRef={resumeRef} />
   <CoverLetter resumeRef={resumeRef} coverLetter={coverLetter} />
 </div>

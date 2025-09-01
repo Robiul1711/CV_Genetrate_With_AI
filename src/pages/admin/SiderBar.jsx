@@ -5,12 +5,14 @@ import Logo from "@/assets/adminlogo.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import LogOutModal from "./LogOutModal";
+import { useAuth } from "@/hooks/useAuth";
 // import { Logout } from "@/components/common/adminIcon/CustomIcon";
 
 const SideBar = ({ sidebar, open, setOpen }) => {
   const location = useLocation();
   const [activeParentIndex, setActiveParentIndex] = useState(null);
-
+const {user}=useAuth()
+console.log(user);
   useEffect(() => {
     sidebar.forEach((item, index) => {
       if (item.sublink) {
@@ -68,11 +70,11 @@ const SideBar = ({ sidebar, open, setOpen }) => {
             </div>
             <div className=" flex flex-col gap-1">
               <p className=" text-[20px] font-semibold text-[#FFF]">
-                Luca Weber
+               {user?.profile?.first_name} {user?.profile?.last_name}
               </p>
               <p className="text-[#9B9B9B] text-sm font-normal">
                 {" "}
-                lucaweber@gmail.com
+                {user?.profile?.user?.email}
               </p>
             </div>
           </div>

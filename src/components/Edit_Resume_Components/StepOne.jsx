@@ -122,12 +122,12 @@ const StepOne = () => {
   return (
     <div>
       {/* Live Title */}
-      <h2 className="text-lg text-white mb-4">
+      {/* <h2 className="text-lg text-white mb-4">
         {t.liveTitle}: {liveTitle}
-      </h2>
+      </h2> */}
 
       {/* Upload Section */}
-      <div className="flex flex-col gap-4 mb-4">
+      <div className="flex flex-col gap-4 mb-4 mt-5">
         <p className="text-sm text-white">{t.uploadPhoto}</p>
 
         <div className="relative w-16 h-16 rounded-full border-2 border-white">

@@ -159,7 +159,7 @@ const CreateNewResume = () => {
 
   const onSubmit = (data) => {
     data.goal = String(data.goal).trim();
-    console.log(data)
+    console.log(data);
     if (activeStep === 7) ResumeMutation.mutate(data);
     else handleNext();
   };
@@ -214,7 +214,7 @@ const CreateNewResume = () => {
             >
               {isCreatingResume ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  {/* <Loader2 className="h-4 w-4 animate-spin" /> */}
                   {t.generating}
                 </>
               ) : (
