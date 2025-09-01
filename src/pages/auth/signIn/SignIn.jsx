@@ -2,21 +2,20 @@ import React, { useState } from "react";
 import logo from "../../../assets/images/logo.png";
 import Title from "@/components/common/Title";
 import { Check, Eye, EyeOff, Mail } from "lucide-react";
-import {
-  Apple,
-  Facebook,
-  Google,
-  Lock,
-} from "@/components/CustomIcons/CustomIcon";
-import { Link, ScrollRestoration, useNavigate,useSearchParams } from "react-router-dom";
+import { Apple, Facebook, Google, Lock } from "@/components/CustomIcons/CustomIcon";
+import { Link, ScrollRestoration, useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks/useAuth";
+import { useEmail } from "@/hooks/useEmail";
+
 const SignIn = () => {
-   const [searchParams] = useSearchParams();
-    const redirectPath = searchParams.get("redirect") || "/";
+  const { language } = useEmail(); // 'en' or 'de'
+  const [searchParams] = useSearchParams();
+  const redirectPath = searchParams.get("redirect") || "/";
+
   const {
     register,
     handleSubmit,
@@ -27,31 +26,59 @@ const SignIn = () => {
   const [serverError, setServerError] = useState(null);
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
-  const { setToken,setRefreshToken ,user} = useAuth();
+  const { setToken, setRefreshToken, user } = useAuth();
+
+  // Language content
+  const text = {
+    en: {
+      welcome: "Welcome back!",
+      subtitle: "Sign in to access your resumes and tools",
+      email: "Email",
+      emailPlaceholder: "andrew.ainsley@yourdomain.com",
+      password: "Password",
+      passwordPlaceholder: "••••••••",
+      rememberMe: "Remember Me",
+      forgotPassword: "Forgot Password?",
+      signIn: "Sign In",
+      signingIn: "Signing In...",
+      orContinueWith: "Or continue with",
+      dontHaveAccount: "Don’t have an account?",
+      signUp: "Sign Up",
+    },
+    de: {
+      welcome: "Willkommen zurück!",
+      subtitle: "Melden Sie sich an, um auf Ihre Lebensläufe und Tools zuzugreifen",
+      email: "E-Mail",
+      emailPlaceholder: "andrew.ainsley@ihrdomain.com",
+      password: "Passwort",
+      passwordPlaceholder: "••••••••",
+      rememberMe: "Angemeldet bleiben",
+      forgotPassword: "Passwort vergessen?",
+      signIn: "Anmelden",
+      signingIn: "Anmeldung läuft...",
+      orContinueWith: "Oder fortfahren mit",
+      dontHaveAccount: "Sie haben noch kein Konto?",
+      signUp: "Registrieren",
+    },
+  };
+
+  const t = text[language || "en"];
 
   const signInMutation = useMutation({
     mutationFn: async (data) => {
-      const payload = {
-        email: data.email,
-        password: data.password,
-      };
+      const payload = { email: data.email, password: data.password };
       const res = await axiosPublic.post(`/signin/`, payload);
-      return res.data; // should return { access, refresh }
+      return res.data; // { access, refresh }
     },
     onSuccess: (data) => {
       setServerError(null);
-      toast.success("Login Successfully");
-    navigate(redirectPath);
-
-      // Save tokens to context
+      toast.success(t.signIn + " " + "Successfully");
       setToken(data.access);
       setRefreshToken(data.refresh);
+      navigate(redirectPath);
     },
     onError: (error) => {
-      console.log(error);
-      setServerError(
-        error?.response?.data?.message || "Invalid credentials or server error."
-      );
+      setServerError(error?.response?.data?.message || "Invalid credentials or server error.");
     },
   });
 
@@ -59,10 +86,6 @@ const SignIn = () => {
     setServerError(null);
     signInMutation.mutate(data);
   };
-
-  console.log(user);
-
-
 
   return (
     <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center overflow-y-auto md:overflow-y-hidden">
@@ -77,12 +100,10 @@ const SignIn = () => {
           </Link>
         </div>
 
-        <h2 className="text-xl font-semibold text-center mb-2">
-          Welcome back!
-        </h2>
+        <h2 className="text-xl font-semibold text-center mb-2">{t.welcome}</h2>
 
         <Title level="title18" className="text-center mb-6">
-          Sign in to access your resumes and tools
+          {t.subtitle}
         </Title>
 
         {/* Server Error */}
@@ -95,39 +116,35 @@ const SignIn = () => {
         {/* Email Input */}
         <div className="mb-1 relative">
           <label htmlFor="email" className="block mb-2 text-sm">
-            Email
+            {t.email}
           </label>
           <div
-            className={`relative flex items-center w-full px-3 py-1.5  gap-3 !text-xs md:text-base border rounded-lg ${
+            className={`relative flex items-center w-full px-3 py-1.5 gap-3 !text-xs md:text-base border rounded-lg ${
               errors.email ? "border-red-500" : "border-[#666666]"
             }`}
           >
-            <span className=" ">
-              <Mail size={16} />
-            </span>
+            <Mail size={16} />
             <input
               type="email"
               id="email"
               {...register("email", {
-                required: "Email is required",
+                required: t.email + " is required",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   message: "Invalid email address",
                 },
               })}
-              placeholder="andrew.ainsley@yourdomain.com"
-              className={`   w-full  bg-black focus:outline-none`}
+              placeholder={t.emailPlaceholder}
+              className="w-full bg-black focus:outline-none"
             />
           </div>
-          {errors.email && (
-            <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>
-          )}
+          {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
         </div>
 
         {/* Password Input */}
         <div className="mb-4 relative">
           <label htmlFor="password" className="block mb-2 text-sm">
-            Password
+            {t.password}
           </label>
           <div className="relative">
             <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
@@ -136,8 +153,8 @@ const SignIn = () => {
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              placeholder="••••••••"
-              {...register("password", { required: "Password is required" })}
+              placeholder={t.passwordPlaceholder}
+              {...register("password", { required: t.password + " is required" })}
               className={`w-full px-3 py-1.5 pl-10 !text-xs md:text-base border ${
                 errors.password ? "border-red-500" : "border-[#666666]"
               } rounded-lg bg-black`}
@@ -148,11 +165,7 @@ const SignIn = () => {
             >
               {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
             </span>
-            {errors.password && (
-              <p className="mt-1 text-xs text-red-500">
-                {errors.password.message}
-              </p>
-            )}
+            {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>}
           </div>
         </div>
 
@@ -161,27 +174,17 @@ const SignIn = () => {
           <label className="flex items-center gap-3 cursor-pointer">
             <span
               className={`w-4 h-4 flex justify-center items-center border rounded-sm ${
-                checked
-                  ? "border-[#81FB84] bg-black"
-                  : "border-[#666666] bg-black"
+                checked ? "border-[#81FB84] bg-black" : "border-[#666666] bg-black"
               }`}
             >
               {checked && <Check size={14} className="text-[#81FB84]" />}
             </span>
-
-            <input
-              type="checkbox"
-              checked={checked}
-              onChange={(e) => setChecked(e.target.checked)}
-              className="hidden"
-            />
-            <span className="text-sm">Remember Me</span>
+            <input type="checkbox" checked={checked} onChange={(e) => setChecked(e.target.checked)} className="hidden" />
+            <span className="text-sm">{t.rememberMe}</span>
           </label>
 
           <Link to={"/forgot-password"}>
-            <p className="cursor-pointer text-sm font-medium hover:underline">
-              Forgot Password?
-            </p>
+            <p className="cursor-pointer text-sm font-medium hover:underline">{t.forgotPassword}</p>
           </Link>
         </div>
 
@@ -201,53 +204,32 @@ const SignIn = () => {
                 fill="none"
                 viewBox="0 0 24 24"
               >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path
                   className="opacity-75"
                   fill="currentColor"
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
-              Signing In...
+              {t.signingIn}
             </>
           ) : (
-            "Sign In"
+            t.signIn
           )}
         </button>
 
         {/* Divider */}
         <div className="flex items-center my-3">
           <hr className="flex-grow border-gray-300" />
-          <span className="mx-4 text-[#FFF] text-sm">Or continue with</span>
+          <span className="mx-4 text-[#FFF] text-sm">{t.orContinueWith}</span>
           <hr className="flex-grow border-gray-300" />
         </div>
 
-        {/* Social Icons */}
-        {/* <div className="flex justify-center items-center gap-5 mb-4">
-          {[Facebook, Google, Apple].map((Icon, index) => (
-            <div
-              key={index}
-              className="border border-[#666666] p-3 rounded-full w-11 h-11 flex justify-center items-center"
-            >
-              <Icon size={18} />
-            </div>
-          ))}
-        </div> */}
-
         {/* Sign Up */}
         <p className="text-center py-2 text-sm">
-          Don’t have an account?{" "}
+          {t.dontHaveAccount}{" "}
           <Link to={"/sign-up"}>
-            <span className="font-medium cursor-pointer underline">
-              Sign Up
-            </span>
+            <span className="font-medium cursor-pointer underline">{t.signUp}</span>
           </Link>
         </p>
       </form>

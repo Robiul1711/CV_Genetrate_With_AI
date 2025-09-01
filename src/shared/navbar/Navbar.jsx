@@ -64,7 +64,9 @@ const Navbar = () => {
     <>
       <header
         className={`sticky top-0 z-50 section-padding-x py-4 flex items-center justify-between transition-all duration-300 ${
-          isScrolled ? "bg-[#0E0E10]/70 backdrop-blur-md shadow-lg" : "bg-transparent"
+          isScrolled
+            ? "bg-[#0E0E10]/70 backdrop-blur-md shadow-lg"
+            : "bg-transparent"
         }`}
       >
         {/* Left: Logo + Desktop Nav */}
@@ -93,7 +95,12 @@ const Navbar = () => {
         {/* Right: Buttons */}
         {isLoadingUser ? (
           <div className="hidden lg:flex items-center gap-5">
-            <Skeleton baseColor="#0E0E10" width={200} height={40} borderRadius={8} />
+            <Skeleton
+              baseColor="#0E0E10"
+              width={200}
+              height={40}
+              borderRadius={8}
+            />
           </div>
         ) : user ? (
           <div className="hidden lg:flex items-center gap-5">
@@ -122,10 +129,28 @@ const Navbar = () => {
         )}
 
         {/* Mobile Menu Icon */}
-        <div className="lg:hidden">
-          <button onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <FiX className="text-white text-2xl md:text-3xl" /> : <FiMenu className="text-white text-2xl md:text-3xl" />}
-          </button>
+        <div className=" lg:hidden flex items-center gap-2">
+          {user && (
+            <div className="flex items-center gap-5">
+              <LanguageDropdown />
+              <UserDropdown
+                user={{
+                  name: user.first_name + " " + user.last_name,
+                  email: user?.user?.email,
+                }}
+              />
+            </div>
+          )}
+
+          <div className="">
+            <button onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? (
+                <FiX className="text-white text-2xl md:text-3xl" />
+              ) : (
+                <FiMenu className="text-white text-2xl md:text-3xl" />
+              )}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -167,30 +192,32 @@ const Navbar = () => {
               </ul>
 
               <div className="flex flex-col gap-4 mt-4 w-full">
-                <div className="flex justify-between gap-3 w-full">
-                  <div className="w-full">
-                    <Link to="/sign-in">
-                      <button
-                        className="w-full font-medium py-2 md:py-3 px-5 md:px-7 border border-white rounded-lg text-white hover:bg-white hover:text-black transition"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {language === "de" ? "Einloggen" : "Log In"}
-                      </button>
-                    </Link>
+                {!user && (
+                  <div className="flex justify-between gap-3 w-full">
+                    <div className="w-full">
+                      <Link to="/sign-in">
+                        <button
+                          className="w-full font-medium py-2 md:py-3 px-5 md:px-7 border border-white rounded-lg text-white hover:bg-white hover:text-black transition"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {language === "de" ? "Einloggen" : "Log In"}
+                        </button>
+                      </Link>
+                    </div>
+                    <div className="w-full">
+                      <Link to="/sign-up">
+                        <button
+                          className="w-full font-medium py-2 md:py-3 px-5 md:px-7 border border-white rounded-lg text-white hover:bg-white hover:text-black transition"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {language === "de" ? "Registrieren" : "Sign Up"}
+                        </button>
+                      </Link>
+                    </div>
                   </div>
-                  <div className="w-full">
-                    <Link to="/sign-up">
-                      <button
-                        className="w-full font-medium py-2 md:py-3 px-5 md:px-7 border border-white rounded-lg text-white hover:bg-white hover:text-black transition"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {language === "de" ? "Registrieren" : "Sign Up"}
-                      </button>
-                    </Link>
-                  </div>
-                </div>
+                )}
 
-                <LanguageDropdown />
+                {/* <LanguageDropdown /> */}
               </div>
             </motion.div>
           </>
