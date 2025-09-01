@@ -12,6 +12,7 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
+import { useEmail } from "@/hooks/useEmail";
 
 const ResumeTenEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
@@ -20,7 +21,7 @@ const ResumeTenEdit = () => {
   const formData = watch();
   const resumeRef = useRef(null);
   const [profilePreview, setProfilePreview] = useState(user);
-  console.log(color);
+ const { language } = useEmail();
   // Merge formData and context data
   const resumeData = {
     first_name: formData?.first_name || allRedumeData?.data?.first_name || "",
@@ -93,8 +94,8 @@ useEffect(() => {
 
             {/* Contact */}
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                CONTACT
+              <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
+                {language === "en" ? "Contact" : "Kontakt"}
               </h2>
               <div className="px-4 space-y-2">
                 <p className="text-xs flex items-center gap-2">
@@ -134,8 +135,8 @@ useEffect(() => {
 
             {/* Training */}
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                TRAINING
+              <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
+                {language === "en" ? "Training" : "Training"}
               </h2>
               <div className="space-y-3">
                 {resumeData.courses_and_training_details.map(
@@ -161,8 +162,8 @@ useEffect(() => {
 
             {/* Languages */}
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                LANGUAGE
+              <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
+                {language === "en" ? "Languages" : "Sprachen"}
               </h2>
               <div className="space-y-3 px-4">
                 {resumeData.languages.map((lang, idx) => (
@@ -178,8 +179,8 @@ useEffect(() => {
 
             {/* Skills */}
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                SKILL
+              <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
+                {language === "en" ? "Skills" : "Fähigkeiten"}
               </h2>
               <ul className="text-xs space-y-3 list-disc list-inside px-4">
                 {resumeData.skills.map((skill, idx) => (
@@ -202,8 +203,8 @@ useEffect(() => {
 
             {/* About */}
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px] mb-3 text-[#0D0D0D] leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
-                ABOUT
+              <h2 className="text-sm font-semibold uppercase tracking-[2px] mb-3 text-[#0D0D0D] leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
+                {language === "en" ? "About" : "Über mich"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717] px-4">
                 {resumeData.about}
@@ -212,8 +213,8 @@ useEffect(() => {
 
             {/* Education */}
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
-                EDUCATION
+              <h2 className="text-sm font-semibold uppercase tracking-[2px] mb-3 leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
+                {language === "en" ? "Education" : "Ausbildung"}
               </h2>
               <div className="space-y-3 px-4">
                 {resumeData.educations.map((edu, idx) => (
@@ -237,8 +238,8 @@ useEffect(() => {
 
             {/* Experience */}
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
-                EXPERIENCE
+              <h2 className="text-sm font-semibold tracking-[2px] uppercase mb-3 leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
+                {language === "en" ? "Experience" : "Erfahrung"}
               </h2>
               <div className="space-y-3 px-4">
                 {resumeData.work_experiences.map((exp, idx) => (

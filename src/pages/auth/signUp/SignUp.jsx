@@ -244,11 +244,12 @@ const SignUp = () => {
               {checked && <Check size={14} className="text-[#81FB84]" />}
             </span>
             <input type="checkbox" checked={checked} onChange={(e) => setChecked(e.target.checked)} className="hidden" />
-            <span className="text-sm">
+            <span className="text-sm flex gap-3">
               {t.terms.split("terms of service")[0]}
-              <Link to="/terms" className="text-[#81FB84] underline">terms of service</Link>
+              <Link to="/tearms-and-condition" target="_blank" className="text-[#81FB84] underline">terms of service</Link>
               {t.terms.split("privacy policy")[1]}
-              <Link to="/privacy" className="text-[#81FB84] underline">privacy policy</Link>
+             
+              <Link to="/privacy-policy" target="_blank" className="text-[#81FB84] underline">privacy policy</Link>
             </span>
           </label>
           {!checked && serverError === t.agreeError && <p className="mt-1 text-xs text-red-500">{serverError}</p>}
