@@ -6,7 +6,6 @@ import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useEmail } from "@/hooks/useEmail";
 import { useQuery } from "@tanstack/react-query";
 
-
 const HowItWorks = () => {
   const IMG_URL = import.meta.env.VITE_IMG_URL;
   const axiosPublic = useAxiosPublic();
@@ -28,16 +27,15 @@ const HowItWorks = () => {
   return (
     <div className="py-10">
       <div className="flex flex-col items-center text-center">
-       <h1 className="text-[25px] md:text-[28px] font-bold">
-  {language === "de" ? "Wie es funktioniert" : "How It Works"}
-</h1>
+        <h1 className="text-[25px] md:text-[28px] font-bold">
+          {language === "de" ? "Wie es funktioniert" : "How It Works"}
+        </h1>
 
-       <p className="text-[15px] text-[#9B9B9B] pt-1 max-w-2xl">
-  {language === "de"
-    ? "Nächste Generation No-Code. Über die natürliche Sprache hinaus. Warum tippen, wenn Sie klicken können?"
-    : "Next generation no-code. Beyond natural language. Why type when you can click?"}
-</p>
-
+        <p className="text-[15px] text-[#9B9B9B] pt-1 max-w-2xl">
+          {language === "de"
+            ? "Nächste Generation No-Code. Über die natürliche Sprache hinaus. Warum tippen, wenn Sie klicken können?"
+            : "Next generation no-code. Beyond natural language. Why type when you can click?"}
+        </p>
       </div>
 
       <div className="mt-12 md:mt-20 space-y-20">
@@ -85,13 +83,12 @@ const HowItWorks = () => {
                   ))}
                 </ul>
               </div>
-             <Link
-  to={`/dashboard`}
-  className="text-[15px] md:text-base inline-block items-center gap-2 px-6 py-2 md:py-3 rounded-lg mt-8 md:mt-10 border hover:border-[#1b461c]"
->
-  {language === "de" ? "Jetzt starten" : "Get Started Now"}
-</Link>
-
+              <Link
+                to={`/dashboard`}
+                className="text-[15px] md:text-base inline-block items-center gap-2 px-6 py-2 md:py-3 rounded-lg mt-8 md:mt-10 border hover:border-[#1b461c]"
+              >
+                {language === "de" ? "Jetzt starten" : "Get Started Now"}
+              </Link>
             </div>
           </div>
         ))}
