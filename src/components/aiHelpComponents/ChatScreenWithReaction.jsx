@@ -1,155 +1,351 @@
-import React, { useState, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { LuHeart, LuSend, LuThumbsUp } from "react-icons/lu";
+import { FaRegSmile } from "react-icons/fa";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useEmail } from "@/hooks/useEmail";
+import { useMutation } from "@tanstack/react-query";
+import bot from "@/assets/images/bot.png";
 
-export default function CoverLetter({ resumeRef }) {
-  const [data, setData] = useState(null);
-  const [parsedContent, setParsedContent] = useState(null);
+// ✅ Improved parser function to format bot response with better bold text handling
+const parseMessage = (text) => {
+  if (!text) return null;
+  const lines = text.split("\n");
 
-  // Sample data (replace with your actual data source)
-  const sampleData = {
-    "name": "John Doe",
-    "contact_information": {
-      "address": "123 Elm Street, Berlin, Germany",
-      "phone": "+49 30 12345678",
-      "email": "john.doe@example.com"
+  return lines.map((line, i) => {
+    const trimmed = line.trim();
+    
+    // Function to process bold text in any content
+    const processBoldText = (content) => {
+      const boldPattern = /\*\*(.*?)\*\*/g;
+      const parts = content.split(boldPattern);
+      
+      return parts.map((part, idx) =>
+        idx % 2 === 1 ? <strong key={idx} className="text-white">{part}</strong> : part
+      );
+    };
+
+    // Bullet points
+    if (trimmed.startsWith("-") || trimmed.startsWith("*")) {
+      const content = trimmed.replace(/^[-*]\s*/, "");
+      return (
+        <li key={i} className="ml-6 list-disc leading-relaxed">
+          {processBoldText(content)}
+        </li>
+      );
+    }
+
+    // Numbered lists (e.g., 1., 2.)
+    if (/^\d+\./.test(trimmed)) {
+      const content = trimmed.replace(/^\d+\.\s*/, "");
+      return (
+        <li key={i} className="ml-6 list-decimal leading-relaxed">
+          {processBoldText(content)}
+        </li>
+      );
+    }
+
+    // Normal line with potential bold text
+    return (
+      <p key={i} className="mb-1 leading-relaxed">
+        {processBoldText(trimmed)}
+      </p>
+    );
+  });
+};
+
+const ChatScreenWithReaction = ({
+  suggestedQuestions,
+  clickedQuestion,
+  showChatWithData,
+  history,
+  onQuestionProcessed,
+}) => {
+  const axiosSecure = useAxiosSecure();
+  const { language } = useEmail();
+
+  const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [reactingTo, setReactingTo] = useState(null);
+
+  const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
+
+  // Mutation for sending message to bot
+  const ChatMutation = useMutation({
+    mutationFn: async (data) => {
+      const res = await axiosSecure.post("/chats/", data);
+      return res.data;
     },
-    "professional_summary": "Experienced researcher with a strong background in environmental science, specializing in sustainable development and ecological analysis. Proven ability to conduct comprehensive studies and disseminate findings through academic publications and conferences.",
-    "skills": ["Advanced Data Analysis", "Academic Writing", "Project Management", "Publications and Presentations"],
-    "education": [
+    onSuccess: (res) => {
+      const botText =
+        typeof res?.data === "string" ? res.data : res?.data?.answer || "";
+      if (!botText) return;
+
+      const newId = Date.now();
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: newId,
+          text: botText,
+          sender: "other",
+          senderProfile: { name: "Bot", avatar: bot },
+          timestamp: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          reaction: null,
+        },
+      ]);
+
+      setLoading(false);
+    },
+  });
+
+  // Initialize chat history
+  useEffect(() => {
+    if (history?.length) {
+      const formattedHistory = [...history]
+        .reverse()
+        .flatMap((item) => {
+          const msgs = [];
+          if (item.question) {
+            msgs.push({
+              id: Date.now() + Math.random(),
+              text: String(item.question),
+              sender: "me",
+              senderProfile: {
+                name: "You",
+                avatar: "https://i.pravatar.cc/40?img=1",
+              },
+              timestamp: new Date(
+                item.created_at || Date.now()
+              ).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              }),
+              reaction: null,
+            });
+          }
+          if (item.answer) {
+            msgs.push({
+              id: Date.now() + Math.random(),
+              text: String(item.answer),
+              sender: "other",
+              senderProfile: { name: "Bot", avatar: bot },
+              timestamp: new Date(
+                item.created_at || Date.now()
+              ).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              }),
+              reaction: null,
+            });
+          }
+          return msgs;
+        });
+
+      setMessages(formattedHistory);
+    } else {
+      setMessages([
+        {
+          id: 1,
+          text: "Hey there! How's it going?",
+          sender: "other",
+          senderProfile: { name: "Bot", avatar: bot },
+          timestamp: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          reaction: null,
+        },
+      ]);
+    }
+  }, [history]);
+
+  // Scroll to bottom
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, loading]);
+
+  // Send message
+  const handleSendMessage = (messageText = newMessage) => {
+    const text =
+      typeof messageText === "string"
+        ? messageText
+        : String(messageText);
+    if (!text.trim()) return;
+
+    const newId = Date.now();
+    setMessages((prev) => [
+      ...prev,
       {
-        "degree": "Ph.D. in Environmental Science",
-        "institution": "University of Berlin",
-        "year": "2020"
+        id: newId,
+        text,
+        sender: "me",
+        senderProfile: {
+          name: "You",
+          avatar: "https://i.pravatar.cc/40?img=1",
+        },
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        reaction: null,
       },
-      {
-        "degree": "Master of Science in Sustainability Studies",
-        "institution": "Technical University of Munich",
-        "year": "2015"
-      },
-      {
-        "degree": "Bachelor of Science in Biology",
-        "institution": "Johann Wolfgang Goethe University",
-        "year": "2012"
-      }
-    ],
-    "professional_experience": [
-      {
-        "position": "Research Fellow",
-        "company": "Max Planck Institute for Biological Intelligence",
-        "period": "2020 – Present",
-        "responsibilities": [
-          "Leading interdisciplinary research projects focused on ecological conservation",
-          "Publishing findings in high-impact journals",
-          "Presenting at international conferences"
-        ]
-      },
-      {
-        "position": "Research Assistant",
-        "company": "University of Berlin",
-        "period": "2016 – 2020",
-        "responsibilities": [
-          "Supporting faculty research on environmental impact assessments",
-          "Conducting field studies and data analysis",
-          "Co-authoring academic papers"
-        ]
-      }
-    ],
-    "additional_qualifications": ["Fluent in English and German", "Proficient in statistical software", "Member of the German Society for Environmental Studies"],
-    "desired_job_title": "Research Scientist in Ecology and Sustainable Development",
-    "cover_letter_content": "Dear Hiring Committee,\n\nI am writing to express my strong interest in the position of Research Scientist in Ecology and Sustainable Development as advertised. With a Ph.D. in Environmental Science from the University of Berlin and extensive experience conducting interdisciplinary research at leading institutions, I am confident in my ability to contribute effectively to your team's academic pursuits.\n\nThroughout my career, I have demonstrated a commitment to advancing understanding of ecological systems and sustainable practices. My role as a Research Fellow at the Max Planck Institute has enabled me to lead innovative projects, publish in reputable journals, and present at international conferences, all of which have sharpened my academic and professional skills. Moreover, my experience supporting environmental impact assessments and conducting comprehensive field studies has provided me with a solid foundation in research methodologies.\n\nBeing fluent in both English and German, I am adept at communicating complex scientific ideas to diverse audiences and collaborating within multilingual teams. My proficiency in statistical software further enhances my analytical capabilities, ensuring the accuracy and relevance of my research findings.\n\nI am eager to bring my academic background, research expertise, and passion for ecological sustainability to your esteemed organization. I look forward to the possibility of contributing to innovative projects aligned with your institution's commitment to environmental excellence.\n\nThank you for considering my application. I am available at your convenience for an interview and am excited about the opportunity to discuss how my background and skills can serve your team.\n\nSincerely,\n\nJohn Doe"
+    ]);
+
+    setLoading(true);
+    ChatMutation.mutate({ question: text, language });
+    setNewMessage("");
+    inputRef.current?.focus();
   };
 
-  useEffect(() => {
-    // In a real application, you would get this data from props or context
-    setData(sampleData);
-    
-    // Parse the resume_content if it exists and is a string
-    try {
-      if (sampleData.cover_letter_content) {
-        setParsedContent(sampleData.cover_letter_content);
-      }
-    } catch (error) {
-      console.error("Error parsing resume content:", error);
-    }
-  }, []);
+  // Handle reaction
+  const handleReaction = (messageId, reaction) => {
+    setMessages((prev) =>
+      prev.map((m) =>
+        m.id === messageId
+          ? { ...m, reaction: m.reaction === reaction ? null : reaction }
+          : m
+      )
+    );
+    setReactingTo(null);
+  };
 
-  if (!data) {
-    return <div>Loading...</div>;
-  }
+  const toggleReactionMenu = (id) => {
+    setReactingTo((prev) => (prev === id ? null : id));
+  };
+
+  // Handle clicked suggested question
+  useEffect(() => {
+    if (clickedQuestion && showChatWithData) {
+      handleSendMessage(clickedQuestion);
+      onQuestionProcessed && onQuestionProcessed();
+    }
+  }, [clickedQuestion, showChatWithData]);
 
   return (
-    <div 
-      ref={resumeRef} 
-      className="w-[210mm] bg-white shadow-lg py-12 px-20 mx-auto outfit"
-      style={{ fontFamily: "'Outfit', sans-serif" }}
-    >
-      {/* Header Section */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[#2E2E48]">
-          {data.name}
-        </h1>
-        <p className="text-[#516CF7] font-medium text-lg">{data.desired_job_title}</p>
+    <div className="flex flex-col w-full max-w-6xl mx-auto bg-[#0E0E10] rounded-md custom-scrollbar overflow-hidden shadow-md h-[90vh] relative">
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <AnimatePresence>
+          {messages.map((msg) => (
+            <motion.div
+              key={msg.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className={`flex items-end gap-2 ${
+                msg.sender === "me" ? "justify-end" : "justify-start"
+              }`}
+            >
+              {msg.sender === "other" && (
+                <img
+                  src={msg.senderProfile.avatar}
+                  alt=""
+                  className="w-8 h-8 rounded-full"
+                />
+              )}
+              <div>
+                <div
+                  className={`px-4 py-2 text-sm rounded-2xl leading-relaxed max-w-xl ${
+                    msg.sender === "me"
+                      ? "bg-blue-600 text-white rounded-br-none"
+                      : "bg-[#1C1C1F] text-gray-200 rounded-bl-none"
+                  }`}
+                >
+                  {msg.sender === "other" ? (
+                    <div className="space-y-1">{parseMessage(msg.text)}</div>
+                  ) : (
+                    msg.text
+                  )}
+                </div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 ml-1">
+                  {msg.timestamp}
+                </div>
+              </div>
+              {msg.sender === "me" && (
+                <img
+                  src={msg.senderProfile.avatar}
+                  alt=""
+                  className="w-8 h-8 rounded-full"
+                />
+              )}
 
-        {/* Contact Information */}
-        <div className="mt-8 grid grid-cols-3 gap-4">
-          <div className="flex items-center gap-3">
-            <MdEmail className="text-[#79819A] text-xl p-1.5 bg-[#79819A]/20 rounded-full" />
-            <div>
-              <p className="text-xs text-[#79819A]">Email</p>
-              <p className="text-sm text-[#47516B]">{data.contact_information.email}</p>
-            </div>
-          </div>
+              {msg.reaction && (
+                <span
+                  className="text-xs ml-2 cursor-pointer"
+                  onClick={() => toggleReactionMenu(msg.id)}
+                >
+                  {msg.reaction === "love" && (
+                    <LuHeart size={16} color="red" />
+                  )}
+                  {msg.reaction === "like" && (
+                    <LuThumbsUp size={16} color="blue" />
+                  )}
+                  {msg.reaction === "smile" && (
+                    <FaRegSmile size={16} color="gold" />
+                  )}
+                </span>
+              )}
+            </motion.div>
+          ))}
 
-          <div className="flex items-center gap-3">
-            <MdPhone className="text-[#79819A] text-xl p-1.5 bg-[#79819A]/20 rounded-full" />
-            <div>
-              <p className="text-xs text-[#79819A]">Phone</p>
-              <p className="text-sm text-[#47516B]">{data.contact_information.phone}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <MdLocationOn className="text-[#79819A] text-xl p-1.5 bg-[#79819A]/20 rounded-full" />
-            <div>
-              <p className="text-xs text-[#79819A]">Address</p>
-              <p className="text-sm text-[#47516B]">{data.contact_information.address}</p>
-            </div>
-          </div>
-        </div>
+          {/* Typing indicator */}
+          {loading && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex items-center gap-2"
+            >
+              <img src={bot} alt="Bot" className="w-8 h-8 rounded-full" />
+              <div className="bg-[#1C1C1F] text-gray-300 rounded-xl px-3 py-2 flex items-center gap-1">
+                <span
+                  className="dot w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+                  style={{ animationDelay: "0s" }}
+                ></span>
+                <span
+                  className="dot w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+                  style={{ animationDelay: "0.2s" }}
+                ></span>
+                <span
+                  className="dot w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+                  style={{ animationDelay: "0.4s" }}
+                ></span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <div ref={messagesEndRef} />
       </div>
 
-      {/* Divider */}
-      <hr className="border-t border-gray-200 my-6" />
-
-      {/* Cover Letter Body */}
-      <div className="text-sm text-gray-800 leading-relaxed">
-        <p className="text-[#2E2E48] font-medium">
-          {new Date().toLocaleDateString("en-US", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          })}
-        </p>
-
-        <p className="mt-4 text-[#2E2E48] font-medium">
-          Dear Hiring Manager,
-        </p>
-
-        <div className="mt-4 tracking-[0.5px] leading-[24px] text-[#47516B]">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {parsedContent || data.cover_letter_content}
-          </ReactMarkdown>
-        </div>
-
-        <div className="mt-8 text-[#2E2E48] font-medium">
-          <p>Sincerely,</p>
-          <p className="mt-1">
-            {data.name}
-          </p>
+      {/* Input */}
+      <div className="p-4 border-t border-gray-800 bg-[#111]">
+        <div className="flex gap-2 items-center">
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Type your message..."
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+            className="flex-1 px-4 py-2 rounded-full border border-gray-700 bg-[#1C1C1F] text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          />
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={handleSendMessage}
+            className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"
+          >
+            <LuSend size={18} />
+          </motion.button>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default ChatScreenWithReaction;
