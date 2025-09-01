@@ -20,13 +20,14 @@ import {
   FaLinkedin,
   FaXing,
 } from "react-icons/fa";
+import { useEmail } from "@/hooks/useEmail";
 const ResumeSevenEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const { allRedumeData, color, setColor } = useResume();
   const { watch } = useFormContext();
   const resumeRef = useRef(null);
   const [profilePreview, setProfilePreview] = useState(user);
-
+const {language} = useEmail();
   const formData = watch();
 
   const resumeData = {
@@ -94,7 +95,9 @@ const ResumeSevenEdit = () => {
         {/* Profile / Photo / Contact */}
         <div className="flex w-full px-6 justify-between items-center gap-5">
           <div className="w-1/3 text-center">
-            <p className="uppercase text-sm font-semibold">Profile</p>
+            <p className="uppercase text-sm font-semibold">
+              {language === "de" ? "Profil" : "Profile"}
+            </p>
             <p className="italic text-xs !text-black">{resumeData.about}</p>
           </div>
 
@@ -107,8 +110,8 @@ const ResumeSevenEdit = () => {
           </div>
 
           <div className="w-1/3 flex flex-col gap-1 h-full">
-            <p className="uppercase text-sm font-semibold text-center !text-black">
-              Contact
+            <p className="uppercase text-sm font-semibold text-center !text-black uppercase">
+              {language === "de" ? "Kontakt" : "Contact"}
             </p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-1">
@@ -163,9 +166,9 @@ const ResumeSevenEdit = () => {
             className="grid grid-cols-3 bg-[#E1E2E6] !text-black text-center font-semibold py-2 border border-[#9A9A9A]"
             style={{ backgroundColor: color, borderColor: color }}
           >
-            <div>Education</div>
-            <div>Professional Skills</div>
-            <div>Expertise</div>
+            <div className="uppercase">{language === "de" ? "Bildung" : "Education"}</div>
+            <div className="uppercase">{language === "de" ? "Fertigkeiten" : "Skills"}</div>
+            <div className="uppercase">{language === "de" ? "Sprachen" : "Languages"}</div>
           </div>
 
           <div className="grid grid-cols-3 text-sm px-4 py-6 border border-[#ccc6c6] border-t-0" style={{ borderColor: color }} >
@@ -207,16 +210,16 @@ const ResumeSevenEdit = () => {
             </div>
           </div>
           <div
-            className=" absolute -bottom-5 left-24 text-black bg-[#b1aaaa] p-2"
+            className=" absolute -bottom-5 left-24 text-black bg-[#b1aaaa] p-2 uppercase"
             style={{ backgroundColor: color }}
           >
-            Experiences
+            {language === "de" ? "Bildung" : "Education"}
           </div>
           <div
-            className=" absolute -bottom-5 right-24 text-black bg-[#b1aaaa] p-2"
+            className=" absolute -bottom-5 right-24 text-black bg-[#b1aaaa] p-2 uppercase"
             style={{ backgroundColor: color }}
           >
-            Trainings
+           {language === "de" ? "AUSBILDUNGEN" : "Training"}
           </div>
         </div>
 

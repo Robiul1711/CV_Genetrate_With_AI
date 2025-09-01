@@ -11,13 +11,14 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
+import { useEmail } from "@/hooks/useEmail";
 
 const ResumeTwoEdit = () => {
   const { allRedumeData , color, setColor} = useResume();
   const { watch } = useFormContext();
   const formValues = watch();
   const resumeRef = useRef();
-
+const {language}=useEmail()
   // Merge form values with API/context fallback
   const first_name =
     formValues.first_name || allRedumeData?.data?.first_name || "";
@@ -78,13 +79,15 @@ useEffect(() => {
           style={{backgroundColor: color || ""}}
           >
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666]">ABOUT</h2>
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
+                {language === "de" ? "Über mich" : "About Me"}
+              </h2>
               <p className="text-xs leading-[18px] text-[#171717]">{about}</p>
             </div>
 
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666]">
-                CONTACT
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
+                {language === "de" ? "Kontakt" : "Contact"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-2">
@@ -114,7 +117,9 @@ useEffect(() => {
             </div>
 
             <div>
-              <h2 className="text-sm tracking-[2px] text-[#666]">EDUCATION</h2>
+              <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
+                {language === "de" ? "Ausbildung" : "Education"}
+              </h2>
               {educations.map((edu, idx) => (
                 <div key={idx} className="mt-4">
                   <p className="font-medium text-xs">{edu.institute_name}</p>
@@ -133,7 +138,9 @@ useEffect(() => {
           {/* Right Column */}
           <div className="w-[60%] space-y-3 px-4 pt-6">
             <div>
-              <h2 className="text-sm tracking-[2px] text-[#666]">EXPERIENCE</h2>
+              <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
+                {language === "de" ? "Berufserfahrung" : "Work Experience"}
+              </h2>
               {work_experiences.map((exp, idx) => (
                 <div key={idx} className="mt-4">
                   <p className="font-medium text-xs">{exp.job_title}</p>
@@ -154,7 +161,9 @@ useEffect(() => {
             <div className="border-b border-[#D9D9D9]"></div>
 
             <div>
-              <h2 className="text-sm tracking-[2px] text-[#666]">TRAINING</h2>
+              <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
+                {language === "de" ? "  AUSBILDUNGEN" : "  Trainings"}
+              </h2>
               {courses_and_training_details.map((course, idx) => (
                 <div key={idx} className="mt-4">
                   <p className="font-medium text-xs">
@@ -177,7 +186,9 @@ useEffect(() => {
             <div className="border-b border-[#D9D9D9]"></div>
 
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666]">SKILL</h2>
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
+                {language === "de" ? "  Fähigkeiten" : "  Skills"}
+              </h2>
               <ul className="text-xs space-y-3">
                 {skills.length > 0
                   ? skills.map((s, idx) => <li key={idx}>{s.skill}</li>)
@@ -188,8 +199,8 @@ useEffect(() => {
             <div className="border-b border-[#D9D9D9]"></div>
 
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666]">
-                LANGUAGE
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
+                {language === "de" ? "  Sprachen" : "  Languages"}
               </h2>
               {languages.length > 0
                 ? languages.map((lang, idx) => (

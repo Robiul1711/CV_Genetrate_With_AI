@@ -11,13 +11,14 @@ import {
   FaPhoneAlt,
   FaXing,
 } from "react-icons/fa";
+import { useEmail } from "@/hooks/useEmail";
 
 const ResumeElevenEdit = () => {
   const { allRedumeData,color, setColor } = useResume();
   const { watch } = useFormContext();
   const formData = watch();
   const resumeRef = useRef(null);
-
+const { language } = useEmail();
   const [profilePreview, setProfilePreview] = useState("");
 
   // Merge formData and context data
@@ -92,8 +93,8 @@ const ResumeElevenEdit = () => {
           {/* Left Column */}
           <div className="w-[40%] space-y-6">
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
-                ABOUT
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+                {language === "en" ? "About Me" : "Über mich"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData.about}
@@ -101,8 +102,8 @@ const ResumeElevenEdit = () => {
             </div>
 
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
-                CONTACT
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+                {language === "en" ? "Contact" : "Kontakt"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-1">
@@ -149,8 +150,8 @@ const ResumeElevenEdit = () => {
             </div>
 
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
-                EDUCATION
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+                {language === "en" ? "Education" : "Bildung"}
               </h2>
               {resumeData.educations.map((edu, idx) => (
                 <div key={idx} className="mt-3">
@@ -175,8 +176,8 @@ const ResumeElevenEdit = () => {
           <div className="w-[60%] space-y-6">
             {/* Experience */}
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
-                EXPERIENCE
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+                {language === "de" ? "Erfahrung" : "Experience"}
               </h2>
               {resumeData.work_experiences.map((exp, idx) => (
                 <div key={idx} className="mt-3">
@@ -199,8 +200,8 @@ const ResumeElevenEdit = () => {
 
             {/* Training */}
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
-                TRAINING
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+                {language === "de" ? "Ausbildung" : "Training"}
               </h2>
               {resumeData.courses_and_training_details.map((training, idx) => (
                 <div key={idx} className="mt-3">
@@ -220,8 +221,8 @@ const ResumeElevenEdit = () => {
 
             {/* Skills */}
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
-                SKILL
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+                {language === "de" ? "Fertigkeiten" : "Skills"}
               </h2>
               <ul className="text-xs space-y-3">
                 {resumeData.skills.map((skill, idx) => (
@@ -234,8 +235,8 @@ const ResumeElevenEdit = () => {
 
             {/* Languages */}
             <div>
-              <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
-                LANGUAGE
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+                {language === "de" ? "Sprachen" : "Languages"}
               </h2>
               <ul className="text-xs space-y-3">
                 {resumeData.languages.map((lang, idx) => (

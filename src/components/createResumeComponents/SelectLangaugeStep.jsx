@@ -1,20 +1,25 @@
-import React from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
-import Title from '../common/Title';
-import { useEmail } from '@/hooks/useEmail';
-import Tailor_Modal from './Tailor_Modal';
+import React from "react";
+import { useFormContext, Controller } from "react-hook-form";
+import Title from "../common/Title";
+import { useEmail } from "@/hooks/useEmail";
+import Tailor_Modal from "./Tailor_Modal";
+import { UseLangauge } from "@/hooks/UseLangauge";
 
 const SelectLanguageStep = () => {
-  const { control, formState: { errors } } = useFormContext();
-  const { language } = useEmail(); // 'de' or 'en'
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+  const { language, setLanguage } = useEmail(); // 'de' or 'en'
 
   const labels = {
-    title: language === 'de' ? 'Sprache des Lebenslaufs' : 'Resume Language',
-    fieldLabel: language === 'de' ? 'Sprache *' : 'Language *',
-    selectPlaceholder: language === 'de' ? 'Sprache auswählen' : 'Select a language',
+    title: language === "de" ? "Sprache des Lebenslaufs" : "Resume Language",
+    fieldLabel: language === "de" ? "Sprache *" : "Language *",
+    selectPlaceholder:
+      language === "de" ? "Sprache auswählen" : "Select a language",
     options: [
-      { value: 'de', label: language === 'de' ? 'Deutsch' : 'German' },
-      { value: 'en', label: language === 'de' ? 'Englisch' : 'English' },
+      { value: "de", label: language === "de" ? "Deutsch" : "German" },
+      { value: "en", label: language === "de" ? "Englisch" : "English" },
     ],
   };
 
@@ -35,6 +40,10 @@ const SelectLanguageStep = () => {
               <label className="text-sm text-white">{labels.fieldLabel}</label>
               <select
                 {...field}
+                onChange={(e) => {
+                  field.onChange(e); // update react-hook-form
+                  setLanguage(e.target.value); // update your custom hook state
+                }}
                 className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               >
                 <option value="" disabled>
@@ -47,12 +56,15 @@ const SelectLanguageStep = () => {
                 ))}
               </select>
               {errors.resume_language && (
-                <p className="text-red-500 text-xs">{errors.resume_language.message}</p>
+                <p className="text-red-500 text-xs">
+                  {errors.resume_language.message}
+                </p>
               )}
             </div>
           )}
         />
-         <Tailor_Modal />
+
+        <Tailor_Modal />
       </div>
     </div>
   );

@@ -4,11 +4,13 @@ import { useResume } from "@/providers/ResumeContext";
 import dayjs from "dayjs";
 import { useFormContext } from "react-hook-form";
 import DownloadButton from "../common/DownloadButton";
+import { useEmail } from "@/hooks/useEmail";
 
 const ResumeOneEdit = () => {
   const { allRedumeData , color, setColor} = useResume();
   const { watch } = useFormContext();
   const resumeRef = useRef();
+const {language}=useEmail()
 
   // Get all values from form context
   const formValues = watch();
@@ -71,16 +73,16 @@ useEffect(() => {
           >
             {/* About */}
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                ABOUT
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+               {language==="de" ? "Über mich" : "About"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">{about}</p>
             </div>
 
             {/* Contact */}
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                CONTACT
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+                {language==="de" ? "Kontakt" : "Contact"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs">{phone_number}</p>
@@ -94,8 +96,8 @@ useEffect(() => {
             {/* Language */}
             {languages?.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                  LANGUAGE
+                <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+                  {language==="de" ? "Sprachen" : "Languages"}
                 </h2>
                 {languages.map((lang, idx) => (
                   <p key={idx} className="text-xs flex justify-between">
@@ -108,8 +110,8 @@ useEffect(() => {
             {/* Skills */}
             {skills?.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px]">
-                  SKILL
+                <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] uppercase">
+                  {language==="de" ? "Fähigkeiten" : "Skills"}
                 </h2>
                 <ul className="text-xs space-y-3">
                   {skills.map((skill, idx) => (
@@ -127,8 +129,8 @@ useEffect(() => {
             {/* Experience */}
             {workExperiences?.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px] text-[#666]">
-                  EXPERIENCE
+                <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
+                  {language==="de" ? "Berufserfahrung" : "Work Experience"}
                 </h2>
                 {workExperiences.map((exp, idx) => (
                   <div key={idx} className="mt-4">
@@ -156,8 +158,8 @@ useEffect(() => {
             {/* Education */}
             {educations?.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px] pb-3 text-[#666]">
-                  EDUCATION
+                <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
+                  {language==="de" ? "Ausbildung" : "Education"}
                 </h2>
                 {educations.map((edu, idx) => (
                   <div key={idx} className="mt-4">
@@ -183,8 +185,8 @@ useEffect(() => {
 
               {workExperiences?.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px]  text-[#666]">
-                 Trainings
+                <h2 className="text-sm tracking-[2px]  text-[#666] uppercase">
+                  {language==="de" ? "  AUSBILDUNGEN" : "  Trainings"}
                 </h2>
                 {traingings.map((exp, idx) => (
                   <div key={idx} className="mt-4">

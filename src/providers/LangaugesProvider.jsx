@@ -6,6 +6,7 @@ const LangaugesProvider = ({children}) => {
    const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "en"
   );
+
   return (
     <LangaugeContext.Provider value={{selectedLanguage, setSelectedLanguage}}>
       {children}

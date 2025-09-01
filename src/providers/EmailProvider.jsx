@@ -6,7 +6,7 @@ const EmailProvider = ({ children }) => {
   const [language, setLanguage] = useState(() => localStorage.getItem("language") || "en");
   const [email, setEmail] = useState(() => localStorage.getItem("email") || "");
   const [resetToken, setResetToken] = useState(() => localStorage.getItem("resetToken") || "");
-
+   const [activeStep, setActiveStep] = useState(0);
   // Sync language with localStorage
   useEffect(() => {
     localStorage.setItem("language", language);
@@ -24,7 +24,7 @@ const EmailProvider = ({ children }) => {
 
   return (
     <EmailContext.Provider
-      value={{ email, setEmail, resetToken, setResetToken, language, setLanguage }}
+      value={{ email, setEmail, resetToken, setResetToken, language, setLanguage, activeStep, setActiveStep }}
     >
       {children}
     </EmailContext.Provider>

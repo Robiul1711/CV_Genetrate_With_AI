@@ -12,6 +12,7 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
+import { useEmail } from "@/hooks/useEmail";
 
 const ResumeSixEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
@@ -19,7 +20,7 @@ const ResumeSixEdit = () => {
   const { watch } = useFormContext();
   const resumeRef = useRef(null);
   const [profilePreview, setProfilePreview] = useState(user);
-
+  const { language } = useEmail();
   const formData = watch();
 
   const resumeData = {
@@ -113,8 +114,8 @@ const ResumeSixEdit = () => {
             {/* EXPERIENCE */}
             <div>
               <div className="flex pb-3 items-center gap-1">
-                <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px]">
-                  EXPERIENCE
+                <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px] uppercase">
+                 {language === "de" ? "Erfahrung" : "Experience"}
                 </h2>
                 <div
                   className="flex-1 border-b-[2px] mt-2 max-w-[100px]"
@@ -150,8 +151,8 @@ const ResumeSixEdit = () => {
             {/* EDUCATION */}
             <div>
               <div className="flex pb-3 items-center gap-1">
-                <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px]">
-                  EDUCATION
+                <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px] uppercase">
+                {language === "de" ? "Ausbildung" : "Education"}
                 </h2>
                 <div
                   className="flex-1 border-b-[2px] mt-2 max-w-[100px]"
@@ -184,8 +185,8 @@ const ResumeSixEdit = () => {
             {/* TRAINING */}
             <div>
               <div className="flex pb-3 items-center gap-1">
-                <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px]">
-                  TRAINING
+                <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px] uppercase">
+                {language === "de" ? "AUSBILDUNGEN" : "Training"}
                 </h2>
                 <div
                   className="flex-1 border-b-[2px] mt-2 max-w-[100px]"
@@ -223,8 +224,8 @@ const ResumeSixEdit = () => {
           <div className="w-[50%] space-y-4">
             {/* ABOUT */}
             <div>
-              <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] uppercase font-semibold leading-[24px]">
-                ABOUT ME
+              <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] uppercase font-semibold leading-[24px] uppercase">
+                {language === "de" ? "Über mich" : "About Me"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData.about}
@@ -238,8 +239,8 @@ const ResumeSixEdit = () => {
 
             {/* CONTACT */}
             <div className="text-center">
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px]">
-                CONTACT
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
+                {language === "de" ? "Kontakt" : "Contact"}
               </h2>
               <div className="space-y-3 text-center">
                 <p className="text-xs flex flex-col items-center gap-1 leading-[18px]">
@@ -298,8 +299,8 @@ const ResumeSixEdit = () => {
               style={{ borderColor: color ? color : "#D9D9D9" }}
             ></div>
             <div className="text-center">
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px]">
-                SKILL
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
+                {language === "de" ? "Fähigkeiten" : "Skills"}
               </h2>
               <ul className="text-xs space-y-3">
                 {resumeData.skills.map((skill, i) => (
@@ -325,8 +326,8 @@ const ResumeSixEdit = () => {
               style={{ borderColor: color ? color : "#D9D9D9" }}
             ></div>
             <div>
-              <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] font-semibold leading-[24px]">
-                LANGUAGE
+              <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
+                {language === "de" ? "Sprachen" : "Languages"}
               </h2>
               {resumeData.languages.map((lang, i) => (
                 <p

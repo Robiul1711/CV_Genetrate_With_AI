@@ -52,12 +52,13 @@ const textMap = {
 };
 
 const CreateNewResume = () => {
+
   const { setAllResumeData } = useResume();
-  const [activeStep, setActiveStep] = useState(0);
+  // const [activeStep, setActiveStep] = useState(0);
   const [resumeId, setResumeId] = useState(null);
   const [isCreatingResume, setIsCreatingResume] = useState(false);
   const axiosSecure = useAxiosSecure();
-  const { language } = useEmail(); // 'en' or 'de'
+  const { language,activeStep, setActiveStep} = useEmail(); // 'en' or 'de'
 
   const methods = useForm({
     mode: "onChange",

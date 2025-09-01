@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import DownloadButton from "../common/DownloadButton";
+import { useEmail } from "@/hooks/useEmail";
 
 const ResumeFourEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
@@ -18,7 +19,7 @@ const ResumeFourEdit = () => {
   const { watch } = useFormContext();
   const resumeRef = useRef();
   const [profilePreview, setProfilePreview] = useState(user);
-
+const {language} = useEmail();
   const formData = watch();
 
   const resumeData = {
@@ -87,8 +88,8 @@ useEffect(() => {
           <div className="w-[40%] space-y-3 rounded-md">
             {/* CONTACT */}
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                CONTACT
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+               {language === "de" ? "Kontakt" : "Contact"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-2 leading-[18px]">
@@ -128,8 +129,8 @@ useEffect(() => {
 
             {/* TRAINING */}
             <div>
-              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px]">
-                TRAINING
+              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
+               {language === "de" ? "AUSBILDUNGEN" : "Training"}
               </h2>
               {resumeData?.courses_and_training_details?.map((training, index) => (
                 <div key={index} className="mt-3">
@@ -153,8 +154,8 @@ useEffect(() => {
 
             {/* SKILL */}
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                SKILL
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+               {language === "de" ? "Fertigkeiten" : "Skills"}
               </h2>
               <ul className="text-xs space-y-3">
                 {resumeData?.skills?.map((skill, index) => (
@@ -167,8 +168,8 @@ useEffect(() => {
 
             {/* LANGUAGE */}
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                LANGUAGE
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+               {language === "de" ? "Sprachen" : "Languages"}
               </h2>
               {resumeData?.languages?.map((language, index) => (
                 <div
@@ -189,8 +190,8 @@ useEffect(() => {
           <div className="w-[60%] space-y-3">
             {/* ABOUT */}
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                ABOUT
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+               {language === "de" ? "Über mich" : "About Me"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData?.about}
@@ -201,8 +202,8 @@ useEffect(() => {
 
             {/* EXPERIENCE */}
             <div>
-              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px]">
-                EXPERIENCE
+              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
+               {language === "de" ? "Erfahrung" : "Experience"}
               </h2>
               {resumeData?.work_experiences?.map((experience, index) => (
                 <div key={index} className="mt-3">
@@ -229,8 +230,8 @@ useEffect(() => {
 
             {/* EDUCATION */}
             <div>
-              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px]">
-                EDUCATION
+              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
+               {language === "de" ? "Ausbildung" : "Education"}
               </h2>
               {resumeData?.educations?.map((education, index) => (
                 <div key={index} className="mt-3">

@@ -11,12 +11,13 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
+import { useEmail } from "@/hooks/useEmail";
 
 const ResumeThreeEdit = () => {
   const { watch } = useFormContext();
   const { allRedumeData, color,setColor } = useResume();
   const resumeRef = useRef();
-
+const {language}=useEmail()
   // Watch form values
   const formValues = watch();
   const resumeData = allRedumeData?.data || {};
@@ -86,14 +87,18 @@ useEffect(() => {
           >
             {about && (
               <div>
-                <h2 className="text-sm tracking-[2px] pb-3 text-[#666]">ABOUT</h2>
+                <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
+              {language === "de" ? "Über mich" : "About Me"}
+                </h2>
                 <p className="text-xs text-[#171717]">{about}</p>
               </div>
             )}
 
             {trainings.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px] text-[#666]">TRAINING</h2>
+                <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
+              {language === "de" ? "AUSBILDUNGEN" : "Trainings"}
+                </h2>
                 {trainings.map((t, i) => (
                   <div key={i} className="mt-4">
                     <p className="font-medium text-xs">{t.name_of_institute}</p>
@@ -108,7 +113,9 @@ useEffect(() => {
 
             {skills.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px] pb-3 text-[#666]">SKILL</h2>
+                <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
+              {language === "de" ? "Fähigkeiten" : "Skills"}
+                </h2>
                 <ul className="text-xs space-y-3">
                   {skills.map((s, i) => (<li key={i}>{s.skill}</li>))}
                 </ul>
@@ -117,7 +124,9 @@ useEffect(() => {
 
             {languages.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px] text-[#666]">LANGUAGE</h2>
+                <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
+              {language === "de" ? "Sprachen" : "Languages"}
+                </h2>
                 {languages.map((lang, i) => (
                   <p key={i} className="text-xs flex justify-between items-center">
                     {lang.language} <span>{lang.level}</span>
@@ -131,7 +140,9 @@ useEffect(() => {
           <div className="w-[55%] space-y-3">
             {experiences.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px] text-[#666]">EXPERIENCE</h2>
+                <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
+              {language === "de" ? "Berufserfahrung" : "Work Experience"}
+                </h2>
                 {experiences.map((exp, i) => (
                   <div key={i} className="mt-4">
                     <p className="font-medium text-xs">{exp.job_title}</p>
@@ -149,7 +160,9 @@ useEffect(() => {
 
             {educations.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px] pb-3 text-[#666]">EDUCATION</h2>
+                <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
+              {language === "de" ? "Ausbildung" : "Education"}
+                </h2>
                 {educations.map((edu, i) => (
                   <div key={i} className="mt-4">
                     <p className="font-medium text-xs">{edu.institute_name}</p>

@@ -17,6 +17,7 @@ export const ResumeProvider = ({ children }) => {
     return localStorage.getItem("resumeColor") || "#1B1E2F";
   });
 
+  
   // Save to localStorage whenever state changes
   useEffect(() => {
     localStorage.setItem("coverLetter", JSON.stringify(coverLetter));

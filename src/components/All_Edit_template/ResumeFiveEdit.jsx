@@ -11,13 +11,14 @@ import dayjs from "dayjs";
 import { useFormContext } from "react-hook-form";
 import { useResume } from "@/providers/ResumeContext";
 import DownloadButton from "../common/DownloadButton";
+import { useEmail } from "@/hooks/useEmail";
 
 const ResumeFiveEdit = () => {
   const { watch } = useFormContext();
   const { allRedumeData, color, setColor } = useResume();
   const resumeData = allRedumeData?.data || {};
   const resumeRef = useRef();
-
+const {language}=useEmail()
   // Watch form values and fallback to context if empty
   const first_name = watch("first_name") || resumeData.first_name;
   const last_name = watch("last_name") || resumeData.last_name;
@@ -102,10 +103,10 @@ const ResumeFiveEdit = () => {
             <div className="flex flex-col items-center justify-center">
               {/* LEFT COLUMN HEADLINES (SKILL / EDUCATION) */}
               <h2
-                className="text-sm font-semibold tracking-[2px] pb-3 leading-[24px] text-center"
+                className="text-sm font-semibold tracking-[2px] pb-3 leading-[24px] text-center uppercase"
                 style={{ color: color ? color : "#0D0D0D" }}
               >
-                SKILL
+                {language === "de" ? "FÄHIGKEITEN" : "SKILLS"}
               </h2>{" "}
               <ul className="text-xs space-y-3 text-center">
                 {skills.map((s, i) => (
@@ -117,10 +118,10 @@ const ResumeFiveEdit = () => {
             <div className="flex flex-col items-center justify-center">
               {/* LEFT COLUMN HEADLINES (SKILL / EDUCATION) */}
               <h2
-                className="text-sm font-semibold tracking-[2px] leading-[24px] text-center"
+                className="text-sm font-semibold tracking-[2px] leading-[24px] text-center uppercase"
                 style={{ color: color ? color : "#0D0D0D" }}
               >
-                EDUCATION
+                {language === "de" ? "AUSbildung" : "EDUCATION"}
               </h2>
               <div className="space-y-3 mt-3">
                 {educations.map((edu, i) => (
@@ -146,20 +147,20 @@ const ResumeFiveEdit = () => {
           <div className="w-[60%] space-y-6 py-8 mt-8">
             <div>
               <h2
-                className="text-sm font-semibold tracking-[2px] leading-[24px]"
+                className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                 style={{ color: color ? color : "#0D0D0D" }}
               >
-                ABOUT
+                {language === "de" ? "ÜBER MICH" : "ABOUT ME"}
               </h2>
               <p className="text-xs leading-[18px]">{about}</p>
             </div>
             <div>
               {/* EXPERIENCE */}
               <h2
-                className="text-sm font-semibold tracking-[2px] leading-[24px]"
+                className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                 style={{ color: color ? color : "#0D0D0D" }}
               >
-                EXPERIENCE
+                {language === "de" ? "ERFAHRUNGEN" : "EXPERIENCE"}
               </h2>{" "}
               <div className="space-y-3 mt-3">
                 {work_experiences.map((exp, i) => (
@@ -182,10 +183,10 @@ const ResumeFiveEdit = () => {
             <div>
               {/* TRAINING */}
               <h2
-                className="text-sm font-semibold tracking-[2px] leading-[24px]"
+                className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                 style={{ color: color ? color : "#0D0D0D" }}
               >
-                TRAINING
+          {language === "de" ? "AUSBILDUNGEN" : "TRAINING"}
               </h2>{" "}
               <div className="space-y-3 mt-3">
                 {trainings.map((t, i) => (
@@ -205,10 +206,10 @@ const ResumeFiveEdit = () => {
             <div>
               {/* LANGUAGE */}
               <h2
-                className="text-sm font-semibold tracking-[2px] leading-[24px]"
+                className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                 style={{ color: color ? color : "#0D0D0D" }}
               >
-                LANGUAGE
+                {language === "de" ? "SPRACHEN" : "LANGUAGES"}
               </h2>{" "}
               <div className="space-y-2 mt-3">
                 {languages.map((l, i) => (

@@ -6,10 +6,11 @@ import dayjs from "dayjs";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import DownloadButton from "../common/DownloadButton";
+import { useEmail } from "@/hooks/useEmail";
 
 const TitleSection = ({ name }) => {
   return (
-    <h2 className="bg-[#FFFFFF] -ml-4 rounded-tr-[16px] py-1.5 w-[140px] flex justify-center items-center text-base text-[#0D0D0D] font-semibold leading-[20px] tracking-[2px]">
+    <h2 className="bg-[#FFFFFF] uppercase -ml-4 rounded-tr-[16px] py-1.5 w-[140px] flex justify-center items-center text-base text-[#0D0D0D] font-semibold leading-[20px] tracking-[2px]">
       {name}
     </h2>
   );
@@ -17,7 +18,7 @@ const TitleSection = ({ name }) => {
 
 const TitleSection2 = ({ name }) => {
   return (
-    <h2 className="bg-[#FFFFFF] absolute top-4 right-0 rounded-tl-[16px] py-1.5 w-[120px] flex justify-center items-center text-base text-[#0D0D0D] font-semibold leading-[20px] tracking-[2px]">
+    <h2 className="bg-[#FFFFFF] uppercase absolute top-4 right-0 rounded-tl-[16px] py-1.5 w-[120px] flex justify-center items-center text-base text-[#0D0D0D] font-semibold leading-[20px] tracking-[2px]">
       {name}
     </h2>
   );
@@ -37,7 +38,7 @@ const ResumeEightEdit = () => {
   const { watch } = useFormContext();
   const formData = watch();
   const [profilePreview, setProfilePreview] = useState(Image);
-
+const {language} = useEmail();
   // Merge form and context data
   const resumeData = {
     first_name: formData?.first_name || allRedumeData?.data?.first_name || "",
@@ -114,7 +115,7 @@ const ResumeEightEdit = () => {
           {/* Profile */}
           <SectionArea color={color}>
             <div className="flex flex-col gap-1">
-              <TitleSection name="Profile" />
+              <TitleSection name={`${language === 'en' ? 'About' : 'Über mich'}`} />
               <p className="text-xs text-white font-normal leading-[18px] !urbanist">
                 {resumeData.about}
               </p>
@@ -124,7 +125,7 @@ const ResumeEightEdit = () => {
           {/* Experience */}
           <SectionArea color={color}>
             <div className="flex flex-col gap-2">
-              <TitleSection name="Experience" />
+              <TitleSection name={`${language === 'en' ? 'Experience' : 'Erfahrung'}`} />
               <div className="flex flex-col gap-2 w-full">
                 {resumeData.work_experiences.map((exp, i) => (
                   <div key={i} className="flex flex-row gap-2 items-start">
@@ -156,7 +157,7 @@ const ResumeEightEdit = () => {
           {/* Skills */}
           <SectionArea color={color}>
             <div className="flex flex-col gap-2">
-              <TitleSection name="Skills" />
+              <TitleSection name={`${language === 'en' ? 'Skills' : 'Fähigkeiten'}`} />
               <div className="grid grid-cols-2 gap-2">
                 {resumeData.skills.map((skill, i) => (
                   <div
@@ -176,7 +177,7 @@ const ResumeEightEdit = () => {
           {/* Languages */}
           <SectionArea color={color}>
             <div className="flex flex-col gap-2">
-              <TitleSection name="Language" />
+              <TitleSection name={`${language === 'en' ? 'Languages' : 'Sprachen'}`} />
               <div className="grid grid-cols-2">
                 {resumeData.languages.map((lang, i) => (
                   <div
@@ -198,7 +199,7 @@ const ResumeEightEdit = () => {
           {/* Training */}
           <SectionArea color={color}>
             <div className="flex flex-col gap-2">
-              <TitleSection name="Training" />
+              <TitleSection name={`${language === 'en' ? 'Training' : 'Ausbildung'}`} />
               <div className="grid gap-1 grid-cols-1">
                 {resumeData.courses_and_training_details.map((training, i) => (
                   <div key={i} className="flex gap-2">
@@ -225,7 +226,7 @@ const ResumeEightEdit = () => {
           {/* Education */}
           <SectionArea color={color}>
             <div className="flex flex-col gap-2">
-              <TitleSection2 name="Education" />
+              <TitleSection2 name={`${language === 'en' ? 'Education' : 'Ausbildung'}`} />
             </div>
             <div className="grid gap-2 mt-9">
               {resumeData.educations.map((edu, i) => (
@@ -247,12 +248,12 @@ const ResumeEightEdit = () => {
 
           {/* Contact */}
           <SectionArea color={color}>
-            <div className="flex flex-col gap-2">
-              <TitleSection2 name="Contact" />
+            <div className="flex flex-col gap-2 ">
+              <TitleSection2 name={`${language === 'en' ? 'Contact' : 'Kontakt'}`} />
               <div className="grid gap-2 mt-9">
                 <div className="flex flex-col gap-1">
                   <p className="text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
-                    Phone
+                    {language === "de" ? "Telefon" : "Phone"}
                   </p>
                   <p className="text-[10px] font-normal leading-[16px] text-white !urbanist">
                     {resumeData.phone_number}
@@ -260,7 +261,7 @@ const ResumeEightEdit = () => {
                 </div>
                 <div className="flex flex-col gap-1">
                   <p className="text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
-                    Location
+                    {language === "de" ? "Standort" : "Location"}
                   </p>
                   <p className="text-[10px] font-normal leading-[16px] text-white !urbanist">
                     {resumeData.address}
@@ -268,7 +269,7 @@ const ResumeEightEdit = () => {
                 </div>
                 <div className="flex flex-col gap-1">
                   <p className="text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
-                    E-mail
+                    {language === "de" ? "E-Mail" : "Email"}
                   </p>
                   <p className="text-[10px] font-normal leading-[16px] text-white !urbanist">
                     {resumeData.email}
@@ -277,7 +278,7 @@ const ResumeEightEdit = () => {
                 {resumeData.linked_in_profile && (
                   <div className="flex flex-col gap-1">
                     <p className="text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
-                      Linked-in
+                      {language === "de" ? "LinkedIn" : "LinkedIn"}
                     </p>
                     <a
                       href={resumeData.linked_in_profile}
@@ -292,7 +293,7 @@ const ResumeEightEdit = () => {
                 {resumeData.xing_profile && (
                   <div className="flex flex-col gap-1">
                     <p className="text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
-                      Xing
+                      {language === "de" ? "Xing" : "Xing"}
                     </p>
                     <a
                       href={resumeData.xing_profile}
