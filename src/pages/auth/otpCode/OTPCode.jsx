@@ -9,15 +9,44 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 const OTPCode = () => {
+  const { email, language } = useEmail();
   const [OTP, setOTP] = useState("");
   const [seconds, setSeconds] = useState(56);
   const [resendAvailable, setResendAvailable] = useState(false);
   const [error, setError] = useState("");
-  const { email } = useEmail();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
 
-  // Countdown logic
+  const t = {
+    en: {
+      heading: "Enter OTP Code",
+      subtitle:
+        "Check your inbox for the one-time verification code we've sent to your email. Enter the code below to proceed with resetting your password.",
+      codeSent: "Code has been sent to",
+      resendIn: "You can resend the code in",
+      verifyBtn: "Verify",
+      fullOTPError: "Please enter the full OTP.",
+      otpVerified: "OTP verified successfully",
+      otpFailed: "Something went wrong. Please try again.",
+      resendBtn: "Resend Code",
+    },
+    de: {
+      heading: "Geben Sie den OTP-Code ein",
+      subtitle:
+        "Überprüfen Sie Ihren Posteingang auf den einmaligen Bestätigungscode, den wir an Ihre E-Mail gesendet haben. Geben Sie den Code unten ein, um Ihr Passwort zurückzusetzen.",
+      codeSent: "Code wurde gesendet an",
+      resendIn: "Sie können den Code in",
+      verifyBtn: "Verifizieren",
+      fullOTPError: "Bitte geben Sie den vollständigen OTP ein.",
+      otpVerified: "OTP erfolgreich verifiziert",
+      otpFailed: "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.",
+      resendBtn: "Code erneut senden",
+    },
+  };
+
+  const text = t[language || "en"];
+
+  // Countdown
   useEffect(() => {
     if (seconds > 0) {
       const timer = setTimeout(() => setSeconds(seconds - 1), 1000);
@@ -32,7 +61,8 @@ const OTPCode = () => {
     setSeconds(56);
     setResendAvailable(false);
     setError("");
-    // Optional: You can also re-call the send OTP API here if needed
+    toast.info("OTP resent to your email.");
+    // Optional: Call the resend OTP API here
   };
 
   const { mutate, isPending } = useMutation({
@@ -41,33 +71,28 @@ const OTPCode = () => {
         email,
         otp: OTP,
       });
-
       return res.data;
     },
-    onSuccess: (data) => {
-      toast.success("OTP sent to email.");
-      setTimeout(() => {
-        navigate("/new-password");
-      }, 1500);
+    onSuccess: () => {
+      toast.success(text.otpVerified);
+      setTimeout(() => navigate("/new-password"), 1500);
     },
-    onError: (error) => {
+    onError: (err) => {
       const otpError =
-        error?.response?.data?.errors?.otp?.[0] ||
-        "Something went wrong. Please try again.";
+        err?.response?.data?.errors?.otp?.[0] || text.otpFailed;
       setError(otpError);
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (OTP.length < 5) {
-      setError("Please enter the full OTP.");
+    if (OTP.length < 6) {
+      setError(text.fullOTPError);
       return;
     }
-
     mutate();
   };
-  console.log(email, OTP);
+
   return (
     <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center overflow-auto md:overflow-y-hidden">
       <ScrollRestoration />
@@ -77,28 +102,24 @@ const OTPCode = () => {
       >
         {/* Logo */}
         <div className="flex justify-center mb-4">
-          <Link to={"/"}>
+          <Link to="/">
             <img src={logo} alt="logo" className="h-12 md:h-16" />
           </Link>
         </div>
 
         {/* Heading */}
         <h2 className="text-lg font-semibold text-center mb-2">
-          Enter OTP Code
+          {text.heading}
         </h2>
 
-        <Title
-          level="title18"
-          className="text-center md:mb-6 pb-2 !font-normal"
-        >
-          Check your inbox for the one-time verification code we've sent to your
-          email. Enter the code below to proceed with resetting your password.
+        <Title level="title18" className="text-center md:mb-6 pb-2 !font-normal">
+          {text.subtitle}
         </Title>
 
         {/* OTP Input */}
         <div className="w-full max-w-md mx-auto text-center py-6 md:py-10">
           <Title level="title18" className="mb-6 pb-2 !font-normal">
-            Code has been sent to <span className="font-medium">{email}</span>
+            {text.codeSent} <span className="font-medium">{email}</span>
           </Title>
 
           <OTPInput
@@ -127,11 +148,11 @@ const OTPCode = () => {
             <p className="mt-4 text-red-500 text-sm font-medium">{error}</p>
           )}
 
-          {/* Resend Countdown or Button */}
-          <div className="py-8">
+          {/* Resend */}
+          {/* <div className="py-8">
             {!resendAvailable ? (
               <p>
-                You can resend the code in{" "}
+                {text.resendIn}{" "}
                 <span className="text-[#81FB84] font-medium">{seconds}</span>{" "}
                 seconds
               </p>
@@ -140,9 +161,11 @@ const OTPCode = () => {
                 type="button"
                 onClick={handleResend}
                 className="text-sm text-[#81FB84] underline hover:text-green-400 transition-all duration-150"
-              ></button>
+              >
+                {text.resendBtn}
+              </button>
             )}
-          </div>
+          </div> */}
         </div>
 
         {/* Submit Button */}
@@ -169,17 +192,17 @@ const OTPCode = () => {
                     r="10"
                     stroke="currentColor"
                     strokeWidth="4"
-                  ></circle>
+                  />
                   <path
                     className="opacity-75"
                     fill="currentColor"
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
+                  />
                 </svg>
                 Verifying...
               </>
             ) : (
-              "Verify"
+              text.verifyBtn
             )}
           </button>
         </div>
