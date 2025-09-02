@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -50,6 +53,7 @@
     "rehype-raw": "^7.0.0",
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.1",
+    "rollup": "^4.50.0",
     "sass-embedded": "^1.90.0",
     "sweetalert2": "^11.22.5",
     "tailwind-merge": "^2.5.5",
