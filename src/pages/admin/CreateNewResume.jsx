@@ -26,7 +26,6 @@ import {
 import { useEmail } from "@/hooks/useEmail";
 import Parameter from "@/components/createResumeComponents/Parameter";
 import Tailor_Modal from "@/components/createResumeComponents/Tailor_Modal";
-
 const textMap = {
   en: {
     pageTitle: "Create New Resume",
