@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useEmail } from "@/hooks/useEmail";
 import { useQuery } from "@tanstack/react-query";
-
+import dummyimg from "@/assets/images/plan1.png";
 const HowItWorks = () => {
   const IMG_URL = import.meta.env.VITE_IMG_URL;
   const axiosPublic = useAxiosPublic();
@@ -51,7 +51,7 @@ const HowItWorks = () => {
               <div className="relative">
                 <div className="absolute bottom-0 left-0 w-full h-[100px] md:h-[150px] bg-banner rounded-2xl"></div>
                 <img
-                  src={item.side_image ? IMG_URL + item.side_image : item.img}
+                  src={item.side_image ? IMG_URL + item.side_image : dummyimg}
                   alt="Plan illustration"
                   className="w-full border border-[#171718] rounded-2xl p-6 md:p-10 relative z-10"
                 />

@@ -31,10 +31,10 @@ const stepsData = (language) => [
 ];
 
 const EditResumePage = () => {
-  const { language , setActiveStep} = useEmail(); // Get current language
+  const { language , setActiveStep, activeStep} = useEmail(); // Get current language
   const { resumeId } = useParams();
   const [activeStep1, setactiveStep1] = useState(0);
-  console.log(activeStep1);
+  console.log(activeStep);
   const [activeTab, setActiveTab] = useState("content"); // "content" or "design"
   const { imageString, allRedumeData, setAllResumeData } = useResume();
   const axiosSecure = useAxiosSecure();

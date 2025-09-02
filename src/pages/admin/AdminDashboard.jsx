@@ -53,7 +53,7 @@ const AdminDashboard = () => {
           <div className="flex items-center text-sm gap-4">
             <Title level="title28">
               {language === "de"
-                ? "Willkommen in Ihrem Clever CV-Dashboard!"
+                ? "Willkommen in Ihrem Cleveres Lebenslauf-Dashboard!"
                 : "Welcome to Your Clever CV Dashboard!"}
             </Title>
             <img src={hi} alt="" />
