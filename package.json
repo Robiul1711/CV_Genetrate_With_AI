@@ -53,6 +53,7 @@
     "rehype-raw": "^7.0.0",
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.1",
+    "rollup": "^4.50.0",
     "sass-embedded": "^1.90.0",
     "sweetalert2": "^11.22.5",
     "tailwind-merge": "^2.5.5",
