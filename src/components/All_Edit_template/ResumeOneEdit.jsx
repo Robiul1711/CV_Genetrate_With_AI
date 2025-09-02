@@ -7,10 +7,10 @@ import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
 
 const ResumeOneEdit = () => {
-  const { allRedumeData , color, setColor} = useResume();
+  const { allRedumeData, color, setColor } = useResume();
   const { watch } = useFormContext();
   const resumeRef = useRef();
-const {language}=useEmail()
+  const { language } = useEmail();
 
   // Get all values from form context
   const formValues = watch();
@@ -42,15 +42,15 @@ const {language}=useEmail()
   const languages =
     formValues.languages || allRedumeData?.data?.languages || [];
 
-   const traingings = formValues?.courses_and_training_details || []
- console.log(color)
+  const traingings = formValues?.courses_and_training_details || [];
+  console.log(color);
 
-useEffect(() => {
-  setColor('')
-},[])
+  useEffect(() => {
+    setColor("");
+  }, []);
   return (
     <div className="min-h-screen">
-             <DownloadButton resumeRef={resumeRef}  />
+      <DownloadButton resumeRef={resumeRef} />
 
       <div
         ref={resumeRef}
@@ -68,13 +68,14 @@ useEffect(() => {
 
         <div className="flex justify-between gap-2  h-full">
           {/* Left Column */}
-          <div className="w-[35%] space-y-6 px-4 rounded-r pt-4"
-          style={{backgroundColor: color ? color : ""}}
+          <div
+            className="w-[35%] space-y-6 px-4 rounded-r pt-4"
+            style={{ backgroundColor: color ? color : "" }}
           >
             {/* About */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-               {language==="de" ? "Über mich" : "About"}
+                {language === "de" ? "Über mich" : "About"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">{about}</p>
             </div>
@@ -82,7 +83,7 @@ useEffect(() => {
             {/* Contact */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {language==="de" ? "Kontakt" : "Contact"}
+                {language === "de" ? "Kontakt" : "Contact"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs">{phone_number}</p>
@@ -97,7 +98,7 @@ useEffect(() => {
             {languages?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                  {language==="de" ? "Sprachen" : "Languages"}
+                  {language === "de" ? "Sprachen" : "Languages"}
                 </h2>
                 {languages.map((lang, idx) => (
                   <p key={idx} className="text-xs flex justify-between">
@@ -111,7 +112,7 @@ useEffect(() => {
             {skills?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] uppercase">
-                  {language==="de" ? "Fähigkeiten" : "Skills"}
+                  {language === "de" ? "Fähigkeiten" : "Skills"}
                 </h2>
                 <ul className="text-xs space-y-3">
                   {skills.map((skill, idx) => (
@@ -130,7 +131,7 @@ useEffect(() => {
             {workExperiences?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {language==="de" ? "Berufserfahrung" : "Work Experience"}
+                  {language === "de" ? "Berufserfahrung" : "Work Experience"}
                 </h2>
                 {workExperiences.map((exp, idx) => (
                   <div key={idx} className="mt-4">
@@ -159,7 +160,7 @@ useEffect(() => {
             {educations?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                  {language==="de" ? "Ausbildung" : "Education"}
+                  {language === "de" ? "Ausbildung" : "Education"}
                 </h2>
                 {educations.map((edu, idx) => (
                   <div key={idx} className="mt-4">
@@ -183,10 +184,10 @@ useEffect(() => {
               </div>
             )}
 
-              {workExperiences?.length > 0 && (
+            {workExperiences?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px]  text-[#666] uppercase">
-                  {language==="de" ? "  AUSBILDUNGEN" : "  Trainings"}
+                  {language === "de" ? "  AUSBILDUNGEN" : "  Trainings"}
                 </h2>
                 {traingings.map((exp, idx) => (
                   <div key={idx} className="mt-4">

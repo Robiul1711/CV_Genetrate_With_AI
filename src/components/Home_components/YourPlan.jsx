@@ -12,6 +12,7 @@ const YourPlan = () => {
   const axiosSecure = useAxiosSecure();
   const { language } = useEmail();
   const [loadingPlanId, setLoadingPlanId] = useState(null);
+ const PAYMENNT_URL = import.meta.env.PAYMENNT_URL
 
   // Fetch subscription plans
   const { data, isLoading, error } = useQuery({
@@ -54,8 +55,8 @@ const YourPlan = () => {
     const payload = {
       price_id: plan.stripe_price_id,
       type: plan.type,
-      success_url: `https://checkout.stripe.dev/success`,
-      cancel_url: `https://checkout.stripe.dev/canceled`,
+      success_url: `${PAYMENNT_URL}/success`,
+      cancel_url: `${PAYMENNT_URL}/canceled`,
     };
 
     planMutation.mutate(payload);
@@ -63,7 +64,10 @@ const YourPlan = () => {
 
   const getPlanType = (type) => {
     if (!type) return "Unlimited";
-    if (type === "month") return "month";
+    if (type === "month") return {
+      de: "monat",
+      en: "month",
+    }[language || "en"];
     return type;
   };
 

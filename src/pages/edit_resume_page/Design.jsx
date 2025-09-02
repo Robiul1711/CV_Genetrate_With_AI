@@ -5,19 +5,20 @@ import resume from "../../assets/images/resume.png";
 import { Link } from "react-router-dom";
 import StepDesign from "@/components/Edit_Resume_Components/StepDesign";
 import { useResume } from "@/providers/ResumeContext";
+import { useEmail } from "@/hooks/useEmail";
 
 
 const Design = () => {
-
+const {language} = useEmail()
   return (
-    <div>
-      <Link to={"/dashboard/edit-resume"} className="flex items-center gap-2 cursor-pointer">
-        <FaAngleLeft className="cursor-pointer text-3xl p-1 border border-white/30 rounded-full" />
-        <Title level="title32">Edit Resume</Title>
-      </Link>
+    <div className="mt-5">
+        {/* <Link to={"/dashboard/edit-resume"} className="flex items-center gap-2 cursor-pointer">
+          <FaAngleLeft className="cursor-pointer text-3xl p-1 border border-white/30 rounded-full" />
+          <Title level="title32">{language === "en" ? "Edit Resume" : "Lebenslauf bearbeiten"}</Title>
+        </Link> */}
 
       <Title level="title22" className="mt-2">
-        Let AI help improve your resume content.
+        {language === "en" ? "Let AI help improve your resume content." : "Lassen Sie sich von KI dabei helfen, den Inhalt Ihres Lebenslaufs zu verbessern."}
       </Title>
 
       <div className="lg:mt-5 mt-5 flex flex-col lg:flex-row gap-5 lg:gap-5 justify-between">
@@ -40,10 +41,10 @@ const Design = () => {
 
 
           {/* Active Step */}
-          <div className="mt-5">
+          <div className="">
             <StepDesign  />
             <button className="font-semibold border bg-white mt-8 w-full border-white/30 text-black  px-8 py-2 text-sm rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
-              Apply Changes
+              {language === "en" ? " Apply Changes" : "Änderungen übernehmen"}
             </button>
           </div>
         </div>

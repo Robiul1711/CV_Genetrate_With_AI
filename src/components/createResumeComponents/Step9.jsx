@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Download } from "lucide-react";
 import { resumeData } from "./Step8";
+import { useEmail } from "@/hooks/useEmail";
 
 const Step9 = ({ resumeId }) => {
+  const {language} =useEmail()
   const [resume, setResume] = useState(null);
 
   useEffect(() => {
@@ -12,22 +14,30 @@ const Step9 = ({ resumeId }) => {
     setResume(cv);
   }, [resumeId]);
 
-  console.log("Resume ID:", resume);
 
   return (
     <div className=" flex items-center justify-center py-5 px-4 text-white">
       <div className="w-full max-w-4xl bg-[#1A1A1D] rounded-2xl shadow-lg p-6 sm:p-10">
         {/* Preview */}
-        <div className="w-full bg-[#0E0E10] rounded-xl p-4 border border-[#262626]">
-          <h2 className="text-lg font-semibold mb-4 text-gray-200">Resume Preview</h2>
-          <div className="bg-black/30  flex items-center justify-center">
-            {resume && resume.cvComponet ? (
-              resume.cvComponet
-            ) : (
-              <p className="text-gray-500 text-sm">No resume selected</p>
-            )}
-          </div>
-        </div>
+     <div className="w-full bg-[#0E0E10] rounded-xl p-4 border border-[#262626]">
+  <h2 className="text-lg font-semibold mb-4 text-gray-200">
+    {language === "en" ? "Preview" : "Vorschau"}
+  </h2>
+
+  <div className="bg-black/30 flex items-center justify-center 
+                  max-h-[180vh]  overflow-auto p-2 rounded-lg">
+    {resume && resume.cvComponet ? (
+      <div className="w-full">
+        {resume.cvComponet}
+      </div>
+    ) : (
+      <p className="text-gray-500 text-sm text-center">
+        {language === "en" ? "No resume selected" : "Kein Lebenslauf ausgewählt"}
+      </p>
+    )}
+  </div>
+</div>
+
 
  
         {/* <div className="mt-10 grid sm:grid-cols-2 gap-6">

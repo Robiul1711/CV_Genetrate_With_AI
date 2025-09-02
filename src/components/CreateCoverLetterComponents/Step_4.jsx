@@ -11,6 +11,7 @@ const textMap = {
     achievementQuestion: "Any specific achievement or project to highlight?",
     keywordsQuestion: "Are there any keywords or values you'd like to emphasize?",
     placeholder: "Write here...",
+    required: "This field is required",
   },
   de: {
     pageTitle: "Warum Sie gut passen",
@@ -19,6 +20,7 @@ const textMap = {
     achievementQuestion: "Gibt es spezielle Erfolge oder Projekte hervorzuheben?",
     keywordsQuestion: "Gibt es Schlüsselwörter oder Werte, die Sie betonen möchten?",
     placeholder: "Hier schreiben...",
+    required: "Dieses Feld ist erforderlich",
   },
 };
 
@@ -45,11 +47,17 @@ const Step_4 = () => {
             <input
               type="text"
               placeholder={t.placeholder}
-              className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
-              {...register("why_do_you_want_this_job")}
+              className={`bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border ${
+                errors.why_do_you_want_this_job ? "" : "border-[#262626]"
+              } text-white`}
+              {...register("why_do_you_want_this_job", {
+                required: t.required,
+              })}
             />
             {errors.why_do_you_want_this_job && (
-              <p className="text-red-500 text-xs mt-1">{errors.why_do_you_want_this_job.message}</p>
+              <p className="text-red-500 text-xs mt-1">
+                {errors.why_do_you_want_this_job.message}
+              </p>
             )}
           </div>
 
@@ -59,11 +67,19 @@ const Step_4 = () => {
             <input
               type="text"
               placeholder={t.placeholder}
-              className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
-              {...register("relevant_experience_or_skill_for_this_role")}
+              className={`bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border ${
+                errors.relevant_experience_or_skill_for_this_role
+                  ? ""
+                  : "border-[#262626]"
+              } text-white`}
+              {...register("relevant_experience_or_skill_for_this_role", {
+                required: t.required,
+              })}
             />
             {errors.relevant_experience_or_skill_for_this_role && (
-              <p className="text-red-500 text-xs mt-1">{errors.relevant_experience_or_skill_for_this_role.message}</p>
+              <p className="text-red-500 text-xs mt-1">
+                {errors.relevant_experience_or_skill_for_this_role.message}
+              </p>
             )}
           </div>
 
@@ -73,11 +89,19 @@ const Step_4 = () => {
             <input
               type="text"
               placeholder={t.placeholder}
-              className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
-              {...register("specific_achievement_or_project_to_highlight")}
+              className={`bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border ${
+                errors.specific_achievement_or_project_to_highlight
+                  ? ""
+                  : "border-[#262626]"
+              } text-white`}
+              {...register("specific_achievement_or_project_to_highlight", {
+                required: t.required,
+              })}
             />
             {errors.specific_achievement_or_project_to_highlight && (
-              <p className="text-red-500 text-xs mt-1">{errors.specific_achievement_or_project_to_highlight.message}</p>
+              <p className="text-red-500 text-xs mt-1">
+                {errors.specific_achievement_or_project_to_highlight.message}
+              </p>
             )}
           </div>
 
@@ -87,11 +111,19 @@ const Step_4 = () => {
             <input
               type="text"
               placeholder={t.placeholder}
-              className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
-              {...register("keywords_or_values_to_emphasize")}
+              className={`bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border ${
+                errors.keywords_or_values_to_emphasize
+                  ? ""
+                  : "border-[#262626]"
+              } text-white`}
+              {...register("keywords_or_values_to_emphasize", {
+                required: t.required,
+              })}
             />
             {errors.keywords_or_values_to_emphasize && (
-              <p className="text-red-500 text-xs mt-1">{errors.keywords_or_values_to_emphasize.message}</p>
+              <p className="text-red-500 text-xs mt-1">
+                {errors.keywords_or_values_to_emphasize.message}
+              </p>
             )}
           </div>
         </form>

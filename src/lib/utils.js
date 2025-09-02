@@ -18,7 +18,7 @@ export const updateToastSuccess = (toastId, message = "Success!") => {
 
 export const updateToastError = (toastId, message = "Something went wrong!") => {
   toast.dismiss(toastId); // close the loading toast
-  toast.error(message);
+  // toast.error(message);
 };
 
 // // Tostyfy 
