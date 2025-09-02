@@ -200,7 +200,6 @@ export default function History() {
       return res.data;
     },
   });
-
   const handleClick = (templateData) => {
     console.log("Template Data:", templateData);
     setAllResumeData({ data: templateData });
