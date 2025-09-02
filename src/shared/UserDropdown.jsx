@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { User, Settings, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useEmail } from "@/hooks/useEmail";
-
+import userdummy from "@/assets/images/userdummy.png";
 const UserDropdown = ({
   className = "",
   avatarBgColor = "bg-primary",
@@ -15,7 +15,8 @@ const UserDropdown = ({
   const dropdownRef = useRef(null);
   const { user, logout } = useAuth();
   const { language } = useEmail();
-
+  const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
+console.log(user?.profile?.profile_image);
   // Default dropdown items with language support
   const defaultItems = [
     {
@@ -56,12 +57,21 @@ const UserDropdown = ({
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
       {/* Avatar Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`flex cursor-pointer items-center justify-center aspect-square  bg-gray-800 w-10 h-10 rounded-full font-medium hover:opacity-90 transition-opacity`}
-      >
-        {getUserInitial()}
-      </button>
+   <button
+  onClick={() => setIsOpen(!isOpen)}
+  className={`flex cursor-pointer items-center justify-center bg-gray-800 w-10 h-10 rounded-full font-medium hover:opacity-90 transition-opacity overflow-hidden`}
+>
+  {user?.profile?.profile_image ? (
+    <img
+      src={`${VITE_IMG_URL}${user?.profile?.profile_image}`}
+      alt="User Avatar"
+      className="w-full h-full object-cover rounded-full"
+    />
+  ) : (
+    <span className="text-white">{getUserInitial()}</span>
+  )}
+</button>
+
 
       {/* Dropdown Menu */}
       {isOpen && (

@@ -95,7 +95,7 @@ const ChatBox = () => {
 
             <div className="pt-14">
               <h2 className="text-white text-lg font-semibold">
-                Suggested Questions
+                {language === "en" ? "Suggested Questions" : "Vorgeschlagene Fragen"}
               </h2>
               <div className="max-h-72 overflow-y-auto custom-scrollbar">
                 <div className=" mt-4 ">
@@ -133,7 +133,7 @@ const ChatBox = () => {
                 <AIIcon />
               </div>
               <h2 className="text-white text-xl font-semibold">
-                Hi! I’m your CV guide. Ask me anything!
+                {language === "en" ? "     Hi! I’m your CV guide. Ask me anything!" : "Hallo! Ich bin Ihr Lebenslauf-Guide. Fragen Sie mich alles!"}
               </h2>
 
               <div className="flex justify-center my-5">
@@ -142,7 +142,7 @@ const ChatBox = () => {
                   onClick={HandleModal}
                   className="text-left text-sm md:text-base border hover:border-gray-400 hover:text-black border-gray-300 px-5 py-2 rounded-full transition-all duration-300 ease-in-out hover:bg-gray-100 hover:shadow-md hover:scale-105"
                 >
-                  Open Chat
+                  {language === "en" ? "Open Chat" : "Chat öffnen"}
                 </button>
               </div>
             </div>

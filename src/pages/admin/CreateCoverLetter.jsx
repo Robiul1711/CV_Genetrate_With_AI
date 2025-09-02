@@ -46,7 +46,7 @@ const CreateCoverLetter = () => {
         "Upload Resume",
         "Why You’re a Good Fit",
         "Language",
-        "Add Another Courses",
+        "Tailor Your Document’s Voice",
         "Preview & Download",
       ],
     },
@@ -66,7 +66,7 @@ const CreateCoverLetter = () => {
         "Lebenslauf hochladen",
         "Warum Sie geeignet sind",
         "Sprache",
-        "Weitere Kurse hinzufügen",
+        "Passen Sie den Ton Ihres Dokuments an",
         "Vorschau & Download",
       ],
     },
@@ -140,12 +140,12 @@ const CreateCoverLetter = () => {
       <div>
         {/* Header */}
         <div className="flex flex-col gap-2">
-          <Link to={"/dashboard/edit-resume"} className="flex items-center gap-2">
-            {activeStep === steps.length - 1 && (
+          <p  className="flex items-center gap-2">
+            {/* {activeStep === steps.length - 1 && (
               <FaAngleLeft className="cursor-pointer text-3xl p-1 border border-white/30 rounded-full" />
-            )}
+            )} */}
             <Title level="title32">{t.title}</Title>
-          </Link>
+          </p>
           <Title level="title22">{t.subtitle}</Title>
         </div>
 

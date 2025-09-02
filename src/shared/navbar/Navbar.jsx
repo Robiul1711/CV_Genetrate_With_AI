@@ -105,10 +105,7 @@ const Navbar = () => {
         ) : user ? (
           <div className="hidden lg:flex items-center gap-5">
             <UserDropdown
-              user={{
-                name: user.first_name + " " + user.last_name,
-                email: user?.user?.email,
-              }}
+      
             />
             <LanguageDropdown />
           </div>

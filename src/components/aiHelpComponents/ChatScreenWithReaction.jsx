@@ -6,6 +6,8 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useEmail } from "@/hooks/useEmail";
 import { useMutation } from "@tanstack/react-query";
 import bot from "@/assets/images/bot.png";
+import userdummy from "@/assets/images/userdummy.png";
+import { useAuth } from "@/hooks/useAuth";
 
 // ✅ Improved parser function to format bot response with better bold text handling
 const parseMessage = (text) => {
@@ -63,7 +65,9 @@ const ChatScreenWithReaction = ({
 }) => {
   const axiosSecure = useAxiosSecure();
   const { language } = useEmail();
-
+  const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
+  const {user}=useAuth()
+  console.log(user?.profile?.profile_image);
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -118,7 +122,7 @@ const ChatScreenWithReaction = ({
               sender: "me",
               senderProfile: {
                 name: "You",
-                avatar: "https://i.pravatar.cc/40?img=1",
+                avatar: VITE_IMG_URL + user?.profile?.profile_image || userdummy,
               },
               timestamp: new Date(
                 item.created_at || Date.now()
