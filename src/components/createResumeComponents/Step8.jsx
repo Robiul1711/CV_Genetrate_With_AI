@@ -98,14 +98,15 @@ const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
 
               {/* Hover Overlay */}
               <div className="absolute inset-0 bg-[#0E0E10]/70 rounded-xl opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+                <div className="flex flex-col  gap-2 sm:gap-4">
                   {/* Edit Button */}
                   <button
                     onClick={() => {
                       IdSetupMutation.mutate({ template_id: item.id });
                       navigate(`/dashboard/edit-resume/${item.id}`);
+                      
                     }}
-                    className="border px-3 py-1 bg-black/40 rounded-full flex items-center gap-2 text-white hover:bg-black/60 transition"
+                    className="border px-2 py-1 bg-black/40 rounded-full flex items-center justify-center gap-2 text-white hover:bg-black/60 transition"
                   >
                     {IdSetupMutation.isPending ? t.editing : t.edit} <Edit2 size={14} />
                   </button>
@@ -117,7 +118,7 @@ const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
                       setActiveStep(activeStep + 1, item.id);
                       setResumeId(item.id);
                     }}
-                    className="border px-3 bg-black/40 rounded-full flex items-center gap-2 text-white hover:bg-black/60 transition"
+                    className="border px-2 py-1 bg-black/40 rounded-full flex items-center gap-2 text-white hover:bg-black/60 transition"
                   >
                     {IdSetupMutation.isPending ? t.preparing : t.preview} <FaEye size={14} />
                   </button>

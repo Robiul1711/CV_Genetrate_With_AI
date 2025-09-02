@@ -12,10 +12,12 @@ const textMap = {
     companyName: "Company Name *",
     companyNamePlaceholder: "xyz Company",
     companyNameError: "Company name is required",
-    companyLocation: "Company Location (Optional)",
+    companyLocation: "Company Location *",
     companyLocationPlaceholder: "Germany, Berlin",
-    hiringManager: "Hiring Manager Name (Optional)",
+    companyLocationError: "Company location is required",
+    hiringManager: "Hiring Manager Name *",
     hiringManagerPlaceholder: "Dear Luci,",
+    hiringManagerError: "Hiring manager name is required",
   },
   de: {
     pageTitle: "Bewerbungsdetails",
@@ -25,10 +27,12 @@ const textMap = {
     companyName: "Firmenname *",
     companyNamePlaceholder: "xyz Firma",
     companyNameError: "Firmenname ist erforderlich",
-    companyLocation: "Firmenstandort (Optional)",
+    companyLocation: "Firmenstandort *",
     companyLocationPlaceholder: "Deutschland, Berlin",
-    hiringManager: "Name des Personalmanagers (Optional)",
+    companyLocationError: "Firmenstandort ist erforderlich",
+    hiringManager: "Name des Personalmanagers *",
     hiringManagerPlaceholder: "Sehr geehrte Luci,",
+    hiringManagerError: "Name des Personalmanagers ist erforderlich",
   },
 };
 
@@ -82,9 +86,12 @@ const Step_2 = () => {
             <input
               type="text"
               placeholder={t.companyLocationPlaceholder}
-              {...register("company_location")}
+              {...register("company_location", { required: t.companyLocationError })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
+            {errors.company_location && (
+              <span className="text-red-500 text-xs">{errors.company_location.message}</span>
+            )}
           </div>
 
           {/* Hiring Manager */}
@@ -93,9 +100,12 @@ const Step_2 = () => {
             <input
               type="text"
               placeholder={t.hiringManagerPlaceholder}
-              {...register("hiring_manager_name")}
+              {...register("hiring_manager_name", { required: t.hiringManagerError })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
+            {errors.hiring_manager_name && (
+              <span className="text-red-500 text-xs">{errors.hiring_manager_name.message}</span>
+            )}
           </div>
         </form>
       </div>

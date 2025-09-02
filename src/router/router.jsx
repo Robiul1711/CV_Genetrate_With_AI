@@ -32,6 +32,8 @@ import ResumeNine from "@/components/All_Templates/ResumeNine";
 import UploadAResume from "@/components/upload_exgisting_resume/UploadAResume";
 import UpdateExistingResumeEdit from "@/pages/edit_resume_page/UpdateExistingResumeEdit";
 import PrivateRoute from "./PrivateRoute";
+import PaymentSuccess from "@/components/SuccessCancle/PaymentSuccess";
+import PaymentCancelled from "@/components/SuccessCancle/PaymentCancelled";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +69,14 @@ const router = createBrowserRouter([
       {
         path: "/imprint",
         element: <Imprint />,
+      },
+      {
+        path: "/success",
+        element: <PaymentSuccess />,
+      },
+      {
+        path: "/cancled",
+        element: <PaymentCancelled />,
       },
     ],
   },

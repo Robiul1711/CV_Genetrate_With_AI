@@ -1,8 +1,10 @@
 import { useResume } from "@/providers/ResumeContext";
 import React from "react";
 import { Sketch } from "@uiw/react-color";
+import { useEmail } from "@/hooks/useEmail";
 
 const StepDesign = () => {
+  const {language} = useEmail();
   const { color, setColor } = useResume();
 console.log(color)
   const colors = [
@@ -19,7 +21,7 @@ console.log(color)
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <p className="text-sm text-white mb-4">Primary Colors</p>
+        <p className="text-sm text-white mb-4">{language === "en" ? "Choose Color" : "Farbe wählen"}</p>
         <div className="flex items-center gap-3">
           {colors.map((c, idx) => (
             <div
@@ -36,13 +38,13 @@ console.log(color)
       </div>
 
       <div className="flex flex-col gap-2">
-        <h1>Choose Color Picker</h1>
+        <h1>{language === "en" ? "Choose your custom Color" : "Wählen Sie Ihre individuelle Farbe"}</h1>
         <div>
           <Sketch
             color={color} // use context value
             onChange={(c) => setColor(c.hex)} // update global color
           />
-          <p>Selected: {color}</p>
+          <p>{language === "en" ? "Current Color" : "Aktuelle Farbe"}: {color}</p>
         </div>
       </div>
     </div>

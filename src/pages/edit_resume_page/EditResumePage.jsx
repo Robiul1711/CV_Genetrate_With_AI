@@ -31,9 +31,10 @@ const stepsData = (language) => [
 ];
 
 const EditResumePage = () => {
-  const { language } = useEmail(); // Get current language
+  const { language , setActiveStep} = useEmail(); // Get current language
   const { resumeId } = useParams();
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep1, setactiveStep1] = useState(0);
+  console.log(activeStep1);
   const [activeTab, setActiveTab] = useState("content"); // "content" or "design"
   const { imageString, allRedumeData, setAllResumeData } = useResume();
   const axiosSecure = useAxiosSecure();
@@ -102,6 +103,7 @@ const EditResumePage = () => {
       <Link
         to={"/dashboard/create-New-resume"}
         className="flex items-center gap-2"
+        onClick={() => setActiveStep(8)}
       >
         <FaAngleLeft className="cursor-pointer text-xl p-1 border border-white/30 rounded-full" />
         <Title level="title32">
@@ -168,11 +170,11 @@ const EditResumePage = () => {
                           key={index}
                           level="title14"
                           className={`cursor-pointer pb-1 border-b-2 ${
-                            activeStep === index
+                            activeStep1 === index
                               ? "border-[#fff] text-white bg-linearbg"
                               : "border-transparent text-white/70"
                           } text-sm`}
-                          onClick={() => setActiveStep(index)}
+                          onClick={() => setactiveStep1(index)}
                         >
                           {step.title}
                         </Title>
@@ -180,7 +182,7 @@ const EditResumePage = () => {
                     </div>
 
                     {/* Active Step */}
-                    <div>{steps[activeStep].component}</div>
+                    <div>{steps[activeStep1].component}</div>
                   </>
                 )}
 

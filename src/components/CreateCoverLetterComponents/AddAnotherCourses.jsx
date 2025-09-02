@@ -21,10 +21,21 @@ const AddAnotherCourses = () => {
       creativityTitle: "Creativity",
       formalityTitle: "Formality",
       formalityOptions: ["Du", "Sie"],
-      genderOptions: ["Neutral", "Inclusive", "Feminine", "Masculine", "Painter", "Engineer"],
+      genderOptions: [
+        "Neutral",
+        "Inclusive",
+        "Feminine",
+        "Masculine",
+        "Painter",
+        "Engineer",
+      ],
       tailorOptions: ["Professional", "Academic", "Technical", "Casual"],
       complexityOptions: ["Simplified", "Advanced", "Academic"],
-      creativityOptions: ["Straightforward", "Moderate", "Highly Creative"],
+      creativityOptions: [
+        "Straightforward",
+        "Moderate",
+        "Highly Creative",
+      ],
     },
     de: {
       headerTitle: "Weitere Kurse und Schulungsdetails",
@@ -36,7 +47,14 @@ const AddAnotherCourses = () => {
       creativityTitle: "Kreativität",
       formalityTitle: "Formell / Umgangssprachlich",
       formalityOptions: ["Du", "Sie"],
-      genderOptions: ["Neutral", "Inklusiv", "Weiblich", "Männlich", "Maler:in", "Ingenieur:in"],
+      genderOptions: [
+        "Neutral",
+        "Inklusiv",
+        "Weiblich",
+        "Männlich",
+        "Maler:in",
+        "Ingenieur:in",
+      ],
       tailorOptions: ["Professionell", "Akademisch", "Technisch", "Locker"],
       complexityOptions: ["Einfach", "Fortgeschritten", "Akademisch"],
       creativityOptions: ["Einfach", "Mittel", "Sehr Kreativ"],
@@ -59,19 +77,27 @@ const AddAnotherCourses = () => {
         <Controller
           name="tailor_documents_voice"
           control={control}
-          render={({ field }) => (
-            <RadioGroup
-              value={field.value}
-              onValueChange={field.onChange}
-              className="w-full mt-2 flex flex-wrap"
-            >
-              {t.tailorOptions.map((item, index) => (
-                <div key={index} className="flex items-center space-x-2 mb-3">
-                  <RadioGroupItem value={item} id={`tailor-${index}`} />
-                  <Label htmlFor={`tailor-${index}`}>{item}</Label>
-                </div>
-              ))}
-            </RadioGroup>
+          rules={{ required: "Please select a document voice" }}
+          render={({ field, fieldState }) => (
+            <>
+              <RadioGroup
+                value={field.value}
+                onValueChange={field.onChange}
+                className="w-full mt-2 flex flex-wrap"
+              >
+                {t.tailorOptions.map((item, index) => (
+                  <div key={index} className="flex items-center space-x-2 mb-3">
+                    <RadioGroupItem value={item} id={`tailor-${index}`} />
+                    <Label htmlFor={`tailor-${index}`}>{item}</Label>
+                  </div>
+                ))}
+              </RadioGroup>
+              {fieldState.error && (
+                <p className="text-red-500 text-sm mt-1">
+                  {fieldState.error.message}
+                </p>
+              )}
+            </>
           )}
         />
       </div>
@@ -82,19 +108,27 @@ const AddAnotherCourses = () => {
         <Controller
           name="gender_language"
           control={control}
-          render={({ field }) => (
-            <RadioGroup
-              value={field.value}
-              onValueChange={field.onChange}
-              className="w-full mt-2 flex flex-wrap"
-            >
-              {t.genderOptions.map((item, index) => (
-                <div key={index} className="flex items-center space-x-2 mb-3">
-                  <RadioGroupItem value={item} id={`gender-${index}`} />
-                  <Label htmlFor={`gender-${index}`}>{item}</Label>
-                </div>
-              ))}
-            </RadioGroup>
+          rules={{ required: "Please select a gender language" }}
+          render={({ field, fieldState }) => (
+            <>
+              <RadioGroup
+                value={field.value}
+                onValueChange={field.onChange}
+                className="w-full mt-2 flex flex-wrap"
+              >
+                {t.genderOptions.map((item, index) => (
+                  <div key={index} className="flex items-center space-x-2 mb-3">
+                    <RadioGroupItem value={item} id={`gender-${index}`} />
+                    <Label htmlFor={`gender-${index}`}>{item}</Label>
+                  </div>
+                ))}
+              </RadioGroup>
+              {fieldState.error && (
+                <p className="text-red-500 text-sm mt-1">
+                  {fieldState.error.message}
+                </p>
+              )}
+            </>
           )}
         />
       </div>
@@ -105,19 +139,27 @@ const AddAnotherCourses = () => {
         <Controller
           name="complexity"
           control={control}
-          render={({ field }) => (
-            <RadioGroup
-              value={field.value}
-              onValueChange={field.onChange}
-              className="w-full mt-2 flex flex-wrap"
-            >
-              {t.complexityOptions.map((item, index) => (
-                <div key={index} className="flex items-center space-x-2 mb-3">
-                  <RadioGroupItem value={item} id={`complexity-${index}`} />
-                  <Label htmlFor={`complexity-${index}`}>{item}</Label>
-                </div>
-              ))}
-            </RadioGroup>
+          rules={{ required: "Please select a complexity level" }}
+          render={({ field, fieldState }) => (
+            <>
+              <RadioGroup
+                value={field.value}
+                onValueChange={field.onChange}
+                className="w-full mt-2 flex flex-wrap"
+              >
+                {t.complexityOptions.map((item, index) => (
+                  <div key={index} className="flex items-center space-x-2 mb-3">
+                    <RadioGroupItem value={item} id={`complexity-${index}`} />
+                    <Label htmlFor={`complexity-${index}`}>{item}</Label>
+                  </div>
+                ))}
+              </RadioGroup>
+              {fieldState.error && (
+                <p className="text-red-500 text-sm mt-1">
+                  {fieldState.error.message}
+                </p>
+              )}
+            </>
           )}
         />
       </div>
@@ -128,42 +170,58 @@ const AddAnotherCourses = () => {
         <Controller
           name="creativity"
           control={control}
-          render={({ field }) => (
-            <RadioGroup
-              value={field.value}
-              onValueChange={field.onChange}
-              className="w-full mt-2 flex flex-wrap"
-            >
-              {t.creativityOptions.map((item, index) => (
-                <div key={index} className="flex items-center space-x-2 mb-3">
-                  <RadioGroupItem value={item} id={`creativity-${index}`} />
-                  <Label htmlFor={`creativity-${index}`}>{item}</Label>
-                </div>
-              ))}
-            </RadioGroup>
+          rules={{ required: "Please select a creativity level" }}
+          render={({ field, fieldState }) => (
+            <>
+              <RadioGroup
+                value={field.value}
+                onValueChange={field.onChange}
+                className="w-full mt-2 flex flex-wrap"
+              >
+                {t.creativityOptions.map((item, index) => (
+                  <div key={index} className="flex items-center space-x-2 mb-3">
+                    <RadioGroupItem value={item} id={`creativity-${index}`} />
+                    <Label htmlFor={`creativity-${index}`}>{item}</Label>
+                  </div>
+                ))}
+              </RadioGroup>
+              {fieldState.error && (
+                <p className="text-red-500 text-sm mt-1">
+                  {fieldState.error.message}
+                </p>
+              )}
+            </>
           )}
         />
       </div>
 
-      {/* Formality */}
+      {/* Formality (optional, uncomment if needed) */}
       {/* <div className="sm:pb-10 pb-5">
         <Title level="title22">{t.formalityTitle}</Title>
         <Controller
           name="formality"
           control={control}
-          render={({ field }) => (
-            <RadioGroup
-              value={field.value}
-              onValueChange={field.onChange}
-              className="w-full mt-2 flex flex-wrap"
-            >
-              {t.formalityOptions.map((item, index) => (
-                <div key={index} className="flex items-center space-x-2 mb-3">
-                  <RadioGroupItem value={item} id={`formality-${index}`} />
-                  <Label htmlFor={`formality-${index}`}>{item}</Label>
-                </div>
-              ))}
-            </RadioGroup>
+          rules={{ required: "Please select a formality level" }}
+          render={({ field, fieldState }) => (
+            <>
+              <RadioGroup
+                value={field.value}
+                onValueChange={field.onChange}
+                className="w-full mt-2 flex flex-wrap"
+              >
+                {t.formalityOptions.map((item, index) => (
+                  <div key={index} className="flex items-center space-x-2 mb-3">
+                    <RadioGroupItem value={item} id={`formality-${index}`} />
+                    <Label htmlFor={`formality-${index}`}>{item}</Label>
+                  </div>
+                ))}
+              </RadioGroup>
+              {fieldState.error && (
+                <p className="text-red-500 text-sm mt-1">
+                  {fieldState.error.message}
+                </p>
+              )}
+            </>
           )}
         />
       </div> */}

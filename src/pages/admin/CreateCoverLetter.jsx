@@ -29,7 +29,6 @@ const CreateCoverLetter = () => {
   const axiosSecure = useAxiosSecure();
   const { language } = useEmail();
 
-  // Translation map
   const texts = {
     en: {
       title: "Create AI-Powered Cover Letter",
@@ -111,9 +110,11 @@ const CreateCoverLetter = () => {
     const isValid = await methods.trigger();
     if (!isValid) return;
 
+    // Only call API when moving from AddAnotherCourses → Step 6
     if (activeStep === 5) {
       const allData = methods.getValues();
       const formData = new FormData();
+
       Object.keys(allData).forEach((key) => {
         if (key === "upload_resume" && allData[key]?.[0]) {
           formData.append(key, allData[key][0]);
@@ -125,7 +126,7 @@ const CreateCoverLetter = () => {
       CoverMutation.mutate(formData, {
         onSuccess: () => setActiveStep((prev) => prev + 1),
       });
-    } else if (activeStep < steps.length - 1) {
+    } else {
       setActiveStep((prev) => prev + 1);
     }
   };
@@ -134,13 +135,9 @@ const CreateCoverLetter = () => {
     if (activeStep > 0) setActiveStep((prev) => prev - 1);
   };
 
-  const onSubmit = (data) => {
-    CoverMutation.mutate(data);
-  };
-
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <div>
         {/* Header */}
         <div className="flex flex-col gap-2">
           <Link to={"/dashboard/edit-resume"} className="flex items-center gap-2">
@@ -153,7 +150,10 @@ const CreateCoverLetter = () => {
         </div>
 
         {/* Step Progress Bar */}
-        <StepProgressBar steps={steps.map((step) => step.label)} currentStep={activeStep + 1} />
+        <StepProgressBar
+          steps={steps.map((step) => step.label)}
+          currentStep={activeStep + 1}
+        />
 
         {/* Current Step Content */}
         <div>{steps[activeStep].component}</div>
@@ -162,6 +162,7 @@ const CreateCoverLetter = () => {
         <div className="flex flex-wrap gap-2 max-w-6xl w-full mx-auto justify-between items-center mt-6">
           {activeStep !== 0 ? (
             <button
+              type="button"
               className={`font-semibold text-white text-xs rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${
                 activeStep === steps.length - 1 ? "" : "px-8 py-2 border border-white"
               }`}
@@ -185,7 +186,7 @@ const CreateCoverLetter = () => {
             </button>
           )}
         </div>
-      </form>
+      </div>
     </FormProvider>
   );
 };

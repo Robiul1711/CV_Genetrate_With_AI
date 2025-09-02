@@ -20,16 +20,9 @@ import {
 } from "@/lib/utils";
 import { resumeDataEdits } from "@/lib/data";
 import Design from "./Design";
+import { useEmail } from "@/hooks/useEmail";
 // Import the Design component
 
-const steps = [
-  { title: "Personal Info", component: <StepOne /> },
-  { title: "Experience", component: <StepTwo /> },
-  { title: "Education", component: <StepThree /> },
-  { title: "Skill", component: <StepFour /> },
-  { title: "Language", component: <StepFive /> },
-  { title: "Train", component: <StepSix /> },
-];
 
 const UpdateExistingResumeEdit = () => {
   const { resumeId } = useParams();
@@ -37,8 +30,22 @@ const UpdateExistingResumeEdit = () => {
   const [activeTab, setActiveTab] = useState("edit"); // 'edit' or 'design'
   const { imageString, allRedumeData, setAllResumeData } = useResume();
   const axiosSecure = useAxiosSecure();
-
+  const { language } = useEmail();
   const data = allRedumeData?.data;
+   // Dynamic steps based on language
+  const steps = [
+    {
+      title:
+        language === "en" ? "Personal Info" : "Persönliche Informationen",
+      component: <StepOne />,
+    },
+    { title: language === "en" ? "Experience" : "Erfahrung", component: <StepTwo /> },
+    { title: language === "en" ? "Education" : "Bildung", component: <StepThree /> },
+    { title: language === "en" ? "Skill" : "Fähigkeiten", component: <StepFour /> },
+    { title: language === "en" ? "Language" : "Sprache", component: <StepFive /> },
+    { title: language === "en" ? "Train" : "Training", component: <StepSix /> },
+  ];
+
   const methods = useForm({
     mode: "onChange",
   });
@@ -102,7 +109,7 @@ const UpdateExistingResumeEdit = () => {
       updateToastError(context.toastId, errorMessage);
     },
   });
-  
+
   const onSubmit = (data) => {
     console.log("✅ Final Form Data:", data);
 
@@ -113,7 +120,7 @@ const UpdateExistingResumeEdit = () => {
     };
     ResumeMutation.mutate(payload);
   };
-  
+
   return (
     <div>
       <Link
@@ -121,79 +128,86 @@ const UpdateExistingResumeEdit = () => {
         className="flex items-center gap-2"
       >
         <FaAngleLeft className="cursor-pointer text-xl p-1 border border-white/30 rounded-full" />
-        <Title level="title32">Edit Resume</Title>
+        <Title level="title32">
+          {language === "en" ? "Create New Resume" : "Lebenslauf bearbeiten"}
+        </Title>
       </Link>
 
       <Title level="title22" className="mt-2">
-        Let AI help improve your resume content.
+        {language === "en"
+          ? "Let AI help improve your resume content."
+          : "Lassen Sie sich von KI dabei helfen, den Inhalt Ihres Lebenslaufs zu verbessern."}
       </Title>
 
       <FormProvider {...methods} className=" ">
         <form onSubmit={methods.handleSubmit(onSubmit)} className="mt-3">
-<div className="mt-5 flex flex-col lg:flex-row gap-5 lg:gap-10 justify-between">
-  {/* Left Image / PDF */}
-  <div className="lg:w-1/2 w-full max-h-[80vh] overflow-y-auto border border-[#262626] rounded-xl p-2 bg-[#0E0E10]">
-    {selectedResume ? (
-      selectedResume.cvComponet
-    ) : (
-      <p className="text-white/70">No Resume Found</p>
-    )}
-  </div>
+          <div className="mt-5 flex flex-col lg:flex-row gap-5 lg:gap-10 justify-between">
+            {/* Left Image / PDF */}
+            <div className="lg:w-1/2 w-full max-h-[80vh] overflow-y-auto border border-[#262626] rounded-xl p-2 bg-[#0E0E10]">
+              {selectedResume ? (
+                selectedResume.cvComponet
+              ) : (
+                <p className="text-white/70">
+                  {language === "en"
+                    ? "No Resume Selected"
+                    : "Kein Lebenslauf ausgewählt"}
+                </p>
+              )}
+            </div>
 
-  {/* Right Content */}
-  <div className="lg:w-1/2 w-full">
-    {/* Top buttons - Tab Navigation */}
-    <div className="lg:p-4 p-2 rounded-xl bg-[#0E0E10] flex items-center justify-center gap-3 border border-[#262626]">
-      <button
-        type="button"
-        className={`font-semibold text-center border w-full border-white/10 text-white px-2 py-2 rounded-md transition-colors duration-300 ${
-          activeTab === "edit" ? "bg-linearbg" : "hover:bg-linearbg"
-        }`}
-        onClick={() => setActiveTab("edit")}
-      >
-        Edit Content
-      </button>
-      <button
-        type="button"
-        className={`font-semibold border text-center w-full border-white/10 text-white px-2 py-2 rounded-md transition-colors duration-300 ${
-          activeTab === "design" ? "bg-linearbg" : "hover:bg-linearbg"
-        }`}
-        onClick={() => setActiveTab("design")}
-      >
-        Design
-      </button>
-    </div>
+            {/* Right Content */}
+            <div className="lg:w-1/2 w-full">
+              {/* Top buttons - Tab Navigation */}
+              <div className="lg:p-4 p-2 rounded-xl bg-[#0E0E10] flex items-center justify-center gap-3 border border-[#262626]">
+                <button
+                  type="button"
+                  className={`font-semibold text-center border w-full border-white/10 text-white px-2 py-2 rounded-md transition-colors duration-300 ${
+                    activeTab === "edit" ? "bg-linearbg" : "hover:bg-linearbg"
+                  }`}
+                  onClick={() => setActiveTab("edit")}
+                >
+                  {language === "en" ? "Edit Content" : "Inhalt bearbeiten"}
+                </button>
+                <button
+                  type="button"
+                  className={`font-semibold border text-center w-full border-white/10 text-white px-2 py-2 rounded-md transition-colors duration-300 ${
+                    activeTab === "design" ? "bg-linearbg" : "hover:bg-linearbg"
+                  }`}
+                  onClick={() => setActiveTab("design")}
+                >
+                  {language === "en" ? "Design" : "Design"}
+                </button>
+              </div>
 
-    {/* Content based on active tab */}
-    {activeTab === "edit" ? (
-      <>
-        {/* Step Nav */}
-        <div className="mt-3 flex flex-wrap items-center gap-4 sm:gap-0 sm:justify-between border-b">
-          {steps.map((step, index) => (
-            <Title
-              key={index}
-              level="title14"
-              className={`cursor-pointer pb-1 border-b-2 ${
-                activeStep === index
-                  ? "border-[#fff] text-white bg-linearbg"
-                  : "border-transparent text-white/70"
-              } text-sm`}
-              onClick={() => setActiveStep(index)}
-            >
-              {step.title}
-            </Title>
-          ))}
-        </div>
+              {/* Content based on active tab */}
+              {activeTab === "edit" ? (
+                <>
+                  {/* Step Nav */}
+                  <div className="mt-3 flex flex-wrap items-center gap-4 sm:gap-0 sm:justify-between border-b">
+                    {steps.map((step, index) => (
+                      <Title
+                        key={index}
+                        level="title14"
+                        className={`cursor-pointer pb-1 border-b-2 ${
+                          activeStep === index
+                            ? "border-[#fff] text-white bg-linearbg"
+                            : "border-transparent text-white/70"
+                        } text-sm`}
+                        onClick={() => setActiveStep(index)}
+                      >
+                        {step.title}
+                      </Title>
+                    ))}
+                  </div>
 
-        {/* Active Step */}
-        <div>{steps[activeStep].component}</div>
-      </>
-    ) : (
-      <Design />
-    )}
-  </div>
-</div>
-
+                  {/* Active Step */}
+                  <div>{steps[activeStep].component}</div>
+                </>
+              ) : (
+                <Design />
+              )}
+            </div>
+          </div>
         </form>
       </FormProvider>
     </div>

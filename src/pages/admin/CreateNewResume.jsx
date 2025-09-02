@@ -59,7 +59,7 @@ const CreateNewResume = () => {
   const [isCreatingResume, setIsCreatingResume] = useState(false);
   const axiosSecure = useAxiosSecure();
   const { language,activeStep, setActiveStep} = useEmail(); // 'en' or 'de'
-
+console.log(activeStep);
   const methods = useForm({
     mode: "onChange",
     defaultValues: { work_experiences: [], resume_language: "en" },

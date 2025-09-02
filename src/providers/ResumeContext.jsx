@@ -14,10 +14,9 @@ export const ResumeProvider = ({ children }) => {
     return localStorage.getItem("imageString") || "";
   });
   const [color, setColor] = useState(() => {
-    return localStorage.getItem("resumeColor") || "#1B1E2F";
+    return localStorage.getItem("resumeColor") || "";
   });
 
-  
   // Save to localStorage whenever state changes
   useEffect(() => {
     localStorage.setItem("coverLetter", JSON.stringify(coverLetter));
@@ -30,8 +29,6 @@ export const ResumeProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("imageString", imageString || "");
   }, [imageString]);
-
-
 
   return (
     <ResumeContext.Provider
