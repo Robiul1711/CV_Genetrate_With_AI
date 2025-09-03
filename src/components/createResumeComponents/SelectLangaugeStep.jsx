@@ -64,7 +64,7 @@ const SelectLanguageStep = () => {
           )}
         />
 
-        <Tailor_Modal />
+        {/* <Tailor_Modal /> */}
       </div>
     </div>
   );

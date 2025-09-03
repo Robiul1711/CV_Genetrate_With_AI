@@ -2,15 +2,20 @@ import { useEmail } from "@/hooks/useEmail";
 import { useResume } from "@/providers/ResumeContext";
 import React from "react";
 import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
+import ReactMarkdown from "react-markdown";
 
-export default function CoverLetter({resumeRef}) {
+export default function CoverLetter({ resumeRef }) {
   const { coverLetter } = useResume();
-  const {language} = useEmail();
+  const { language } = useEmail();
   const cover = coverLetter?.data;
+
   return (
-    <div ref={resumeRef} className="w-[210mm]  bg-white shadow-lg py-12 px-20 mx-auto !outfit">
+    <div
+      ref={resumeRef}
+      className="w-[210mm] bg-white shadow-lg py-12 px-20 mx-auto !outfit"
+    >
       {/* Header */}
-      <div className="">
+      <div>
         <h1 className="text-2xl font-bold text-[#2E2E48]">
           {cover?.first_name} {cover?.last_name}
         </h1>
@@ -21,7 +26,9 @@ export default function CoverLetter({resumeRef}) {
           <div className="flex items-center gap-3">
             <MdEmail className="text-[#79819A] text-3xl p-1.5 bg-[#79819A]/20 rounded-full" />
             <div>
-              <p className="text-xs text-[#79819A]">{language === "en" ? "Email" : "E-Mail"}</p>
+              <p className="text-xs text-[#79819A]">
+                {language === "en" ? "Email" : "E-Mail"}
+              </p>
               <p className="text-sm text-[#47516B]">{cover?.email}</p>
             </div>
           </div>
@@ -29,7 +36,9 @@ export default function CoverLetter({resumeRef}) {
           <div className="flex items-center gap-3">
             <MdPhone className="text-[#79819A] text-3xl p-1.5 bg-[#79819A]/20 rounded-full" />
             <div>
-              <p className="text-xs text-[#79819A]">{language === "en" ? "Phone" : "Telefon"}</p>
+              <p className="text-xs text-[#79819A]">
+                {language === "en" ? "Phone" : "Telefon"}
+              </p>
               <p className="text-sm text-[#47516B]">{cover?.phone_number}</p>
             </div>
           </div>
@@ -37,7 +46,9 @@ export default function CoverLetter({resumeRef}) {
           <div className="flex items-center gap-3">
             <MdLocationOn className="text-[#79819A] text-3xl p-1.5 bg-[#79819A]/20 rounded-full" />
             <div>
-              <p className="text-xs text-[#79819A]">{language === "en" ? "Address" : "Adresse"}</p>
+              <p className="text-xs text-[#79819A]">
+                {language === "en" ? "Address" : "Adresse"}
+              </p>
               <p className="text-sm text-[#47516B]">{cover?.address}</p>
             </div>
           </div>
@@ -48,7 +59,7 @@ export default function CoverLetter({resumeRef}) {
       <div className="py-6"></div>
 
       {/* Body */}
-      <div className=" text-sm text-gray-800 leading-relaxed">
+      <div className="text-sm text-gray-800 leading-relaxed">
         <p className="text-[#2E2E48] font-medium">
           {new Date().toLocaleDateString("en-US", {
             day: "2-digit",
@@ -57,15 +68,21 @@ export default function CoverLetter({resumeRef}) {
           })}
         </p>
 
-        <p className="mt-2 text-[#2E2E48] font-medium">{language === "en" ? "Dear" : "Liebling"} {cover?.hiring_manager_name},</p>
-
-        <p className="mt-6 tracking-[0.5px] leading-[16px] text-[#47516B]">
-          {cover?.resume_content}
+        <p className="mt-2 text-[#2E2E48] font-medium">
+          {language === "en" ? "Dear" : "Liebling"} {cover?.hiring_manager_name},
         </p>
 
+        {/* Markdown Body */}
+        <div className="prose prose-sm md:prose-sm max-w-none dark:prose-invert mt-6 tracking-[0.5px] leading-[20px] text-[#47516B]">
+          <ReactMarkdown>{cover?.resume_content || ""}</ReactMarkdown>
+        </div>
+
+        {/* Signature */}
         <div className="mt-8 text-[#2E2E48] font-medium">
           <p>{language === "en" ? "Sincerely" : "Aufrichtig"},</p>
-          <p className="mt-1">{cover?.first_name} {cover?.last_name}</p>
+          <p className="mt-1">
+            {cover?.first_name} {cover?.last_name}
+          </p>
         </div>
       </div>
     </div>

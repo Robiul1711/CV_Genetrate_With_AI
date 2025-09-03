@@ -32,6 +32,8 @@ const textMap = {
       emailInvalid: "Invalid email format",
       phone: "Phone number is required",
       jobTitle: "Job title is required",
+      address: "Address is required", // ✅ added
+      dob: "Date of birth is required", // ✅ added
     },
   },
   de: {
@@ -62,6 +64,8 @@ const textMap = {
       emailInvalid: "Ungültiges E-Mail-Format",
       phone: "Telefonnummer ist erforderlich",
       jobTitle: "Berufsbezeichnung ist erforderlich",
+      address: "Adresse ist erforderlich", // ✅ added
+      dob: "Geburtsdatum ist erforderlich", // ✅ added
     },
   },
 };
@@ -92,7 +96,9 @@ const Step_1 = () => {
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
             {errors.first_name && (
-              <span className="text-red-500 text-xs">{errors.first_name.message}</span>
+              <span className="text-red-500 text-xs">
+                {errors.first_name.message}
+              </span>
             )}
           </div>
 
@@ -106,7 +112,9 @@ const Step_1 = () => {
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
             {errors.last_name && (
-              <span className="text-red-500 text-xs">{errors.last_name.message}</span>
+              <span className="text-red-500 text-xs">
+                {errors.last_name.message}
+              </span>
             )}
           </div>
 
@@ -126,7 +134,9 @@ const Step_1 = () => {
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
             {errors.email && (
-              <span className="text-red-500 text-xs">{errors.email.message}</span>
+              <span className="text-red-500 text-xs">
+                {errors.email.message}
+              </span>
             )}
           </div>
 
@@ -143,7 +153,9 @@ const Step_1 = () => {
               />
             </div>
             {errors.phone_number && (
-              <span className="text-red-500 text-xs">{errors.phone_number.message}</span>
+              <span className="text-red-500 text-xs">
+                {errors.phone_number.message}
+              </span>
             )}
           </div>
 
@@ -153,9 +165,14 @@ const Step_1 = () => {
             <input
               type="text"
               placeholder={t.addressPlaceholder}
-              {...register("address")}
+              {...register("address", { required: t.errors.address })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
+            {errors.address && (
+              <span className="text-red-500 text-xs">
+                {errors.address.message}
+              </span>
+            )}
           </div>
 
           {/* Date of Birth */}
@@ -163,9 +180,12 @@ const Step_1 = () => {
             <label className="text-sm text-white">{t.dob}</label>
             <input
               type="date"
-              {...register("dob")}
+              {...register("dob", { required: t.errors.dob })} // ✅ required added
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
+            {errors.dob && (
+              <span className="text-red-500 text-xs">{errors.dob.message}</span>
+            )}
           </div>
 
           {/* Job Title */}
@@ -178,7 +198,9 @@ const Step_1 = () => {
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
             {errors.job_title && (
-              <span className="text-red-500 text-xs">{errors.job_title.message}</span>
+              <span className="text-red-500 text-xs">
+                {errors.job_title.message}
+              </span>
             )}
           </div>
 

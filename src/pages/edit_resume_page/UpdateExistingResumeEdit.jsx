@@ -18,9 +18,9 @@ import {
   updateToastError,
   updateToastSuccess,
 } from "@/lib/utils";
-import { resumeDataEdits } from "@/lib/data";
 import Design from "./Design";
 import { useEmail } from "@/hooks/useEmail";
+import { resumeDataEdits } from "@/lib/Data";
 // Import the Design component
 
 

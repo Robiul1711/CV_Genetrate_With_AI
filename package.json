@@ -33,6 +33,7 @@
     "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.10.3",
     "jspdf": "^3.0.1",
+    "language-list": "^0.0.3",
     "lucide-react": "^0.465.0",
     "primereact": "^10.9.5",
     "react": "^18.3.1",
