@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { useAuth } from "@/hooks/useAuth";
 
 const DownloadButton = ({ resumeRef }) => {
+  console.log(resumeRef);
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 

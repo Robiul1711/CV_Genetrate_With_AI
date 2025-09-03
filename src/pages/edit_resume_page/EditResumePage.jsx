@@ -17,28 +17,41 @@ import {
   updateToastError,
   updateToastSuccess,
 } from "@/lib/utils";
-import { resumeDataEdits } from "@/lib/data";
 import { useEmail } from "@/hooks/useEmail";
 import StepDesign from "@/components/Edit_Resume_Components/StepDesign";
+import { resumeDataEdits } from "@/lib/Data";
 
 const stepsData = (language) => [
-  { title: language === "de" ? "Persönliche Infos" : "Personal Info", component: <StepOne /> },
-  { title: language === "de" ? "Erfahrung" : "Experience", component: <StepTwo /> },
-  { title: language === "de" ? "Bildung" : "Education", component: <StepThree /> },
-  { title: language === "de" ? "Fähigkeiten" : "Skill", component: <StepFour /> },
-  { title: language === "de" ? "Sprache" : "Language", component: <StepFive /> },
+  {
+    title: language === "de" ? "Persönliche Infos" : "Personal Info",
+    component: <StepOne />,
+  },
+  {
+    title: language === "de" ? "Erfahrung" : "Experience",
+    component: <StepTwo />,
+  },
+  {
+    title: language === "de" ? "Bildung" : "Education",
+    component: <StepThree />,
+  },
+  {
+    title: language === "de" ? "Fähigkeiten" : "Skill",
+    component: <StepFour />,
+  },
+  {
+    title: language === "de" ? "Sprache" : "Language",
+    component: <StepFive />,
+  },
   { title: language === "de" ? "Schulungen" : "Train", component: <StepSix /> },
 ];
 
 const EditResumePage = () => {
-  const { language , setActiveStep, activeStep} = useEmail(); // Get current language
+  const { language, setActiveStep, activeStep } = useEmail(); // Get current language
   const { resumeId } = useParams();
   const [activeStep1, setactiveStep1] = useState(0);
-  console.log(activeStep);
   const [activeTab, setActiveTab] = useState("content"); // "content" or "design"
-  const { imageString, allRedumeData, setAllResumeData } = useResume();
+  const { imageString, allRedumeData, setAllResumeData, color, setColor } = useResume();
   const axiosSecure = useAxiosSecure();
-
   const methods = useForm({ mode: "onChange" });
 
   const selectedResume = resumeDataEdits.find(
@@ -92,6 +105,7 @@ const EditResumePage = () => {
       ...data,
       profile_photo: imageString || "",
       resume_language: language || "en",
+      color: color,
     };
     ResumeMutation.mutate(payload);
   };
@@ -103,7 +117,7 @@ const EditResumePage = () => {
       <Link
         to={"/dashboard/create-New-resume"}
         className="flex items-center gap-2"
-        onClick={() => setActiveStep(8)}
+        onClick={() => setActiveStep(9)}
       >
         <FaAngleLeft className="cursor-pointer text-xl p-1 border border-white/30 rounded-full" />
         <Title level="title32">
@@ -192,7 +206,9 @@ const EditResumePage = () => {
                     type="submit"
                     className="font-semibold border bg-white mt-4 md:mt-4 w-full border-white/30 text-black px-4 py-2 text-sm rounded-md hover:bg-black hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {language === "de" ? "Änderungen übernehmen" : "Apply Changes"}
+                    {language === "de"
+                      ? "Änderungen übernehmen"
+                      : "Apply Changes"}
                   </button>
                 )}
               </div>

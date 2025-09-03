@@ -17,7 +17,7 @@ const Step9 = ({ resumeId }) => {
 
   return (
     <div className=" flex items-center justify-center py-5 px-4 text-white">
-      <div className="w-full max-w-4xl bg-[#1A1A1D] rounded-2xl shadow-lg p-6 sm:p-10">
+      <div className="w-full max-w-5xl lg:bg-[#1A1A1D] lg:rounded-2xl lg:shadow-lg lg:p-4 xl:p-6">
         {/* Preview */}
      <div className="w-full bg-[#0E0E10] rounded-xl p-4 border border-[#262626]">
   <h2 className="text-lg font-semibold mb-4 text-gray-200">

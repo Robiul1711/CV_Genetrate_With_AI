@@ -26,6 +26,7 @@ import {
 import { useEmail } from "@/hooks/useEmail";
 import Parameter from "@/components/createResumeComponents/Parameter";
 import Tailor_Modal from "@/components/createResumeComponents/Tailor_Modal";
+import TailorStep from "@/components/createResumeComponents/TailorStep";
 const textMap = {
   en: {
     pageTitle: "Create New Resume",
@@ -58,7 +59,6 @@ const CreateNewResume = () => {
   const [isCreatingResume, setIsCreatingResume] = useState(false);
   const axiosSecure = useAxiosSecure();
   const { language,activeStep, setActiveStep} = useEmail(); // 'en' or 'de'
-console.log(activeStep);
   const methods = useForm({
     mode: "onChange",
     defaultValues: { work_experiences: [], resume_language: "en" },
@@ -83,7 +83,7 @@ console.log(activeStep);
         context.toastId,
         data?.message || "Resume Created Successfully!"
       );
-      setActiveStep(8);
+      setActiveStep(9);
       setIsCreatingResume(false);
     },
     onError: (error, _variables, context) => {
@@ -132,6 +132,10 @@ console.log(activeStep);
       label: resume_language === "de" ? "Sprache" : "Language",
       component: <SelectLangaugeStep />,
     },
+         {
+      label: resume_language === "de" ? "Stimme des Dokuments anpassen" : "Tailor Your Document’s Voice",
+      component: <TailorStep />,
+    },
     {
       label: resume_language === "de" ? "Lebenslauf wählen" : "Choose Resume",
       component: (
@@ -143,6 +147,7 @@ console.log(activeStep);
         />
       ),
     },
+
     {
       label:
         resume_language === "de" ? "Vorschau & Download" : "Preview & Download",
@@ -160,7 +165,7 @@ console.log(activeStep);
   const onSubmit = (data) => {
     data.goal = String(data.goal).trim();
     console.log(data);
-    if (activeStep === 7) ResumeMutation.mutate(data);
+    if (activeStep === 8) ResumeMutation.mutate(data);
     else handleNext();
   };
 
@@ -206,38 +211,32 @@ console.log(activeStep);
             <div />
           )}
 
-          {activeStep === 7 ? (
-            <button
-              type="submit"
-              className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              disabled={isCreatingResume}
-            >
-              {isCreatingResume ? (
-                <>
-                  {/* <Loader2 className="h-4 w-4 animate-spin" /> */}
-                  {t.generating}
-                </>
-              ) : (
-                t.generate
-              )}
-            </button>
-          ) : activeStep === steps.length - 1 ? (
-            <Link
-              to={`/dashboard/edit-resume/${resumeId}`}
-              className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md flex items-center gap-2 hover:bg-white hover:text-black transition-colors duration-300"
-            >
-              <Edit size={18} /> {t.editResume}
-            </Link>
-          ) : (
-            <button
-              type="button"
-              className="font-semibold border border-white bg-white text-black px-3 py-2 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:cursor-not-allowed"
-              onClick={methods.handleSubmit(() => handleNext())}
-              disabled={isCreatingResume}
-            >
-              {activeStep === 8 ? t.chooseTemplate : t.next}
-            </button>
-          )}
+     {activeStep === 8 ? (   // Generate happens at Step8 now
+  <button
+    type="submit"
+    className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+    disabled={isCreatingResume}
+  >
+    {isCreatingResume ? t.generating : t.generate}
+  </button>
+) : activeStep === steps.length - 1 ? (
+  <Link
+    to={`/dashboard/edit-resume/${resumeId}`}
+    className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md flex items-center gap-2 hover:bg-white hover:text-black transition-colors duration-300"
+  >
+    <Edit size={18} /> {t.editResume}
+  </Link>
+) : (
+  <button
+    type="button"
+    className="font-semibold border border-white bg-white text-black px-3 py-2 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:cursor-not-allowed"
+    onClick={methods.handleSubmit(() => handleNext())}
+    disabled={isCreatingResume}
+  >
+    {activeStep === 9 ? t.chooseTemplate : t.next}
+  </button>
+)}
+
         </div>
       </form>
     </FormProvider>
