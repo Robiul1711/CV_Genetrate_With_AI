@@ -9,11 +9,11 @@ import remarkGfm from "remark-gfm";
 import "highlight.js/styles/github.css";
 import rehypeHighlight from "rehype-highlight";
 
-export default function CoverLetter({ resumeRef }) {
+export default function HistoryViewOfCoverLetter({ resumeRef }) {
   const { coverLetter } = useResume();
   const { language } = useEmail();
   const cover = coverLetter?.data;
-
+console.log(cover);
   return (
     <div
       ref={resumeRef}

@@ -34,6 +34,7 @@ import UpdateExistingResumeEdit from "@/pages/edit_resume_page/UpdateExistingRes
 import PrivateRoute from "./PrivateRoute";
 import PaymentSuccess from "@/components/SuccessCancle/PaymentSuccess";
 import PaymentCancelled from "@/components/SuccessCancle/PaymentCancelled";
+import HistoryView from "@/components/CreateCoverLetterComponents/HistoryView";
 
 const router = createBrowserRouter([
   {
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/history",
         element: <History />,
+      },
+      {
+        path: "/dashboard/cover-history/:id",
+        element: <HistoryView />,
       },
       {
         path: "/dashboard/setting",
