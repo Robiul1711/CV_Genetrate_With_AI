@@ -13,15 +13,18 @@ import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
 
+
 const ResumeTwoEdit = () => {
   const { allRedumeData , color, setColor} = useResume();
   const { watch } = useFormContext();
   const formValues = watch();
   const resumeRef = useRef();
 const {language}=useEmail()
+
   // Merge form values with API/context fallback
   const first_name =
     formValues.first_name || allRedumeData?.data?.first_name || "";
+    const resume_color = color || allRedumeData?.data?.resume_color || '';
   const last_name =
     formValues.last_name || allRedumeData?.data?.last_name || "";
   const job_title =
@@ -53,7 +56,7 @@ const {language}=useEmail()
 useEffect(() => {
   setColor('')
 },[])
-
+console.log(resume_color);
   return (
     <div className="min-h-screen">
         <DownloadButton resumeRef={resumeRef}  />
@@ -76,7 +79,7 @@ useEffect(() => {
         <div className="flex justify-between gap-5  h-full">
           {/* Left Column */}
           <div className="w-[40%] space-y-6 px-4 rounded-r pt-6"
-          style={{backgroundColor: color || ""}}
+          style={{backgroundColor: resume_color || color || ""}}
           >
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">

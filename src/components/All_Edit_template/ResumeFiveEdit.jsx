@@ -21,6 +21,7 @@ const ResumeFiveEdit = () => {
 const {language}=useEmail()
   // Watch form values and fallback to context if empty
   const first_name = watch("first_name") || resumeData.first_name;
+  const resume_color = color || allRedumeData?.data?.resume_color;
   const last_name = watch("last_name") || resumeData.last_name;
   const job_title = watch("job_title") || resumeData.job_title;
   const about = watch("about") || resumeData.about;
@@ -104,7 +105,7 @@ const {language}=useEmail()
               {/* LEFT COLUMN HEADLINES (SKILL / EDUCATION) */}
               <h2
                 className="text-sm font-semibold tracking-[2px] pb-3 leading-[24px] text-center uppercase"
-                style={{ color: color ? color : "#0D0D0D" }}
+                style={{ color: resume_color ? resume_color : "#0D0D0D" }}
               >
                 {language === "de" ? "FÄHIGKEITEN" : "SKILLS"}
               </h2>{" "}
@@ -119,7 +120,7 @@ const {language}=useEmail()
               {/* LEFT COLUMN HEADLINES (SKILL / EDUCATION) */}
               <h2
                 className="text-sm font-semibold tracking-[2px] leading-[24px] text-center uppercase"
-                style={{ color: color ? color : "#0D0D0D" }}
+                style={{ color: resume_color ? resume_color : "#0D0D0D" }}
               >
                 {language === "de" ? "AUSbildung" : "EDUCATION"}
               </h2>
@@ -141,14 +142,14 @@ const {language}=useEmail()
           </div>
           <div
             className="w-[1px] bg-[#0D0D0D]"
-            style={{ background: color }}
+            style={{ background: resume_color }}
           ></div>
           {/* Right Column */}
           <div className="w-[60%] space-y-6 py-8 mt-8">
             <div>
               <h2
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
-                style={{ color: color ? color : "#0D0D0D" }}
+                style={{ color: resume_color ? resume_color : "#0D0D0D" }}
               >
                 {language === "de" ? "ÜBER MICH" : "ABOUT ME"}
               </h2>
@@ -158,7 +159,7 @@ const {language}=useEmail()
               {/* EXPERIENCE */}
               <h2
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
-                style={{ color: color ? color : "#0D0D0D" }}
+                style={{ color: resume_color ? resume_color : "#0D0D0D" }}
               >
                 {language === "de" ? "ERFAHRUNGEN" : "EXPERIENCE"}
               </h2>{" "}
@@ -184,7 +185,7 @@ const {language}=useEmail()
               {/* TRAINING */}
               <h2
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
-                style={{ color: color ? color : "#0D0D0D" }}
+                style={{ color: resume_color ? resume_color : "#0D0D0D" }}
               >
           {language === "de" ? "AUSBILDUNGEN" : "TRAINING"}
               </h2>{" "}
@@ -207,7 +208,7 @@ const {language}=useEmail()
               {/* LANGUAGE */}
               <h2
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
-                style={{ color: color ? color : "#0D0D0D" }}
+                style={{ color: resume_color ? resume_color : "#0D0D0D" }}
               >
                 {language === "de" ? "SPRACHEN" : "LANGUAGES"}
               </h2>{" "}

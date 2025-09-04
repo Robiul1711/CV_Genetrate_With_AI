@@ -20,10 +20,10 @@ const Complexity = [
 ];
 
 const GenderLanguage = [
-  { id: 1, title_en: "Neutral", title_de: "Neutral" },
-  { id: 2, title_en: "Inclusive", title_de: "Inklusiv" },
-  { id: 3, title_en: "Feminine", title_de: "Feminin" },
-  { id: 4, title_en: "Masculine", title_de: "Maskulin" },
+  { id: 1, title_en: "Informal(Du)", title_de: "Informell(Du)" },
+  { id: 2, title_en: "Formell (Sie)", title_de: "Formell (Sie)" },
+  { id: 3, title_en: "Gender (DU)", title_de: "Gender (DU)" },
+  { id: 4, title_en: "Gender (Sie)", title_de: "Gender (Sie)" },
 ];
 
 const Creativity = [

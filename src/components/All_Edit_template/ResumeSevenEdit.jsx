@@ -29,7 +29,7 @@ const ResumeSevenEdit = () => {
   const [profilePreview, setProfilePreview] = useState(user);
 const {language} = useEmail();
   const formData = watch();
-
+ const resume_color = color || allRedumeData?.data?.resume_color;
   const resumeData = {
     first_name: formData?.first_name || allRedumeData?.data?.first_name || "",
     last_name: formData?.last_name || allRedumeData?.data?.last_name || "",
@@ -110,7 +110,7 @@ const {language} = useEmail();
           </div>
 
           <div className="w-1/3 flex flex-col gap-1 h-full">
-            <p className="uppercase text-sm font-semibold text-center !text-black uppercase">
+            <p className="uppercase text-sm font-semibold text-center !text-black ">
               {language === "de" ? "Kontakt" : "Contact"}
             </p>
             <div className="flex flex-col gap-2">
@@ -164,14 +164,14 @@ const {language} = useEmail();
         <div className="px-6 relative">
           <div
             className="grid grid-cols-3 bg-[#E1E2E6] !text-black text-center font-semibold py-2 border border-[#9A9A9A]"
-            style={{ backgroundColor: color, borderColor: color }}
+            style={{ backgroundColor: resume_color, borderColor: resume_color }}
           >
             <div className="uppercase">{language === "de" ? "Bildung" : "Education"}</div>
             <div className="uppercase">{language === "de" ? "Fertigkeiten" : "Skills"}</div>
             <div className="uppercase">{language === "de" ? "Sprachen" : "Languages"}</div>
           </div>
 
-          <div className="grid grid-cols-3 text-sm px-4 py-6 border border-[#ccc6c6] border-t-0" style={{ borderColor: color }} >
+          <div className="grid grid-cols-3 text-sm px-4 py-6 border border-[#ccc6c6] border-t-0" style={{ borderColor: resume_color }} >
             <div className="flex flex-col gap-3">
               {resumeData.educations.map((edu, i) => (
                 <div key={i} className="text-center">
@@ -211,13 +211,13 @@ const {language} = useEmail();
           </div>
           <div
             className=" absolute -bottom-5 left-24 text-black bg-[#b1aaaa] p-2 uppercase"
-            style={{ backgroundColor: color }}
+            style={{ backgroundColor: resume_color }}
           >
             {language === "de" ? "Bildung" : "Education"}
           </div>
           <div
             className=" absolute -bottom-5 right-24 text-black bg-[#b1aaaa] p-2 uppercase"
-            style={{ backgroundColor: color }}
+            style={{ backgroundColor: resume_color }}
           >
            {language === "de" ? "AUSBILDUNGEN" : "Training"}
           </div>
@@ -230,7 +230,7 @@ const {language} = useEmail();
               <div
                 key={i}
                 className="bg-[#F8F8F8] rounded-lg shadow-sm border p-4 flex flex-col gap-3"
-                style={{ backgroundColor: color }}
+                style={{ backgroundColor: resume_color }}
               >
                 <div className="flex justify-between text-xs italic">
                   <p className="font-semibold !text-black">
@@ -258,7 +258,7 @@ const {language} = useEmail();
               <div
                 key={i}
                 className="bg-[#F8F8F8] rounded-lg shadow-sm border p-4 flex flex-col gap-3"
-                style={{ backgroundColor: color }}
+                style={{ backgroundColor: resume_color }}
               >
                 <div className="flex justify-between text-xs italic">
                   <p className="font-semibold !text-black">

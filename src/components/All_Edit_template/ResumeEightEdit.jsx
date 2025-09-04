@@ -40,6 +40,7 @@ const ResumeEightEdit = () => {
   const [profilePreview, setProfilePreview] = useState(Image);
 const {language} = useEmail();
   // Merge form and context data
+   const resume_color = color || allRedumeData?.data?.resume_color;
   const resumeData = {
     first_name: formData?.first_name || allRedumeData?.data?.first_name || "",
     last_name: formData?.last_name || allRedumeData?.data?.last_name || "",
@@ -93,7 +94,7 @@ const {language} = useEmail();
    <DownloadButton resumeRef={resumeRef} />
      <div ref={resumeRef} className="flex flex-col bg-[#404040] gap-3 w-[210mm] h-[297mm] overflow-hidden mx-auto  ">
       {/* Header */}
-      <header className="bg-[#1F1F1F] pl-[153px] relative pt-[34px] pb-4 pr-[172px] w-full" style={{ backgroundColor: color }}>
+      <header className="bg-[#1F1F1F] pl-[153px] relative pt-[34px] pb-4 pr-[172px] w-full" style={{ backgroundColor: resume_color }}>
         <div className="flex flex-col gap-2 justify-end items-end w-full">
           <p className="text-[32px] font-[800] !urbanist tracking-[4px] leading-[30px] text-[#FFC805]">
             {resumeData.first_name} {resumeData.last_name}
@@ -113,7 +114,7 @@ const {language} = useEmail();
         {/* Left Column */}
         <div className="flex flex-col  gap-3 w-[75%]">
           {/* Profile */}
-          <SectionArea color={color}>
+          <SectionArea color={resume_color}>
             <div className="flex flex-col gap-1">
               <TitleSection name={`${language === 'en' ? 'About' : 'Über mich'}`} />
               <p className="text-xs text-white font-normal leading-[18px] !urbanist">
@@ -123,7 +124,7 @@ const {language} = useEmail();
           </SectionArea>
 
           {/* Experience */}
-          <SectionArea color={color}>
+          <SectionArea color={resume_color}>
             <div className="flex flex-col gap-2">
               <TitleSection name={`${language === 'en' ? 'Experience' : 'Erfahrung'}`} />
               <div className="flex flex-col gap-2 w-full">
@@ -155,7 +156,7 @@ const {language} = useEmail();
           </SectionArea>
 
           {/* Skills */}
-          <SectionArea color={color}>
+          <SectionArea color={resume_color}>
             <div className="flex flex-col gap-2">
               <TitleSection name={`${language === 'en' ? 'Skills' : 'Fähigkeiten'}`} />
               <div className="grid grid-cols-2 gap-2">
@@ -175,7 +176,7 @@ const {language} = useEmail();
           </SectionArea>
 
           {/* Languages */}
-          <SectionArea color={color}>
+          <SectionArea color={resume_color}>
             <div className="flex flex-col gap-2">
               <TitleSection name={`${language === 'en' ? 'Languages' : 'Sprachen'}`} />
               <div className="grid grid-cols-2">
@@ -197,7 +198,7 @@ const {language} = useEmail();
           </SectionArea>
 
           {/* Training */}
-          <SectionArea color={color}>
+          <SectionArea color={resume_color}>
             <div className="flex flex-col gap-2">
               <TitleSection name={`${language === 'en' ? 'Training' : 'Ausbildung'}`} />
               <div className="grid gap-1 grid-cols-1">
@@ -224,7 +225,7 @@ const {language} = useEmail();
         {/* Right Column */}
         <div className="w-[25%] mt-8 flex flex-col gap-3">
           {/* Education */}
-          <SectionArea color={color}>
+          <SectionArea color={resume_color}>
             <div className="flex flex-col gap-2">
               <TitleSection2 name={`${language === 'en' ? 'Education' : 'Ausbildung'}`} />
             </div>
@@ -247,7 +248,7 @@ const {language} = useEmail();
           </SectionArea>
 
           {/* Contact */}
-          <SectionArea color={color}>
+          <SectionArea color={resume_color}>
             <div className="flex flex-col gap-2 ">
               <TitleSection2 name={`${language === 'en' ? 'Contact' : 'Kontakt'}`} />
               <div className="grid gap-2 mt-9">

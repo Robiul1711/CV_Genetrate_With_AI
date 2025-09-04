@@ -22,9 +22,12 @@ const ResumeSixEdit = () => {
   const [profilePreview, setProfilePreview] = useState(user);
   const { language } = useEmail();
   const formData = watch();
-
+console.log(color);
+ const resume_color = color || allRedumeData?.data?.resume_color;
   const resumeData = {
+
     first_name: formData.first_name || allRedumeData?.data?.first_name || "",
+
     last_name: formData.last_name || allRedumeData?.data?.last_name || "",
     job_title: formData.job_title || allRedumeData?.data?.job_title || "",
     profile_photo:
@@ -87,7 +90,7 @@ const ResumeSixEdit = () => {
         {/* Header */}
         <div
           className="flex w-full relative justify-between px-12 py-9 bg-[#373739]"
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor: resume_color }}
         >
           <div>
             <h1 className="text-[24px] font-bold tracking-[2px] text-[#fff] leading-tight">
@@ -102,7 +105,7 @@ const ResumeSixEdit = () => {
               src={profilePreview}
               alt={`${resumeData.first_name} ${resumeData.last_name}`}
               className="w-full h-full object-cover rounded-full border border-[#FF4089]"
-              style={{ borderColor: color ? color : "#FF4089" }}
+              style={{ borderColor: resume_color ? resume_color : "#FF4089" }}
             />
           </div>
         </div>
@@ -119,12 +122,12 @@ const ResumeSixEdit = () => {
                 </h2>
                 <div
                   className="flex-1 border-b-[2px] mt-2 max-w-[100px]"
-                  style={{ borderColor: color ? color : "#D9D9D9" }}
+                  style={{ borderColor: resume_color ? resume_color : "#D9D9D9" }}
                 ></div>
               </div>
               <div
                 className="border-l pl-2 space-y-2"
-                style={{ borderColor: color ? color : "#FF4089" }}
+                style={{ borderColor: resume_color ? resume_color : "#FF4089" }}
               >
                 {resumeData.work_experiences.map((exp, i) => (
                   <div key={i}>
@@ -156,12 +159,12 @@ const ResumeSixEdit = () => {
                 </h2>
                 <div
                   className="flex-1 border-b-[2px] mt-2 max-w-[100px]"
-                  style={{ borderColor: color ? color : "#D9D9D9" }}
+                  style={{ borderColor: resume_color ? resume_color : "#D9D9D9" }}
                 ></div>
               </div>
               <div
                 className="border-l pl-2 space-y-2"
-                style={{ borderColor: color ? color : "#FF4089" }}
+                style={{ borderColor: resume_color ? resume_color : "#FF4089" }}
               >
                 {resumeData.educations.map((edu, i) => (
                   <div key={i} className="space-y-1">
@@ -190,12 +193,12 @@ const ResumeSixEdit = () => {
                 </h2>
                 <div
                   className="flex-1 border-b-[2px] mt-2 max-w-[100px]"
-                  style={{ borderColor: color ? color : "#D9D9D9" }}
+                  style={{ borderColor: resume_color ? resume_color : "#D9D9D9" }}
                 ></div>
               </div>
               <div
                 className="border-l pl-2 space-y-2"
-                style={{ borderColor: color ? color : "#FF4089" }}
+                style={{ borderColor: resume_color ? resume_color : "#FF4089" }}
               >
                 {resumeData.courses_and_training_details.map((course, i) => (
                   <div key={i} className="space-y-1">
@@ -217,7 +220,7 @@ const ResumeSixEdit = () => {
 
           <div
             className="border-r border-[#D9D9D9]"
-            style={{ borderColor: color ? color : "#D9D9D9" }}
+            style={{ borderColor: resume_color ? resume_color : "#D9D9D9" }}
           ></div>
 
           {/* Right Column */}
@@ -234,7 +237,7 @@ const ResumeSixEdit = () => {
 
             <div
               className="border-b border-[#D9D9D9]"
-              style={{ borderColor: color ? color : "#D9D9D9" }}
+              style={{ borderColor: resume_color ? resume_color : "#D9D9D9" }}
             ></div>
 
             {/* CONTACT */}
@@ -246,21 +249,21 @@ const ResumeSixEdit = () => {
                 <p className="text-xs flex flex-col items-center gap-1 leading-[18px]">
                   <FaPhoneAlt
                     className="text-[#79819A] text-xl p-1 border-[#FF4089] border rounded-full"
-                    style={{ borderColor: color ? color : "#FF4089" }}
+                    style={{ borderColor: resume_color ? resume_color : "#FF4089" }}
                   />
                   {resumeData.phone_number}
                 </p>
                 <p className="text-xs flex flex-col items-center gap-1">
                   <FaMapMarkerAlt
                     className="text-[#79819A] text-xl p-1 border-[#FF4089] border rounded-full"
-                    style={{ borderColor: color ? color : "#FF4089" }}
+                    style={{ borderColor: resume_color ? resume_color : "#FF4089" }}
                   />
                   {resumeData.address}
                 </p>
                 <p className="text-xs flex flex-col items-center gap-1">
                   <FaEnvelope
                     className="text-[#79819A] text-xl p-1 border-[#FF4089] border rounded-full"
-                    style={{ borderColor: color ? color : "#FF4089" }}
+                    style={{ borderColor: resume_color ? resume_color : "#FF4089" }}
                   />
                   {resumeData.email}
                 </p>
@@ -272,7 +275,7 @@ const ResumeSixEdit = () => {
                   >
                     <FaLinkedin
                       className="text-[#79819A] text-xl p-1 border-[#FF4089] border rounded-full"
-                      style={{ borderColor: color ? color : "#FF4089" }}
+                      style={{ borderColor: resume_color ? resume_color : "#FF4089" }}
                     />
                     <p className=" text-xs">{resumeData.linked_in_profile}</p>
                   </a>
@@ -285,7 +288,7 @@ const ResumeSixEdit = () => {
                   >
                     <FaXing
                       className="text-[#79819A] text-xl p-1 border-[#FF4089] border rounded-full"
-                      style={{ borderColor: color ? color : "#FF4089" }}
+                      style={{ borderColor: resume_color ? resume_color : "#FF4089" }}
                     />
                     <p className=" text-xs">{resumeData.xing_profile}</p>
                   </a>
@@ -296,7 +299,7 @@ const ResumeSixEdit = () => {
             {/* SKILL */}
             <div
               className="border-b border-[#D9D9D9]"
-              style={{ borderColor: color ? color : "#D9D9D9" }}
+              style={{ borderColor: resume_color ? resume_color : "#D9D9D9" }}
             ></div>
             <div className="text-center">
               <h2 className="text-sm tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
@@ -311,7 +314,7 @@ const ResumeSixEdit = () => {
                         <div
                           key={idx}
                           className="h-[12px] w-[12px] bg-[#606060] rounded-full"
-                          style={{ backgroundColor: color ? color : "#606060" }}
+                          style={{ backgroundColor: resume_color ? resume_color : "#606060" }}
                         ></div>
                       ))}
                     </div>
@@ -323,7 +326,7 @@ const ResumeSixEdit = () => {
             {/* LANGUAGES */}
             <div
               className="border-b border-[#D9D9D9]"
-              style={{ borderColor: color ? color : "#D9D9D9" }}
+              style={{ borderColor: resume_color ? resume_color : "#D9D9D9" }}
             ></div>
             <div>
               <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] font-semibold leading-[24px] uppercase">

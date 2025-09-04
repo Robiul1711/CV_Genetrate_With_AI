@@ -20,7 +20,7 @@ const ResumeElevenEdit = () => {
   const resumeRef = useRef(null);
 const { language } = useEmail();
   const [profilePreview, setProfilePreview] = useState("");
-
+ const resume_color = color || allRedumeData?.data?.resume_color;
   // Merge formData and context data
   const resumeData = {
     first_name: formData?.first_name || allRedumeData?.data?.first_name || "",
@@ -84,7 +84,7 @@ const { language } = useEmail();
             {resumeData.first_name} {resumeData.last_name}
           </h1>
         </div>
-        <p className="tracking-[3px] text-[#484848] uppercase leading-[24px] text-center py-2 border-b mb-2 border-[#D9D9D9]" style={{ borderColor: color }}>
+        <p className="tracking-[3px] text-[#484848] uppercase leading-[24px] text-center py-2 border-b mb-2 border-[#D9D9D9]" style={{ borderColor: resume_color }}>
           {resumeData.job_title}
         </p>
 
@@ -93,7 +93,7 @@ const { language } = useEmail();
           {/* Left Column */}
           <div className="w-[40%] space-y-6">
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
                 {language === "en" ? "About Me" : "Über mich"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
@@ -102,7 +102,7 @@ const { language } = useEmail();
             </div>
 
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
                 {language === "en" ? "Contact" : "Kontakt"}
               </h2>
               <div className="space-y-3">
@@ -150,7 +150,7 @@ const { language } = useEmail();
             </div>
 
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
                 {language === "en" ? "Education" : "Bildung"}
               </h2>
               {resumeData.educations.map((edu, idx) => (
@@ -170,13 +170,13 @@ const { language } = useEmail();
             </div>
           </div>
 
-          <div className="w-[1px] bg-[#D9D9D9]" style={{ backgroundColor: color }}></div>
+          <div className="w-[1px] bg-[#D9D9D9]" style={{ backgroundColor: resume_color }}></div>
 
           {/* Right Column */}
           <div className="w-[60%] space-y-6">
             {/* Experience */}
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
                 {language === "de" ? "Erfahrung" : "Experience"}
               </h2>
               {resumeData.work_experiences.map((exp, idx) => (
@@ -200,7 +200,7 @@ const { language } = useEmail();
 
             {/* Training */}
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
                 {language === "de" ? "Ausbildung" : "Training"}
               </h2>
               {resumeData.courses_and_training_details.map((training, idx) => (
@@ -221,7 +221,7 @@ const { language } = useEmail();
 
             {/* Skills */}
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
                 {language === "de" ? "Fertigkeiten" : "Skills"}
               </h2>
               <ul className="text-xs space-y-3">
@@ -235,7 +235,7 @@ const { language } = useEmail();
 
             {/* Languages */}
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: color }}>
+              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
                 {language === "de" ? "Sprachen" : "Languages"}
               </h2>
               <ul className="text-xs space-y-3">
