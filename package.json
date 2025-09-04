@@ -48,6 +48,7 @@
     "react-router-dom": "^7.0.2",
     "react-spinners": "^0.17.0",
     "react-toastify": "^11.0.5",
+    "rehype-highlight": "^7.0.2",
     "rehype-raw": "^7.0.0",
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.1",

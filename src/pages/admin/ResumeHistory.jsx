@@ -185,17 +185,21 @@ export const resumeData = [
   { id: 6, title: "Resume 6", cvComponet: <ResumeSixEdit /> },
   { id: 7, title: "Resume 7", cvComponet: <ResumeSevenEdit /> },
   { id: 8, title: "Resume 8", cvComponet: <ResumeEightEdit /> },
-  { id: 9, title: "Resume 9",  cvComponet: <ResumeNineEdit /> },
+  { id: 9, title: "Resume 9", cvComponet: <ResumeNineEdit /> },
   { id: 10, title: "Resume 10", cvComponet: <ResumeTenEdit /> },
   { id: 11, title: "Resume 11", cvComponet: <ResumeElevenEdit /> },
 ];
 export default function ResumeHistory() {
-    const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { setAllResumeData } = useResume();
   const { language } = useEmail(); // get current language
 
-  const { data: allCvData, isLoading, error } = useQuery({
+  const {
+    data: allCvData,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["all-cv-data"],
     queryFn: async () => {
       const res = await axiosSecure.get("/resume-histories/");
@@ -203,43 +207,43 @@ export default function ResumeHistory() {
     },
   });
   const handleClick = (templateData) => {
-    console.log("Template Data:", templateData);
     setAllResumeData({ data: templateData });
+    console.log("Template Data:", templateData);
     navigate(`/dashboard/edit-resume/${templateData?.template_id}`);
   };
-const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-const DeleteResume = useMutation({
-  mutationFn: async (id) => {
-    const res = await axiosSecure.delete(`/delete-resume/${id}/`);
-    return res.data;
-  },
-  onMutate: () => {
-    const toastId = showLoadingToast("Deleting resume...");
-    return { toastId };
-  },
-  onSuccess: (data, _variables, context) => {
-    updateToastSuccess(
-      context.toastId,
-      data?.message || "Resume deleted successfully!"
-    );
-    // ✅ Refetch list
-    queryClient.invalidateQueries(["all-cv-data"]);
-  },
-  onError: (error, _variables, context) => {
-    updateToastError(
-      context.toastId,
-      error?.response?.data?.message || "Something went wrong!"
-    );
-  },
-});
+  const DeleteResume = useMutation({
+    mutationFn: async (id) => {
+      const res = await axiosSecure.delete(`/delete-resume/${id}/`);
+      return res.data;
+    },
+    onMutate: () => {
+      const toastId = showLoadingToast("Deleting resume...");
+      return { toastId };
+    },
+    onSuccess: (data, _variables, context) => {
+      updateToastSuccess(
+        context.toastId,
+        data?.message || "Resume deleted successfully!"
+      );
+      // ✅ Refetch list
+      queryClient.invalidateQueries(["all-cv-data"]);
+    },
+    onError: (error, _variables, context) => {
+      updateToastError(
+        context.toastId,
+        error?.response?.data?.message || "Something went wrong!"
+      );
+    },
+  });
 
-const handleDelete = (id) => {
-  DeleteResume.mutate(id);
-};
+  const handleDelete = (id) => {
+    DeleteResume.mutate(id);
+  };
 
   return (
-    <div className="space-y-4 p-4 bg-black min-h-screen">
+    <div className="space-y-4 p-4 bg-black ">
       {allCvData?.data?.map((resume, index) => (
         <div
           key={index}
@@ -249,8 +253,12 @@ const handleDelete = (id) => {
           <div className="flex items-center gap-4">
             <FaFileAlt className="text-white text-3xl" />
             <div>
-              <h2 className="text-white font-medium">{resume.first_name} {resume.last_name} </h2>
-              <p className="text-sm text-gray-400">Created: {dayjs(resume.created_at).format("YYYY-MM-DD")}</p>
+              <h2 className="text-white font-medium">
+                {resume.first_name} {resume.last_name}{" "}
+              </h2>
+              <p className="text-sm text-gray-400">
+                Created: {dayjs(resume.created_at).format("YYYY-MM-DD")}
+              </p>
             </div>
           </div>
 
@@ -262,19 +270,21 @@ const handleDelete = (id) => {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            <button onClick={() => handleClick(resume)} className="flex items-center gap-1 px-3 py-1 rounded-lg border border-zinc-700 text-gray-200 hover:bg-zinc-800 transition">
+            <button
+              onClick={() => handleClick(resume)}
+              className="flex items-center gap-1 px-3 py-1 rounded-lg border border-zinc-700 text-gray-200 hover:bg-zinc-800 transition"
+            >
               <FiEye /> {language === "de" ? "Sicht" : "View"}
             </button>
             {/* <button className="flex items-center gap-1 px-3 py-1 rounded-lg border border-zinc-700 text-gray-200 hover:bg-zinc-800 transition">
               <FiDownload /> Download
             </button> */}
-      <button
-  onClick={() => handleDelete(resume.id)}
-  className="flex items-center gap-1 px-3 py-1 rounded-lg bg-red-900/30 text-red-500 border border-red-700 hover:bg-red-900/50 transition"
->
-  <FiTrash2 /> {language === "de" ? "Löschen" : "Delete"}
-</button>
-
+            <button
+              onClick={() => handleDelete(resume.id)}
+              className="flex items-center gap-1 px-3 py-1 rounded-lg bg-red-900/30 text-red-500 border border-red-700 hover:bg-red-900/50 transition"
+            >
+              <FiTrash2 /> {language === "de" ? "Löschen" : "Delete"}
+            </button>
           </div>
         </div>
       ))}

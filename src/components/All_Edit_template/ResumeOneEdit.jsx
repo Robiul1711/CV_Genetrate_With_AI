@@ -18,6 +18,7 @@ const ResumeOneEdit = () => {
   // Use form values with fallback to API data
   const first_name =
     formValues.first_name || allRedumeData?.data?.first_name || "";
+    const resume_color = color || allRedumeData?.data?.resume_color || '';
   const last_name =
     formValues.last_name || allRedumeData?.data?.last_name || "";
   const job_title =
@@ -70,7 +71,7 @@ const ResumeOneEdit = () => {
           {/* Left Column */}
           <div
             className="w-[35%] space-y-6 px-4 rounded-r pt-4"
-            style={{ backgroundColor: color ? color : "" }}
+            style={{ backgroundColor: color ? color : resume_color}}
           >
             {/* About */}
             <div>

@@ -2,8 +2,7 @@ import React from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import Title from "../common/Title";
 import { useEmail } from "@/hooks/useEmail";
-import Tailor_Modal from "./Tailor_Modal";
-import { UseLangauge } from "@/hooks/UseLangauge";
+
 
 const SelectLanguageStep = () => {
   const {

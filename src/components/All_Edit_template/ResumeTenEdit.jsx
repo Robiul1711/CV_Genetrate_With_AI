@@ -16,17 +16,20 @@ import { useEmail } from "@/hooks/useEmail";
 
 const ResumeTenEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-  const { allRedumeData, color,setColor } = useResume();
+  const { allRedumeData, color, setColor } = useResume();
+  console.log(allRedumeData?.data?.resume_color);
   const { watch } = useFormContext();
   const formData = watch();
   const resumeRef = useRef(null);
   const [profilePreview, setProfilePreview] = useState(user);
- const { language } = useEmail();
+  const { language } = useEmail();
   // Merge formData and context data
+   const resume_color = color || allRedumeData?.data?.resume_color;
   const resumeData = {
     first_name: formData?.first_name || allRedumeData?.data?.first_name || "",
     last_name: formData?.last_name || allRedumeData?.data?.last_name || "",
     job_title: formData?.job_title || allRedumeData?.data?.job_title || "",
+    resume_color: color || allRedumeData?.data?.resume_color || "",
     about: formData?.about || allRedumeData?.data?.about || "",
     profile_photo:
       formData?.profile_photo || allRedumeData?.data?.profile_photo || "",
@@ -66,9 +69,9 @@ const ResumeTenEdit = () => {
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
   // PDF download
-useEffect(() => {
-  setColor('')
-},[])
+  useEffect(() => {
+    setColor("");
+  }, []);
   return (
     <div className="min-h-screen">
       <DownloadButton resumeRef={resumeRef} />
@@ -81,7 +84,10 @@ useEffect(() => {
         <div className="flex justify-between w-full h-full ">
           <div
             className="w-[40%] space-y-6 text-white py-10"
-            style={{ backgroundColor: color || "#1B1E2F" }}
+            style={{
+              backgroundColor:
+                resume_color || color || "#1B1E2F",
+            }}
           >
             {/* Profile Image */}
             <div className="w-[100px] h-[100px] mx-auto shrink-0">

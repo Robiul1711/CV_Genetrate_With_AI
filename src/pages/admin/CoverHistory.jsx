@@ -240,7 +240,7 @@ export default function CoverHistory() {
 // };
 
   return (
-    <div className="space-y-4 p-4 bg-black min-h-screen">
+    <div className="space-y-4 p-4 bg-black">
       {coverLetterData?.data?.map((resume, index) => (
         <div
           key={index}

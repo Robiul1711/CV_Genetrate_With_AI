@@ -53,11 +53,10 @@ const EditResumePage = () => {
   const { imageString, allRedumeData, setAllResumeData, color, setColor } = useResume();
   const axiosSecure = useAxiosSecure();
   const methods = useForm({ mode: "onChange" });
-
   const selectedResume = resumeDataEdits.find(
     (resume) => resume.id === Number(resumeId)
   );
-
+  console.log(allRedumeData?.data?.resume_color)
   useEffect(() => {
     if (allRedumeData?.data) {
       methods.reset(allRedumeData.data);
@@ -68,7 +67,7 @@ const EditResumePage = () => {
   const ResumeMutation = useMutation({
     mutationFn: async (formData) => {
       const response = await axiosSecure.put(
-        `/update-resume/${resumeId}/`,
+        `/update-resume/${allRedumeData?.data?.id}/`,
         formData,
         { headers: { "Content-Type": "application/json" } }
       );
@@ -105,7 +104,7 @@ const EditResumePage = () => {
       ...data,
       profile_photo: imageString || "",
       resume_language: language || "en",
-      color: color,
+      resume_color: color,
     };
     ResumeMutation.mutate(payload);
   };

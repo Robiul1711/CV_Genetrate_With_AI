@@ -24,6 +24,7 @@ const {language}=useEmail()
 
   // Merge form values with context fallback
   const firstName = formValues.first_name || resumeData.first_name || "";
+  const resume_color = color || allRedumeData?.data?.resume_color || "";
   const lastName = formValues.last_name || resumeData.last_name || "";
   const jobTitle = formValues.job_title || resumeData.job_title || "";
   const about = formValues.about || resumeData.about || "";
@@ -83,7 +84,7 @@ useEffect(() => {
         <div className="flex justify-between gap-5 mt-6 h-full">
           {/* Left Column */}
           <div className="w-[45%] space-y-3  p-4 rounded-md"
-          style={{ backgroundColor: color || "#F5F5F5" }}
+          style={{ backgroundColor: resume_color || color || "#F5F5F5" }}
           >
             {about && (
               <div>
