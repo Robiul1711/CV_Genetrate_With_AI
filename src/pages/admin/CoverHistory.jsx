@@ -185,59 +185,61 @@ export const resumeData = [
   { id: 6, title: "Resume 6", cvComponet: <ResumeSixEdit /> },
   { id: 7, title: "Resume 7", cvComponet: <ResumeSevenEdit /> },
   { id: 8, title: "Resume 8", cvComponet: <ResumeEightEdit /> },
-  { id: 9, title: "Resume 9",  cvComponet: <ResumeNineEdit /> },
+  { id: 9, title: "Resume 9", cvComponet: <ResumeNineEdit /> },
   { id: 10, title: "Resume 10", cvComponet: <ResumeTenEdit /> },
   { id: 11, title: "Resume 11", cvComponet: <ResumeElevenEdit /> },
 ];
 export default function CoverHistory() {
-    const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
-  const { setAllResumeData } = useResume();
+  const { setCoverLetter, } = useResume();
   const { language } = useEmail(); // get current language
 
-  const { data: coverLetterData, isLoading, error } = useQuery({
+  const {
+    data: coverLetterData,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["cover-letter-histories"],
     queryFn: async () => {
       const res = await axiosSecure.get("/cover-letter-histories/");
       return res.data;
     },
   });
-  console.log(coverLetterData);
   const handleClick = (templateData) => {
-    console.log("Template Data:", templateData);
-    setAllResumeData({ data: templateData });
-    navigate(`/dashboard/edit-resume/${templateData?.template_id}`);
+    setCoverLetter({ data: templateData });
+    navigate(`/dashboard/cover-history/${templateData?.template_id}`);
   };
-// const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-// const DeleteResume = useMutation({
-//   mutationFn: async (id) => {
-//     const res = await axiosSecure.delete(`/delete-resume/${id}/`);
-//     return res.data;
-//   },
-//   onMutate: () => {
-//     const toastId = showLoadingToast("Deleting resume...");
-//     return { toastId };
-//   },
-//   onSuccess: (data, _variables, context) => {
-//     updateToastSuccess(
-//       context.toastId,
-//       data?.message || "Resume deleted successfully!"
-//     );
-//     // ✅ Refetch list
-//     queryClient.invalidateQueries(["all-cv-data"]);
-//   },
-//   onError: (error, _variables, context) => {
-//     updateToastError(
-//       context.toastId,
-//       error?.response?.data?.message || "Something went wrong!"
-//     );
-//   },
-// });
+  const DeleteCoverLetter = useMutation({
+    mutationFn: async (id) => {
+      const res = await axiosSecure.delete(`/delete-cover-letter/${id}/`);
+      return res.data;
+    },
+    onMutate: () => {
+      const toastId = showLoadingToast("Deleting Cover Letter...");
+      return { toastId };
+    },
+    onSuccess: (data, _variables, context) => {
+      updateToastSuccess(
+        context.toastId,
+        data?.message || "Cover Letter deleted successfully!"
+      );
+      // ✅ Refetch list
+      queryClient.invalidateQueries(["all-cv-data"]);
+    },
+    onError: (error, _variables, context) => {
+      updateToastError(
+        context.toastId,
+        error?.response?.data?.message || "Something went wrong!"
+      );
+    },
+  });
 
-// const handleDelete = (id) => {
-//   DeleteResume.mutate(id);
-// };
+  const handleDelete = (id) => {
+    DeleteCoverLetter.mutate(id);
+  };
 
   return (
     <div className="space-y-4 p-4 bg-black">
@@ -250,8 +252,12 @@ export default function CoverHistory() {
           <div className="flex items-center gap-4">
             <FaFileAlt className="text-white text-3xl" />
             <div>
-              <h2 className="text-white font-medium">{resume.first_name} {resume.last_name} </h2>
-              <p className="text-sm text-gray-400">Created: {dayjs(resume.created_at).format("YYYY-MM-DD")}</p>
+              <h2 className="text-white font-medium">
+                {resume.first_name} {resume.last_name}{" "}
+              </h2>
+              <p className="text-sm text-gray-400">
+                Created: {dayjs(resume.created_at).format("YYYY-MM-DD")}
+              </p>
             </div>
           </div>
 
@@ -263,19 +269,21 @@ export default function CoverHistory() {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            <button onClick={() => handleClick(resume)} className="flex items-center gap-1 px-3 py-1 rounded-lg border border-zinc-700 text-gray-200 hover:bg-zinc-800 transition">
+            <button
+              onClick={() => handleClick(resume)}
+              className="flex items-center gap-1 px-3 py-1 rounded-lg border border-zinc-700 text-gray-200 hover:bg-zinc-800 transition"
+            >
               <FiEye /> {language === "de" ? "Sicht" : "View"}
             </button>
             {/* <button className="flex items-center gap-1 px-3 py-1 rounded-lg border border-zinc-700 text-gray-200 hover:bg-zinc-800 transition">
               <FiDownload /> Download
             </button> */}
-      <button
-  onClick={() => handleDelete(resume.id)}
-  className="flex items-center gap-1 px-3 py-1 rounded-lg bg-red-900/30 text-red-500 border border-red-700 hover:bg-red-900/50 transition"
->
-  <FiTrash2 /> {language === "de" ? "Löschen" : "Delete"}
-</button>
-
+            <button
+              onClick={() => handleDelete(resume.id)}
+              className="flex items-center gap-1 px-3 py-1 rounded-lg bg-red-900/30 text-red-500 border border-red-700 hover:bg-red-900/50 transition"
+            >
+              <FiTrash2 /> {language === "de" ? "Löschen" : "Delete"}
+            </button>
           </div>
         </div>
       ))}
