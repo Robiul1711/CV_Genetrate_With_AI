@@ -126,6 +126,24 @@ const Step6 = () => {
                   <option value="">
                     {language === "de" ? "Auswählen" : "Select"}
                   </option>
+                   <option value="A1">
+                    {language === "de" ? "A1" : "A1"}
+                  </option>
+                  <option value="A2">
+                    {language === "de" ? "A2" : "A2"}
+                  </option>
+                  <option value="B1">
+                    {language === "de" ? "B1" : "B1"}
+                  </option>
+                  <option value="B2">
+                    {language === "de" ? "B2" : "B2"}
+                  </option>
+                  <option value="C1">
+                    {language === "de" ? "C1" : "C1"}
+                  </option>
+                  <option value="C2">
+                    {language === "de" ? "C2" : "C2"}
+                  </option>
                   <option value="Native">
                     {language === "de" ? "Muttersprache" : "Native"}
                   </option>
@@ -135,6 +153,7 @@ const Step6 = () => {
                   <option value="Advanced">
                     {language === "de" ? "Fortgeschritten" : "Advanced"}
                   </option>
+                 
                 </select>
                 {errors.languages?.[index]?.level && (
                   <span className="text-red-500 text-xs">
