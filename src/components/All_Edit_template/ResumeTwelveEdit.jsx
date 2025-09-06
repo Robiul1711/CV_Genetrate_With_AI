@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { jsPDF } from "jspdf";
 import { toPng } from "html-to-image";
-import user from "../../assets/images/user.png";
+
 import {
   FaPhoneAlt,
   FaLinkedin,
@@ -14,13 +14,13 @@ import dayjs from "dayjs";
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import { useEmail } from "@/hooks/useEmail";
-
+import dummyuser from "@/assets/images/userdummy.png";
 const ResumeTwelveEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const { allRedumeData, color } = useResume();
   const { watch } = useFormContext();
   const resumeRef = useRef();
-  const [profilePreview, setProfilePreview] = useState(user);
+  const [profilePreview, setProfilePreview] = useState(dummyuser);
   const formData = watch();
   const { language } = useEmail();
   const resumeData = {
@@ -67,7 +67,7 @@ const ResumeTwelveEdit = () => {
     } else if (resumeData.profile_photo) {
       setProfilePreview(VITE_IMG_URL + resumeData.profile_photo);
     } else {
-      setProfilePreview(user);
+      setProfilePreview(dummyuser);
     }
   }, [formData.profile_photo, resumeData.profile_photo, VITE_IMG_URL]);
 
@@ -304,10 +304,10 @@ const ResumeTwelveEdit = () => {
               >
                 SKILLS
               </h2>
-              <ul className="text-xs space-y-3">
+              <ul className="text-xs  flex flex-wrap gap-2">
                 {resumeData?.skills?.map((skill, index) => (
                   <li key={index} style={{ color: textColor }}>
-                    {skill.skill}
+                    {skill.skill},
                   </li>
                 ))}
               </ul>
