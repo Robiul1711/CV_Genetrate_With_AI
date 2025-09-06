@@ -12,7 +12,7 @@ const YourPlan = () => {
   const axiosSecure = useAxiosSecure();
   const { language } = useEmail();
   const [loadingPlanId, setLoadingPlanId] = useState(null);
- const PAYMENT_URL = import.meta.env.PAYMENT_URL
+  const VITE_PAYMENT_URL = import.meta.env.VITE_PAYMENT_URL;
 
   // Fetch subscription plans
   const { data, isLoading, error } = useQuery({
@@ -55,8 +55,8 @@ const YourPlan = () => {
     const payload = {
       price_id: plan.stripe_price_id,
       type: plan.type,
-      success_url: `${PAYMENT_URL}/success`,
-      cancel_url: `${PAYMENT_URL}/canceled`,
+      success_url: `${VITE_PAYMENT_URL}/success`,
+      cancel_url: `${VITE_PAYMENT_URL}/canceled`,
     };
 
     planMutation.mutate(payload);
