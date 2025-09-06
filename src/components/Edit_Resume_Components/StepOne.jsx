@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { CiEdit } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
 import { useEmail } from "@/hooks/useEmail"; // Language hook
-
+import dummyimg from "@/assets/images/userdummy.png";
 const StepOne = () => {
   const {
     register,
