@@ -8,7 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import bot from "@/assets/images/bot.png";
 import userdummy from "@/assets/images/userdummy.png";
 import { useAuth } from "@/hooks/useAuth";
-import DummyUser from "@/assets/images/userDummy.png"
+import DummyUser from "@/assets/images/userdummy.png"
 
 // ✅ Improved parser function to format bot response with better bold text handling
 const parseMessage = (text) => {

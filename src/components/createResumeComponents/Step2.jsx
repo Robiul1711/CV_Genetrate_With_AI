@@ -5,7 +5,7 @@ import Title from "../common/Title";
 import { useFormContext } from "react-hook-form";
 import { useResume } from "@/providers/ResumeContext";
 import { useEmail } from "@/hooks/useEmail"; // assuming it gives the language
-import DummyUser from "@/assets/images/userDummy.png"
+import DummyUser from "@/assets/images/userdummy.png"
 
 const Step2 = () => {
   const {
