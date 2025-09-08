@@ -17,7 +17,7 @@ import { useEmail } from "@/hooks/useEmail";
 
 const ResumeNineEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-  const { allRedumeData } = useResume();
+    const { allRedumeData, color, setColor } = useResume();
   const { watch } = useFormContext();
   const formData = watch();
   const [profilePreview, setProfilePreview] = useState(Cv9);
@@ -26,6 +26,7 @@ const ResumeNineEdit = () => {
   const resumeData = {
     first_name: formData?.first_name || allRedumeData?.data?.first_name || "",
     last_name: formData?.last_name || allRedumeData?.data?.last_name || "",
+    resume_color: color || allRedumeData?.data?.resume_color || "",
     job_title: formData?.job_title || allRedumeData?.data?.job_title || "",
     about: formData?.about || allRedumeData?.data?.about || "",
     profile_photo:
@@ -65,6 +66,9 @@ const ResumeNineEdit = () => {
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
   const resumeRef = useRef();
+    useEffect(() => {
+      setColor("");
+    }, []);
 
   return (
     <div className=" min-h-screen">
@@ -79,7 +83,7 @@ const ResumeNineEdit = () => {
           <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
             {langage === "en" ? "The resume of" : "Le CV de"}
           </p>
-          <h1 className="text-[32px] tracking-[7px] playfair leading-[48px] text-[#0D0D0D] font-bold">
+          <h1 style={{ color: resumeData?.resume_color || color || "" }} className="text-[32px] tracking-[7px] playfair leading-[48px] text-[#0D0D0D] font-bold">
             {resumeData.first_name} {resumeData.last_name}
           </h1>
         </div>
@@ -87,7 +91,7 @@ const ResumeNineEdit = () => {
         <div className="w-full flex gap-6">
           {/* Profile Image */}
           <div className="w-1/3 relative h-[200px] -mt-5">
-            <div className="absolute inset-0 bg-[#F7DCD1]"></div>
+            <div style={{ backgroundColor: resumeData?.resume_color || color || "" }}  className="absolute inset-0 bg-[#F7DCD1]"></div>
             <div className="w-[133px] h-[166px] relative top-16 left-20">
               <img
                 src={profilePreview}
@@ -99,7 +103,7 @@ const ResumeNineEdit = () => {
 
           {/* Profile Info */}
           <div className="flex-1 flex flex-col gap-4 relative">
-            <p className="px-6 text-[#0D0D0D] text-xs !urbanist font-medium leading-[12px] tracking-[8px] uppercase">
+            <p className="px-6 text-[#0D0D0D] text-xs !urbanist font-medium leading-[22px] tracking-[8px] uppercase">
               {resumeData.job_title}
             </p>
             <div className="px-6 flex flex-col gap-2 z-40">

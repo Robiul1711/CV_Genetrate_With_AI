@@ -4,7 +4,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-
 // Utility to get tokens
 const getStoredAccessToken = () => localStorage.getItem("auth_token") || "";
 const getStoredRefreshToken = () => localStorage.getItem("refresh_token") || "";
@@ -26,7 +25,6 @@ const AuthProvider = ({ children }) => {
 
   // Refresh access token every 5 minutes
   useEffect(() => {
-    
     const interval = setInterval(async () => {
       if (!refreshToken) return;
 

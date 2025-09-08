@@ -51,7 +51,7 @@ const HowItWorks = () => {
               <div className="relative">
                 <div className="absolute bottom-0 left-0 w-full h-[100px] md:h-[150px] bg-banner rounded-2xl"></div>
                 <img
-                  src={item.side_image ? IMG_URL + item.side_image : dummyimg}
+                  src={ language === 'en' ?  IMG_URL + item?.side_image_en : IMG_URL + item?.side_image_de}
                   alt="Plan illustration"
                   className="w-full border border-[#171718] rounded-2xl p-6 md:p-10 relative z-10"
                 />

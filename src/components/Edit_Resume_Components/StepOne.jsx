@@ -101,8 +101,6 @@ const StepOne = () => {
       if (reader.result) {
         const base64String = reader.result.toString();
         setValue("profile_photo", base64String, { shouldValidate: true });
-        setImageString(base64String);
-        setProfilePreview(base64String);
       }
     };
     reader.readAsDataURL(file);

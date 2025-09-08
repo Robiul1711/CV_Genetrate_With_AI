@@ -10,6 +10,7 @@ import Title from "@/components/common/Title";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Progress } from "@/components/ui/progress";
 import LanguageList from "language-list";
+import { toast } from "react-toastify";
 
 // Options
 const Tailor = [
@@ -43,7 +44,7 @@ const allLanguages = new LanguageList().getData();
 
 const UploadAResume = () => {
   const axiosSecure = useAxiosSecure();
-  const { language } = useEmail();
+  const { language, activeStep, setActiveStep } = useEmail();
   const navigate = useNavigate();
   const { setAllResumeData } = useResume();
 
@@ -128,11 +129,12 @@ const UploadAResume = () => {
     onSuccess: (data) => {
       setUploading(false);
       setAllResumeData({ data: data?.data });
-      navigate("/dashboard/update-existing-resume-edit/12");
+      navigate("/dashboard/choose-resume");
     },
     onError: (error) => {
       setUploading(false);
       console.error("Upload failed:", error);
+      toast.error(error?.response?.data?.errors);
     },
   });
 

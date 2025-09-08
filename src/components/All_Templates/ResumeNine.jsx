@@ -49,7 +49,7 @@ const ResumeNine = () => {
               </div>
             </div>
             <div className=" flex-1 flex flex-col gap-4  relative">
-              <p className=" px-6 text-[#0D0D0D]  z-50 text-xs !urbanist font-medium leading-[12px] tracking-[8px] uppercase">
+              <p className=" px-6 text-[#0D0D0D]  z-50 text-xs !urbanist font-medium leading-[22px] tracking-[8px] uppercase">
                 {resumeData?.job_title}
               </p>
               <div className=" px-6 flex flex-col gap-2 z-40">

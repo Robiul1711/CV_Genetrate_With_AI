@@ -94,10 +94,10 @@ const Step3 = () => {
                   </Title>
                 </div>
                 <div className="flex gap-2">
-                  <CiEdit
+                  {/* <CiEdit
                     className="text-white cursor-pointer p-1 border border-white/30 rounded-full"
                     size={28}
-                  />
+                  /> */}
                   <button
                     type="button"
                     className="text-red-500 text-sm"

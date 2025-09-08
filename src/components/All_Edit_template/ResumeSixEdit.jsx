@@ -79,6 +79,8 @@ console.log(color);
   useEffect(() => {
     setColor("");
   }, []);
+
+    console.log(profilePreview)
   return (
     <div className="min-h-screen">
       <DownloadButton resumeRef={resumeRef} />

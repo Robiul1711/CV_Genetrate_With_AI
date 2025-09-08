@@ -74,7 +74,7 @@ const Step6 = () => {
                     {field.level || (language === "de" ? "Niveau" : "Level")}
                   </Title>
                 </div>
-                <CiEdit className="text-white cursor-pointer text-xl" />
+                {/* <CiEdit className="text-white cursor-pointer text-xl" /> */}
               </div>
             )}
 

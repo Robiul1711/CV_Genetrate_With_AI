@@ -5,6 +5,8 @@ import { User, Settings, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useEmail } from "@/hooks/useEmail";
 import userdummy from "@/assets/images/userdummy.png";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 const UserDropdown = ({
   className = "",
   avatarBgColor = "bg-primary",
@@ -13,11 +15,22 @@ const UserDropdown = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { user, logout } = useAuth();
+  const { user, logout, token, setToken, setRefreshToken } = useAuth();
   const { language } = useEmail();
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-console.log(user?.profile?.profile_image);
-  // Default dropdown items with language support
+  const queryClient = useQueryClient();
+  const { activeStep, setActiveStep } =useEmail()
+
+  const logOut = () => {
+    setToken("");
+    setRefreshToken("");
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("refresh_token");
+    queryClient.removeQueries({ queryKey: ["authUser"] });
+    toast.success("Logout Successfully");
+    setActiveStep(0)
+  };
+
   const defaultItems = [
     {
       label: language === "de" ? "Übersicht" : "Dashboard",
@@ -32,7 +45,7 @@ console.log(user?.profile?.profile_image);
     {
       label: language === "de" ? "Abmelden" : "Sign Out",
       icon: <LogOut className="w-4 h-4 mr-3" />,
-      onClick: logout,
+      onClick: logOut,
     },
   ];
 
@@ -49,29 +62,26 @@ console.log(user?.profile?.profile_image);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  
-  
   const getUserInitial = () =>
     user?.profile?.first_name?.charAt(0).toUpperCase() || "U";
 
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
       {/* Avatar Button */}
-   <button
-  onClick={() => setIsOpen(!isOpen)}
-  className={`flex cursor-pointer items-center justify-center bg-gray-800 w-10 h-10 rounded-full font-medium hover:opacity-90 transition-opacity overflow-hidden`}
->
-  {user?.profile?.profile_image ? (
-    <img
-      src={`${VITE_IMG_URL}${user?.profile?.profile_image}`}
-      alt="User Avatar"
-      className="w-full h-full object-cover rounded-full"
-    />
-  ) : (
-    <span className="text-white">{getUserInitial()}</span>
-  )}
-</button>
-
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`flex cursor-pointer items-center justify-center bg-gray-800 w-10 h-10 rounded-full font-medium hover:opacity-90 transition-opacity overflow-hidden`}
+      >
+        {user?.profile?.profile_image ? (
+          <img
+            src={`${VITE_IMG_URL}${user?.profile?.profile_image}`}
+            alt="User Avatar"
+            className="w-full h-full object-cover rounded-full"
+          />
+        ) : (
+          <span className="text-white">{getUserInitial()}</span>
+        )}
+      </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
@@ -87,7 +97,9 @@ console.log(user?.profile?.profile_image);
             <p className="text-sm font-medium !text-gray-900 truncate">
               {user?.profile?.first_name} {user?.profile?.last_name}
             </p>
-            <p className="text-xs !text-black truncate">{user?.profile?.user?.email}</p>
+            <p className="text-xs !text-black truncate">
+              {user?.profile?.user?.email}
+            </p>
           </div>
 
           {/* Menu Items */}

@@ -15,36 +15,53 @@ import { useEmail } from "@/hooks/useEmail";
 
 const ResumeFourEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-  const { allRedumeData, color,setColor } = useResume();
+  const { allRedumeData, color, setColor } = useResume();
   const { watch } = useFormContext();
   const resumeRef = useRef();
   const [profilePreview, setProfilePreview] = useState(user);
-const {language} = useEmail();
+  const { language } = useEmail();
   const formData = watch();
 
   const resumeData = {
     first_name: formData.first_name || allRedumeData?.data?.first_name || "",
     last_name: formData.last_name || allRedumeData?.data?.last_name || "",
+    resume_color: color || allRedumeData?.data?.resume_color || "",
     job_title: formData.job_title || allRedumeData?.data?.job_title || "",
-    profile_photo: formData.profile_photo || allRedumeData?.data?.profile_photo || "",
-    phone_number: formData.phone_number || allRedumeData?.data?.phone_number || "",
+    profile_photo:
+      formData.profile_photo || allRedumeData?.data?.profile_photo || "",
+    phone_number:
+      formData.phone_number || allRedumeData?.data?.phone_number || "",
     address: formData.address || allRedumeData?.data?.address || "",
     email: formData.email || allRedumeData?.data?.email || "",
-    linked_in_profile: formData.linked_in_profile || allRedumeData?.data?.linked_in_profile || "",
-    xing_profile: formData.xing_profile || allRedumeData?.data?.xing_profile || "",
+    linked_in_profile:
+      formData.linked_in_profile ||
+      allRedumeData?.data?.linked_in_profile ||
+      "",
+    xing_profile:
+      formData.xing_profile || allRedumeData?.data?.xing_profile || "",
     about: formData.about || allRedumeData?.data?.about || "",
-    skills: formData.skills?.length ? formData.skills : allRedumeData?.data?.skills || [],
-    work_experiences: formData.work_experiences?.length ? formData.work_experiences : allRedumeData?.data?.work_experiences || [],
-    educations: formData.educations?.length ? formData.educations : allRedumeData?.data?.educations || [],
-    courses_and_training_details:
-      formData.courses_and_training_details?.length
-        ? formData.courses_and_training_details
-        : allRedumeData?.data?.courses_and_training_details || [],
-    languages: formData.languages?.length ? formData.languages : allRedumeData?.data?.languages || [],
+    skills: formData.skills?.length
+      ? formData.skills
+      : allRedumeData?.data?.skills || [],
+    work_experiences: formData.work_experiences?.length
+      ? formData.work_experiences
+      : allRedumeData?.data?.work_experiences || [],
+    educations: formData.educations?.length
+      ? formData.educations
+      : allRedumeData?.data?.educations || [],
+    courses_and_training_details: formData.courses_and_training_details?.length
+      ? formData.courses_and_training_details
+      : allRedumeData?.data?.courses_and_training_details || [],
+    languages: formData.languages?.length
+      ? formData.languages
+      : allRedumeData?.data?.languages || [],
   };
 
   useEffect(() => {
-    if (formData.profile_photo && !formData.profile_photo.startsWith("/media")) {
+    if (
+      formData.profile_photo &&
+      !formData.profile_photo.startsWith("/media")
+    ) {
       setProfilePreview(formData.profile_photo);
     } else if (resumeData.profile_photo) {
       setProfilePreview(VITE_IMG_URL + resumeData.profile_photo);
@@ -52,9 +69,9 @@ const {language} = useEmail();
       setProfilePreview(user);
     }
   }, [formData.profile_photo, resumeData.profile_photo, VITE_IMG_URL]);
-useEffect(() => {
-  setColor('')
-},[])
+  useEffect(() => {
+    setColor("");
+  }, []);
   return (
     <div className="min-h-screen">
       <DownloadButton resumeRef={resumeRef} />
@@ -63,13 +80,18 @@ useEffect(() => {
         ref={resumeRef}
         className="bg-white text-black px-5 py-8 w-[210mm] mx-auto urbanist h-[297mm] overflow-hidden"
       >
-        <div className="flex w-full justify-between items-start gap-4">
+        <div
+          style={{ backgroundColor: resumeData?.resume_color || color || "" }}
+          className={`flex p-2   w-full justify-between items-start gap-4`}
+        >
           <div className="w-[80%]">
             <h1 className="text-[24px] font-light tracking-[2px] text-[#484848] leading-tight">
               {resumeData?.first_name} <br />
               <span className="font-semibold">{resumeData?.last_name}</span>
             </h1>
-            <p className={`tracking-[3px] text-[#484848]  border-y border-[#D9D9D9] py-2 uppercase leading-[24px] mt-2`}>
+            <p
+              className={`tracking-[3px] text-[#484848]  border-y border-[#D9D9D9] py-2 uppercase leading-[24px] mt-2`}
+            >
               {resumeData?.job_title}
             </p>
           </div>
@@ -85,18 +107,23 @@ useEffect(() => {
         <div className="border-b border-[#D9D9D9] mt-6 "></div>
 
         <div className="flex justify-between gap-5 mt-6 h-full">
-          <div className="w-[40%] space-y-3 rounded-md">
+          <div
+            style={{ backgroundColor: resumeData?.resume_color || color || "" }}
+            className="w-[40%] space-y-3 p-2 rounded-md"
+          >
             {/* CONTACT */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-               {language === "de" ? "Kontakt" : "Contact"}
+                {language === "de" ? "Kontakt" : "Contact"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-2 leading-[18px]">
-                  <FaPhoneAlt className="text-[12px]" /> {resumeData?.phone_number}
+                  <FaPhoneAlt className="text-[12px]" />{" "}
+                  {resumeData?.phone_number}
                 </p>
                 <p className="text-xs flex items-center gap-2">
-                  <FaMapMarkerAlt className="text-[12px]" /> {resumeData?.address}
+                  <FaMapMarkerAlt className="text-[12px]" />{" "}
+                  {resumeData?.address}
                 </p>
                 <p className="text-xs flex items-center gap-2">
                   <FaEnvelope className="text-[12px]" /> {resumeData?.email}
@@ -119,7 +146,8 @@ useEffect(() => {
                     rel="noopener noreferrer"
                     className="text-xs flex items-center gap-2"
                   >
-                    <FaXing className="text-[12px]" /> {resumeData?.xing_profile}
+                    <FaXing className="text-[12px]" />{" "}
+                    {resumeData?.xing_profile}
                   </a>
                 )}
               </div>
@@ -130,24 +158,26 @@ useEffect(() => {
             {/* TRAINING */}
             <div>
               <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-               {language === "de" ? "AUSBILDUNGEN" : "Training"}
+                {language === "de" ? "AUSBILDUNGEN" : "Training"}
               </h2>
-              {resumeData?.courses_and_training_details?.map((training, index) => (
-                <div key={index} className="mt-3">
-                  <p className="font-medium leading-[18px] text-xs">
-                    {training.course_name}
-                  </p>
-                  <p className="text-xs leading-[18px] font-medium">
-                    {training.name_of_institute}
-                  </p>
-                  <p className="text-xs leading-[20px]">
-                    {dayjs(training.start_date).format("MMMM YYYY")} –{" "}
-                    {training.end_date
-                      ? dayjs(training.end_date).format("MMMM YYYY")
-                      : "Present"}
-                  </p>
-                </div>
-              ))}
+              {resumeData?.courses_and_training_details?.map(
+                (training, index) => (
+                  <div key={index} className="mt-3">
+                    <p className="font-medium leading-[18px] text-xs">
+                      {training.course_name}
+                    </p>
+                    <p className="text-xs leading-[18px] font-medium">
+                      {training.name_of_institute}
+                    </p>
+                    <p className="text-xs leading-[20px]">
+                      {dayjs(training.start_date).format("MMMM YYYY")} –{" "}
+                      {training.end_date
+                        ? dayjs(training.end_date).format("MMMM YYYY")
+                        : "Present"}
+                    </p>
+                  </div>
+                )
+              )}
             </div>
 
             <div className="border-b border-[#D9D9D9]"></div>
@@ -155,7 +185,7 @@ useEffect(() => {
             {/* SKILL */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-               {language === "de" ? "Fertigkeiten" : "Skills"}
+                {language === "de" ? "Fertigkeiten" : "Skills"}
               </h2>
               <ul className="text-xs space-y-3">
                 {resumeData?.skills?.map((skill, index) => (
@@ -169,7 +199,7 @@ useEffect(() => {
             {/* LANGUAGE */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-               {language === "de" ? "Sprachen" : "Languages"}
+                {language === "de" ? "Sprachen" : "Languages"}
               </h2>
               {resumeData?.languages?.map((language, index) => (
                 <div
@@ -191,7 +221,7 @@ useEffect(() => {
             {/* ABOUT */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-               {language === "de" ? "Über mich" : "About Me"}
+                {language === "de" ? "Über mich" : "About Me"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData?.about}
@@ -203,7 +233,7 @@ useEffect(() => {
             {/* EXPERIENCE */}
             <div>
               <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-               {language === "de" ? "Erfahrung" : "Experience"}
+                {language === "de" ? "Erfahrung" : "Experience"}
               </h2>
               {resumeData?.work_experiences?.map((experience, index) => (
                 <div key={index} className="mt-3">
@@ -231,7 +261,7 @@ useEffect(() => {
             {/* EDUCATION */}
             <div>
               <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-               {language === "de" ? "Ausbildung" : "Education"}
+                {language === "de" ? "Ausbildung" : "Education"}
               </h2>
               {resumeData?.educations?.map((education, index) => (
                 <div key={index} className="mt-3">
