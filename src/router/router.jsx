@@ -35,6 +35,7 @@ import PrivateRoute from "./PrivateRoute";
 import PaymentSuccess from "@/components/SuccessCancle/PaymentSuccess";
 import PaymentCancelled from "@/components/SuccessCancle/PaymentCancelled";
 import HistoryView from "@/components/CreateCoverLetterComponents/HistoryView";
+import ResumeChoose from "@/components/common/ResumeChoose";
 
 const router = createBrowserRouter([
   {
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/edit-design",
         element: <Design />,
+      },
+      {
+        path: "/dashboard/choose-resume",
+        element: <ResumeChoose />,
       },
       {
         path: "/dashboard/update-existing-resume",

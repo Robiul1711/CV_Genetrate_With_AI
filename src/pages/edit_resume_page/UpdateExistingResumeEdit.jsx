@@ -124,7 +124,7 @@ const UpdateExistingResumeEdit = () => {
   return (
     <div>
       <Link
-        to={"/dashboard/create-New-resume"}
+        to={"/dashboard/choose-resume"}
         className="flex items-center gap-2"
       >
         <FaAngleLeft className="cursor-pointer text-xl p-1 border border-white/30 rounded-full" />

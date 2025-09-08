@@ -18,7 +18,7 @@ const ResumeFiveEdit = () => {
   const { allRedumeData, color, setColor } = useResume();
   const resumeData = allRedumeData?.data || {};
   const resumeRef = useRef();
-const {language}=useEmail()
+  const { language } = useEmail();
   // Watch form values and fallback to context if empty
   const first_name = watch("first_name") || resumeData.first_name;
   const resume_color = color || allRedumeData?.data?.resume_color;
@@ -55,13 +55,22 @@ const {language}=useEmail()
           {/* Left Column */}
           <div className="w-[40%] space-y-6 rounded-md py-10">
             <div className="flex w-full flex-col text-center">
-              <div className="text-[64px] font-bold tracking-[2px]">
+              <div
+                style={{ color: resume_color ? resume_color : "#0D0D0D" }}
+                className="text-[64px] font-bold tracking-[2px]"
+              >
                 {`${first_name?.charAt(0) || ""}${last_name?.charAt(0) || ""}`}
               </div>
-              <h1 className="text-[32px] font-light tracking-[2px] text-[#484848] leading-tight">
+              <h1
+                style={{ color: resume_color ? resume_color : "#0D0D0D" }}
+                className="text-[32px] font-light tracking-[2px] text-[#484848] leading-tight"
+              >
                 {first_name} <span className="font-semibold">{last_name}</span>
               </h1>
-              <p className="tracking-[3px] text-[#484848] py-2 uppercase leading-[24px]">
+              <p
+                style={{ color: resume_color ? resume_color : "#0D0D0D" }}
+                className="tracking-[3px] text-[#484848] py-2 uppercase leading-[24px]"
+              >
                 {job_title}
               </p>
               <div className="border-b-[2px] max-w-[100px] mx-auto w-full border-[#0D0D0D]"></div>
@@ -187,7 +196,7 @@ const {language}=useEmail()
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                 style={{ color: resume_color ? resume_color : "#0D0D0D" }}
               >
-          {language === "de" ? "AUSBILDUNGEN" : "TRAINING"}
+                {language === "de" ? "AUSBILDUNGEN" : "TRAINING"}
               </h2>{" "}
               <div className="space-y-3 mt-3">
                 {trainings.map((t, i) => (

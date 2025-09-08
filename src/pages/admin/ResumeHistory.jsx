@@ -206,6 +206,8 @@ export default function ResumeHistory() {
       return res.data;
     },
   });
+
+  console.log(allCvData?.data)
   const handleClick = (templateData) => {
     setAllResumeData({ data: templateData });
     console.log("Template Data:", templateData);

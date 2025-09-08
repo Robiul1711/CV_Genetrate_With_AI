@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Title from "@/components/common/Title";
 import Step1 from "@/components/createResumeComponents/Step1";
 import Step2 from "@/components/createResumeComponents/Step2";
@@ -10,7 +10,7 @@ import Step7 from "@/components/createResumeComponents/Step7";
 import Step8 from "@/components/createResumeComponents/Step8";
 import Step9 from "@/components/createResumeComponents/Step9";
 import { Edit, Loader2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import StepProgressBar from "@/components/common/StepProgressBar";
 import { useForm, FormProvider } from "react-hook-form";
 import SelectLangaugeStep from "@/components/createResumeComponents/SelectLangaugeStep";
@@ -66,6 +66,15 @@ const CreateNewResume = () => {
 
   const resume_language = language;
   const t = textMap[resume_language];
+  const location =useLocation()
+
+    useEffect(() => {
+    if (location.state?.step) {
+      setActiveStep(location.state.step); // 👈 keep 9
+    } else {
+      setActiveStep(0); // 👈 reset if no state
+    }
+  }, [location.state, setActiveStep]);
 
   const ResumeMutation = useMutation({
     mutationFn: async (formData) => {

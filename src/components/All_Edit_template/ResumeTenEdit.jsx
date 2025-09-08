@@ -23,8 +23,10 @@ const ResumeTenEdit = () => {
   const resumeRef = useRef(null);
   const [profilePreview, setProfilePreview] = useState(user);
   const { language } = useEmail();
+
+  
   // Merge formData and context data
-   const resume_color = color || allRedumeData?.data?.resume_color;
+  const resume_color = color || allRedumeData?.data?.resume_color;
   const resumeData = {
     first_name: formData?.first_name || allRedumeData?.data?.first_name || "",
     last_name: formData?.last_name || allRedumeData?.data?.last_name || "",
@@ -32,7 +34,7 @@ const ResumeTenEdit = () => {
     resume_color: color || allRedumeData?.data?.resume_color || "",
     about: formData?.about || allRedumeData?.data?.about || "",
     profile_photo:
-      formData?.profile_photo || allRedumeData?.data?.profile_photo || "",
+       allRedumeData?.data?.profile_photo || "",
     phone_number:
       formData?.phone_number || allRedumeData?.data?.phone_number || "",
     email: formData?.email || allRedumeData?.data?.email || "",
@@ -72,6 +74,8 @@ const ResumeTenEdit = () => {
   useEffect(() => {
     setColor("");
   }, []);
+
+  console.log(profilePreview)
   return (
     <div className="min-h-screen">
       <DownloadButton resumeRef={resumeRef} />
@@ -85,8 +89,7 @@ const ResumeTenEdit = () => {
           <div
             className="w-[40%] space-y-6 text-white py-10"
             style={{
-              backgroundColor:
-                resume_color || color || "#1B1E2F",
+              backgroundColor: resume_color || color || "#1B1E2F",
             }}
           >
             {/* Profile Image */}

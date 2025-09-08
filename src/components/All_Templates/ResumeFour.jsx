@@ -17,12 +17,11 @@ const ResumeFour = () => {
   const resumeData = allRedumeData?.data || [];
 
   const resumeRef = useRef();
-
-
+  
 
   return (
-    <div className="min-h-screen  ">
-         <DownloadButton resumeRef={resumeRef}  />
+    <div className="min-h-screen  !text-black ">
+      <DownloadButton resumeRef={resumeRef} />
       <div
         ref={resumeRef}
         className="bg-white text-black px-5 py-8  w-[210mm]  h-[297mm] overflow-hidden mx-auto urbanist"
@@ -43,16 +42,20 @@ const ResumeFour = () => {
           {/* Right: Profile Image */}
           <div className="w-[100px] h-[100px] shrink-0">
             <img
-              src={resumeData?.profile_photo=== null ? user : VITE_IMG_URL + resumeData?.profile_photo}
+              src={
+                resumeData?.profile_photo === null
+                  ? user
+                  : VITE_IMG_URL + resumeData?.profile_photo
+              }
               alt="Alex Stevens"
               className="w-full h-full object-cover rounded-full border border-[#D9D9D9]"
             />
           </div>
         </div>
 
-        <div className="border-b border-[#D9D9D9] h-full mt-6"></div>
+
         {/* Body */}
-        <div className="flex justify-between gap-5 mt-6">
+        <div className="flex justify-between h-full gap-5 mt-6">
           {/* Left Column */}
           <div className="w-[40%] space-y-3  rounded-md">
             <div>

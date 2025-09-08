@@ -5,9 +5,22 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaMedium } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { useEmail } from "@/hooks/useEmail";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 
 const Footer = () => {
   const { language } = useEmail();
+  const axiosPublic = useAxiosPublic();
+
+  const { data: socialData, isLoading } = useQuery({
+    queryKey: ["social-links"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/social-media/`);
+      return res.data;
+    },
+  });
+
+  console.log(socialData?.data);
 
   const texts = {
     en: {
@@ -75,17 +88,26 @@ const Footer = () => {
                 {t.company}
               </p>
               <li>
-                <Link to="/" className="text-[15px] md:text-base hover:text-white">
+                <Link
+                  to="/"
+                  className="text-[15px] md:text-base hover:text-white"
+                >
                   {t.home}
                 </Link>
               </li>
               <li>
-                <Link to="/price" className="text-[15px] md:text-base hover:text-white">
+                <Link
+                  to="/price"
+                  className="text-[15px] md:text-base hover:text-white"
+                >
                   {t.pricing}
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-[15px] md:text-base hover:text-white">
+                <Link
+                  to="/contact"
+                  className="text-[15px] md:text-base hover:text-white"
+                >
                   {t.contact}
                 </Link>
               </li>
@@ -153,14 +175,27 @@ const Footer = () => {
 
         {/* Social Icons */}
         <div className="flex gap-5 items-center justify-center">
-          <FaFacebookF className="text-xl md:text-2xl text-white" />
-          <FaMedium className="text-xl md:text-2xl text-white" />
-          <FaLinkedin className="text-xl md:text-2xl text-white" />
+          {socialData?.data?.map((item) => (
+            <a
+              key={item.id}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src={`${import.meta.env.VITE_IMG_URL}${item.icon}`}
+                alt={item.name}
+                className="w-6 h-6 md:w-8 md:h-8 object-contain"
+              />
+            </a>
+          ))}
         </div>
 
         {/* Copyright */}
         <div className="text-[15px] md:text-base text-[#666] text-center">
-          <p>© {new Date().getFullYear()} {t.copyright}</p>
+          <p>
+            © {new Date().getFullYear()} {t.copyright}
+          </p>
         </div>
       </div>
     </div>

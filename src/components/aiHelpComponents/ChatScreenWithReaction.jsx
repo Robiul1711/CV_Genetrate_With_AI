@@ -8,11 +8,15 @@ import { useMutation } from "@tanstack/react-query";
 import bot from "@/assets/images/bot.png";
 import userdummy from "@/assets/images/userdummy.png";
 import { useAuth } from "@/hooks/useAuth";
+import DummyUser from "@/assets/images/userDummy.png"
 
 // ✅ Improved parser function to format bot response with better bold text handling
 const parseMessage = (text) => {
   if (!text) return null;
   const lines = text.split("\n");
+  const {user} =useAuth()
+
+  console.log(user?.profile?.profile_image)
 
   return lines.map((line, i) => {
     const trimmed = line.trim();
@@ -189,10 +193,6 @@ const ChatScreenWithReaction = ({
         id: newId,
         text,
         sender: "me",
-        senderProfile: {
-          name: "You",
-          avatar: "https://i.pravatar.cc/40?img=1",
-        },
         timestamp: new Date().toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
@@ -273,7 +273,7 @@ const ChatScreenWithReaction = ({
               </div>
               {msg.sender === "me" && (
                 <img
-                  src={msg.senderProfile.avatar}
+                   src={user?.profile?.profile_image ? `${import.meta.env.VITE_IMG_URL}${user?.profile?.profile_image}` :DummyUser}
                   alt=""
                   className="w-8 h-8 rounded-full"
                 />

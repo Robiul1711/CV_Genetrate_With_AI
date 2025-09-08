@@ -50,19 +50,22 @@ const EditResumePage = () => {
   const { resumeId } = useParams();
   const [activeStep1, setactiveStep1] = useState(0);
   const [activeTab, setActiveTab] = useState("content"); // "content" or "design"
-  const { imageString, allRedumeData, setAllResumeData, color, setColor } = useResume();
+  const { imageString, allRedumeData, setAllResumeData, color, setColor } =
+    useResume();
   const axiosSecure = useAxiosSecure();
   const methods = useForm({ mode: "onChange" });
   const selectedResume = resumeDataEdits.find(
     (resume) => resume.id === Number(resumeId)
   );
-  console.log(allRedumeData?.data?.resume_color)
+
   useEffect(() => {
     if (allRedumeData?.data) {
       methods.reset(allRedumeData.data);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(methods.watch());
 
   const ResumeMutation = useMutation({
     mutationFn: async (formData) => {
@@ -102,10 +105,16 @@ const EditResumePage = () => {
   const onSubmit = (data) => {
     const payload = {
       ...data,
-      profile_photo: imageString || "",
       resume_language: language || "en",
       resume_color: color,
     };
+
+    console.log(data.profile_photo);
+    if (data.profile_photo && data.profile_photo.startsWith("/media")) {
+      delete payload.profile_photo;
+    }
+
+    console.log(payload?.profile_photo);
     ResumeMutation.mutate(payload);
   };
 
@@ -116,11 +125,11 @@ const EditResumePage = () => {
       <Link
         to={"/dashboard/create-New-resume"}
         className="flex items-center gap-2"
-        onClick={() => setActiveStep(9)}
+        state={{ step: 9 }}
       >
         <FaAngleLeft className="cursor-pointer text-xl p-1 border border-white/30 rounded-full" />
         <Title level="title32">
-          {language === "de" ? "Lebenslauf bearbeiten" : "Edit Resume"}
+          {language === "de" ? "Zurück" : "Go Back"}
         </Title>
       </Link>
 

@@ -5,6 +5,7 @@ import Title from "../common/Title";
 import { useFormContext } from "react-hook-form";
 import { useResume } from "@/providers/ResumeContext";
 import { useEmail } from "@/hooks/useEmail"; // assuming it gives the language
+import DummyUser from "@/assets/images/userDummy.png"
 
 const Step2 = () => {
   const {
@@ -16,7 +17,7 @@ const Step2 = () => {
 
   const fileInputRef = useRef(null);
   const [profilePreview, setProfilePreview] = useState(
-    "https://randomuser.me/api/portraits/men/32.jpg"
+    DummyUser
   );
 
   const { imageString, setImageString } = useResume();

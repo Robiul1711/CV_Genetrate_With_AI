@@ -66,12 +66,12 @@ console.log(resume_color);
         className="bg-white text-black  py-8 w-[210mm] h-[297mm] overflow-hidden mx-auto"
       >
         {/* Header */}
-        <div className="text-center">
-          <h1 className="text-[32px] font-light tracking-[7px] text-[#484848] !playfair">
+        <div   className="text-center">
+          <h1 style={{color: resume_color || color || ""}} className="text-[32px] font-light tracking-[7px] text-[#484848] !playfair">
             {first_name} <span className="font-semibold">{last_name}</span>
           </h1>
         </div>
-        <p className="tracking-[3px] text-[#484848] uppercase leading-[24px] text-center mb-2">
+        <p style={{color: resume_color || color || ""}} className="tracking-[3px] text-[#484848] uppercase leading-[24px] text-center mb-2">
           {job_title}
         </p>
         <div className="border-b border-[#D9D9D9] max-w-[100px] mx-auto mt-4"></div>
