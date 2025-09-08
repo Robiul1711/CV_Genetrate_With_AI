@@ -20,6 +20,7 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useFormContext } from "react-hook-form";
 import { useEmail } from "@/hooks/useEmail";
 import Tailor_Modal from "./Tailor_Modal";
+import { useResume } from "@/providers/ResumeContext";
 
 // Resume data
 export const resumeData = [
@@ -57,17 +58,20 @@ const texts = {
   }
 };
 
+
+
 const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
   const axiosSecure = useAxiosSecure();
+  const {allRedumeData } =useResume()
   const navigate = useNavigate();
   const { watch } = useFormContext();
-
+  console.log()
    const {language} =useEmail()
   const t = texts[language];
 
   const IdSetupMutation = useMutation({
     mutationFn: async (body) => {
-      const res = await axiosSecure.post(`/update-template-id/`, body);
+      const res = await axiosSecure.post(`/update-template-id/${allRedumeData?.data?.id}/`, body);
       return res.data;
     },
     onSuccess: (data) => console.log(data),
