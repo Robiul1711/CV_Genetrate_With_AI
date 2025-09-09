@@ -52,7 +52,9 @@ const ResumeSix = () => {
         <div className="flex justify-between gap-5 px-6 py-8 mt-12 h-full">
           {/* Left Column */}
           <div className="w-[50%] space-y-4  rounded-md">
-            <div>
+           {
+            resumeData.work_experiences?.length > 0 &&(
+               <div>
               <div className="flex pb-3 items-center gap-1">
                 <h2 className="text-sm tracking-[2px]  text-[#171717] font-semibold leading-[24px]">
                   EXPERIENCE
@@ -79,6 +81,8 @@ const ResumeSix = () => {
                 ))}
               </div>
             </div>
+            )
+           }
 
             <div>
               <div className="flex pb-3 items-center gap-1">

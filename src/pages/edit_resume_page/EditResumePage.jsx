@@ -109,7 +109,23 @@ const EditResumePage = () => {
       resume_color: color,
     };
 
-    console.log(data.profile_photo);
+    if (data.work_experiences && Array.isArray(data.work_experiences)) {
+      data.work_experiences = data.work_experiences.filter(
+        (exp) =>
+          exp.job_title.trim() !== "" ||
+          exp.company_name.trim() !== "" ||
+          exp.start_date.trim() !== "" ||
+          exp.end_date !== null ||
+          exp.still_working_here === true ||
+          exp.responsibilities.trim() !== ""
+      );
+
+      // If nothing left after filtering, remove work_experiences
+      if (data.work_experiences.length === 0) {
+        delete data.work_experiences;
+      }
+    }
+
     if (data.profile_photo && data.profile_photo.startsWith("/media")) {
       delete payload.profile_photo;
     }

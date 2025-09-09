@@ -209,12 +209,16 @@ const {language} = useEmail();
               ))}
             </div>
           </div>
-          <div
+          {
+            resumeData.work_experiences?.length > 0 &&(
+              <div
             className=" absolute -bottom-5 left-24 text-black bg-[#b1aaaa] p-2 uppercase"
             style={{ backgroundColor: resume_color }}
           >
-            {language === "de" ? "Bildung" : "Education"}
+                 {language === "de" ? "Erfahrung" : "Experience"}
           </div>
+            )
+          }
           <div
             className=" absolute -bottom-5 right-24 text-black bg-[#b1aaaa] p-2 uppercase"
             style={{ backgroundColor: resume_color }}

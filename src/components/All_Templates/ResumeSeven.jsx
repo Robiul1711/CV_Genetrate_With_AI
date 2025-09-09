@@ -171,9 +171,13 @@ const ResumeSeven = () => {
             </div>
           </div>
         </div>
-        <div className="absolute z-50 -bottom-5 border-[1px] border-[#9A9A9A] bg-[#F7F7F7] left-10 px-[60px] py-[10px] text-[#171717] !urbanist text-xs uppercase font-semibold leading-[15px] tracking-[2px]">
+        {
+          resumeData.work_experiences?.length > 0 &&(
+            <div className="absolute z-50 -bottom-5 border-[1px] border-[#9A9A9A] bg-[#F7F7F7] left-10 px-[60px] py-[10px] text-[#171717] !urbanist text-xs uppercase font-semibold leading-[15px] tracking-[2px]">
           Experience
         </div>
+          )
+        }
         <div className="absolute z-50 -bottom-5 border-[1px] border-[#9A9A9A] bg-[#F7F7F7] right-10 px-[60px] py-[10px] text-[#171717] !urbanist text-xs uppercase font-semibold leading-[15px] tracking-[2px]">
           TRAINING
         </div>

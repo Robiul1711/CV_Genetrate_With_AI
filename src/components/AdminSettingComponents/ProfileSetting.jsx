@@ -112,14 +112,13 @@ const ProfileSetting = ({ userData }) => {
             <label className="text-sm text-white">{t.firstName}</label>
             <input
               type="text"
-              disabled={!isEditing}
-              {...register("first_name", { required: t.firstName })}
-              className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] text-white ${
-                !isEditing ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              {...register("first_name")}
+              className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] text-white `}
             />
             {errors.first_name && (
-              <span className="text-red-500 text-xs">{errors.first_name.message}</span>
+              <span className="text-red-500 text-xs">
+                {errors.first_name.message}
+              </span>
             )}
           </div>
 
@@ -128,14 +127,13 @@ const ProfileSetting = ({ userData }) => {
             <label className="text-sm text-white">{t.lastName}</label>
             <input
               type="text"
-              disabled={!isEditing}
-              {...register("last_name", { required: t.lastName })}
-              className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] text-white ${
-                !isEditing ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              {...register("last_name")}
+              className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] text-white `}
             />
             {errors.last_name && (
-              <span className="text-red-500 text-xs">{errors.last_name.message}</span>
+              <span className="text-red-500 text-xs">
+                {errors.last_name.message}
+              </span>
             )}
           </div>
 
@@ -154,54 +152,31 @@ const ProfileSetting = ({ userData }) => {
           <div className="flex flex-col gap-2">
             <label className="text-sm text-white">{t.phoneNumber}</label>
             <div
-              className={`flex items-center rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] bg-[#0E0E10] text-white ${
-                !isEditing ? "opacity-50" : ""
-              }`}
+              className={`flex items-center rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] bg-[#0E0E10] text-white `}
             >
               <span className="pr-2">📞</span>
               <input
                 type="text"
-                disabled={!isEditing}
-                {...register("phone_number", { required: t.phoneNumber })}
+                {...register("phone_number")}
                 className="bg-transparent text-xs w-full focus:outline-none text-white"
               />
             </div>
             {errors.phone_number && (
-              <span className="text-red-500 text-xs">{errors.phone_number.message}</span>
+              <span className="text-red-500 text-xs">
+                {errors.phone_number.message}
+              </span>
             )}
           </div>
         </div>
 
         {/* Buttons */}
         <div className="flex flex-wrap justify-end gap-4 mt-3 sm:mt-8">
-          {!isEditing ? (
-            <button
-              type="button"
-              onClick={() => setIsEditing(true)}
-              className="flex items-center gap-1 font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
-            >
-              <CiEdit /> {t.editProfile}
-            </button>
-          ) : (
-            <>
-              <button
-                type="button"
-                onClick={() => {
-                  reset(defaultValues);
-                  setIsEditing(false);
-                }}
-                className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
-              >
-                {t.cancel}
-              </button>
-              <button
-                type="submit"
-                className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
-              >
-                {t.saveChanges}
-              </button>
-            </>
-          )}
+          <button
+            type="submit"
+            className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
+          >
+            {updateMutation.isPending ? "Saving..." : t.saveChanges}
+          </button>
         </div>
       </form>
     </div>

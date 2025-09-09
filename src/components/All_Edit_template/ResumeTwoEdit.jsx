@@ -126,7 +126,7 @@ console.log(resume_color);
               {educations.map((edu, idx) => (
                 <div key={idx} className="mt-4">
                   <p className="font-medium text-xs">{edu.institute_name}</p>
-                  <p className="text-xs font-medium">{edu.degree}</p>
+                  <p className="text-xs font-medium py-0.5">{edu.degree}</p>
                   <p className="text-xs">
                     {edu.start_date ? dayjs(edu.start_date).format("YYYY") : ""}{" "}
                     – {edu.end_date ? dayjs(edu.end_date).format("YYYY") : ""}
@@ -140,14 +140,16 @@ console.log(resume_color);
 
           {/* Right Column */}
           <div className="w-[60%] space-y-3 px-4 pt-6">
-            <div>
+            {
+              work_experiences?.length > 0 &&(
+                <div>
               <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
                 {language === "de" ? "Berufserfahrung" : "Work Experience"}
               </h2>
               {work_experiences.map((exp, idx) => (
                 <div key={idx} className="mt-4">
                   <p className="font-medium text-xs">{exp.job_title}</p>
-                  <p className="text-xs font-medium flex justify-between">
+                  <p className="text-xs font-medium flex justify-between py-1">
                     {exp.company_name}
                     <span>
                       {exp.start_date
@@ -160,6 +162,8 @@ console.log(resume_color);
                 </div>
               ))}
             </div>
+              )
+            }
 
             <div className="border-b border-[#D9D9D9]"></div>
 
@@ -168,7 +172,7 @@ console.log(resume_color);
                 {language === "de" ? "  AUSBILDUNGEN" : "  Trainings"}
               </h2>
               {courses_and_training_details.map((course, idx) => (
-                <div key={idx} className="mt-4">
+                <div key={idx} className="mt-4 flex flex-col gap-2">
                   <p className="font-medium text-xs">
                     {course.name_of_institute}
                   </p>

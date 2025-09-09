@@ -95,7 +95,9 @@ const ResumeOne = () => {
           <div className="w-[1px] bg-[#D9D9D9]"></div>
           {/* Right Column */}
           <div className="w-[65%] space-y-6">
-            <div>
+            {
+              resumeData.work_experiences?.length > 0 &&(
+                <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
                 EXPERIENCE
               </h2>
@@ -121,6 +123,8 @@ const ResumeOne = () => {
                 ))}
             
             </div>
+              )
+            }
 
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">

@@ -245,8 +245,9 @@ const ResumeTenEdit = () => {
               </div>
             </div>
 
-            {/* Experience */}
-            <div>
+               {
+                resumeData.work_experiences?.length > 0 && (
+                       <div>
               <h2 className="text-sm font-semibold tracking-[2px] uppercase mb-3 leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
                 {language === "en" ? "Experience" : "Erfahrung"}
               </h2>
@@ -272,6 +273,9 @@ const ResumeTenEdit = () => {
                 ))}
               </div>
             </div>
+                )
+               }
+       
           </div>
         </div>
       </div>

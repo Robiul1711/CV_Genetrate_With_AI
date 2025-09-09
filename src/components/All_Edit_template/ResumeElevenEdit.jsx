@@ -175,7 +175,10 @@ const { language } = useEmail();
           {/* Right Column */}
           <div className="w-[60%] space-y-6">
             {/* Experience */}
-            <div>
+            {
+
+              resumeData.work_experiences?.length > 0 &&(
+                <div>
               <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
                 {language === "de" ? "Erfahrung" : "Experience"}
               </h2>
@@ -197,6 +200,8 @@ const { language } = useEmail();
                 </div>
               ))}
             </div>
+              )
+            }
 
             {/* Training */}
             <div>

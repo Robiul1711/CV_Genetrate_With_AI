@@ -148,7 +148,9 @@ const ResumeNine = () => {
                 </div>
               </div>
             </div>
-            <div className=" flex-1 flex flex-col gap-4">
+            {
+              resumeData.work_experiences?.length > 0 &&(
+                <div className=" flex-1 flex flex-col gap-4">
               <div className=" w-[90%] px-[60px] py-6 bg-[#293946] text-center">
                 <p className=" leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
                   EXperience
@@ -182,6 +184,8 @@ const ResumeNine = () => {
                 </span>
               </div>
             </div>
+              )
+            }
           </div>
 
           <div className=" flex gap-4  mt-4">
@@ -204,7 +208,7 @@ const ResumeNine = () => {
                 </p>
               </div>
             </div>
-            <div className=" flex flex-col gap-4 flex-1 ">
+         <div className={`flex flex-col gap-4 flex-1 ${resumeData.work_experiences?.length > 0 ? "-mt-12":"-mt-40"}`}>
               <div className=" w-[90%] px-[60px] py-6 bg-[#293946] text-center">
                 <p className=" leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
                   training

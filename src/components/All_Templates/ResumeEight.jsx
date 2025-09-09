@@ -63,7 +63,7 @@ const ResumeEight = () => {
       </header>
 
       <div className=" flex gap-3 w-full h-full p-3">
-        <div className=" flex flex-col justify-between gap-3 w-[75%]">
+        <div className=" flex flex-col  gap-3 w-[75%]">
           <SectionArea>
             <div className=" flex flex-col gap-1">
               <TitleSection name={`Profile`} />
@@ -72,7 +72,9 @@ const ResumeEight = () => {
               </p>
             </div>
           </SectionArea>
-
+{
+  resumeData.work_experiences?.length > 0 &&(
+    
           <SectionArea>
             <div className=" flex flex-col gap-2">
               <TitleSection name={`Experience`} />
@@ -146,6 +148,8 @@ const ResumeEight = () => {
               </div>
             </div>
           </SectionArea>
+  )
+}
 
           <SectionArea>
             <div className=" flex flex-col gap-2">

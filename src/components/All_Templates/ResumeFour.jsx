@@ -166,7 +166,9 @@ const ResumeFour = () => {
               </p>
             </div>
             <div className="border-b border-[#D9D9D9] "></div>
-            <div>
+           {
+            resumeData.work_experiences?.length > 0 &&(
+               <div>
               <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px]">
                 EXPERIENCE
               </h2>
@@ -190,6 +192,8 @@ const ResumeFour = () => {
                 </div>
               ))}
             </div>
+            )
+           }
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
               <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px]">

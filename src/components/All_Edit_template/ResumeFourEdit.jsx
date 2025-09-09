@@ -231,7 +231,9 @@ const ResumeFourEdit = () => {
             <div className="border-b border-[#D9D9D9]"></div>
 
             {/* EXPERIENCE */}
-            <div>
+           {
+            resumeData.work_experiences?.length > 0 &&(
+               <div>
               <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
                 {language === "de" ? "Erfahrung" : "Experience"}
               </h2>
@@ -255,6 +257,8 @@ const ResumeFourEdit = () => {
                 </div>
               ))}
             </div>
+            )
+           }
 
             <div className="border-b border-[#D9D9D9]"></div>
 

@@ -98,7 +98,9 @@ const ResumeEleven = () => {
           <div className="w-[1px] bg-[#D9D9D9]"></div>
           {/* Right Column */}
           <div className="w-[60%] space-y-6">
-            <div>
+            {
+              resumeData.work_experiences?.length > 0 &&(
+                <div>
               <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
                 EXPERIENCE
               </h2>
@@ -120,6 +122,8 @@ const ResumeEleven = () => {
                 </div>
               ))}
             </div>
+              )
+            }
 
             <div>
               <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
