@@ -138,7 +138,9 @@ const ResumeFive = () => {
                 {resumeData.about}
               </p>
             </div>
-            <div>
+           {
+            resumeData.work_experiences?.length > 0 &&(
+               <div>
               <h2 className="text-sm font-semibold tracking-[2px]  text-[#0D0D0D] leading-[24px]">
                 EXPERIENCE
               </h2>
@@ -167,6 +169,8 @@ const ResumeFive = () => {
               }
 
             </div>
+            )
+           }
             <div>
               <h2 className="text-sm font-semibold tracking-[2px] text-[#0D0D0D] leading-[24px] ">
                 TRAINING

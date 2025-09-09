@@ -116,12 +116,7 @@ const Step3 = () => {
                   </label>
                   <input
                     type="text"
-                    {...register(`work_experiences.${index}.job_title`, {
-                      required:
-                        language === "de"
-                          ? "Berufsbezeichnung ist erforderlich"
-                          : "Job Title is required",
-                    })}
+                    {...register(`work_experiences.${index}.job_title`, )}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
                   {errors?.work_experiences?.[index]?.job_title && (
@@ -140,12 +135,7 @@ const Step3 = () => {
                   </label>
                   <input
                     type="text"
-                    {...register(`work_experiences.${index}.company_name`, {
-                      required:
-                        language === "de"
-                          ? "Unternehmensname ist erforderlich"
-                          : "Company Name is required",
-                    })}
+                    {...register(`work_experiences.${index}.company_name`, )}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
                   {errors?.work_experiences?.[index]?.company_name && (
@@ -162,12 +152,7 @@ const Step3 = () => {
                   </label>
                   <input
                     type="date"
-                    {...register(`work_experiences.${index}.start_date`, {
-                      required:
-                        language === "de"
-                          ? "Startdatum ist erforderlich"
-                          : "Start Date is required",
-                    })}
+                    {...register(`work_experiences.${index}.start_date`, )}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
                   {errors?.work_experiences?.[index]?.start_date && (

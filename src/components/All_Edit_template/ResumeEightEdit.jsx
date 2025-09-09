@@ -124,7 +124,9 @@ const {language} = useEmail();
           </SectionArea>
 
           {/* Experience */}
-          <SectionArea color={resume_color}>
+          {
+            resumeData.work_experiences?.length > 0 &&(
+              <SectionArea color={resume_color}>
             <div className="flex flex-col gap-2">
               <TitleSection name={`${language === 'en' ? 'Experience' : 'Erfahrung'}`} />
               <div className="flex flex-col gap-2 w-full">
@@ -154,6 +156,8 @@ const {language} = useEmail();
               </div>
             </div>
           </SectionArea>
+            )
+          }
 
           {/* Skills */}
           <SectionArea color={resume_color}>

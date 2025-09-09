@@ -43,8 +43,7 @@ const SignUp = () => {
       password: "Password",
       passwordPlaceholder: "••••••••",
       confirmPassword: "Confirm Password",
-      terms:
-        "I agree to the terms of service and privacy policy",
+      terms: "I agree to the terms of service and privacy policy",
       signUp: "Sign Up",
       processing: "Processing...",
       alreadyAccount: "Already have an account?",
@@ -62,7 +61,8 @@ const SignUp = () => {
       password: "Passwort",
       passwordPlaceholder: "••••••••",
       confirmPassword: "Passwort bestätigen",
-      terms: "Ich stimme den Nutzungsbedingungen und der Datenschutzrichtlinie zu",
+      terms:
+        "Ich stimme den Nutzungsbedingungen und der Datenschutzrichtlinie zu",
       signUp: "Registrieren",
       processing: "Verarbeitung...",
       alreadyAccount: "Sie haben bereits ein Konto?",
@@ -120,8 +120,13 @@ const SignUp = () => {
           </Link>
         </div>
 
-        <h2 className="text-xl font-semibold text-center mb-2">{t.createAccount}</h2>
-        <Title level="title18" className="text-center !text-[14px] pb-3 !font-normal">
+        <h2 className="text-xl font-semibold text-center mb-2">
+          {t.createAccount}
+        </h2>
+        <Title
+          level="title18"
+          className="text-center !text-[14px] pb-3 !font-normal"
+        >
           {t.subtitle}
         </Title>
 
@@ -134,34 +139,60 @@ const SignUp = () => {
         {/* Name Input */}
         <div className="flex flex-col md:flex-row gap-5 w-full pt-2">
           <div className="mb-1 w-full">
-            <label htmlFor="firstName" className="block mb-2 text-sm">{t.firstName}</label>
+            <label htmlFor="firstName" className="block mb-2 text-sm">
+              {t.firstName}
+            </label>
             <input
               type="text"
               id="firstName"
-              {...register("firstName", { required: t.firstName + " is required" })}
+              {...register("firstName", {
+                required: t.firstName + " is required",
+              })}
               placeholder={t.firstName}
-              className={`w-full px-3 py-1.5 text-xs border ${errors.firstName ? "border-red-500" : "border-[#666666]"} text-[15px] rounded-lg bg-black focus:outline-none`}
+              className={`w-full px-3 py-1.5 text-xs border ${
+                errors.firstName ? "border-red-500" : "border-[#666666]"
+              } text-[15px] rounded-lg bg-black focus:outline-none`}
             />
-            {errors.firstName && <p className="mt-1 text-xs text-red-500">{errors.firstName.message}</p>}
+            {errors.firstName && (
+              <p className="mt-1 text-xs text-red-500">
+                {errors.firstName.message}
+              </p>
+            )}
           </div>
 
           <div className="mb-1 w-full">
-            <label htmlFor="lastName" className="block mb-2 text-sm">{t.lastName}</label>
+            <label htmlFor="lastName" className="block mb-2 text-sm">
+              {t.lastName}
+            </label>
             <input
               type="text"
               id="lastName"
-              {...register("lastName", { required: t.lastName + " is required" })}
+              {...register("lastName", {
+                required: t.lastName + " is required",
+              })}
               placeholder={t.lastName}
-              className={`w-full px-3 py-1.5 text-xs border ${errors.lastName ? "border-red-500" : "border-[#666666]"} text-[15px] rounded-lg bg-black focus:outline-none`}
+              className={`w-full px-3 py-1.5 text-xs border ${
+                errors.lastName ? "border-red-500" : "border-[#666666]"
+              } text-[15px] rounded-lg bg-black focus:outline-none`}
             />
-            {errors.lastName && <p className="mt-1 text-xs text-red-500">{errors.lastName.message}</p>}
+            {errors.lastName && (
+              <p className="mt-1 text-xs text-red-500">
+                {errors.lastName.message}
+              </p>
+            )}
           </div>
         </div>
 
         {/* Email Input */}
         <div className="mb-1 relative">
-          <label htmlFor="email" className="block mb-2 text-sm">{t.email}</label>
-          <div className={`relative flex items-center w-full px-3 py-1.5 gap-3 !text-xs md:text-base border rounded-lg ${errors.email ? "border-red-500" : "border-[#666666]"}`}>
+          <label htmlFor="email" className="block mb-2 text-sm">
+            {t.email}
+          </label>
+          <div
+            className={`relative flex items-center w-full px-3 py-1.5 gap-3 !text-xs md:text-base border rounded-lg ${
+              errors.email ? "border-red-500" : "border-[#666666]"
+            }`}
+          >
             <Mail size={16} />
             <input
               type="email"
@@ -177,14 +208,18 @@ const SignUp = () => {
               className="w-full bg-black focus:outline-none"
             />
           </div>
-          {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>
+          )}
         </div>
 
         {/* Passwords */}
         <div className="flex flex-col md:flex-row gap-5 w-full pt-2">
           {/* Password */}
           <div className="mb-1 relative w-full">
-            <label htmlFor="password" className="block mb-2 text-sm">{t.password}</label>
+            <label htmlFor="password" className="block mb-2 text-sm">
+              {t.password}
+            </label>
             <div className="relative">
               <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
                 <Lock size={16} />
@@ -194,10 +229,18 @@ const SignUp = () => {
                 id="password"
                 {...register("password", {
                   required: t.password + " is required",
-                  minLength: { value: 8, message: t.password + " must be at least 8 characters" },
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#()[\]{}<>~_+=|\\/.,:;'"-]).{8,}$/,
+                    message:
+                      t.password +
+                      " must be at least 8 characters, include uppercase, lowercase, number, and special character",
+                  },
                 })}
                 placeholder={t.passwordPlaceholder}
-                className={`w-full px-3 py-1.5 pl-10 !text-xs border ${errors.password ? "border-red-500" : "border-[#666666]"} rounded-lg bg-black`}
+                className={`w-full px-3 py-1.5 pl-10 !text-xs border ${
+                  errors.password ? "border-red-500" : "border-[#666666]"
+                } rounded-lg bg-black`}
               />
               <span
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
@@ -206,12 +249,18 @@ const SignUp = () => {
                 {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
               </span>
             </div>
-            {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>}
+            {errors.password && (
+              <p className="mt-1 text-xs text-red-500">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
           {/* Confirm Password */}
           <div className="mb-1 relative w-full">
-            <label htmlFor="confirmPassword" className="block mb-2 text-sm">{t.confirmPassword}</label>
+            <label htmlFor="confirmPassword" className="block mb-2 text-sm">
+              {t.confirmPassword}
+            </label>
             <div className="relative">
               <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
                 <Lock size={16} />
@@ -221,10 +270,13 @@ const SignUp = () => {
                 id="confirmPassword"
                 {...register("confirmPassword", {
                   required: t.confirmPassword + " is required",
-                  validate: (value) => value === password || "Passwords do not match",
+                  validate: (value) =>
+                    value === password || "Passwords do not match",
                 })}
                 placeholder={t.passwordPlaceholder}
-                className={`w-full px-3 py-1.5 pl-10 !text-xs border ${errors.confirmPassword ? "border-red-500" : "border-[#666666]"} rounded-lg bg-black`}
+                className={`w-full px-3 py-1.5 pl-10 !text-xs border ${
+                  errors.confirmPassword ? "border-red-500" : "border-[#666666]"
+                } rounded-lg bg-black`}
               />
               <span
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
@@ -233,33 +285,64 @@ const SignUp = () => {
                 {showPassword1 ? <Eye size={16} /> : <EyeOff size={16} />}
               </span>
             </div>
-            {errors.confirmPassword && <p className="mt-1 text-xs text-red-500">{errors.confirmPassword.message}</p>}
+            {errors.confirmPassword && (
+              <p className="mt-1 text-xs text-red-500">
+                {errors.confirmPassword.message}
+              </p>
+            )}
           </div>
         </div>
 
         {/* Terms */}
         <div className="my-4 text-sm">
           <label className="flex items-start gap-3 cursor-pointer">
-            <span className={`w-4 h-4 flex justify-center items-center border rounded-sm mt-0.5 ${checked ? "border-[#81FB84] bg-black" : "border-[#666666] bg-black"}`}>
+            <span
+              className={`w-4 h-4 flex justify-center items-center border rounded-sm mt-0.5 ${
+                checked
+                  ? "border-[#81FB84] bg-black"
+                  : "border-[#666666] bg-black"
+              }`}
+            >
               {checked && <Check size={14} className="text-[#81FB84]" />}
             </span>
-            <input type="checkbox" checked={checked} onChange={(e) => setChecked(e.target.checked)} className="hidden" />
+            <input
+              type="checkbox"
+              checked={checked}
+              onChange={(e) => setChecked(e.target.checked)}
+              className="hidden"
+            />
             <span className="text-sm flex gap-3">
               {t.terms.split("terms of service")[0]}
-              <Link to="/tearms-and-condition" target="_blank" className="text-[#81FB84] underline">terms of service</Link>
+              <Link
+                to="/tearms-and-condition"
+                target="_blank"
+                className="text-[#81FB84] underline"
+              >
+                terms of service
+              </Link>
               {t.terms.split("privacy policy")[1]}
-             
-              <Link to="/privacy-policy" target="_blank" className="text-[#81FB84] underline">privacy policy</Link>
+
+              <Link
+                to="/privacy-policy"
+                target="_blank"
+                className="text-[#81FB84] underline"
+              >
+                privacy policy
+              </Link>
             </span>
           </label>
-          {!checked && serverError === t.agreeError && <p className="mt-1 text-xs text-red-500">{serverError}</p>}
+          {!checked && serverError === t.agreeError && (
+            <p className="mt-1 text-xs text-red-500">{serverError}</p>
+          )}
         </div>
 
         {/* Submit */}
         <button
           type="submit"
           disabled={signUpMutation.isPending}
-          className={`w-full ${signUpMutation.isPending ? "bg-gray-400" : "bg-[#FFF]"} text-black py-2 my-3 text-sm font-medium rounded-lg flex justify-center items-center gap-2`}
+          className={`w-full ${
+            signUpMutation.isPending ? "bg-gray-400" : "bg-[#FFF]"
+          } text-black py-2 my-3 text-sm font-medium rounded-lg flex justify-center items-center gap-2`}
         >
           {signUpMutation.isPending ? t.processing : t.signUp}
         </button>
@@ -268,7 +351,9 @@ const SignUp = () => {
         <p className="text-center text-sm my-3">
           {t.alreadyAccount}{" "}
           <Link to={"/sign-in"}>
-            <span className="font-medium cursor-pointer text-[#81FB84] underline">{t.signIn}</span>
+            <span className="font-medium cursor-pointer text-[#81FB84] underline">
+              {t.signIn}
+            </span>
           </Link>
         </p>
       </form>

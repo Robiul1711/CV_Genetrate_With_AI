@@ -21,7 +21,7 @@ const ResumeNineEdit = () => {
   const { watch } = useFormContext();
   const formData = watch();
   const [profilePreview, setProfilePreview] = useState(Cv9);
-  const { langage } = useEmail();
+  const { language } = useEmail();
   // Merge formData and context data
   const resumeData = {
     first_name: formData?.first_name || allRedumeData?.data?.first_name || "",
@@ -81,7 +81,7 @@ const ResumeNineEdit = () => {
         {/* Header */}
         <div className="flex flex-col z-10 justify-center items-center gap-4">
           <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
-            {langage === "en" ? "The resume of" : "Le CV de"}
+            {language === "en" ? "The resume of" : "Le CV de"}
           </p>
           <h1 style={{ color: resumeData?.resume_color || color || "" }} className="text-[32px] tracking-[7px] playfair leading-[48px] text-[#0D0D0D] font-bold">
             {resumeData.first_name} {resumeData.last_name}
@@ -181,7 +181,7 @@ const ResumeNineEdit = () => {
         <div className="flex flex-row gap-4 mt-2">
           <div className="w-[250px] p-6 bg-[#B0B3AC] flex flex-col gap-3">
             <p className="uppercase text-sm font-medium leading-5 text-white !urbanist text-center">
-              {langage === "en" ? "Education" : "Ausbildung"}
+              {language === "en" ? "Education" : "Ausbildung"}
             </p>
             <div className="flex flex-col gap-3">
               {resumeData.educations.map((edu, index) => (
@@ -204,10 +204,12 @@ const ResumeNineEdit = () => {
             </div>
           </div>
 
-          <div className="flex-1 flex flex-col gap-4">
+          {
+            resumeData.work_experiences?.length > 0 &&(
+              <div className="flex-1 flex flex-col gap-4">
             <div className="w-[90%] px-[60px] py-6 bg-[#293946] text-center">
               <p className="leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
-                {langage === "en" ? "Experience" : "Erfahrung"}
+                {language === "en" ? "Experience" : "Erfahrung"}
               </p>
             </div>
             <div className="flex flex-col gap-3 pr-6">
@@ -237,13 +239,15 @@ const ResumeNineEdit = () => {
               </span>
             </div>
           </div>
+            )
+          }
         </div>
 
         {/* Skills and Trainings */}
         <div className="flex gap-4 mt-4">
           <div className="flex flex-col w-[250px] gap-3">
             <p className="leading-5 text-sm font-medium text-[#0D0D0D] uppercase !urbanist">
-              {langage === "en" ? "Skills" : "Fähigkeiten"}
+              {language === "en" ? "Skills" : "Fähigkeiten"}
             </p>
             <div className="flex flex-col gap-1">
               {resumeData.skills.map((skill, index) => (
@@ -257,10 +261,10 @@ const ResumeNineEdit = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 flex-1 -mt-12">
+          <div className={`flex flex-col gap-4 flex-1 ${resumeData.work_experiences?.length > 0 ? "-mt-12":"-mt-40"}`}>
             <div className="w-[90%] px-[60px] py-6 bg-[#293946] text-center">
               <p className="leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
-                {langage === "en" ? "Trainings" : "Ausbildung"}
+                {language === "en" ? "Trainings" : "Ausbildung"}
               </p>
             </div>
             <div className="flex flex-col gap-3 pr-4">

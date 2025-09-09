@@ -52,23 +52,21 @@ const textMap = {
 };
 
 const CreateNewResume = () => {
-
   const { setAllResumeData } = useResume();
   // const [activeStep, setActiveStep] = useState(0);
   const [resumeId, setResumeId] = useState(null);
   const [isCreatingResume, setIsCreatingResume] = useState(false);
   const axiosSecure = useAxiosSecure();
-  const { language,activeStep, setActiveStep} = useEmail(); // 'en' or 'de'
+  const { language, activeStep, setActiveStep } = useEmail(); // 'en' or 'de'
   const methods = useForm({
     mode: "onChange",
-    defaultValues: { work_experiences: [], resume_language: "en" },
   });
 
   const resume_language = language;
   const t = textMap[resume_language];
-  const location =useLocation()
+  const location = useLocation();
 
-    useEffect(() => {
+  useEffect(() => {
     if (location.state?.step) {
       setActiveStep(location.state.step); // 👈 keep 9
     } else {
@@ -141,8 +139,11 @@ const CreateNewResume = () => {
       label: resume_language === "de" ? "Sprache" : "Language",
       component: <SelectLangaugeStep />,
     },
-         {
-      label: resume_language === "de" ? "Stimme des Dokuments anpassen" : "Tailor Your Document’s Voice",
+    {
+      label:
+        resume_language === "de"
+          ? "Stimme des Dokuments anpassen"
+          : "Tailor Your Document’s Voice",
       component: <TailorStep />,
     },
     {
@@ -171,11 +172,41 @@ const CreateNewResume = () => {
     if (activeStep > 0) setActiveStep((prev) => prev - 1);
   };
 
+  // const onSubmit = (data) => {
+  //   data.goal = String(data.goal).trim();
+  //   console.log(data);
+  //   if (activeStep === 8) ResumeMutation.mutate(data);
+  //   else handleNext();
+  // };
+
   const onSubmit = (data) => {
     data.goal = String(data.goal).trim();
+
+    // Check if work_experiences exists and filter out empty ones
+    if (data.work_experiences && Array.isArray(data.work_experiences)) {
+      data.work_experiences = data.work_experiences.filter(
+        (exp) =>
+          exp.job_title.trim() !== "" ||
+          exp.company_name.trim() !== "" ||
+          exp.start_date.trim() !== "" ||
+          exp.end_date !== null ||
+          exp.still_working_here === true ||
+          exp.responsibilities.trim() !== ""
+      );
+
+      // If nothing left after filtering, remove work_experiences
+      if (data.work_experiences.length === 0) {
+        delete data.work_experiences;
+      }
+    }
+
     console.log(data);
-    if (activeStep === 8) ResumeMutation.mutate(data);
-    else handleNext();
+
+    if (activeStep === 8) {
+      ResumeMutation.mutate(data);
+    } else {
+      handleNext();
+    }
   };
 
   return (
@@ -220,32 +251,31 @@ const CreateNewResume = () => {
             <div />
           )}
 
-     {activeStep === 8 ? (   // Generate happens at Step8 now
-  <button
-    type="submit"
-    className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-    disabled={isCreatingResume}
-  >
-    {isCreatingResume ? t.generating : t.generate}
-  </button>
-) : activeStep === steps.length - 1 ? (
-  <Link
-    to={`/dashboard/edit-resume/${resumeId}`}
-    className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md flex items-center gap-2 hover:bg-white hover:text-black transition-colors duration-300"
-  >
-    <Edit size={18} /> {t.editResume}
-  </Link>
-) : (
-  <button
-    type="button"
-    className="font-semibold border border-white bg-white text-black px-3 py-2 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:cursor-not-allowed"
-    onClick={methods.handleSubmit(() => handleNext())}
-    disabled={isCreatingResume}
-  >
-    {activeStep === 9 ? t.chooseTemplate : t.next}
-  </button>
-)}
-
+          {activeStep === 8 ? ( // Generate happens at Step8 now
+            <button
+              type="submit"
+              className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              disabled={isCreatingResume}
+            >
+              {isCreatingResume ? t.generating : t.generate}
+            </button>
+          ) : activeStep === steps.length - 1 ? (
+            <Link
+              to={`/dashboard/edit-resume/${resumeId}`}
+              className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md flex items-center gap-2 hover:bg-white hover:text-black transition-colors duration-300"
+            >
+              <Edit size={18} /> {t.editResume}
+            </Link>
+          ) : (
+            <button
+              type="button"
+              className="font-semibold border border-white bg-white text-black px-3 py-2 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:cursor-not-allowed"
+              onClick={methods.handleSubmit(() => handleNext())}
+              disabled={isCreatingResume}
+            >
+              {activeStep === 9 ? t.chooseTemplate : t.next}
+            </button>
+          )}
         </div>
       </form>
     </FormProvider>

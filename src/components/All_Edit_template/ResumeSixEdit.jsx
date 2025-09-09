@@ -117,7 +117,9 @@ console.log(color);
           {/* Left Column */}
           <div className="w-[50%] space-y-4 rounded-md">
             {/* EXPERIENCE */}
-            <div>
+           {
+            resumeData.work_experiences?.length > 0 &&(
+               <div>
               <div className="flex pb-3 items-center gap-1">
                 <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px] uppercase">
                  {language === "de" ? "Erfahrung" : "Experience"}
@@ -152,6 +154,8 @@ console.log(color);
                 ))}
               </div>
             </div>
+            )
+           }
 
             {/* EDUCATION */}
             <div>

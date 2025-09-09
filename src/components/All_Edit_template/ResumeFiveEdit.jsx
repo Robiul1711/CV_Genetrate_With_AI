@@ -164,7 +164,9 @@ const ResumeFiveEdit = () => {
               </h2>
               <p className="text-xs leading-[18px]">{about}</p>
             </div>
-            <div>
+ {
+work_experiences?.length > 0 &&(
+             <div>
               {/* EXPERIENCE */}
               <h2
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
@@ -190,6 +192,8 @@ const ResumeFiveEdit = () => {
                 ))}
               </div>
             </div>
+)
+ }
             <div>
               {/* TRAINING */}
               <h2
