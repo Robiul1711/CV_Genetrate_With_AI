@@ -143,7 +143,7 @@ const UpdateExistingResumeEdit = () => {
         <form onSubmit={methods.handleSubmit(onSubmit)} className="mt-3">
           <div className="mt-5 flex flex-col lg:flex-row gap-5 lg:gap-10 justify-between">
             {/* Left Image / PDF */}
-            <div className="lg:w-1/2 w-full max-h-[80vh] overflow-y-auto border border-[#262626] rounded-xl p-2 bg-[#0E0E10]">
+            <div className=" w-1/2  border border-[#262626] rounded-xl p-2 bg-[#0E0E10]">
               {selectedResume ? (
                 selectedResume.cvComponet
               ) : (
@@ -156,7 +156,7 @@ const UpdateExistingResumeEdit = () => {
             </div>
 
             {/* Right Content */}
-            <div className="lg:w-1/2 w-full">
+            <div className=" lg:w-[40%] w-full">
               {/* Top buttons - Tab Navigation */}
               <div className="lg:p-4 p-2 rounded-xl bg-[#0E0E10] flex items-center justify-center gap-3 border border-[#262626]">
                 <button
