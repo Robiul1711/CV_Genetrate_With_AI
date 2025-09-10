@@ -101,7 +101,7 @@ const ResumeChoose = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
                   {/* Edit Button */}
                   <button
                     onClick={() => {
-                      IdSetupMutation.mutate({ template_id: item.id });
+                      // IdSetupMutation.mutate({ template_id: item.id });
                       navigate(`/dashboard/update-existing-resume-edit/${item.id}`);
                       
                     }}
@@ -111,16 +111,15 @@ const ResumeChoose = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
                   </button>
 
                   {/* Preview Button */}
-                  <button
+                  {/* <button
                     onClick={() => {
                       IdSetupMutation.mutate({ template_id: item.id });
-                      setActiveStep(activeStep + 1, item.id);
                       setResumeId(item.id);
                     }}
                     className="border px-2 py-1 bg-black/40 rounded-full flex items-center gap-2 text-white hover:bg-black/60 transition"
                   >
                     {IdSetupMutation.isPending ? t.preparing : t.preview} <FaEye size={14} />
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
