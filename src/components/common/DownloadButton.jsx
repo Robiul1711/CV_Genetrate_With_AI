@@ -233,21 +233,21 @@ const DownloadButton = ({ resumeRef }) => {
 
   const handleDownload = async () => {
     // Subscription check (optional)
-    // if (!canDownload()) {
-    //   Swal.fire({
-    //     title: "No Active Subscription or Credits",
-    //     text: "You can't download because your subscription is expired and you have no remaining credits.",
-    //     icon: "info",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#000",
-    //     cancelButtonColor: "#d33",
-    //     confirmButtonText: "Upgrade Plan",
-    //     cancelButtonText: "Close",
-    //   }).then((result) => {
-    //     if (result.isConfirmed) window.location.href = "/price";
-    //   });
-    //   return;
-    // }
+    if (!canDownload()) {
+      Swal.fire({
+        title: "No Active Subscription or Credits",
+        text: "You can't download because your subscription is expired and you have no remaining credits.",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#000",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Upgrade Plan",
+        cancelButtonText: "Close",
+      }).then((result) => {
+        if (result.isConfirmed) window.location.href = "/price";
+      });
+      return;
+    }
     await handleDownloadPDF();
   };
 
