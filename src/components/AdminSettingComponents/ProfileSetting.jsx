@@ -8,6 +8,8 @@ import { useAuth } from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import ProfileImage from "./ProfileImage";
 import { useEmail } from "@/hooks/useEmail"; // Custom hook for language
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const ProfileSetting = ({ userData }) => {
   const [isEditing, setIsEditing] = useState(false);
