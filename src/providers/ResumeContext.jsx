@@ -16,6 +16,9 @@ export const ResumeProvider = ({ children }) => {
   const [color, setColor] = useState(() => {
     return localStorage.getItem("resumeColor") || "";
   });
+  const [font, setFont] = useState(() => {
+    return localStorage.getItem("resumeFont") || "";
+  });
 
   // Save to localStorage whenever state changes
   useEffect(() => {
@@ -41,6 +44,8 @@ export const ResumeProvider = ({ children }) => {
         setImageString,
         color,
         setColor,
+        font,
+        setFont
       }}
     >
       {children}

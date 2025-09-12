@@ -17,11 +17,23 @@ import { useEmail } from "@/hooks/useEmail";
 
 const ResumeNineEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-    const { allRedumeData, color, setColor } = useResume();
+  const { allRedumeData, color, setColor, font } = useResume();
   const { watch } = useFormContext();
   const formData = watch();
   const [profilePreview, setProfilePreview] = useState(Cv9);
   const { language } = useEmail();
+
+  // Dynamic font map
+  const fontMap = {
+    inter: "Inter, sans-serif",
+    poppins: "Poppins, sans-serif",
+    urbanist: "Urbanist, sans-serif",
+    roboto: "Roboto, sans-serif",
+    lato: "Lato, sans-serif",
+    playfair: "Playfair Display, serif",
+  };
+  const appliedFont = fontMap[font] || "Urbanist, sans-serif";
+
   // Merge formData and context data
   const resumeData = {
     first_name: formData?.first_name || allRedumeData?.data?.first_name || "",
@@ -36,9 +48,7 @@ const ResumeNineEdit = () => {
     email: formData?.email || allRedumeData?.data?.email || "",
     address: formData?.address || allRedumeData?.data?.address || "",
     linked_in_profile:
-      formData?.linked_in_profile ||
-      allRedumeData?.data?.linked_in_profile ||
-      "",
+      formData?.linked_in_profile || allRedumeData?.data?.linked_in_profile || "",
     xing_profile:
       formData?.xing_profile || allRedumeData?.data?.xing_profile || "",
     educations: formData?.educations || allRedumeData?.data?.educations || [],
@@ -53,10 +63,7 @@ const ResumeNineEdit = () => {
 
   // Set profile photo preview
   useEffect(() => {
-    if (
-      formData?.profile_photo &&
-      !formData.profile_photo.startsWith("/media")
-    ) {
+    if (formData?.profile_photo && !formData.profile_photo.startsWith("/media")) {
       setProfilePreview(formData.profile_photo);
     } else if (resumeData.profile_photo) {
       setProfilePreview(VITE_IMG_URL + resumeData.profile_photo);
@@ -66,12 +73,13 @@ const ResumeNineEdit = () => {
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
   const resumeRef = useRef();
-    useEffect(() => {
-      setColor("");
-    }, []);
+
+  useEffect(() => {
+    setColor("");
+  }, []);
 
   return (
-    <div className=" min-h-screen">
+    <div className="min-h-screen" style={{ fontFamily: appliedFont }}>
       <DownloadButton resumeRef={resumeRef} />
 
       <div
@@ -83,7 +91,10 @@ const ResumeNineEdit = () => {
           <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
             {language === "en" ? "The resume of" : "Le CV de"}
           </p>
-          <h1 style={{ color: resumeData?.resume_color || color || "" }} className="text-[32px] tracking-[7px] playfair leading-[48px] text-[#0D0D0D] font-bold">
+          <h1
+            style={{ color: resumeData?.resume_color || color || "" }}
+            className="text-[32px] tracking-[7px]  leading-[48px] text-[#0D0D0D] font-bold"
+          >
             {resumeData.first_name} {resumeData.last_name}
           </h1>
         </div>
@@ -91,7 +102,10 @@ const ResumeNineEdit = () => {
         <div className="w-full flex gap-6">
           {/* Profile Image */}
           <div className="w-1/3 relative h-[200px] -mt-5">
-            <div style={{ backgroundColor: resumeData?.resume_color || color || "" }}  className="absolute inset-0 bg-[#F7DCD1]"></div>
+            <div
+              style={{ backgroundColor: resumeData?.resume_color || color || "" }}
+              className="absolute inset-0 bg-[#F7DCD1]"
+            ></div>
             <div className="w-[133px] h-[166px] relative top-16 left-20">
               <img
                 src={profilePreview}
@@ -204,43 +218,41 @@ const ResumeNineEdit = () => {
             </div>
           </div>
 
-          {
-            resumeData.work_experiences?.length > 0 &&(
-              <div className="flex-1 flex flex-col gap-4">
-            <div className="w-[90%] px-[60px] py-6 bg-[#293946] text-center">
-              <p className="leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
-                {language === "en" ? "Experience" : "Erfahrung"}
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 pr-6">
-              {resumeData.work_experiences.map((exp, index) => (
-                <div key={index} className="flex flex-col gap-2">
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-center gap-2 w-full justify-between">
-                      <p className="text-sm font-semibold leading-5 !urbanist text-[#171717]">
-                        {exp.job_title}
-                      </p>
-                      <p className="text-xs font-semibold leading-5 !urbanist text-[#171717]">
-                        {dayjs(exp.start_date).format("MMM YYYY")} -{" "}
-                        {dayjs(exp.end_date).format("MMM YYYY")}
+          {resumeData.work_experiences?.length > 0 && (
+            <div className="flex-1 flex flex-col gap-4">
+              <div className="w-[90%] px-[60px] py-6 bg-[#293946] text-center">
+                <p className="leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
+                  {language === "en" ? "Experience" : "Erfahrung"}
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 pr-6">
+                {resumeData.work_experiences.map((exp, index) => (
+                  <div key={index} className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-2 w-full justify-between">
+                        <p className="text-sm font-semibold leading-5 !urbanist text-[#171717]">
+                          {exp.job_title}
+                        </p>
+                        <p className="text-xs font-semibold leading-5 !urbanist text-[#171717]">
+                          {dayjs(exp.start_date).format("MMM YYYY")} -{" "}
+                          {dayjs(exp.end_date).format("MMM YYYY")}
+                        </p>
+                      </div>
+                      <p className="leading-4 !urbanist text-xs text-[#171717] font-medium">
+                        {exp.company_name}
                       </p>
                     </div>
-                    <p className="leading-4 !urbanist text-xs text-[#171717] font-medium">
-                      {exp.company_name}
+                    <p className="leading-4 !urbanist text-xs text-[#171717] font-normal pr-4">
+                      {exp.responsibilities}
                     </p>
                   </div>
-                  <p className="leading-4 !urbanist text-xs text-[#171717] font-normal pr-4">
-                    {exp.responsibilities}
-                  </p>
-                </div>
-              ))}
-              <span>
-                <AkabakaIcon />
-              </span>
+                ))}
+                <span>
+                  <AkabakaIcon />
+                </span>
+              </div>
             </div>
-          </div>
-            )
-          }
+          )}
         </div>
 
         {/* Skills and Trainings */}
@@ -261,7 +273,11 @@ const ResumeNineEdit = () => {
             </div>
           </div>
 
-          <div className={`flex flex-col gap-4 flex-1 ${resumeData.work_experiences?.length > 0 ? "-mt-12":"-mt-40"}`}>
+          <div
+            className={`flex flex-col gap-4 flex-1 ${
+              resumeData.work_experiences?.length > 0 ? "-mt-12" : "-mt-40"
+            }`}
+          >
             <div className="w-[90%] px-[60px] py-6 bg-[#293946] text-center">
               <p className="leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
                 {language === "en" ? "Trainings" : "Ausbildung"}

@@ -157,7 +157,7 @@ const EditResumePage = () => {
 
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="mt-3">
-          <div className="mt-5 flex xl:flex-row flex-col-reverse gap-5 md:gap-10 justify-between">
+          <div className="mt-5 flex xlg:flex-row flex-col-reverse gap-5 md:gap-10 justify-between">
             {/* Left Image / Resume Preview */}
             <div className=" overflow-x-auto">
               {selectedResume ? (
@@ -202,7 +202,7 @@ const EditResumePage = () => {
                 ) : (
                   <>
                     {/* Step Nav */}
-                    <div className="mt-3 flex flex-wrap items-center gap-4 sm:gap-0 sm:justify-between border-b">
+                    <div className="mt-3 flex flex-wrap items-center gap-4   border-b">
                       {steps.map((step, index) => (
                         <Title
                           key={index}

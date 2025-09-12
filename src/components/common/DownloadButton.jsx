@@ -166,56 +166,44 @@ const DownloadButton = ({ resumeRef }) => {
       )
     );
   };
+  const waitForFonts = async () => {
+  if (document.fonts) {
+    await document.fonts.ready;
+  }
+};
 
-  const handleDownloadPDF = async () => {
-    if (!resumeRef.current) return;
+const handleDownloadPDF = async () => {
+  if (!resumeRef.current) return;
+  try {
+    setLoading(true);
+    await waitForFonts(); // <-- ensure fonts are loaded
+    await waitForImages(resumeRef.current); // wait for images
 
-    try {
-      setLoading(true);
-      await waitForImages(resumeRef.current);
+    const dataUrl = await htmlToImage.toJpeg(resumeRef.current, {
+      quality: 1,
+      cacheBust: true,
+      pixelRatio: 1.8,
+    });
 
-      let dataUrl;
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
 
-      try {
-        // Use JPEG instead of PNG to reduce file size
-        dataUrl = await htmlToImage.toJpeg(resumeRef.current, {
-          quality: 1, // Compress image
-          cacheBust: true,
-          pixelRatio: 1.8, // moderate resolution
-        });
-      } catch (err) {
-        console.warn("toJpeg failed, using toCanvas fallback:", err);
-        const canvas = await htmlToImage.toCanvas(resumeRef.current, {
-          cacheBust: true,
-          pixelRatio: 1.8,
-        });
-        dataUrl = canvas.toDataURL("image/jpeg", 0.85);
-      }
+    const imgProps = pdf.getImageProperties(dataUrl);
+    const imgWidth = pdfWidth;
+    const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-      const pdf = new jsPDF("p", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
+    const finalHeight = imgHeight > pdfHeight ? pdfHeight : imgHeight;
+    pdf.addImage(dataUrl, "JPEG", 0, 0, pdfWidth, finalHeight);
+    pdf.save(`${resumeName}.pdf`);
+  } catch (err) {
+    console.error(err);
+    Swal.fire("Error", "Something went wrong while downloading PDF.", "error");
+  } finally {
+    setLoading(false);
+  }
+};
 
-      const imgProps = pdf.getImageProperties(dataUrl);
-      const imgWidth = pdfWidth;
-      const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-      // Scale down if image height exceeds page height
-      const finalHeight = imgHeight > pdfHeight ? pdfHeight : imgHeight;
-
-      pdf.addImage(dataUrl, "JPEG", 0, 0, pdfWidth, finalHeight);
-      pdf.save(`${resumeName}.pdf`);
-    } catch (err) {
-      console.error("PDF download error:", err);
-      Swal.fire(
-        "Error",
-        "Something went wrong while downloading PDF. Please try again.",
-        "error"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const canDownload = () => {
     const sub = user?.subscription;
@@ -233,21 +221,21 @@ const DownloadButton = ({ resumeRef }) => {
 
   const handleDownload = async () => {
     // Subscription check (optional)
-    if (!canDownload()) {
-      Swal.fire({
-        title: "No Active Subscription or Credits",
-        text: "You can't download because your subscription is expired and you have no remaining credits.",
-        icon: "info",
-        showCancelButton: true,
-        confirmButtonColor: "#000",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Upgrade Plan",
-        cancelButtonText: "Close",
-      }).then((result) => {
-        if (result.isConfirmed) window.location.href = "/price";
-      });
-      return;
-    }
+    // if (!canDownload()) {
+    //   Swal.fire({
+    //     title: "No Active Subscription or Credits",
+    //     text: "You can't download because your subscription is expired and you have no remaining credits.",
+    //     icon: "info",
+    //     showCancelButton: true,
+    //     confirmButtonColor: "#000",
+    //     cancelButtonColor: "#d33",
+    //     confirmButtonText: "Upgrade Plan",
+    //     cancelButtonText: "Close",
+    //   }).then((result) => {
+    //     if (result.isConfirmed) window.location.href = "/price";
+    //   });
+    //   return;
+    // }
     await handleDownloadPDF();
   };
 

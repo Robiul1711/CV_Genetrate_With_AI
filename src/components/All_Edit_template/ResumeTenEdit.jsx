@@ -16,15 +16,24 @@ import { useEmail } from "@/hooks/useEmail";
 
 const ResumeTenEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-  const { allRedumeData, color, setColor } = useResume();
-  console.log(allRedumeData?.data?.resume_color);
+  const { allRedumeData, color, setColor, font } = useResume(); // Added font
   const { watch } = useFormContext();
   const formData = watch();
   const resumeRef = useRef(null);
   const [profilePreview, setProfilePreview] = useState(user);
   const { language } = useEmail();
 
-  
+  // Dynamic font map
+  const fontMap = {
+    inter: "Inter, sans-serif",
+    poppins: "Poppins, sans-serif",
+    urbanist: "Urbanist, sans-serif",
+    roboto: "Roboto, sans-serif",
+    lato: "Lato, sans-serif",
+    playfair: "Playfair Display, serif",
+  };
+  const appliedFont = fontMap[font] || "Urbanist, sans-serif";
+
   // Merge formData and context data
   const resume_color = color || allRedumeData?.data?.resume_color;
   const resumeData = {
@@ -33,8 +42,7 @@ const ResumeTenEdit = () => {
     job_title: formData?.job_title || allRedumeData?.data?.job_title || "",
     resume_color: color || allRedumeData?.data?.resume_color || "",
     about: formData?.about || allRedumeData?.data?.about || "",
-    profile_photo:
-       allRedumeData?.data?.profile_photo || "",
+    profile_photo: allRedumeData?.data?.profile_photo || "",
     phone_number:
       formData?.phone_number || allRedumeData?.data?.phone_number || "",
     email: formData?.email || allRedumeData?.data?.email || "",
@@ -70,22 +78,24 @@ const ResumeTenEdit = () => {
     }
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
-  // PDF download
+  // Reset color on mount
   useEffect(() => {
     setColor("");
   }, []);
 
-  console.log(profilePreview)
   return (
     <div className="min-h-screen">
       <DownloadButton resumeRef={resumeRef} />
 
       <div
         ref={resumeRef}
-        className="bg-white text-black w-[210mm] mx-auto !urbanist h-[297mm] overflow-hidden "
+        className="bg-white text-black w-[210mm] mx-auto !urbanist h-[297mm] overflow-hidden"
+        style={{
+          fontFamily: appliedFont, // Apply dynamic font
+        }}
       >
         {/* Left Column */}
-        <div className="flex justify-between w-full h-full ">
+        <div className="flex justify-between w-full h-full">
           <div
             className="w-[40%] space-y-6 text-white py-10"
             style={{
@@ -148,24 +158,22 @@ const ResumeTenEdit = () => {
                 {language === "en" ? "Training" : "Training"}
               </h2>
               <div className="space-y-3">
-                {resumeData.courses_and_training_details.map(
-                  (training, idx) => (
-                    <div key={idx} className="px-4 space-y-1">
-                      <p className="font-medium leading-[18px] text-xs">
-                        {training.name_of_institute}
-                      </p>
-                      <p className="text-xs leading-[18px] font-medium">
-                        {training.course_name}
-                      </p>
-                      <p className="text-xs leading-[20px]">
-                        {dayjs(training.start_date).format("MMMM YYYY")} –{" "}
-                        {training.end_date
-                          ? dayjs(training.end_date).format("MMMM YYYY")
-                          : "Present"}
-                      </p>
-                    </div>
-                  )
-                )}
+                {resumeData.courses_and_training_details.map((training, idx) => (
+                  <div key={idx} className="px-4 space-y-1">
+                    <p className="font-medium leading-[18px] text-xs">
+                      {training.name_of_institute}
+                    </p>
+                    <p className="text-xs leading-[18px] font-medium">
+                      {training.course_name}
+                    </p>
+                    <p className="text-xs leading-[20px]">
+                      {dayjs(training.start_date).format("MMMM YYYY")} –{" "}
+                      {training.end_date
+                        ? dayjs(training.end_date).format("MMMM YYYY")
+                        : "Present"}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -245,37 +253,35 @@ const ResumeTenEdit = () => {
               </div>
             </div>
 
-               {
-                resumeData.work_experiences?.length > 0 && (
-                       <div>
-              <h2 className="text-sm font-semibold tracking-[2px] uppercase mb-3 leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {language === "en" ? "Experience" : "Erfahrung"}
-              </h2>
-              <div className="space-y-3 px-4">
-                {resumeData.work_experiences.map((exp, idx) => (
-                  <div key={idx} className="space-y-1">
-                    <p className="font-medium leading-[18px] text-xs">
-                      {exp.job_title}
-                    </p>
-                    <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
-                      {exp.company_name}
-                      <span>
-                        {dayjs(exp.start_date).format("MMM YYYY")} –{" "}
-                        {exp.end_date
-                          ? dayjs(exp.end_date).format("MMM YYYY")
-                          : "Present"}
-                      </span>
-                    </p>
-                    <p className="text-xs leading-[20px] mt-2">
-                      {exp.responsibilities}
-                    </p>
-                  </div>
-                ))}
+            {/* Work Experience */}
+            {resumeData.work_experiences?.length > 0 && (
+              <div>
+                <h2 className="text-sm font-semibold tracking-[2px] uppercase mb-3 leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
+                  {language === "en" ? "Experience" : "Erfahrung"}
+                </h2>
+                <div className="space-y-3 px-4">
+                  {resumeData.work_experiences.map((exp, idx) => (
+                    <div key={idx} className="space-y-1">
+                      <p className="font-medium leading-[18px] text-xs">
+                        {exp.job_title}
+                      </p>
+                      <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
+                        {exp.company_name}
+                        <span>
+                          {dayjs(exp.start_date).format("MMM YYYY")} –{" "}
+                          {exp.end_date
+                            ? dayjs(exp.end_date).format("MMM YYYY")
+                            : "Present"}
+                        </span>
+                      </p>
+                      <p className="text-xs leading-[20px] mt-2">
+                        {exp.responsibilities}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-                )
-               }
-       
+            )}
           </div>
         </div>
       </div>
