@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,6 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useResume } from "@/providers/ResumeContext";
 import { useEmail } from "@/hooks/useEmail";
 import { DocumentIcon } from "@/components/AllIcons/DashboardAllIcons";
-import Title from "@/components/common/Title";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Progress } from "@/components/ui/progress";
 import LanguageList from "language-list";
@@ -39,12 +38,12 @@ const Creativity = [
   { id: 3, title_en: "Highly Creative", title_de: "Sehr Kreativ" },
 ];
 
-// Get all languages
+// Languages
 const allLanguages = new LanguageList().getData();
 
 const UploadAResume = () => {
   const axiosSecure = useAxiosSecure();
-  const { language, activeStep, setActiveStep } = useEmail();
+  const { language } = useEmail();
   const navigate = useNavigate();
   const { setAllResumeData } = useResume();
 
@@ -92,8 +91,6 @@ const UploadAResume = () => {
   const {
     control,
     handleSubmit,
-    watch,
-    register,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -105,63 +102,69 @@ const UploadAResume = () => {
     },
   });
 
-  const getTitle = (item) =>
-    language === "de" ? item.title_de : item.title_en;
+  const getTitle = (item) => (language === "de" ? item.title_de : item.title_en);
 
-  // Mutation
-  const { mutate, isLoading, isSuccess, isError } = useMutation({
+  // API call only on submit
+  const { mutate, isLoading } = useMutation({
     mutationFn: async (formData) => {
       const res = await axiosSecure.post(
         `/upload-existing-resume/?lan=${language}`,
         formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-          onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            setUploadProgress(percentCompleted);
-          },
-        }
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
       return res.data;
     },
     onSuccess: (data) => {
       setUploading(false);
       setAllResumeData({ data: data?.data });
+      toast.success(t.success);
       navigate("/dashboard/choose-resume");
     },
     onError: (error) => {
       setUploading(false);
       console.error("Upload failed:", error);
-      toast.error(error?.response?.data?.errors);
+      toast.error(error?.response?.data?.errors || t.error);
     },
   });
 
+  // Handle file select: just show progress bar (simulate)
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      setUploadProgress(0);
-    }
+    if (!selectedFile) return;
+
+    setFile(selectedFile);
+    setUploadProgress(0);
+    setUploading(true);
+
+    // Simulate progress bar locally
+    const interval = setInterval(() => {
+      setUploadProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setUploading(false);
+          return 100;
+        }
+        return prev + 5;
+      });
+    }, 50);
   };
 
   const handleRemove = () => {
     setFile(null);
     setUploadProgress(0);
+    setUploading(false);
   };
 
   const onSubmitFile = (data) => {
-    if (!file) return;
+    if (!file) {
+      toast.error(language === "de" ? "Bitte wählen Sie zuerst eine Datei aus." : "Please select a file first.");
+      return;
+    }
+
     setUploading(true);
     const formData = new FormData();
     formData.append("upload_resume", file);
-
-    // Add selected dropdown values
-    formData.append(
-      "tailor_documents_voice",
-      getTitle(data.tailor_documents_voice)
-    );
+    formData.append("tailor_documents_voice", getTitle(data.tailor_documents_voice));
     formData.append("gender_language_style", getTitle(data.gender_language));
     formData.append("complexity", getTitle(data.complexity));
     formData.append("creativity", getTitle(data.creativity));
@@ -170,7 +173,6 @@ const UploadAResume = () => {
     mutate(formData);
   };
 
-  // Dropdown render helper
   const renderSelect = (name, options, label) => (
     <div className="flex flex-col gap-2">
       <label className="text-sm font-medium text-gray-300">{label}</label>
@@ -183,8 +185,8 @@ const UploadAResume = () => {
             className="bg-[#1a1a1a] px-4 py-3 text-sm rounded-lg border border-[#333] text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
           >
             {options.map((opt) => (
-              <option key={opt.id || opt.code} value={opt.id || opt.code}>
-                {opt.language || getTitle(opt)}
+              <option key={opt.id} value={opt.id}>
+                {getTitle(opt)}
               </option>
             ))}
           </select>
@@ -195,7 +197,6 @@ const UploadAResume = () => {
 
   return (
     <div className="max-w-4xl mx-auto w-full px-4 py-8">
-      {/* Header Section */}
       <div className="text-center mb-10">
         <h1 className="text-3xl font-bold text-white mb-3">{t.pageTitle}</h1>
         <p className="text-gray-400 max-w-2xl mx-auto">{t.pageSubtitle}</p>
@@ -204,36 +205,23 @@ const UploadAResume = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Upload Section */}
         <div className="bg-[#121212] rounded-xl p-6 border border-[#262626]">
-          <h2 className="text-xl font-semibold text-white mb-4">
-            Upload Resume
-          </h2>
+          <h2 className="text-xl font-semibold text-white mb-4">{t.pageTitle}</h2>
 
           <div className="flex items-center justify-center w-full">
             <label
               htmlFor="dropzone-file"
               className={`flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer transition-colors ${
-                file
-                  ? "border-green-500/30 bg-green-500/10"
-                  : "border-gray-300/30 hover:border-blue-500/50 bg-[#0a0a0a]"
+                file ? "border-green-500/30 bg-green-500/10" : "border-gray-300/30 hover:border-blue-500/50 bg-[#0a0a0a]"
               }`}
             >
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <DocumentIcon
-                  className={`w-10 h-10 mb-4 ${
-                    file ? "text-green-500" : "text-gray-500"
-                  }`}
-                />
+                <DocumentIcon className={`w-10 h-10 mb-4 ${file ? "text-green-500" : "text-gray-500"}`} />
                 <p className="mb-2 text-sm text-gray-400">
                   <span className="font-semibold">{t.clickUpload}</span>
                 </p>
                 <p className="text-xs text-gray-500">{t.allowedFormats}</p>
               </div>
-              <input
-                id="dropzone-file"
-                type="file"
-                className="hidden"
-                onChange={handleFileChange}
-              />
+              <input id="dropzone-file" type="file" className="hidden" onChange={handleFileChange} />
             </label>
           </div>
 
@@ -243,19 +231,11 @@ const UploadAResume = () => {
                 <div className="flex items-center gap-4">
                   <DocumentIcon className="text-blue-500" />
                   <div className="flex flex-col">
-                    <h3 className="text-md font-medium text-white truncate max-w-xs">
-                      {file.name}
-                    </h3>
-                    <p className="text-[#9B9B9B] text-sm">
-                      {Math.round(((uploadProgress / 100) * file.size) / 1024)}{" "}
-                      KB of {Math.round(file.size / 1024)} KB uploaded
-                    </p>
+                    <h3 className="text-md font-medium text-white truncate max-w-xs">{file.name}</h3>
+                    <p className="text-[#9B9B9B] text-sm">{Math.round(((uploadProgress / 100) * file.size) / 1024)} KB of {Math.round(file.size / 1024)} KB</p>
                   </div>
                 </div>
-                <IoIosCloseCircleOutline
-                  className="text-2xl cursor-pointer text-gray-500 hover:text-red-500 transition-colors"
-                  onClick={handleRemove}
-                />
+                <IoIosCloseCircleOutline className="text-2xl cursor-pointer text-gray-500 hover:text-red-500 transition-colors" onClick={handleRemove} />
               </div>
               <div className="mt-4">
                 <Progress value={uploadProgress} className="h-2" />
@@ -271,23 +251,16 @@ const UploadAResume = () => {
 
         {/* Configuration Section */}
         <div className="bg-[#121212] rounded-xl p-6 border border-[#262626]">
-          <h2 className="text-xl font-semibold text-white mb-4">
-            Resume Configuration
-          </h2>
+          <h2 className="text-xl font-semibold text-white mb-4">{t.pageTitle}</h2>
 
-          <form
-            onSubmit={handleSubmit(onSubmitFile)}
-            className="flex flex-col gap-5"
-          >
+          <form onSubmit={handleSubmit(onSubmitFile)} className="flex flex-col gap-5">
             {renderSelect("tailor_documents_voice", Tailor, t.tailorVoice)}
             {renderSelect("gender_language", GenderLanguage, t.genderStyle)}
             {renderSelect("complexity", Complexity, t.complexity)}
             {renderSelect("creativity", Creativity, t.creativity)}
 
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-gray-300">
-                {t.label}
-              </label>
+              <label className="text-sm font-medium text-gray-300">{t.label}</label>
               <Controller
                 control={control}
                 name="converted_language"
@@ -297,42 +270,29 @@ const UploadAResume = () => {
                     {...field}
                     className="bg-[#1a1a1a] px-4 py-3 text-sm rounded-lg border border-[#333] text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   >
-                    <option value="" disabled className="text-gray-500">
-                      {t.placeholder}
-                    </option>
+                    <option value="" disabled className="text-gray-500">{t.placeholder}</option>
                     {allLanguages.map((lang) => (
-                      <option key={lang.code} value={lang.language}>
-                        {lang.language}
-                      </option>
+                      <option key={lang.code} value={lang.language}>{lang.language}</option>
                     ))}
                   </select>
                 )}
               />
-
-              {errors.converted_language && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.converted_language.message}
-                </p>
-              )}
+              {errors.converted_language && <p className="text-red-500 text-xs mt-1">{errors.converted_language.message}</p>}
             </div>
 
             <button
               type="submit"
-              disabled={uploading || isLoading || !file}
               className={`mt-2 font-medium px-6 py-3 text-white rounded-lg transition-colors ${
-                uploading || isLoading || !file
-                  ? "bg-gray-700 cursor-not-allowed"
-                  : "bg-blue-600 hover:bg-blue-700"
+                !file ? "bg-gray-700 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
               }`}
+              disabled={!file || uploading || isLoading}
             >
-              {uploading || isLoading ? (
+              {(uploading || isLoading) ? (
                 <div className="flex items-center justify-center gap-2">
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   {t.uploading}
                 </div>
-              ) : (
-                t.submit
-              )}
+              ) : t.submit}
             </button>
           </form>
         </div>
