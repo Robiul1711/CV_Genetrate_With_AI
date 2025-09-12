@@ -113,7 +113,7 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
                 <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
                   {language === "de" ? "Fähigkeiten" : "Skills"}
                 </h2>
-                <ul className="text-xs space-y-3">
+                <ul className="text-xs  flex gap-3 flex-wrap">
                   {skills.map((skill, idx) => (
                     <li key={idx}>{skill?.skill}</li>
                   ))}

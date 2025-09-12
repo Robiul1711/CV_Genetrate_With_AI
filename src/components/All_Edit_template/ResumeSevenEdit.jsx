@@ -161,7 +161,7 @@ const ResumeSevenEdit = () => {
               {resumeData.skills.map((skill, i) => (
                 <div key={i} className="flex items-center gap-4">
                   <p className="w-[75px] italic text-xs !text-black">{skill.skill}</p>
-                  <span className="w-[80px] h-1 bg-[#E0D5C9] rounded !text-black"></span>
+                  {/* <span className="w-[80px] h-1 bg-[#E0D5C9] rounded !text-black"></span> */}
                 </div>
               ))}
             </div>

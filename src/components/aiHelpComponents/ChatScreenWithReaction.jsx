@@ -71,7 +71,7 @@ const ChatScreenWithReaction = ({
   const { language } = useEmail();
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const {user}=useAuth()
-  console.log(user?.profile?.profile_image);
+  console.log(language);
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -160,7 +160,7 @@ const ChatScreenWithReaction = ({
       setMessages([
         {
           id: 1,
-          text: "Hey there! How's it going?",
+         text: language === "en" ? "Hi there! How can I help you?" : "Hallo! Wie geht's?",
           sender: "other",
           senderProfile: { name: "Bot", avatar: bot },
           timestamp: new Date().toLocaleTimeString([], {
@@ -171,7 +171,7 @@ const ChatScreenWithReaction = ({
         },
       ]);
     }
-  }, [history]);
+  }, [history, language]);
 
   // Scroll to bottom
   useEffect(() => {

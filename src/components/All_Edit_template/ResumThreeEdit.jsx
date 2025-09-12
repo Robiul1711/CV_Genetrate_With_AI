@@ -114,7 +114,7 @@ const ResumeThreeEdit = () => {
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
                   {language === "de" ? "Fähigkeiten" : "Skills"}
                 </h2>
-                <ul className="text-xs space-y-3">{skills.map((s, i) => <li key={i}>{s.skill}</li>)}</ul>
+                   <ul className="text-xs  flex gap-3 flex-wrap">{skills.map((s, i) => <li key={i}>{s.skill}</li>)}</ul>
               </div>
             )}
 

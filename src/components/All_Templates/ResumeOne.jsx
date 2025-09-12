@@ -83,7 +83,7 @@ const ResumeOne = () => {
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
                 SKILL
               </h2>
-              <ul className="text-xs space-y-3">
+                <ul className="text-xs  flex gap-3 flex-wrap">
                 {resumeData?.skills &&
                   resumeData.skills.length > 0 &&
                   resumeData.skills.map((skill, index) => (

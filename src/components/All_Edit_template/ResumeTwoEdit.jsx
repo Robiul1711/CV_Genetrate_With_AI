@@ -185,7 +185,7 @@ const ResumeTwoEdit = () => {
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
                 {language === "de" ? "Fähigkeiten" : "Skills"}
               </h2>
-              <ul className="text-xs space-y-3">
+                 <ul className="text-xs  flex gap-3 flex-wrap">
                 {skills.length > 0 ? skills.map((s, idx) => <li key={idx}>{s.skill}</li>) : "No skills listed"}
               </ul>
             </div>
