@@ -8,7 +8,6 @@ import StepFour from "@/components/Edit_Resume_Components/StepFour";
 import StepFive from "@/components/Edit_Resume_Components/StepFive";
 import StepSix from "@/components/Edit_Resume_Components/StepSix";
 import { Link, useParams } from "react-router-dom";
-import ResumeOneEdit from "@/components/All_Edit_template/ResumeOneEdit";
 import { useResume } from "@/providers/ResumeContext";
 import { useForm, FormProvider } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
@@ -21,34 +20,25 @@ import {
 import Design from "./Design";
 import { useEmail } from "@/hooks/useEmail";
 import { resumeDataEdits } from "@/lib/Data";
-// Import the Design component
-
 
 const UpdateExistingResumeEdit = () => {
   const { resumeId } = useParams();
   const [activeStep, setActiveStep] = useState(0);
-  const [activeTab, setActiveTab] = useState("edit"); // 'edit' or 'design'
+  const [activeTab, setActiveTab] = useState("edit");
   const { imageString, allRedumeData, setAllResumeData } = useResume();
   const axiosSecure = useAxiosSecure();
   const { language } = useEmail();
-  const data = allRedumeData?.data;
-   // Dynamic steps based on language
+
   const steps = [
-    {
-      title:
-        language === "en" ? "Personal Info" : "Persönliche Informationen",
-      component: <StepOne />,
-    },
+    { title: language === "en" ? "Personal Info" : "Persönliche Informationen", component: <StepOne /> },
     { title: language === "en" ? "Experience" : "Erfahrung", component: <StepTwo /> },
     { title: language === "en" ? "Education" : "Bildung", component: <StepThree /> },
     { title: language === "en" ? "Skill" : "Fähigkeiten", component: <StepFour /> },
     { title: language === "en" ? "Language" : "Sprache", component: <StepFive /> },
-    { title: language === "en" ? "Train" : "Training", component: <StepSix /> },
+    { title: language === "en" ? "Training" : "Training", component: <StepSix /> },
   ];
 
-  const methods = useForm({
-    mode: "onChange",
-  });
+  const methods = useForm({ mode: "onChange" });
 
   const selectedResume = resumeDataEdits.find(
     (resume) => resume.id === Number(resumeId)
@@ -59,62 +49,45 @@ const UpdateExistingResumeEdit = () => {
       methods.reset(allRedumeData.data);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // run only once
+  }, []);
 
   const IdSetupMutation = useMutation({
     mutationFn: async (body) => {
       const res = await axiosSecure.post(`/update-template-id/`, body);
       return res.data;
     },
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
+    onSuccess: (data) => console.log(data),
+    onError: (error) => console.log(error),
   });
 
   const ResumeMutation = useMutation({
     mutationFn: async (formData) => {
-      // Set loading state when API call starts
-      const response = await axiosSecure.post(`/create-resume/}/`, formData, {
+      const response = await axiosSecure.post(`/create-resume/`, formData, {
         headers: { "Content-Type": "application/json" },
       });
       return response.data;
     },
-
     onMutate: () => {
       const toastId = showLoadingToast("Creating Resume...");
       return { toastId };
     },
-
     onSuccess: (data, _variables, context) => {
-      console.log(data);
       setAllResumeData(data);
-      // Set the resume ID from response if available
       IdSetupMutation.mutate({ template_id: resumeId });
-      // ✅ Replace loading toast with success
       updateToastSuccess(
         context.toastId,
         data?.message || "Resume Created Successfully!"
       );
     },
-
     onError: (error, _variables, context) => {
-      console.log(error);
-      const errorMessage =
-        error?.response?.data?.message || "Something went wrong!";
-
-      // ✅ Replace loading toast with error
-      updateToastError(context.toastId, errorMessage);
+      const msg = error?.response?.data?.message || "Something went wrong!";
+      updateToastError(context.toastId, msg);
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("✅ Final Form Data:", data);
-
+  const onSubmit = (formData) => {
     const payload = {
-      ...data,
+      ...formData,
       profile_photo: imageString || "",
       resume_language: "en",
     };
@@ -122,90 +95,134 @@ const UpdateExistingResumeEdit = () => {
   };
 
   return (
-    <div>
-      <Link
-        to={"/dashboard/choose-resume"}
-        className="flex items-center gap-2"
-      >
-        <FaAngleLeft className="cursor-pointer text-xl p-1 border border-white/30 rounded-full" />
-        <Title level="title32">
-          {language === "en" ? "Create New Resume" : "Lebenslauf bearbeiten"}
+    <div className="min-h-screen bg-[#0A0A0A] text-white p-4 md:p-6">
+      {/* Header */}
+      <div className="mb-6">
+        <Link to="/dashboard/choose-resume" className="flex items-center gap-2 mb-2">
+          <FaAngleLeft className="cursor-pointer text-xl p-1 border border-white/30 rounded-full" />
+          <Title level="title32">
+            {language === "en" ? "Create New Resume" : "Lebenslauf bearbeiten"}
+          </Title>
+        </Link>
+        <Title level="title22" className="text-white/80">
+          {language === "en"
+            ? "Let AI help improve your resume content."
+            : "Lassen Sie sich von KI dabei helfen, den Inhalt Ihres Lebenslaufs zu verbessern."}
         </Title>
-      </Link>
+      </div>
 
-      <Title level="title22" className="mt-2">
-        {language === "en"
-          ? "Let AI help improve your resume content."
-          : "Lassen Sie sich von KI dabei helfen, den Inhalt Ihres Lebenslaufs zu verbessern."}
-      </Title>
-
-      <FormProvider {...methods} className=" ">
-        <form onSubmit={methods.handleSubmit(onSubmit)} className="mt-3">
-          <div className="mt-5 flex flex-col lg:flex-row gap-5 lg:gap-10 justify-between">
-            {/* Left Image / PDF */}
-            <div className=" w-1/2  border border-[#262626] rounded-xl p-2 bg-[#0E0E10]">
-              {selectedResume ? (
-                selectedResume.cvComponet
-              ) : (
-                <p className="text-white/70">
-                  {language === "en"
-                    ? "No Resume Selected"
-                    : "Kein Lebenslauf ausgewählt"}
-                </p>
-              )}
-            </div>
-
-            {/* Right Content */}
-            <div className=" lg:w-[40%] w-full">
-              {/* Top buttons - Tab Navigation */}
-              <div className="lg:p-4 p-2 rounded-xl bg-[#0E0E10] flex items-center justify-center gap-3 border border-[#262626]">
-                <button
-                  type="button"
-                  className={`font-semibold text-center border w-full border-white/10 text-white px-2 py-2 rounded-md transition-colors duration-300 ${
-                    activeTab === "edit" ? "bg-linearbg" : "hover:bg-linearbg"
-                  }`}
-                  onClick={() => setActiveTab("edit")}
-                >
-                  {language === "en" ? "Edit Content" : "Inhalt bearbeiten"}
-                </button>
-                <button
-                  type="button"
-                  className={`font-semibold border text-center w-full border-white/10 text-white px-2 py-2 rounded-md transition-colors duration-300 ${
-                    activeTab === "design" ? "bg-linearbg" : "hover:bg-linearbg"
-                  }`}
-                  onClick={() => setActiveTab("design")}
-                >
-                  {language === "en" ? "Design" : "Design"}
-                </button>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <div className="flex flex-col lg:flex-row gap-5">
+            {/* Left: CV Preview */}
+            <div className="w-full lg:w-[70%] border border-[#262626] rounded-xl p-2 bg-[#0E0E10] overflow-hidden">
+              {/* Mobile tab toggle */}
+              <div className="sticky top-0 z-10 bg-[#0E0E10] py-2 mb-2 flex lg:hidden justify-center">
+                <div className="flex p-1 rounded-xl bg-[#0E0E10] border border-[#262626]">
+                  {["edit", "design"].map((tab) => (
+                    <button
+                      key={tab}
+                      type="button"
+                      onClick={() => setActiveTab(tab)}
+                      className={`font-semibold px-4 py-2 rounded-md text-sm transition-colors duration-300 ${
+                        activeTab === tab
+                          ? "bg-linearbg text-white"
+                          : "text-white/70 hover:bg-linearbg"
+                      }`}
+                    >
+                      {language === "en"
+                        ? tab === "edit"
+                          ? "Edit"
+                          : "Design"
+                        : tab === "edit"
+                          ? "Bearbeiten"
+                          : "Design"}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              {/* Content based on active tab */}
-              {activeTab === "edit" ? (
-                <>
-                  {/* Step Nav */}
-                  <div className="mt-3 flex flex-wrap items-center gap-4 sm:gap-0 sm:justify-between border-b">
-                    {steps.map((step, index) => (
-                      <Title
-                        key={index}
-                        level="title14"
-                        className={`cursor-pointer pb-1 border-b-2 ${
-                          activeStep === index
-                            ? "border-[#fff] text-white bg-linearbg"
-                            : "border-transparent text-white/70"
-                        } text-sm`}
-                        onClick={() => setActiveStep(index)}
-                      >
-                        {step.title}
-                      </Title>
-                    ))}
+              <div className="flex justify-center items-center">
+                {selectedResume ? (
+                  <div className="w-full max-w-full max-h-[calc(100vh-150px)] overflow-auto flex justify-center">
+                    {selectedResume.cvComponet}
                   </div>
+                ) : (
+                  <p className="text-white/70">
+                    {language === "en"
+                      ? "No Resume Selected"
+                      : "Kein Lebenslauf ausgewählt"}
+                  </p>
+                )}
+              </div>
+            </div>
 
-                  {/* Active Step */}
-                  <div>{steps[activeStep].component}</div>
-                </>
-              ) : (
-                <Design />
-              )}
+            {/* Right: Edit / Design */}
+            <div className="w-full lg:w-[30%] flex flex-col">
+              {/* Desktop tab toggle */}
+              <div className="hidden lg:block p-4 rounded-xl bg-[#0E0E10] border border-[#262626] mb-5">
+                <div className="flex gap-3">
+                  {["edit", "design"].map((tab) => (
+                    <button
+                      key={tab}
+                      type="button"
+                      onClick={() => setActiveTab(tab)}
+                      className={`font-semibold w-full border border-white/10 text-white px-2 py-2 rounded-md transition-colors duration-300 ${
+                        activeTab === tab ? "bg-linearbg" : "hover:bg-linearbg"
+                      }`}
+                    >
+                      {language === "en"
+                        ? tab === "edit"
+                          ? "Edit Content"
+                          : "Design"
+                        : tab === "edit"
+                          ? "Inhalt bearbeiten"
+                          : "Design"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Form / Design content */}
+              <div className="bg-[#0E0E10] border border-[#262626] rounded-xl p-4 md:p-5 flex-1">
+                {activeTab === "edit" ? (
+                  <>
+                    {/* Step Navigation */}
+                    <div className="mb-6 overflow-x-auto">
+                      <div className="flex min-w-max pb-2 border-b border-[#262626]">
+                        {steps.map((step, index) => (
+                          <button
+                            key={index}
+                            type="button"
+                            onClick={() => setActiveStep(index)}
+                            className={`whitespace-nowrap px-3 py-1 mr-3 text-sm rounded-t-md transition-colors duration-300 ${
+                              activeStep === index
+                                ? "bg-linearbg text-white"
+                                : "text-white/70 hover:bg-white/10"
+                            }`}
+                          >
+                            {step.title}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="min-h-[400px]">{steps[activeStep].component}</div>
+                  </>
+                ) : (
+                  <Design />
+                )}
+              </div>
+
+              {/* Sticky Save button for small screens */}
+              <div className="mt-5 lg:static sticky bottom-0 bg-[#0A0A0A] p-2">
+                <button
+                  type="submit"
+                  className="w-full py-3 bg-linearbg text-white font-semibold rounded-md hover:opacity-90 transition-opacity"
+                >
+                  {language === "en" ? "Save Changes" : "Änderungen speichern"}
+                </button>
+              </div>
             </div>
           </div>
         </form>

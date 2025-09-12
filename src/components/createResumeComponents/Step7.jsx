@@ -3,7 +3,6 @@ import Title from "../common/Title";
 import { LuCirclePlus } from "react-icons/lu";
 import { GoDotFill } from "react-icons/go";
 import { useFormContext, useFieldArray } from "react-hook-form";
-import Tailor_Modal from "./Tailor_Modal";
 import { useEmail } from "@/hooks/useEmail"; // for language ("en" or "de")
 
 const Step7 = () => {
@@ -35,15 +34,6 @@ const Step7 = () => {
       });
     }
   }, [courses, append]);
-
-  useEffect(() => {
-    fields.forEach((_, index) => {
-      const endDate = watch(`courses_and_training_details.${index}.end_date`);
-      if (endDate === "") {
-        setValue(`courses_and_training_details.${index}.end_date`, null);
-      }
-    });
-  }, [fields, watch, setValue]);
 
   return (
     <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
@@ -135,16 +125,21 @@ const Step7 = () => {
               )}
             </div>
 
-            {/* Dates */}
+            {/* Dates (year only) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <label className="text-sm text-white">
-                  {language === "de" ? "Startdatum *" : "Start Date *"}
+                  {language === "de" ? "Startjahr *" : "Start Year *"}
                 </label>
                 <input
-                  type="date"
+                  type="text"
+                  placeholder="YYYY"
                   {...register(`courses_and_training_details.${index}.start_date`, {
-                    required: language === "de" ? "Startdatum ist erforderlich" : "Start date is required",
+                    required: language === "de" ? "Startjahr ist erforderlich" : "Start year is required",
+                    pattern: {
+                      value: /^\d{4}$/,
+                      message: language === "de" ? "Ungültiges Jahr" : "Invalid year",
+                    },
                   })}
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 />
@@ -157,11 +152,17 @@ const Step7 = () => {
 
               <div className="flex flex-col gap-2">
                 <label className="text-sm text-white">
-                  {language === "de" ? "Enddatum" : "End Date"}
+                  {language === "de" ? "Endjahr (optional)" : "End Year (optional)"}
                 </label>
                 <input
-                  type="date"
-                  {...register(`courses_and_training_details.${index}.end_date`)}
+                  type="text"
+                  placeholder="YYYY"
+                  {...register(`courses_and_training_details.${index}.end_date`, {
+                    pattern: {
+                      value: /^\d{4}$/,
+                      message: language === "de" ? "Ungültiges Jahr" : "Invalid year",
+                    },
+                  })}
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 />
               </div>
@@ -169,7 +170,7 @@ const Step7 = () => {
           </div>
         ))}
 
-        {/* Add Button and Modal */}
+        {/* Add Button */}
         <div className="flex items-center justify-between">
           <button
             type="button"
@@ -186,8 +187,6 @@ const Step7 = () => {
             <LuCirclePlus size={20} />
             {language === "de" ? "Weiteres Zertifikat hinzufügen" : "Add Another Certificate"}
           </button>
-
-
         </div>
       </div>
     </div>

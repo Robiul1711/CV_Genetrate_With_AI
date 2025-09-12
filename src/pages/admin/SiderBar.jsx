@@ -56,7 +56,7 @@ console.log(user);
             ? "left-0 top-0 w-[320px] z-[220] shadow-lg bg-[#08090A] overflow-y-auto"
             : "-left-full xl:w-[350px] w-[280px]"
         }
-        bg-[#0E0E10] border-r-[1px] border-[#262626] backdrop-blur-md xl:px-8 px-4 flex flex-col gap-8 shadow-md xlg:static fixed transition-all duration-300`}
+        bg-[#0E0E10] border-r-[1px] border-[#262626] backdrop-blur-md xl:px-8 px-4 flex flex-col gap-8 shadow-md xl:static fixed transition-all duration-300`}
       >
         {/* Logo */}
         <Link to={"/"}>

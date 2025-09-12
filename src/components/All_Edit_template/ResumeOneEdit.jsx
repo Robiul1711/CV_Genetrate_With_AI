@@ -7,55 +7,52 @@ import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
 
 const ResumeOneEdit = () => {
-  const { allRedumeData, color, setColor } = useResume();
+  const { allRedumeData, color, setColor, font, setFont } = useResume();
   const { watch } = useFormContext();
   const resumeRef = useRef();
   const { language } = useEmail();
 
-  // Get all values from form context
   const formValues = watch();
 
-  // Use form values with fallback to API data
-  const first_name =
-    formValues.first_name || allRedumeData?.data?.first_name || "";
-    const resume_color = color || allRedumeData?.data?.resume_color || '';
-  const last_name =
-    formValues.last_name || allRedumeData?.data?.last_name || "";
-  const job_title =
-    formValues.job_title || allRedumeData?.data?.job_title || "";
+  const first_name = formValues.first_name || allRedumeData?.data?.first_name || "";
+  const resume_color = color || allRedumeData?.data?.resume_color || '';
+  const last_name = formValues.last_name || allRedumeData?.data?.last_name || "";
+  const job_title = formValues.job_title || allRedumeData?.data?.job_title || "";
   const about = formValues.about || allRedumeData?.data?.about || "";
-  const phone_number =
-    formValues.phone_number || allRedumeData?.data?.phone_number || "";
+  const phone_number = formValues.phone_number || allRedumeData?.data?.phone_number || "";
   const address = formValues.address || allRedumeData?.data?.address || "";
   const email = formValues.email || allRedumeData?.data?.email || "";
-  const linked_in_profile =
-    formValues.linked_in_profile ||
-    allRedumeData?.data?.linked_in_profile ||
-    "";
-  const xing_profile =
-    formValues.xing_profile || allRedumeData?.data?.xing_profile || "";
+  const linked_in_profile = formValues.linked_in_profile || allRedumeData?.data?.linked_in_profile || "";
+  const xing_profile = formValues.xing_profile || allRedumeData?.data?.xing_profile || "";
 
-  const workExperiences =
-    formValues.work_experiences || allRedumeData?.data?.work_experiences || [];
-  const educations =
-    formValues.educations || allRedumeData?.data?.educations || [];
+  const workExperiences = formValues.work_experiences || allRedumeData?.data?.work_experiences || [];
+  const educations = formValues.educations || allRedumeData?.data?.educations || [];
   const skills = formValues.skills || allRedumeData?.data?.skills || [];
-  const languages =
-    formValues.languages || allRedumeData?.data?.languages || [];
-
+  const languages = formValues.languages || allRedumeData?.data?.languages || [];
   const traingings = formValues?.courses_and_training_details || [];
-  console.log(color);
 
   useEffect(() => {
-    setColor("");
+    if (!color) setColor(""); // optional: reset color on mount
   }, []);
+
+  // Mapping font variable to className
+const fontMap = {
+  inter: "Inter, sans-serif",
+  poppins: "Poppins, sans-serif",
+  urbanist: "Urbanist, sans-serif",
+  roboto: "Roboto, sans-serif",
+  lato: "Lato, sans-serif",
+};
+
+const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
   return (
-    <div className="min-h-screen">
+    <div className={`min-h-screen ${appliedFontFamily}`}>
       <DownloadButton resumeRef={resumeRef} />
 
       <div
         ref={resumeRef}
-        className="bg-white text-black  py-8 w-[210mm] mx-auto urbanist h-[297mm] overflow-hidden"
+        className="bg-white text-black py-8 w-[210mm] mx-auto h-[297mm] overflow-hidden"
+          style={{ fontFamily: appliedFontFamily }} // fallback inline style
       >
         {/* Header */}
         <div className="text-center border-b border-[#D9D9D9] pb-5">
@@ -63,15 +60,16 @@ const ResumeOneEdit = () => {
             {first_name} <span className="font-semibold">{last_name}</span>
           </h1>
         </div>
+
         <p className="tracking-[3px] text-[#484848] uppercase leading-[24px] text-center py-2 border-b mb-2 border-[#D9D9D9]">
           {job_title}
         </p>
 
-        <div className="flex justify-between gap-2  h-full">
+        <div className="flex justify-between gap-2 h-full">
           {/* Left Column */}
           <div
             className="w-[35%] space-y-6 px-4 rounded-r pt-4"
-            style={{ backgroundColor: color ? color : resume_color}}
+            style={{ backgroundColor: color ? color : resume_color }}
           >
             {/* About */}
             <div>
@@ -95,7 +93,7 @@ const ResumeOneEdit = () => {
               </div>
             </div>
 
-            {/* Language */}
+            {/* Languages */}
             {languages?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
@@ -112,7 +110,7 @@ const ResumeOneEdit = () => {
             {/* Skills */}
             {skills?.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] uppercase">
+                <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
                   {language === "de" ? "Fähigkeiten" : "Skills"}
                 </h2>
                 <ul className="text-xs space-y-3">
@@ -169,10 +167,7 @@ const ResumeOneEdit = () => {
                     <p className="text-xs flex justify-between items-center mt-1">
                       {edu.degree}
                       <span>
-                        {edu.start_date
-                          ? dayjs(edu.start_date).format("YYYY")
-                          : ""}{" "}
-                        –{" "}
+                        {edu.start_date ? dayjs(edu.start_date).format("YYYY") : ""} –{" "}
                         {edu.currently_enrolled
                           ? "Present"
                           : edu.end_date
@@ -185,10 +180,11 @@ const ResumeOneEdit = () => {
               </div>
             )}
 
-            {workExperiences?.length > 0 && (
+            {/* Trainings */}
+            {traingings?.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px]  text-[#666] uppercase">
-                  {language === "de" ? "  AUSBILDUNGEN" : "  Trainings"}
+                <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
+                  {language === "de" ? "Trainings" : "Trainings"}
                 </h2>
                 {traingings.map((exp, idx) => (
                   <div key={idx} className="mt-4">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import html2pdf from "html2pdf.js";
 import { useResume } from "@/providers/ResumeContext";
-import { set, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
 import {
@@ -14,13 +14,26 @@ import {
 import { useEmail } from "@/hooks/useEmail";
 
 const ResumeElevenEdit = () => {
-  const { allRedumeData,color, setColor } = useResume();
+  const { allRedumeData, color, setColor, font } = useResume(); // Added font
   const { watch } = useFormContext();
   const formData = watch();
   const resumeRef = useRef(null);
-const { language } = useEmail();
+  const { language } = useEmail();
   const [profilePreview, setProfilePreview] = useState("");
- const resume_color = color || allRedumeData?.data?.resume_color;
+
+  const resume_color = color || allRedumeData?.data?.resume_color;
+
+  // Dynamic font map
+  const fontMap = {
+    inter: "Inter, sans-serif",
+    poppins: "Poppins, sans-serif",
+    urbanist: "Urbanist, sans-serif",
+    roboto: "Roboto, sans-serif",
+    lato: "Lato, sans-serif",
+    playfair: "Playfair Display, serif",
+  };
+  const appliedFont = fontMap[font] || "Urbanist, sans-serif";
+
   // Merge formData and context data
   const resumeData = {
     first_name: formData?.first_name || allRedumeData?.data?.first_name || "",
@@ -52,24 +65,22 @@ const { language } = useEmail();
 
   // Handle profile preview if needed
   useEffect(() => {
-    const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
     if (
       formData?.profile_photo &&
       !formData.profile_photo.startsWith("/media")
     ) {
       setProfilePreview(formData.profile_photo);
     } else if (resumeData.profile_photo) {
-      setProfilePreview(
-        import.meta.env.VITE_IMG_URL + resumeData.profile_photo
-      );
+      setProfilePreview(import.meta.env.VITE_IMG_URL + resumeData.profile_photo);
     } else {
       setProfilePreview("");
     }
   }, [formData?.profile_photo, resumeData.profile_photo]);
 
   useEffect(() => {
-    setColor('');
-  },[]);
+    setColor("");
+  }, []);
+
   return (
     <div className="min-h-screen">
       <DownloadButton resumeRef={resumeRef} />
@@ -77,6 +88,7 @@ const { language } = useEmail();
       <div
         ref={resumeRef}
         className="bg-white text-black px-4 py-8 w-[210mm] mx-auto !urbanist h-[297mm] overflow-hidden"
+        style={{ fontFamily: appliedFont }} // Apply dynamic font
       >
         {/* Header */}
         <div className="text-center">
@@ -84,7 +96,10 @@ const { language } = useEmail();
             {resumeData.first_name} {resumeData.last_name}
           </h1>
         </div>
-        <p className="tracking-[3px] text-[#484848] uppercase leading-[24px] text-center py-2 border-b mb-2 border-[#D9D9D9]" style={{ borderColor: resume_color }}>
+        <p
+          className="tracking-[3px] text-[#484848] uppercase leading-[24px] text-center py-2 border-b mb-2 border-[#D9D9D9]"
+          style={{ borderColor: resume_color }}
+        >
           {resumeData.job_title}
         </p>
 
@@ -92,8 +107,12 @@ const { language } = useEmail();
         <div className="flex justify-between gap-5 mt-6 h-full">
           {/* Left Column */}
           <div className="w-[40%] space-y-6">
+            {/* About */}
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
+              <h2
+                className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
+                style={{ backgroundColor: resume_color }}
+              >
                 {language === "en" ? "About Me" : "Über mich"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
@@ -101,8 +120,12 @@ const { language } = useEmail();
               </p>
             </div>
 
+            {/* Contact */}
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
+              <h2
+                className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
+                style={{ backgroundColor: resume_color }}
+              >
                 {language === "en" ? "Contact" : "Kontakt"}
               </h2>
               <div className="space-y-3">
@@ -110,17 +133,14 @@ const { language } = useEmail();
                   <FaPhoneAlt className="text-[12px]" />
                   {resumeData.phone_number}
                 </p>
-
                 <p className="text-xs flex items-center gap-1">
                   <FaMapMarkerAlt className="text-[12px]" />
                   {resumeData.address}
                 </p>
-
                 <p className="text-xs flex items-center gap-1">
                   <FaEnvelope className="text-[12px]" />
                   {resumeData.email}
                 </p>
-
                 <div className="space-y-3 flex flex-col">
                   {resumeData.linked_in_profile && (
                     <a
@@ -133,7 +153,6 @@ const { language } = useEmail();
                       {resumeData.linked_in_profile}
                     </a>
                   )}
-
                   {resumeData.xing_profile && (
                     <a
                       href={resumeData.xing_profile}
@@ -149,8 +168,12 @@ const { language } = useEmail();
               </div>
             </div>
 
+            {/* Education */}
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
+              <h2
+                className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] text-[#fff] text-center leading-[24px]"
+                style={{ backgroundColor: resume_color }}
+              >
                 {language === "en" ? "Education" : "Bildung"}
               </h2>
               {resumeData.educations.map((edu, idx) => (
@@ -170,42 +193,48 @@ const { language } = useEmail();
             </div>
           </div>
 
-          <div className="w-[1px] bg-[#D9D9D9]" style={{ backgroundColor: resume_color }}></div>
+          <div
+            className="w-[1px] bg-[#D9D9D9]"
+            style={{ backgroundColor: resume_color }}
+          ></div>
 
           {/* Right Column */}
           <div className="w-[60%] space-y-6">
             {/* Experience */}
-            {
-
-              resumeData.work_experiences?.length > 0 &&(
-                <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
-                {language === "de" ? "Erfahrung" : "Experience"}
-              </h2>
-              {resumeData.work_experiences.map((exp, idx) => (
-                <div key={idx} className="mt-3">
-                  <p className="font-medium leading-[18px] text-xs">
-                    {exp.job_title}
-                  </p>
-                  <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
-                    {exp.company_name}{" "}
-                    <span>
-                      {dayjs(exp.start_date).format("YYYY")} -{" "}
-                      {dayjs(exp.end_date).format("YYYY")}
-                    </span>
-                  </p>
-                  <p className="text-xs leading-[20px] mt-2">
-                    {exp.responsibilities}
-                  </p>
-                </div>
-              ))}
-            </div>
-              )
-            }
+            {resumeData.work_experiences?.length > 0 && (
+              <div>
+                <h2
+                  className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
+                  style={{ backgroundColor: resume_color }}
+                >
+                  {language === "de" ? "Erfahrung" : "Experience"}
+                </h2>
+                {resumeData.work_experiences.map((exp, idx) => (
+                  <div key={idx} className="mt-3">
+                    <p className="font-medium leading-[18px] text-xs">
+                      {exp.job_title}
+                    </p>
+                    <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
+                      {exp.company_name}{" "}
+                      <span>
+                        {dayjs(exp.start_date).format("YYYY")} -{" "}
+                        {dayjs(exp.end_date).format("YYYY")}
+                      </span>
+                    </p>
+                    <p className="text-xs leading-[20px] mt-2">
+                      {exp.responsibilities}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Training */}
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
+              <h2
+                className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
+                style={{ backgroundColor: resume_color }}
+              >
                 {language === "de" ? "Ausbildung" : "Training"}
               </h2>
               {resumeData.courses_and_training_details.map((training, idx) => (
@@ -226,7 +255,10 @@ const { language } = useEmail();
 
             {/* Skills */}
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
+              <h2
+                className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
+                style={{ backgroundColor: resume_color }}
+              >
                 {language === "de" ? "Fertigkeiten" : "Skills"}
               </h2>
               <ul className="text-xs space-y-3">
@@ -240,7 +272,10 @@ const { language } = useEmail();
 
             {/* Languages */}
             <div>
-              <h2 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]" style={{ backgroundColor: resume_color }}>
+              <h2
+                className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
+                style={{ backgroundColor: resume_color }}
+              >
                 {language === "de" ? "Sprachen" : "Languages"}
               </h2>
               <ul className="text-xs space-y-3">

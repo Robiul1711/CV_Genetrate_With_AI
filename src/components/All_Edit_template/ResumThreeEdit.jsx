@@ -1,12 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import html2pdf from "html2pdf.js";
-import {
-  FaPhoneAlt,
-  FaLinkedin,
-  FaMapMarkerAlt,
-  FaEnvelope,
-  FaXing,
-} from "react-icons/fa";
+import { FaPhoneAlt, FaLinkedin, FaMapMarkerAlt, FaEnvelope, FaXing } from "react-icons/fa";
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
@@ -15,16 +8,26 @@ import { useEmail } from "@/hooks/useEmail";
 
 const ResumeThreeEdit = () => {
   const { watch } = useFormContext();
-  const { allRedumeData, color,setColor } = useResume();
+  const { allRedumeData, color, setColor, font } = useResume();
   const resumeRef = useRef();
-const {language}=useEmail()
+  const { language } = useEmail();
+
+  // Map selected font to actual CSS font-family
+  const fontMap = {
+    inter: "Inter, sans-serif",
+    poppins: "Poppins, sans-serif",
+    urbanist: "Urbanist, sans-serif",
+    roboto: "Roboto, sans-serif",
+    lato: "Lato, sans-serif",
+  };
+  const appliedFont = fontMap[font] || "Urbanist, sans-serif";
+
   // Watch form values
   const formValues = watch();
   const resumeData = allRedumeData?.data || {};
 
   // Merge form values with context fallback
   const firstName = formValues.first_name || resumeData.first_name || "";
-  const resume_color = color || allRedumeData?.data?.resume_color || "";
   const lastName = formValues.last_name || resumeData.last_name || "";
   const jobTitle = formValues.job_title || resumeData.job_title || "";
   const about = formValues.about || resumeData.about || "";
@@ -37,44 +40,37 @@ const {language}=useEmail()
   const languages = formValues.languages?.length ? formValues.languages : resumeData.languages || [];
   const experiences = formValues.work_experiences?.length ? formValues.work_experiences : resumeData.work_experiences || [];
   const educations = formValues.educations?.length ? formValues.educations : resumeData.educations || [];
-  const trainings = formValues.courses_and_training_details?.length
-    ? formValues.courses_and_training_details
-    : resumeData.courses_and_training_details || [];
+  const trainings = formValues.courses_and_training_details?.length ? formValues.courses_and_training_details : resumeData.courses_and_training_details || [];
+  const resume_color = color || resumeData.resume_color || "";
 
-useEffect(() => {
-  setColor('')
-},[])
+  useEffect(() => {
+    setColor("");
+  }, []);
+
   return (
-    <div className="min-h-screen">
-       <DownloadButton resumeRef={resumeRef}  />
+    <div className="min-h-screen" style={{ fontFamily: appliedFont }}>
+      {/* Download Button */}
+      <DownloadButton resumeRef={resumeRef} />
 
-      <div ref={resumeRef} className="bg-white text-black px-5 py-8 w-[210mm] mx-auto h-[297mm] overflow-hidden">
+      <div
+        ref={resumeRef}
+        className="bg-white text-black px-5 py-8 w-[210mm] mx-auto h-[297mm] overflow-hidden"
+        style={{ fontFamily: appliedFont }}
+      >
         {/* Header */}
         <div className="flex w-full justify-between">
           <div className="w-[60%]">
-            <h1 className="text-[32px] font-bold tracking-[2px] text-[#484848] urbanist">
+            <h1 className="text-[32px] font-bold tracking-[2px] text-[#484848]">
               {firstName} <span className="font-semibold">{lastName}</span>
             </h1>
-            <p className="tracking-[3px] text-[#484848] uppercase leading-[24px]">
-              {jobTitle}
-            </p>
+            <p className="tracking-[3px] text-[#484848] uppercase leading-[24px]">{jobTitle}</p>
           </div>
           <div className="space-y-3 w-[40%]">
-            {phone && (
-              <p className="text-xs flex items-center gap-2"><FaPhoneAlt /> {phone}</p>
-            )}
-            {address && (
-              <p className="text-xs flex items-center gap-2"><FaMapMarkerAlt /> {address}</p>
-            )}
-            {email && (
-              <p className="text-xs flex items-center gap-2"><FaEnvelope /> {email}</p>
-            )}
-            {linkedIn && (
-              <p className="text-xs flex items-center gap-2"><FaLinkedin /> {linkedIn}</p>
-            )}
-            {xing && (
-              <p className="text-xs flex items-center gap-2"><FaXing /> {xing}</p>
-            )}
+            {phone && <p className="text-xs flex items-center gap-2"><FaPhoneAlt /> {phone}</p>}
+            {address && <p className="text-xs flex items-center gap-2"><FaMapMarkerAlt /> {address}</p>}
+            {email && <p className="text-xs flex items-center gap-2"><FaEnvelope /> {email}</p>}
+            {linkedIn && <p className="text-xs flex items-center gap-2"><FaLinkedin /> {linkedIn}</p>}
+            {xing && <p className="text-xs flex items-center gap-2"><FaXing /> {xing}</p>}
           </div>
         </div>
 
@@ -83,13 +79,14 @@ useEffect(() => {
         {/* Body */}
         <div className="flex justify-between gap-5 mt-6 h-full">
           {/* Left Column */}
-          <div className="w-[45%] space-y-3  p-4 rounded-md"
-          style={{ backgroundColor: resume_color || color || "#F5F5F5" }}
+          <div
+            className="w-[45%] space-y-3 p-4 rounded-md"
+            style={{ backgroundColor: resume_color || "#F5F5F5" }}
           >
             {about && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-              {language === "de" ? "Über mich" : "About Me"}
+                  {language === "de" ? "Über mich" : "About Me"}
                 </h2>
                 <p className="text-xs text-[#171717]">{about}</p>
               </div>
@@ -98,7 +95,7 @@ useEffect(() => {
             {trainings.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-              {language === "de" ? "AUSBILDUNGEN" : "Trainings"}
+                  {language === "de" ? "AUSBILDUNGEN" : "Trainings"}
                 </h2>
                 {trainings.map((t, i) => (
                   <div key={i} className="mt-4">
@@ -115,18 +112,16 @@ useEffect(() => {
             {skills.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-              {language === "de" ? "Fähigkeiten" : "Skills"}
+                  {language === "de" ? "Fähigkeiten" : "Skills"}
                 </h2>
-                <ul className="text-xs space-y-3">
-                  {skills.map((s, i) => (<li key={i}>{s.skill}</li>))}
-                </ul>
+                <ul className="text-xs space-y-3">{skills.map((s, i) => <li key={i}>{s.skill}</li>)}</ul>
               </div>
             )}
 
             {languages.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-              {language === "de" ? "Sprachen" : "Languages"}
+                  {language === "de" ? "Sprachen" : "Languages"}
                 </h2>
                 {languages.map((lang, i) => (
                   <p key={i} className="text-xs flex justify-between items-center">
@@ -142,7 +137,7 @@ useEffect(() => {
             {experiences.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-              {language === "de" ? "Berufserfahrung" : "Work Experience"}
+                  {language === "de" ? "Berufserfahrung" : "Work Experience"}
                 </h2>
                 {experiences.map((exp, i) => (
                   <div key={i} className="mt-4">
@@ -162,7 +157,7 @@ useEffect(() => {
             {educations.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-              {language === "de" ? "Ausbildung" : "Education"}
+                  {language === "de" ? "Ausbildung" : "Education"}
                 </h2>
                 {educations.map((edu, i) => (
                   <div key={i} className="mt-4">
