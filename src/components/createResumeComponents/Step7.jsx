@@ -136,10 +136,10 @@ const Step7 = () => {
                   placeholder="YYYY"
                   {...register(`courses_and_training_details.${index}.start_date`, {
                     required: language === "de" ? "Startjahr ist erforderlich" : "Start year is required",
-                    pattern: {
-                      value: /^\d{4}$/,
-                      message: language === "de" ? "Ungültiges Jahr" : "Invalid year",
-                    },
+                    // pattern: {
+                    //   value: /^\d{4}$/,
+                    //   message: language === "de" ? "Ungültiges Jahr" : "Invalid year",
+                    // },
                   })}
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 />
@@ -158,10 +158,10 @@ const Step7 = () => {
                   type="text"
                   placeholder="YYYY"
                   {...register(`courses_and_training_details.${index}.end_date`, {
-                    pattern: {
-                      value: /^\d{4}$/,
-                      message: language === "de" ? "Ungültiges Jahr" : "Invalid year",
-                    },
+                    // pattern: {
+                    //   value: /^\d{4}$/,
+                    //   message: language === "de" ? "Ungültiges Jahr" : "Invalid year",
+                    // },
                   })}
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 />

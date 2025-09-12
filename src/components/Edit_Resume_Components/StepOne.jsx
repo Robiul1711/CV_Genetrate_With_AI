@@ -1,15 +1,18 @@
 import { useResume } from "@/providers/ResumeContext";
 import React, { useEffect, useRef, useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { CiEdit } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
 import { useEmail } from "@/hooks/useEmail"; // Language hook
 import dummyimg from "@/assets/images/userdummy.png";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 const StepOne = () => {
   const {
     register,
     reset,
     watch,
+    control,
     setValue,
     formState: { errors },
   } = useFormContext();
@@ -197,14 +200,43 @@ const StepOne = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
+        {/* <div className="flex flex-col gap-2">
           <label className="text-sm text-white">{t.phoneNumber}</label>
           <input
             {...register("phone_number")}
             placeholder={t.phonePlaceholder}
             className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
           />
-        </div>
+        </div> */}
+
+            <div className="flex flex-col gap-2">
+            <label className="md:text-base text-[14px] font-normal text-white">
+              {
+                language ==="en" ?"Phone Number" :"Telefonnummer"
+              }
+            </label>
+            <Controller
+              name="phone_number"
+              control={control}
+              rules={{
+                required: "Phone number is required",
+              }}
+              render={({ field }) => (
+                <PhoneInput
+                  {...field}
+                  country={ language ==="en" ?"us":"de"}
+                  placeholder="Enter phone number"
+                  inputClass=" md:text-base text-[14px]"
+                  containerClass={`flex font-poppins gap-2 items-center  p-1  border-[1px] border-[#262626] w-full rounded-[12px] phone_input_container_profile_edit  ${
+                    errors.phone ? "border-red-500" : "border-[#D8D8D]"
+                  } `}
+                />
+              )}
+            />
+            {errors.phone_number && (
+              <p className="text-red-500 text-sm">{errors.phone_number.message}</p>
+            )}
+          </div>
 
         <div className="flex flex-col gap-2">
           <label className="text-sm text-white">{t.address}</label>
