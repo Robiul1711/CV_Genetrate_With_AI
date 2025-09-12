@@ -261,7 +261,7 @@ const ResumeElevenEdit = () => {
               >
                 {language === "de" ? "Fertigkeiten" : "Skills"}
               </h2>
-              <ul className="text-xs space-y-3">
+                 <ul className="text-xs  flex gap-3 flex-wrap">
                 {resumeData.skills.map((skill, idx) => (
                   <li key={idx} className="flex justify-between items-center">
                     {skill.skill}

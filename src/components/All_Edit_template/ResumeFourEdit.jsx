@@ -163,7 +163,7 @@ const ResumeFourEdit = () => {
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
                 {language === "de" ? "Fertigkeiten" : "Skills"}
               </h2>
-              <ul className="text-xs space-y-3">{resumeData?.skills?.map((skill, index) => <li key={index}>{skill.skill}</li>)}</ul>
+               <ul className="text-xs  flex gap-3 flex-wrap">{resumeData?.skills?.map((skill, index) => <li key={index}>{skill.skill}</li>)}</ul>
             </div>
 
             <div className="border-b border-[#D9D9D9]"></div>

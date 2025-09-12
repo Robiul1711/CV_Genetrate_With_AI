@@ -150,7 +150,7 @@ const ResumeSeven = () => {
                   <p className="text-[#0D0D0D] w-[75px] text-xs !playfair font-normal italic leading-[15px]">
                     {skill?.skill}
                   </p>
-                  <span className="w-[80px] h-1 bg-[#E0D5C9] rounded-[16px]"></span>
+                  {/* <span className="w-[80px] h-1 bg-[#E0D5C9] rounded-[16px]"></span> */}
                 </div>
               ))}
             </div>

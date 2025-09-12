@@ -151,7 +151,7 @@ const ResumeEleven = () => {
               <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
                 SKILL
               </h2>
-              <ul className="text-xs space-y-3">
+                 <ul className="text-xs  flex gap-3 flex-wrap">
                 {resumeData?.skills?.map((skill, index) => (
                   <li key={index} className="flex justify-between items-center">
                     {skill?.skill}
