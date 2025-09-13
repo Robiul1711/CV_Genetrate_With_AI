@@ -81,7 +81,7 @@ const ResumeTwoEdit = () => {
             {/* About */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                {language === "de" ? "Über mich" : "About Me"}
+                {allRedumeData?.data?.resume_language === "de" ? "Über mich" : "About Me"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">{about}</p>
             </div>
@@ -89,7 +89,7 @@ const ResumeTwoEdit = () => {
             {/* Contact */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                {language === "de" ? "Kontakt" : "Contact"}
+                {allRedumeData?.data?.resume_language === "de" ? "Kontakt" : "Contact"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-2">
@@ -117,7 +117,7 @@ const ResumeTwoEdit = () => {
             {/* Education */}
             <div>
               <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                {language === "de" ? "Ausbildung" : "Education"}
+                {allRedumeData?.data?.resume_language === "de" ? "Ausbildung" : "Education"}
               </h2>
               {educations.map((edu, idx) => (
                 <div key={idx} className="mt-4">
@@ -141,7 +141,7 @@ const ResumeTwoEdit = () => {
             {work_experiences?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {language === "de" ? "Berufserfahrung" : "Work Experience"}
+                  {allRedumeData?.data?.resume_language === "de" ? "Berufserfahrung" : "Work Experience"}
                 </h2>
                 {work_experiences.map((exp, idx) => (
                   <div key={idx} className="mt-4">
@@ -164,7 +164,7 @@ const ResumeTwoEdit = () => {
             {/* Courses/Training */}
             <div>
               <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                {language === "de" ? "AUSBILDUNGEN" : "Trainings"}
+                {allRedumeData?.data?.resume_language === "de" ? "AUSBILDUNGEN" : "Trainings"}
               </h2>
               {courses_and_training_details.map((course, idx) => (
                 <div key={idx} className="mt-4 flex flex-col gap-2">
@@ -183,7 +183,7 @@ const ResumeTwoEdit = () => {
             {/* Skills */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                {language === "de" ? "Fähigkeiten" : "Skills"}
+                {allRedumeData?.data?.resume_language === "de" ? "Fähigkeiten" : "Skills"}
               </h2>
                  <ul className="text-xs  flex gap-3 flex-wrap">
                 {skills.length > 0 ? skills.map((s, idx) => <li key={idx}>{s.skill}</li>) : "No skills listed"}
@@ -195,7 +195,7 @@ const ResumeTwoEdit = () => {
             {/* Languages */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                {language === "de" ? "Sprachen" : "Languages"}
+                {allRedumeData?.data?.resume_language === "de" ? "Sprachen" : "Languages"}
               </h2>
               {languages.length > 0
                 ? languages.map((lang, idx) => (

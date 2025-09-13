@@ -60,7 +60,7 @@ const ResumeFour = () => {
           <div className="w-[40%] space-y-3  rounded-md">
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                CONTACT
+               {allRedumeData?.data?.resume_language === "en" ? "CONTACT" : "KONTAKT"}
               </h2>
               <div className="space-y-3 ">
                 <p className="text-xs flex items-center gap-2 leading-[18px]">
@@ -100,8 +100,8 @@ const ResumeFour = () => {
 
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
-              <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] ">
-                TRAINING
+              <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] uppercase">
+                {allRedumeData?.data?.resume_language === "en" ? "TRAINING" : "Schulung"}
               </h2>
               {resumeData?.courses_and_training_details?.map(
                 (training, index) => (
@@ -126,7 +126,7 @@ const ResumeFour = () => {
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                SKILL
+                {allRedumeData?.data?.resume_language === "en" ? "SKILLS" : "Fähigkeiten"}
               </h2>
                 <ul className="text-xs  flex gap-3 flex-wrap">
                 {resumeData?.skills?.map((skill, index) => (
@@ -138,8 +138,8 @@ const ResumeFour = () => {
             </div>
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                LANGUAGE
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+           {allRedumeData?.data?.resume_language === "en" ? "LANGUAGES" : "Sprachen"}
               </h2>
               {resumeData?.languages?.map((language, index) => (
                 <div
@@ -158,8 +158,8 @@ const ResumeFour = () => {
           {/* Right Column */}
           <div className="w-[60%] space-y-3">
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                ABOUT
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+                {allRedumeData?.data?.resume_language === "en" ? "ABOUT" : "Über mich"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData?.about}
@@ -169,8 +169,8 @@ const ResumeFour = () => {
            {
             resumeData.work_experiences?.length > 0 &&(
                <div>
-              <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px]">
-                EXPERIENCE
+              <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] uppercase">
+                {allRedumeData?.data?.resume_language === "en" ? "WORK EXPERIENCE" : "Berufserfahrung"}
               </h2>
               {resumeData?.work_experiences?.map((experience, index) => (
                 <div key={index} className="mt-3">
@@ -196,8 +196,8 @@ const ResumeFour = () => {
            }
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
-              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px]">
-                EDUCATION
+              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
+                {allRedumeData?.data?.resume_language === "en" ? "EDUCATION" : "Ausbildung"}
               </h2>
               {resumeData?.educations?.map((education, index) => (
                 <div key={index} className="mt-3 ">

@@ -121,7 +121,7 @@ const ResumeFiveEdit = () => {
                 className="text-sm font-semibold tracking-[2px] pb-3 leading-[24px] text-center uppercase"
                 style={{ color: resume_color || "#0D0D0D" }}
               >
-                {language === "de" ? "FÄHIGKEITEN" : "SKILLS"}
+                {allRedumeData?.data?.resume_language === "de" ? "FÄHIGKEITEN" : "SKILLS"}
               </h2>
               <ul className="text-xs space-y-3 text-center">
                 {skills.map((s, i) => (
@@ -136,7 +136,7 @@ const ResumeFiveEdit = () => {
                 className="text-sm font-semibold tracking-[2px] leading-[24px] text-center uppercase"
                 style={{ color: resume_color || "#0D0D0D" }}
               >
-                {language === "de" ? "AUSbildung" : "EDUCATION"}
+                {allRedumeData?.data?.resume_language === "de" ? "AUSbildung" : "EDUCATION"}
               </h2>
               <div className="space-y-3 mt-3 text-center">
                 {educations.map((edu, i) => (
@@ -163,7 +163,7 @@ const ResumeFiveEdit = () => {
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                 style={{ color: resume_color || "#0D0D0D" }}
               >
-                {language === "de" ? "ÜBER MICH" : "ABOUT ME"}
+                {allRedumeData?.data?.resume_language === "de" ? "ÜBER MICH" : "ABOUT ME"}
               </h2>
               <p className="text-xs leading-[18px]">{about}</p>
             </div>
@@ -175,7 +175,7 @@ const ResumeFiveEdit = () => {
                   className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                   style={{ color: resume_color || "#0D0D0D" }}
                 >
-                  {language === "de" ? "ERFAHRUNGEN" : "EXPERIENCE"}
+                  {allRedumeData?.data?.resume_language === "de" ? "ERFAHRUNGEN" : "EXPERIENCE"}
                 </h2>
                 <div className="space-y-3 mt-3">
                   {work_experiences.map((exp, i) => (
@@ -201,7 +201,7 @@ const ResumeFiveEdit = () => {
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                 style={{ color: resume_color || "#0D0D0D" }}
               >
-                {language === "de" ? "AUSBILDUNGEN" : "TRAINING"}
+                {allRedumeData?.data?.resume_language === "de" ? "AUSBILDUNGEN" : "TRAINING"}
               </h2>
               <div className="space-y-3 mt-3">
                 {trainings.map((t, i) => (
@@ -223,7 +223,7 @@ const ResumeFiveEdit = () => {
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                 style={{ color: resume_color || "#0D0D0D" }}
               >
-                {language === "de" ? "SPRACHEN" : "LANGUAGES"}
+                {allRedumeData?.data?.resume_language === "de" ? "SPRACHEN" : "LANGUAGES"}
               </h2>
               <div className="space-y-2 mt-3">
                 {languages.map((l, i) => (

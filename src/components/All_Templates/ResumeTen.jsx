@@ -41,7 +41,7 @@ const ResumeTen = () => {
             <div>
               <div className="space-y-3 ">
                 <h2 className="text-sm font-semibold tracking-[2px] mb-3  leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                  CONTACT
+                 {allRedumeData?.data?.resume_language === "en" ? "CONTACT" : "KONTAKT"}
                 </h2>
                 <div className="px-4 space-y-2">
                   <p className="text-xs flex items-center gap-2 leading-[18px] ">
@@ -82,7 +82,7 @@ const ResumeTen = () => {
 
             <div>
               <h2 className="text-sm font-semibold tracking-[2px] mb-3  leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                TRAINING
+                {allRedumeData?.data?.resume_language === "en" ? "TRAINING" : "AUSBILDUNG"}
               </h2>
               <div className="space-y-3">
                 {resumeData?.courses_and_training_details?.map(
@@ -107,7 +107,7 @@ const ResumeTen = () => {
             </div>
             <div>
               <h2 className="text-sm font-semibold tracking-[2px] mb-3  leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                LANGUAGE
+                {allRedumeData?.data?.resume_language === "en" ? "LANGUAGES" : "SPRACHEN"}
               </h2>
               <div className="space-y-3 px-4">
                 {resumeData?.languages?.map((language, index) => (
@@ -122,7 +122,7 @@ const ResumeTen = () => {
             </div>
             <div className="flex flex-col justify-center">
               <h2 className="text-sm font-semibold tracking-[2px] mb-3  leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                SKILL
+               {allRedumeData?.data?.resume_language === "en" ? "SKILLS" : "FÄHIGKEITEN"}
               </h2>
               <ul className="text-xs space-y-3 list-disc list-inside px-4">
                 {resumeData?.skills?.map((skill, index) => (
@@ -145,7 +145,7 @@ const ResumeTen = () => {
             </div>
             <div>
               <h2 className="text-sm font-semibold tracking-[2px] mb-3 text-[#0D0D0D] leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
-                ABOUT
+           {allRedumeData?.data?.resume_language === "en" ? "ABOUT ME" : "ÜBER MICH"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717] px-4">
                 {resumeData?.about}
@@ -178,8 +178,8 @@ const ResumeTen = () => {
            {
             resumeData.work_experiences.length > 0 &&(
                <div>
-              <h2 className="text-sm font-semibold tracking-[2px] mb-3  leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
-                EXPERIENCE
+              <h2 className="text-sm font-semibold tracking-[2px] mb-3  leading-[24px] uppercase bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
+               {allRedumeData?.data?.resume_language === "en" ? "WORK EXPERIENCE" : "ARBEITserfahrung"  }
               </h2>
               <div className="space-y-3 px-4">
                 {resumeData?.work_experiences?.map((experience, index) => (

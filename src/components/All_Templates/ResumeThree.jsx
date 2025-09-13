@@ -74,7 +74,7 @@ const ResumeThree = () => {
           <div className="w-[45%] space-y-3 bg-[#F5F5F5] p-4 rounded-md">
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                ABOUT
+                {allRedumeData?.data?.resume_language === "en" ? "About Me" : "Über mich"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData.about}
@@ -83,7 +83,7 @@ const ResumeThree = () => {
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
               <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] ">
-                TRAINING
+                {allRedumeData?.data?.resume_language === "en" ? "TRAINING" : "AUSBILDUNG"}
               </h2>
               {resumeData.courses_and_training_details &&
                 resumeData.courses_and_training_details.length > 0 &&
@@ -106,8 +106,8 @@ const ResumeThree = () => {
             </div>
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                SKILL
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+                {allRedumeData?.data?.resume_language === "en" ? "Skills" : "Fähigkeiten"}
               </h2>
                <ul className="text-xs  flex gap-3 flex-wrap">
                 {resumeData.skills && resumeData.skills.length > 0
@@ -119,8 +119,8 @@ const ResumeThree = () => {
             </div>
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
-              <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px]">
-                LANGUAGE
+              <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] uppercase">
+            {allRedumeData?.data?.resume_language === "en" ? "Languages" : "Sprachen"}
               </h2>
               {resumeData.languages && resumeData.languages.length > 0
                 ? resumeData.languages.map((lang, index) => (
@@ -138,8 +138,8 @@ const ResumeThree = () => {
           <div className="w-[55%] space-y-3">
             {
               resumeData.work_experiences?.length > 0 &&(<div>
-              <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px]">
-                EXPERIENCE
+              <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] uppercase">
+                {allRedumeData?.data?.resume_language === "en" ? "Work Experience" : "BERUFSERFAHRUNG"}
               </h2>
               {resumeData.work_experiences &&
                 resumeData.work_experiences.length > 0 &&
@@ -164,8 +164,8 @@ const ResumeThree = () => {
             }
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                EDUCATION
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+               {allRedumeData?.data?.resume_language === "en" ? "Education" : "AUSBILDUNG"}
               </h2>
               {resumeData.educations &&
                 resumeData.educations.length > 0 &&

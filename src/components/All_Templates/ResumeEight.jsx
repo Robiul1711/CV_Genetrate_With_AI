@@ -7,7 +7,7 @@ import DownloadButton from "../common/DownloadButton";
 
 const TitleSection = ({ name }) => {
   return (
-    <h2 className=" bg-[#FFFFFF] -ml-4  rounded-tr-[16px] py-1.5 w-[140px] flex justify-center items-center text-base  text-[#0D0D0D] font-semibold leading-[20px] traking-[2px]">
+    <h2 className=" bg-[#FFFFFF] -ml-4 uppercase  rounded-tr-[16px] py-1.5 w-[140px] flex justify-center items-center text-base  text-[#0D0D0D] font-semibold leading-[20px] traking-[2px]">
       {name}
     </h2>
   );
@@ -15,7 +15,7 @@ const TitleSection = ({ name }) => {
 
 const TitleSection2 = ({ name }) => {
   return (
-    <h2 className=" bg-[#FFFFFF]  absolute top-4 right-0   rounded-tl-[16px] py-1.5 w-[120px] flex justify-center items-center text-base  text-[#0D0D0D] font-semibold leading-[20px] traking-[2px]">
+    <h2 className=" bg-[#FFFFFF] uppercase  absolute top-4 right-0   rounded-tl-[16px] py-1.5 w-[120px] flex justify-center items-center text-base  text-[#0D0D0D] font-semibold leading-[20px] traking-[2px]">
       {name}
     </h2>
   );
@@ -66,7 +66,7 @@ const ResumeEight = () => {
         <div className=" flex flex-col  gap-3 w-[75%]">
           <SectionArea>
             <div className=" flex flex-col gap-1">
-              <TitleSection name={`Profile`} />
+              <TitleSection name={allRedumeData?.data?.resume_language === "en" ? "About Me" : "Über mich"} />
               <p className=" text-xs  text-white font-normal leading-[18px] !urbanist">
                 {resumeData?.about}
               </p>
@@ -77,7 +77,7 @@ const ResumeEight = () => {
     
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection name={`Experience`} />
+              <TitleSection name={allRedumeData?.data?.resume_language === "en" ? "Work Experience" : "Arbeitszeit"} />
               <div className=" flex flex-col gap-2 w-full">
                 {resumeData?.work_experiences &&
                   resumeData.work_experiences.map((experience, index) => (
@@ -153,7 +153,7 @@ const ResumeEight = () => {
 
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection name={`Skills`} />
+              <TitleSection name={allRedumeData?.data?.resume_language === "en" ? "Skills" : "Fähigkeiten"} />
               <div className=" grid grid-cols-2  gap-2">
                 {resumeData?.skills &&
                   resumeData.skills.map((skill, index) => (
@@ -173,7 +173,7 @@ const ResumeEight = () => {
 
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection name={`Language`} />
+              <TitleSection name={allRedumeData?.data?.resume_language === "en" ? "Languages" : "Sprachen"} />
 
               <div className=" grid grid-cols-2">
                 {resumeData?.languages &&
@@ -196,7 +196,7 @@ const ResumeEight = () => {
 
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection name={`Training`} />
+              <TitleSection name={allRedumeData?.data?.resume_language === "en" ? "Trainings" : "Trainings"} />
 
               <div className=" grid gap-1 grid-cols-1">
                 {resumeData?.courses_and_training_details &&
@@ -251,7 +251,7 @@ const ResumeEight = () => {
         <div className=" w-[25%] mt-8 flex flex-col gap-3">
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection2 name={`Education`} />
+              <TitleSection2 name={allRedumeData?.data?.resume_language === "en" ? "Education" : "Ausbildung"} />
             </div>
             <div className=" grid  gap-2 mt-9">
               {resumeData?.educations &&
@@ -274,49 +274,55 @@ const ResumeEight = () => {
 
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection2 name={`Contact`} />
+              <TitleSection2 name={allRedumeData?.data?.resume_language === "en" ? "Contact" : "Kontakt"} />
 
               <div className=" grid  gap-2 mt-9">
                 <div className=" flex flex-col gap-1">
-                  <p className=" text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
-                    Phone
+                  <p className=" text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist uppercase">
+                    {allRedumeData?.data?.resume_language === "en"
+                      ? "Phone"
+                      : "Telefon"}
                   </p>
                   <p className=" text-[10px] font-normal leading-[16px] text-white !urbanist">
                     {resumeData?.phone_number}
                   </p>
                 </div>
                 <div className=" flex flex-col gap-1">
-                  <p className=" text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
-                    Location
+                  <p className=" text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist uppercase">
+                    {allRedumeData?.data?.resume_language === "en"
+                      ? "Location"
+                      : "Standort"}
                   </p>
                   <p className=" text-[10px] font-normal leading-[16px] text-white !urbanist">
                     {resumeData?.address}
                   </p>
                 </div>
                 <div className=" flex flex-col gap-1">
-                  <p className=" text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
-                    E-mail
+                  <p className=" text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist uppercase">
+                   {allRedumeData?.data?.resume_language === "en" ? "Email" : "E-Mail"}
                   </p>
                   <p className=" text-[10px] font-normal leading-[16px] text-white !urbanist">
                     {resumeData?.email}
                   </p>
                 </div>
                 <div className=" flex flex-col gap-1">
-                  <p className=" text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
-                    Linked-in
+                  <p className=" text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist uppercase">
+                    {allRedumeData?.data?.resume_language === "en"
+                      ? "Linkedin"
+                      : "Linkedin"}
                   </p>
                   <a
                     href={resumeData?.linked_in_profile}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] font-normal leading-[16px] text-white !urbanist break-words underline"
+                    className="text-[10px] font-normal leading-[16px] text-white !urbanist break-words underline uppercase"
                   >
                     {resumeData?.linked_in_profile}
                   </a>
                 </div>
                 <div className=" flex flex-col gap-1">
-                  <p className=" text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist">
-                    Xing
+                  <p className=" text-[#FECB00] text-xs font-semibold leading-[18px] !urbanist uppercase">
+                   {allRedumeData?.data?.resume_language === "en" ? "Xing" : "Xing"}
                   </p>
                   <a
                     href={resumeData?.xing_profile}

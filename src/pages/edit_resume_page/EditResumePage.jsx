@@ -20,6 +20,7 @@ import {
 import { useEmail } from "@/hooks/useEmail";
 import StepDesign from "@/components/Edit_Resume_Components/StepDesign";
 import { resumeDataEdits } from "@/lib/Data";
+import TailorStep from "@/components/createResumeComponents/TailorStep";
 
 const stepsData = (language) => [
   {
@@ -43,6 +44,14 @@ const stepsData = (language) => [
     component: <StepFive />,
   },
   { title: language === "de" ? "Schulungen" : "Train", component: <StepSix /> },
+   {
+      title:
+        language === "de"
+          ? "Stimme des Dokuments anpassen"
+          : "Tailor Your Document’s Voice",
+      component: <TailorStep />,
+    },
+  
 ];
 
 const EditResumePage = () => {

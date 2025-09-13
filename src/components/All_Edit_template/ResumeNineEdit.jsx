@@ -89,7 +89,7 @@ const ResumeNineEdit = () => {
         {/* Header */}
         <div className="flex flex-col z-10 justify-center items-center gap-4">
           <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
-            {language === "en" ? "The resume of" : "Le CV de"}
+            {allRedumeData?.data?.resume_language === "en" ? "The resume of" : "Le CV de"}
           </p>
           <h1
             style={{ color: resumeData?.resume_color || color || "" }}
@@ -195,7 +195,7 @@ const ResumeNineEdit = () => {
         <div className="flex flex-row gap-4 mt-2">
           <div className="w-[250px] p-6 bg-[#B0B3AC] flex flex-col gap-3">
             <p className="uppercase text-sm font-medium leading-5 text-white !urbanist text-center">
-              {language === "en" ? "Education" : "Ausbildung"}
+              {allRedumeData?.data?.resume_language === "en" ? "Education" : "Ausbildung"}
             </p>
             <div className="flex flex-col gap-3">
               {resumeData.educations.map((edu, index) => (
@@ -222,7 +222,7 @@ const ResumeNineEdit = () => {
             <div className="flex-1 flex flex-col gap-4">
               <div className="w-[90%] px-[60px] py-6 bg-[#293946] text-center">
                 <p className="leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
-                  {language === "en" ? "Experience" : "Erfahrung"}
+                  {allRedumeData?.data?.resume_language === "en" ? "Experience" : "Erfahrung"}
                 </p>
               </div>
               <div className="flex flex-col gap-3 pr-6">
@@ -259,7 +259,7 @@ const ResumeNineEdit = () => {
         <div className="flex gap-4 mt-4">
           <div className="flex flex-col w-[250px] gap-3">
             <p className="leading-5 text-sm font-medium text-[#0D0D0D] uppercase !urbanist">
-              {language === "en" ? "Skills" : "Fähigkeiten"}
+              {allRedumeData?.data?.resume_language === "en" ? "Skills" : "Fähigkeiten"}
             </p>
             <div className="flex flex-col gap-1">
               {resumeData.skills.map((skill, index) => (
@@ -280,7 +280,7 @@ const ResumeNineEdit = () => {
           >
             <div className="w-[90%] px-[60px] py-6 bg-[#293946] text-center">
               <p className="leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
-                {language === "en" ? "Trainings" : "Ausbildung"}
+                {allRedumeData?.data?.resume_language === "en" ? "Trainings" : "Ausbildung"}
               </p>
             </div>
             <div className="flex flex-col gap-3 pr-4">

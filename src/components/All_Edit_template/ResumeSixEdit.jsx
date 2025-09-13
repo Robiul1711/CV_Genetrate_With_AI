@@ -106,7 +106,7 @@ const ResumeSixEdit = () => {
               <div>
                 <div className="flex pb-3 items-center gap-1">
                   <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px] uppercase">
-                    {language === "de" ? "Erfahrung" : "Experience"}
+                    {allRedumeData?.data?.resume_language === "de" ? "Erfahrung" : "Experience"}
                   </h2>
                   <div
                     className="flex-1 border-b-[2px] mt-2 max-w-[100px]"
@@ -135,7 +135,7 @@ const ResumeSixEdit = () => {
             <div>
               <div className="flex pb-3 items-center gap-1">
                 <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px] uppercase">
-                  {language === "de" ? "Ausbildung" : "Education"}
+                  {allRedumeData?.data?.resume_language === "de" ? "Ausbildung" : "Education"}
                 </h2>
                 <div
                   className="flex-1 border-b-[2px] mt-2 max-w-[100px]"
@@ -159,7 +159,7 @@ const ResumeSixEdit = () => {
             <div>
               <div className="flex pb-3 items-center gap-1">
                 <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px] uppercase">
-                  {language === "de" ? "AUSBILDUNGEN" : "Training"}
+                  {allRedumeData?.data?.resume_language === "de" ? "AUSBILDUNGEN" : "Training"}
                 </h2>
                 <div
                   className="flex-1 border-b-[2px] mt-2 max-w-[100px]"
@@ -187,7 +187,7 @@ const ResumeSixEdit = () => {
             {/* ABOUT */}
             <div>
               <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
-                {language === "de" ? "Über mich" : "About Me"}
+                {allRedumeData?.data?.resume_language === "de" ? "Über mich" : "About Me"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">{resumeData.about}</p>
             </div>
@@ -197,7 +197,7 @@ const ResumeSixEdit = () => {
             {/* CONTACT */}
             <div className="text-center">
               <h2 className="text-sm tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
-                {language === "de" ? "Kontakt" : "Contact"}
+                {allRedumeData?.data?.resume_language === "de" ? "Kontakt" : "Contact"}
               </h2>
               <div className="space-y-3 text-center">
                 <p className="text-xs flex flex-col items-center gap-1 leading-[18px]">
@@ -231,7 +231,7 @@ const ResumeSixEdit = () => {
             <div className="border-b" style={{ borderColor: resume_color || "#D9D9D9" }}></div>
             <div className="text-center">
               <h2 className="text-sm tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
-                {language === "de" ? "Fähigkeiten" : "Skills"}
+                {allRedumeData?.data?.resume_language === "de" ? "Fähigkeiten" : "Skills"}
               </h2>
               <ul className="text-xs space-y-3">
                 {resumeData.skills.map((skill, i) => (
@@ -251,7 +251,7 @@ const ResumeSixEdit = () => {
             <div className="border-b" style={{ borderColor: resume_color || "#D9D9D9" }}></div>
             <div>
               <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
-                {language === "de" ? "Sprachen" : "Languages"}
+                {allRedumeData?.data?.resume_language === "de" ? "Sprachen" : "Languages"}
               </h2>
               {resumeData.languages.map((lang, i) => (
                 <p key={i} className="text-xs flex justify-between items-center">

@@ -8,6 +8,7 @@ import { useEmail } from "@/hooks/useEmail";
 
 const ResumeOneEdit = () => {
   const { allRedumeData, color, setColor, font, setFont } = useResume();
+  console.log(allRedumeData?.data?.resume_language);
   const { watch } = useFormContext();
   const resumeRef = useRef();
   const { language } = useEmail();
@@ -74,7 +75,7 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {/* About */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {language === "de" ? "Über mich" : "About"}
+                {allRedumeData?.data?.resume_language === "de" ? "Über mich" : "About"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">{about}</p>
             </div>
@@ -82,7 +83,7 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {/* Contact */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {language === "de" ? "Kontakt" : "Contact"}
+                {allRedumeData?.data?.resume_language === "de" ? "Kontakt" : "Contact"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs">{phone_number}</p>
@@ -97,7 +98,7 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {languages?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                  {language === "de" ? "Sprachen" : "Languages"}
+                  {allRedumeData?.data?.resume_language === "de" ? "Sprachen" : "Languages"}
                 </h2>
                 {languages.map((lang, idx) => (
                   <p key={idx} className="text-xs flex justify-between">
@@ -111,7 +112,7 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {skills?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-                  {language === "de" ? "Fähigkeiten" : "Skills"}
+                  {allRedumeData?.data?.resume_language === "de" ? "Fähigkeiten" : "Skills"}
                 </h2>
                 <ul className="text-xs  flex gap-3 flex-wrap">
                   {skills.map((skill, idx) => (
@@ -130,7 +131,7 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {workExperiences?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {language === "de" ? "Berufserfahrung" : "Work Experience"}
+                  {allRedumeData?.data?.resume_language === "de" ? "Berufserfahrung" : "Work Experience"}
                 </h2>
                 {workExperiences.map((exp, idx) => (
                   <div key={idx} className="mt-4">
@@ -159,7 +160,7 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {educations?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                  {language === "de" ? "Ausbildung" : "Education"}
+                  {allRedumeData?.data?.resume_language === "de" ? "Ausbildung" : "Education"}
                 </h2>
                 {educations.map((edu, idx) => (
                   <div key={idx} className="mt-4">
@@ -184,7 +185,7 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {traingings?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {language === "de" ? "Trainings" : "Trainings"}
+                  {allRedumeData?.data?.resume_language === "de" ? "Trainings" : "Trainings"}
                 </h2>
                 {traingings.map((exp, idx) => (
                   <div key={idx} className="mt-4">
