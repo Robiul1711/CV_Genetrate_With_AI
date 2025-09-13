@@ -167,17 +167,17 @@ const DownloadButton = ({ resumeRef }) => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const location = useLocation();
-  const {language} = useEmail(); // expected to return "en" or "de"
-    const { data: status } = useStatusCheck();
-      const messages = {
+  const { language } = useEmail(); // expected to return "en" or "de"
+  const { data: status } = useStatusCheck();
+  const messages = {
     en: {
       downloadButton: "Download as PDF",
       downloading: "Downloading...",
       errorTitle: "Error",
       errorImage: "Please upload an image to your CV.",
-      noSubTitle: "No Active Subscription or Credits",
-      noSubText:
-        "You can't download because your subscription has expired and you have no remaining credits.",
+      noSubTitle: "Upgrade Subscription Plan",
+      noSubText: "Please upgrade your subscription plan to continue.",
+
       upgradePlan: "Upgrade Plan",
       close: "Close",
     },
@@ -186,9 +186,9 @@ const DownloadButton = ({ resumeRef }) => {
       downloading: "Wird heruntergeladen...",
       errorTitle: "Fehler",
       errorImage: "Bitte laden Sie ein Bild für Ihren Lebenslauf hoch.",
-      noSubTitle: "Kein aktives Abonnement oder Guthaben",
+      noSubTitle: "Abonnementplan aktualisieren",
       noSubText:
-        "Sie können nicht herunterladen, da Ihr Abonnement abgelaufen ist und Sie keine verbleibenden Guthaben haben.",
+        "Bitte aktualisieren Sie Ihren Abonnementplan, um fortzufahren",
       upgradePlan: "Tarif upgraden",
       close: "Schließen",
     },
@@ -200,7 +200,7 @@ const DownloadButton = ({ resumeRef }) => {
       ? "cover_letter"
       : "resume";
 
-      console.log(status)
+  console.log(status);
 
   // Wait until all images are loaded
   const waitForImages = async (element) => {
@@ -222,7 +222,7 @@ const DownloadButton = ({ resumeRef }) => {
       await document.fonts.ready;
     }
   };
-
+  console.log(status);
   const handleDownloadPDF = async () => {
     if (!resumeRef.current) return;
     try {
@@ -232,7 +232,7 @@ const DownloadButton = ({ resumeRef }) => {
 
       const dataUrl = await htmlToImage.toJpeg(resumeRef.current, {
         quality: 1,
-   
+
         pixelRatio: 1.8,
       });
 
@@ -261,9 +261,10 @@ const DownloadButton = ({ resumeRef }) => {
     }
   };
 
-    const canDownload = () => {
+  const canDownload = () => {
     const sub = status?.has_subscription;
     if (!sub) return false;
+    return true;
 
     // const now = new Date();
     // const startDate = sub.start_date ? new Date(sub.start_date) : null;
@@ -273,11 +274,10 @@ const DownloadButton = ({ resumeRef }) => {
     //   startDate && endDate ? now >= startDate && now <= endDate : false;
 
     // return inDateRange || sub.pay_per_download_credits > 0;
-    return  sub.pay_per_download_credits > 0;
   };
 
   const handleDownload = async () => {
-     if (!canDownload()) {
+    if (!canDownload()) {
       Swal.fire({
         title: t.noSubTitle,
         text: t.noSubText,

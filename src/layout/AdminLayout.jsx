@@ -123,7 +123,6 @@ const AdminLayout = () => {
     });
   }, [location]);
 
-  // dynamically set paths based on subscription status
   const createResumePath =
     status?.has_subscription === false
       ? "/price"
@@ -151,7 +150,7 @@ const AdminLayout = () => {
       text:
         language === "de" ? "Neuen Lebenslauf erstellen" : "Create New Resume",
       path: createResumePath,
-      extra_path: updateResumePath, // optional extra path for editing
+      extra_path: "/dashboard/edit-resume",
       extra_path2: "/dashboard/edit-design",
       sublink: false,
     },
