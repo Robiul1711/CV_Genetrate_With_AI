@@ -203,7 +203,7 @@ const DownloadButton = ({ resumeRef }) => {
 
       const dataUrl = await htmlToImage.toJpeg(resumeRef.current, {
         quality: 1,
-        cacheBust: true,
+   
         pixelRatio: 1.8,
       });
 
