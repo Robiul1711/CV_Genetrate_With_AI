@@ -3,11 +3,14 @@ import html2pdf from "html2pdf.js";
 import { useResume } from "@/providers/ResumeContext";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeEleven = () => {
   const { allRedumeData } = useResume();
   const resumeData = allRedumeData?.data || [];
   const resumeRef = useRef();
 
+  const { data: status } = useStatusCheck();
  
 
   return (
@@ -15,8 +18,16 @@ const ResumeEleven = () => {
          <DownloadButton resumeRef={resumeRef}  />
       <div
         ref={resumeRef}
-        className="bg-white text-black px-4 py-8 w-[210mm] h-[297mm] overflow-hidden  mx-auto !urbanist"
+        className="bg-white text-black relative px-4 py-8 w-[210mm] h-[297mm] overflow-hidden  mx-auto !urbanist"
       >
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         {/* Header */}
         <div className="text-center ">
           <h1 className="text-[32px] font-bold tracking-[2px] text-[#484848] ">

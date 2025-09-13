@@ -13,7 +13,8 @@ import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
-
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeTenEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const { allRedumeData, color, setColor, font } = useResume(); // Added font
@@ -22,6 +23,8 @@ const ResumeTenEdit = () => {
   const resumeRef = useRef(null);
   const [profilePreview, setProfilePreview] = useState(user);
   const { language } = useEmail();
+
+  
 
   // Dynamic font map
   const fontMap = {
@@ -33,6 +36,8 @@ const ResumeTenEdit = () => {
     playfair: "Playfair Display, serif",
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
+  
+  const { data: status } = useStatusCheck();
 
   // Merge formData and context data
   const resume_color = color || allRedumeData?.data?.resume_color;
@@ -89,11 +94,20 @@ const ResumeTenEdit = () => {
 
       <div
         ref={resumeRef}
-        className="bg-white text-black w-[210mm] mx-auto !urbanist h-[297mm] overflow-hidden"
+        className="bg-white text-black relative w-[210mm] mx-auto !urbanist h-[297mm] overflow-hidden"
         style={{
           fontFamily: appliedFont, // Apply dynamic font
         }}
       >
+
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         {/* Left Column */}
         <div className="flex justify-between w-full h-full">
           <div

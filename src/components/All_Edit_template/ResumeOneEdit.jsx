@@ -5,6 +5,10 @@ import dayjs from "dayjs";
 import { useFormContext } from "react-hook-form";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
+import WaterMark from "@/assets/images/watermark.png";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useStatusCheck } from "../common/useStatusCheck";
 
 const ResumeOneEdit = () => {
   const { allRedumeData, color, setColor, font, setFont } = useResume();
@@ -15,47 +19,71 @@ const ResumeOneEdit = () => {
 
   const formValues = watch();
 
-  const first_name = formValues.first_name || allRedumeData?.data?.first_name || "";
-  const resume_color = color || allRedumeData?.data?.resume_color || '';
-  const last_name = formValues.last_name || allRedumeData?.data?.last_name || "";
-  const job_title = formValues.job_title || allRedumeData?.data?.job_title || "";
+  const first_name =
+    formValues.first_name || allRedumeData?.data?.first_name || "";
+  const resume_color = color || allRedumeData?.data?.resume_color || "";
+  const last_name =
+    formValues.last_name || allRedumeData?.data?.last_name || "";
+  const job_title =
+    formValues.job_title || allRedumeData?.data?.job_title || "";
   const about = formValues.about || allRedumeData?.data?.about || "";
-  const phone_number = formValues.phone_number || allRedumeData?.data?.phone_number || "";
+  const phone_number =
+    formValues.phone_number || allRedumeData?.data?.phone_number || "";
   const address = formValues.address || allRedumeData?.data?.address || "";
   const email = formValues.email || allRedumeData?.data?.email || "";
-  const linked_in_profile = formValues.linked_in_profile || allRedumeData?.data?.linked_in_profile || "";
-  const xing_profile = formValues.xing_profile || allRedumeData?.data?.xing_profile || "";
+  const linked_in_profile =
+    formValues.linked_in_profile ||
+    allRedumeData?.data?.linked_in_profile ||
+    "";
+  const xing_profile =
+    formValues.xing_profile || allRedumeData?.data?.xing_profile || "";
 
-  const workExperiences = formValues.work_experiences || allRedumeData?.data?.work_experiences || [];
-  const educations = formValues.educations || allRedumeData?.data?.educations || [];
+  const workExperiences =
+    formValues.work_experiences || allRedumeData?.data?.work_experiences || [];
+  const educations =
+    formValues.educations || allRedumeData?.data?.educations || [];
   const skills = formValues.skills || allRedumeData?.data?.skills || [];
-  const languages = formValues.languages || allRedumeData?.data?.languages || [];
+  const languages =
+    formValues.languages || allRedumeData?.data?.languages || [];
   const traingings = formValues?.courses_and_training_details || [];
 
   useEffect(() => {
     if (!color) setColor(""); // optional: reset color on mount
   }, []);
 
-  // Mapping font variable to className
-const fontMap = {
-  inter: "Inter, sans-serif",
-  poppins: "Poppins, sans-serif",
-  urbanist: "Urbanist, sans-serif",
-  roboto: "Roboto, sans-serif",
-  lato: "Lato, sans-serif",
-};
+  const { data: status } = useStatusCheck();
 
-const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
+  // Mapping font variable to className
+  const fontMap = {
+    inter: "Inter, sans-serif",
+    poppins: "Poppins, sans-serif",
+    urbanist: "Urbanist, sans-serif",
+    roboto: "Roboto, sans-serif",
+    lato: "Lato, sans-serif",
+  };
+
+  console.log(status)
+
+  const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
   return (
     <div className={`min-h-screen ${appliedFontFamily}`}>
       <DownloadButton resumeRef={resumeRef} />
 
       <div
         ref={resumeRef}
-        className="bg-white text-black py-8 w-[210mm] mx-auto h-[297mm] overflow-hidden"
-          style={{ fontFamily: appliedFontFamily }} // fallback inline style
+        className="bg-white relative  text-black py-8 w-[210mm] mx-auto h-[297mm] overflow-hidden"
+        style={{ fontFamily: appliedFontFamily }} // fallback inline style
       >
         {/* Header */}
+        {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
+
         <div className="text-center border-b border-[#D9D9D9] pb-5">
           <h1 className="text-[32px] font-light tracking-[7px] text-[#484848]">
             {first_name} <span className="font-semibold">{last_name}</span>
@@ -75,7 +103,9 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {/* About */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "de" ? "Über mich" : "About"}
+                {allRedumeData?.data?.resume_language === "de"
+                  ? "Über mich"
+                  : "About"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">{about}</p>
             </div>
@@ -83,7 +113,9 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {/* Contact */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "de" ? "Kontakt" : "Contact"}
+                {allRedumeData?.data?.resume_language === "de"
+                  ? "Kontakt"
+                  : "Contact"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs">{phone_number}</p>
@@ -98,7 +130,9 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {languages?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                  {allRedumeData?.data?.resume_language === "de" ? "Sprachen" : "Languages"}
+                  {allRedumeData?.data?.resume_language === "de"
+                    ? "Sprachen"
+                    : "Languages"}
                 </h2>
                 {languages.map((lang, idx) => (
                   <p key={idx} className="text-xs flex justify-between">
@@ -112,7 +146,9 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {skills?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-                  {allRedumeData?.data?.resume_language === "de" ? "Fähigkeiten" : "Skills"}
+                  {allRedumeData?.data?.resume_language === "de"
+                    ? "Fähigkeiten"
+                    : "Skills"}
                 </h2>
                 <ul className="text-xs  flex gap-3 flex-wrap">
                   {skills.map((skill, idx) => (
@@ -131,7 +167,9 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {workExperiences?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "de" ? "Berufserfahrung" : "Work Experience"}
+                  {allRedumeData?.data?.resume_language === "de"
+                    ? "Berufserfahrung"
+                    : "Work Experience"}
                 </h2>
                 {workExperiences.map((exp, idx) => (
                   <div key={idx} className="mt-4">
@@ -160,7 +198,9 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {educations?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "de" ? "Ausbildung" : "Education"}
+                  {allRedumeData?.data?.resume_language === "de"
+                    ? "Ausbildung"
+                    : "Education"}
                 </h2>
                 {educations.map((edu, idx) => (
                   <div key={idx} className="mt-4">
@@ -168,7 +208,10 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
                     <p className="text-xs flex justify-between items-center mt-1">
                       {edu.degree}
                       <span>
-                        {edu.start_date ? dayjs(edu.start_date).format("YYYY") : ""} –{" "}
+                        {edu.start_date
+                          ? dayjs(edu.start_date).format("YYYY")
+                          : ""}{" "}
+                        –{" "}
                         {edu.currently_enrolled
                           ? "Present"
                           : edu.end_date
@@ -185,7 +228,9 @@ const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
             {traingings?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "de" ? "Trainings" : "Trainings"}
+                  {allRedumeData?.data?.resume_language === "de"
+                    ? "Trainings"
+                    : "Trainings"}
                 </h2>
                 {traingings.map((exp, idx) => (
                   <div key={idx} className="mt-4">

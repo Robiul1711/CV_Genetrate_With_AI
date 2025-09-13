@@ -5,7 +5,8 @@ import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
-
+import { useStatusCheck } from "../common/useStatusCheck";
+import WaterMark from "@/assets/images/watermark.png";
 const ResumeTwoEdit = () => {
   const { allRedumeData, color, setColor, font } = useResume();
   const { watch } = useFormContext();
@@ -22,6 +23,9 @@ const ResumeTwoEdit = () => {
     lato: "Lato, sans-serif",
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
+
+  
+    const { data: status } = useStatusCheck();
 
   // Merge form values with API/context fallback
   const first_name = formValues.first_name || allRedumeData?.data?.first_name || "";
@@ -52,10 +56,19 @@ const ResumeTwoEdit = () => {
       {/* Resume Container */}
       <div
         ref={resumeRef}
-        className="bg-white text-black py-8 w-[210mm] h-[297mm] overflow-hidden mx-auto"
+        className="bg-white text-black  relative py-8 w-[210mm] h-[297mm] overflow-hidden mx-auto"
         style={{ fontFamily: appliedFont }}
       >
         {/* Header */}
+
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         <div className="text-center">
           <h1
             style={{ color: resume_color }}

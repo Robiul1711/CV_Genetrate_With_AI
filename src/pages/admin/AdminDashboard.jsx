@@ -9,9 +9,26 @@ import {
 } from "@/components/AllIcons/DashboardAllIcons";
 import { Link } from "react-router-dom";
 import { useEmail } from "@/hooks/useEmail"; // assuming it provides { language }
+import { useStatusCheck } from "@/components/common/useStatusCheck";
 
 const AdminDashboard = () => {
-  const { language } = useEmail(); // 'en' or 'de'
+  const { language } = useEmail(); 
+
+    const { data: status } = useStatusCheck();
+
+
+      const createResumePath =
+    status?.has_subscription === false
+      ? "/price"
+      : "/dashboard/create-new-resume";
+  const updateResumePath =
+    status?.has_subscription === false
+      ? "/price"
+      : "/dashboard/update-existing-resume";
+  const coverLetterPath =
+    status?.has_subscription === false && status?.cover_letter === false
+      ? "/price"
+      : "/dashboard/create-cover-letter";
 
   const data = [
     {
@@ -22,7 +39,7 @@ const AdminDashboard = () => {
           ? "Lassen Sie die KI einen erfolgreichen Lebenslauf von Grund auf erstellen."
           : "Let AI help you craft a job-winning resume from zero",
       icons: <CreateNewResumeIcon />,
-      link: "/dashboard/create-new-resume",
+      link: createResumePath,
     },
     {
       id: 2,
@@ -32,7 +49,7 @@ const AdminDashboard = () => {
           ? "Laden Sie Ihren aktuellen Lebenslauf hoch, und die KI verbessert ihn für den Erfolg."
           : "Upload your current resume and let AI enhance it for success.",
       icons: <UpdateExistingResumeIcon />,
-      link: "/dashboard/update-existing-resume",
+      link: updateResumePath,
     },
     {
       id: 3,
@@ -42,7 +59,7 @@ const AdminDashboard = () => {
           ? "Personalisierte Anschreiben, abgestimmt auf Ihren Lebenslauf und die Zielstelle."
           : "Personalized letters matched to your resume and target job.",
       icons: <CreateCoverLetterIcon />,
-      link: "/dashboard/create-cover-letter",
+      link: coverLetterPath,
     },
   ];
 

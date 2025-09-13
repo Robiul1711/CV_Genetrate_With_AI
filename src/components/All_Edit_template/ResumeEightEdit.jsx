@@ -6,6 +6,9 @@ import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
 
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
+
 const TitleSection = ({ name }) => {
   return (
     <h2 className="bg-[#FFFFFF] uppercase -ml-4 rounded-tr-[16px] py-1.5 w-[140px] flex justify-center items-center text-base text-[#0D0D0D] font-semibold leading-[20px] tracking-[2px]">
@@ -39,6 +42,9 @@ const ResumeEightEdit = () => {
   const { watch } = useFormContext();
   const formData = watch();
   const { language } = useEmail();
+
+  
+  const { data: status } = useStatusCheck();
 
   const resumeRef = useRef();
   const [profilePreview, setProfilePreview] = useState(Image);
@@ -95,9 +101,18 @@ const ResumeEightEdit = () => {
       <DownloadButton resumeRef={resumeRef} />
       <div
         ref={resumeRef}
-        className="flex flex-col bg-[#404040] gap-3 w-[210mm] h-[297mm] overflow-hidden mx-auto"
+        className="flex flex-col relative bg-[#404040] gap-3 w-[210mm] h-[297mm] overflow-hidden mx-auto"
       >
         {/* Header */}
+
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain  z-[100]"
+            />
+          </div>
+        )}
         <header
           className="bg-[#1F1F1F] pl-[153px] relative pt-[34px] pb-4 pr-[172px] w-full"
           style={{ backgroundColor: resume_color }}

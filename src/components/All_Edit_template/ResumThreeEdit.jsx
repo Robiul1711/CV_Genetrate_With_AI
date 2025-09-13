@@ -5,7 +5,8 @@ import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
-
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeThreeEdit = () => {
   const { watch } = useFormContext();
   const { allRedumeData, color, setColor, font } = useResume();
@@ -21,6 +22,9 @@ const ResumeThreeEdit = () => {
     lato: "Lato, sans-serif",
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
+
+  
+  const { data: status } = useStatusCheck();
 
   // Watch form values
   const formValues = watch();
@@ -54,9 +58,18 @@ const ResumeThreeEdit = () => {
 
       <div
         ref={resumeRef}
-        className="bg-white text-black px-5 py-8 w-[210mm] mx-auto h-[297mm] overflow-hidden"
+        className="bg-white text-black relative px-5 py-8 w-[210mm] mx-auto h-[297mm] overflow-hidden"
         style={{ fontFamily: appliedFont }}
       >
+
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         {/* Header */}
         <div className="flex w-full justify-between">
           <div className="w-[60%]">

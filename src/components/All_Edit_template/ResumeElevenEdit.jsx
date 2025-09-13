@@ -12,6 +12,8 @@ import {
   FaXing,
 } from "react-icons/fa";
 import { useEmail } from "@/hooks/useEmail";
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 
 const ResumeElevenEdit = () => {
   const { allRedumeData, color, setColor, font } = useResume(); // Added font
@@ -33,6 +35,8 @@ const ResumeElevenEdit = () => {
     playfair: "Playfair Display, serif",
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
+
+  const { data: status } = useStatusCheck();
 
   // Merge formData and context data
   const resumeData = {
@@ -71,7 +75,9 @@ const ResumeElevenEdit = () => {
     ) {
       setProfilePreview(formData.profile_photo);
     } else if (resumeData.profile_photo) {
-      setProfilePreview(import.meta.env.VITE_IMG_URL + resumeData.profile_photo);
+      setProfilePreview(
+        import.meta.env.VITE_IMG_URL + resumeData.profile_photo
+      );
     } else {
       setProfilePreview("");
     }
@@ -87,9 +93,17 @@ const ResumeElevenEdit = () => {
 
       <div
         ref={resumeRef}
-        className="bg-white text-black px-4 py-8 w-[210mm] mx-auto !urbanist h-[297mm] overflow-hidden"
+        className="bg-white text-black px-4 py-8 w-[210mm] relative mx-auto !urbanist h-[297mm] overflow-hidden"
         style={{ fontFamily: appliedFont }} // Apply dynamic font
       >
+        {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         {/* Header */}
         <div className="text-center">
           <h1 className="text-[32px] font-bold tracking-[2px] text-[#484848]">
@@ -113,7 +127,9 @@ const ResumeElevenEdit = () => {
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
                 style={{ backgroundColor: resume_color }}
               >
-                {allRedumeData?.data?.resume_language === "en" ? "About Me" : "Über mich"}
+                {allRedumeData?.data?.resume_language === "en"
+                  ? "About Me"
+                  : "Über mich"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData.about}
@@ -126,7 +142,9 @@ const ResumeElevenEdit = () => {
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
                 style={{ backgroundColor: resume_color }}
               >
-                {allRedumeData?.data?.resume_language === "en" ? "Contact" : "Kontakt"}
+                {allRedumeData?.data?.resume_language === "en"
+                  ? "Contact"
+                  : "Kontakt"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-1">
@@ -174,7 +192,9 @@ const ResumeElevenEdit = () => {
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] text-[#fff] text-center leading-[24px]"
                 style={{ backgroundColor: resume_color }}
               >
-                {allRedumeData?.data?.resume_language === "en" ? "Education" : "Bildung"}
+                {allRedumeData?.data?.resume_language === "en"
+                  ? "Education"
+                  : "Bildung"}
               </h2>
               {resumeData.educations.map((edu, idx) => (
                 <div key={idx} className="mt-3">
@@ -207,7 +227,9 @@ const ResumeElevenEdit = () => {
                   className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
                   style={{ backgroundColor: resume_color }}
                 >
-                  {allRedumeData?.data?.resume_language === "de" ? "Erfahrung" : "Experience"}
+                  {allRedumeData?.data?.resume_language === "de"
+                    ? "Erfahrung"
+                    : "Experience"}
                 </h2>
                 {resumeData.work_experiences.map((exp, idx) => (
                   <div key={idx} className="mt-3">
@@ -235,7 +257,9 @@ const ResumeElevenEdit = () => {
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
                 style={{ backgroundColor: resume_color }}
               >
-                {allRedumeData?.data?.resume_language === "de" ? "Ausbildung" : "Training"}
+                {allRedumeData?.data?.resume_language === "de"
+                  ? "Ausbildung"
+                  : "Training"}
               </h2>
               {resumeData.courses_and_training_details.map((training, idx) => (
                 <div key={idx} className="mt-3">
@@ -259,9 +283,11 @@ const ResumeElevenEdit = () => {
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
                 style={{ backgroundColor: resume_color }}
               >
-                {allRedumeData?.data?.resume_language === "de" ? "Fertigkeiten" : "Skills"}
+                {allRedumeData?.data?.resume_language === "de"
+                  ? "Fertigkeiten"
+                  : "Skills"}
               </h2>
-                 <ul className="text-xs  flex gap-3 flex-wrap">
+              <ul className="text-xs  flex gap-3 flex-wrap">
                 {resumeData.skills.map((skill, idx) => (
                   <li key={idx} className="flex justify-between items-center">
                     {skill.skill}
@@ -276,7 +302,9 @@ const ResumeElevenEdit = () => {
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
                 style={{ backgroundColor: resume_color }}
               >
-                {allRedumeData?.data?.resume_language === "de" ? "Sprachen" : "Languages"}
+                {allRedumeData?.data?.resume_language === "de"
+                  ? "Sprachen"
+                  : "Languages"}
               </h2>
               <ul className="text-xs space-y-3">
                 {resumeData.languages.map((lang, idx) => (

@@ -65,6 +65,7 @@ const AuthProvider = ({ children }) => {
     return res.data.data;
   };
 
+
   const logout = () => {
     setToken("");
     setRefreshToken("");

@@ -1,13 +1,20 @@
 import React, { useRef, useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { FaPhoneAlt, FaMapMarkerAlt, FaEnvelope, FaLinkedin, FaXing } from "react-icons/fa";
+import {
+  FaPhoneAlt,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaLinkedin,
+  FaXing,
+} from "react-icons/fa";
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import CvImage from "@/assets/images/cv7.png";
 import user from "@/assets/images/user.png";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
-
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeSevenEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const { allRedumeData, color, setColor, font } = useResume();
@@ -16,6 +23,8 @@ const ResumeSevenEdit = () => {
   const [profilePreview, setProfilePreview] = useState(user);
   const { language } = useEmail();
   const formData = watch();
+
+  const { data: status } = useStatusCheck();
 
   const resume_color = color || allRedumeData?.data?.resume_color;
 
@@ -34,21 +43,34 @@ const ResumeSevenEdit = () => {
     last_name: formData?.last_name || allRedumeData?.data?.last_name || "",
     job_title: formData?.job_title || allRedumeData?.data?.job_title || "",
     about: formData?.about || allRedumeData?.data?.about || "",
-    profile_photo: formData?.profile_photo || allRedumeData?.data?.profile_photo || "",
-    phone_number: formData?.phone_number || allRedumeData?.data?.phone_number || "",
+    profile_photo:
+      formData?.profile_photo || allRedumeData?.data?.profile_photo || "",
+    phone_number:
+      formData?.phone_number || allRedumeData?.data?.phone_number || "",
     email: formData?.email || allRedumeData?.data?.email || "",
     address: formData?.address || allRedumeData?.data?.address || "",
-    linked_in_profile: formData?.linked_in_profile || allRedumeData?.data?.linked_in_profile || "",
-    xing_profile: formData?.xing_profile || allRedumeData?.data?.xing_profile || "",
+    linked_in_profile:
+      formData?.linked_in_profile ||
+      allRedumeData?.data?.linked_in_profile ||
+      "",
+    xing_profile:
+      formData?.xing_profile || allRedumeData?.data?.xing_profile || "",
     educations: formData?.educations || allRedumeData?.data?.educations || [],
     skills: formData?.skills || allRedumeData?.data?.skills || [],
     languages: formData?.languages || allRedumeData?.data?.languages || [],
-    work_experiences: formData?.work_experiences || allRedumeData?.data?.work_experiences || [],
-    courses_and_training_details: formData?.courses_and_training_details || allRedumeData?.data?.courses_and_training_details || [],
+    work_experiences:
+      formData?.work_experiences || allRedumeData?.data?.work_experiences || [],
+    courses_and_training_details:
+      formData?.courses_and_training_details ||
+      allRedumeData?.data?.courses_and_training_details ||
+      [],
   };
 
   useEffect(() => {
-    if (formData?.profile_photo && !formData.profile_photo.startsWith("/media")) {
+    if (
+      formData?.profile_photo &&
+      !formData.profile_photo.startsWith("/media")
+    ) {
       setProfilePreview(formData.profile_photo);
     } else if (resumeData.profile_photo) {
       setProfilePreview(VITE_IMG_URL + resumeData.profile_photo);
@@ -67,9 +89,18 @@ const ResumeSevenEdit = () => {
 
       <div
         ref={resumeRef}
-        className="flex flex-col bg-white mt-10 py-5 gap-4 w-[210mm] mx-auto shadow-lg h-[297mm] overflow-hidden"
+        className="flex flex-col relative bg-white mt-10 py-5 gap-4 w-[210mm] mx-auto shadow-lg h-[297mm] overflow-hidden"
       >
         {/* Header */}
+
+        {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         <header className="w-full text-center flex flex-col gap-1">
           <h1 className="text-[32px] uppercase font-bold tracking-[12px] text-[#484848]">
             {resumeData.first_name} {resumeData.last_name}
@@ -83,7 +114,9 @@ const ResumeSevenEdit = () => {
         <div className="flex w-full px-6 justify-between items-center gap-5">
           <div className="w-1/3 text-center">
             <p className="uppercase text-sm font-semibold">
-              {allRedumeData?.data?.resume_language === "de" ? "Profil" : "Profile"}
+              {allRedumeData?.data?.resume_language === "de"
+                ? "Profil"
+                : "Profile"}
             </p>
             <p className="italic text-xs !text-black">{resumeData.about}</p>
           </div>
@@ -98,25 +131,37 @@ const ResumeSevenEdit = () => {
 
           <div className="w-1/3 flex flex-col gap-1 h-full">
             <p className="uppercase text-sm font-semibold text-center !text-black ">
-              {allRedumeData?.data?.resume_language === "de" ? "Kontakt" : "Contact"}
+              {allRedumeData?.data?.resume_language === "de"
+                ? "Kontakt"
+                : "Contact"}
             </p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-1">
                 <FaPhoneAlt className="text-sm text-black" />
-                <span className="text-xs italic !text-black">{resumeData.phone_number}</span>
+                <span className="text-xs italic !text-black">
+                  {resumeData.phone_number}
+                </span>
               </div>
               <div className="flex items-center gap-1">
                 <FaMapMarkerAlt className="text-sm text-black" />
-                <span className="text-xs italic !text-black">{resumeData.address}</span>
+                <span className="text-xs italic !text-black">
+                  {resumeData.address}
+                </span>
               </div>
               <div className="flex items-center gap-1">
                 <FaEnvelope className="text-sm text-black" />
-                <span className="text-xs italic !text-black">{resumeData.email}</span>
+                <span className="text-xs italic !text-black">
+                  {resumeData.email}
+                </span>
               </div>
               {resumeData.linked_in_profile && (
                 <div className="flex items-center gap-1">
                   <FaLinkedin className="text-sm text-black" />
-                  <a href={resumeData.linked_in_profile} target="_blank" className="text-xs italic !text-black">
+                  <a
+                    href={resumeData.linked_in_profile}
+                    target="_blank"
+                    className="text-xs italic !text-black"
+                  >
                     {resumeData.linked_in_profile}
                   </a>
                 </div>
@@ -124,7 +169,11 @@ const ResumeSevenEdit = () => {
               {resumeData.xing_profile && (
                 <div className="flex items-center gap-1">
                   <FaXing className="text-sm text-black" />
-                  <a href={resumeData.xing_profile} target="_blank" className="text-xs italic !text-black">
+                  <a
+                    href={resumeData.xing_profile}
+                    target="_blank"
+                    className="text-xs italic !text-black"
+                  >
                     {resumeData.xing_profile}
                   </a>
                 </div>
@@ -139,19 +188,39 @@ const ResumeSevenEdit = () => {
             className="grid grid-cols-3 bg-[#E1E2E6] !text-black text-center font-semibold py-2 border border-[#9A9A9A]"
             style={{ backgroundColor: resume_color, borderColor: resume_color }}
           >
-            <div className="uppercase">{allRedumeData?.data?.resume_language === "de" ? "Bildung" : "Education"}</div>
-            <div className="uppercase">{allRedumeData?.data?.resume_language === "de" ? "Fertigkeiten" : "Skills"}</div>
-            <div className="uppercase">{allRedumeData?.data?.resume_language === "de" ? "Sprachen" : "Languages"}</div>
+            <div className="uppercase">
+              {allRedumeData?.data?.resume_language === "de"
+                ? "Bildung"
+                : "Education"}
+            </div>
+            <div className="uppercase">
+              {allRedumeData?.data?.resume_language === "de"
+                ? "Fertigkeiten"
+                : "Skills"}
+            </div>
+            <div className="uppercase">
+              {allRedumeData?.data?.resume_language === "de"
+                ? "Sprachen"
+                : "Languages"}
+            </div>
           </div>
 
-          <div className="grid grid-cols-3 text-sm px-4 py-6 border border-[#ccc6c6] border-t-0" style={{ borderColor: resume_color }} >
+          <div
+            className="grid grid-cols-3 text-sm px-4 py-6 border border-[#ccc6c6] border-t-0"
+            style={{ borderColor: resume_color }}
+          >
             <div className="flex flex-col gap-3">
               {resumeData.educations.map((edu, i) => (
                 <div key={i} className="text-center">
-                  <p className="font-medium text-xs !text-black">{edu.degree}</p>
-                  <p className="italic text-xs !text-black">{edu.institute_name}</p>
+                  <p className="font-medium text-xs !text-black">
+                    {edu.degree}
+                  </p>
                   <p className="italic text-xs !text-black">
-                    {dayjs(edu.start_date).format("MMM YYYY")} - {dayjs(edu.end_date).format("MMM YYYY")}
+                    {edu.institute_name}
+                  </p>
+                  <p className="italic text-xs !text-black">
+                    {dayjs(edu.start_date).format("MMM YYYY")} -{" "}
+                    {dayjs(edu.end_date).format("MMM YYYY")}
                   </p>
                 </div>
               ))}
@@ -160,7 +229,9 @@ const ResumeSevenEdit = () => {
             <div className="flex flex-col items-center gap-2">
               {resumeData.skills.map((skill, i) => (
                 <div key={i} className="flex items-center gap-4">
-                  <p className="w-[75px] italic text-xs !text-black">{skill.skill}</p>
+                  <p className="w-[75px] italic text-xs !text-black">
+                    {skill.skill}
+                  </p>
                   {/* <span className="w-[80px] h-1 bg-[#E0D5C9] rounded !text-black"></span> */}
                 </div>
               ))}
@@ -177,12 +248,22 @@ const ResumeSevenEdit = () => {
           </div>
 
           {resumeData.work_experiences?.length > 0 && (
-            <div className="absolute -bottom-5 left-24 text-black bg-[#b1aaaa] p-2 uppercase" style={{ backgroundColor: resume_color }}>
-              {allRedumeData?.data?.resume_language === "de" ? "Erfahrung" : "Experience"}
+            <div
+              className="absolute -bottom-5 left-24 text-black bg-[#b1aaaa] p-2 uppercase"
+              style={{ backgroundColor: resume_color }}
+            >
+              {allRedumeData?.data?.resume_language === "de"
+                ? "Erfahrung"
+                : "Experience"}
             </div>
           )}
-          <div className="absolute -bottom-5 right-24 text-black bg-[#b1aaaa] p-2 uppercase" style={{ backgroundColor: resume_color }}>
-            {allRedumeData?.data?.resume_language === "de" ? "AUSBILDUNGEN" : "Training"}
+          <div
+            className="absolute -bottom-5 right-24 text-black bg-[#b1aaaa] p-2 uppercase"
+            style={{ backgroundColor: resume_color }}
+          >
+            {allRedumeData?.data?.resume_language === "de"
+              ? "AUSBILDUNGEN"
+              : "Training"}
           </div>
         </div>
 
@@ -190,30 +271,56 @@ const ResumeSevenEdit = () => {
         <div className="w-full grid grid-cols-2 px-6 mt-4 gap-4">
           <div className="grid grid-cols-1 gap-4">
             {resumeData.work_experiences.map((exp, i) => (
-              <div key={i} className="bg-[#F8F8F8] rounded-lg shadow-sm border p-4 flex flex-col gap-3" style={{ backgroundColor: resume_color }}>
+              <div
+                key={i}
+                className="bg-[#F8F8F8] rounded-lg shadow-sm border p-4 flex flex-col gap-3"
+                style={{ backgroundColor: resume_color }}
+              >
                 <div className="flex justify-between text-xs italic">
-                  <p className="font-semibold !text-black">{exp.company_name}</p>
+                  <p className="font-semibold !text-black">
+                    {exp.company_name}
+                  </p>
                   <p className="!text-black">
-                    {dayjs(exp.start_date).format("MMM YYYY")} – {exp.end_date ? dayjs(exp.end_date).format("MMM YYYY") : "Present"}
+                    {dayjs(exp.start_date).format("MMM YYYY")} –{" "}
+                    {exp.end_date
+                      ? dayjs(exp.end_date).format("MMM YYYY")
+                      : "Present"}
                   </p>
                 </div>
-                <p className="italic font-semibold text-sm !text-black">{exp.job_title}</p>
-                <p className="italic text-xs text-justify !text-black">{exp.responsibilities}</p>
+                <p className="italic font-semibold text-sm !text-black">
+                  {exp.job_title}
+                </p>
+                <p className="italic text-xs text-justify !text-black">
+                  {exp.responsibilities}
+                </p>
               </div>
             ))}
           </div>
 
           <div className="grid grid-cols-1 gap-4">
             {resumeData.courses_and_training_details.map((training, i) => (
-              <div key={i} className="bg-[#F8F8F8] rounded-lg shadow-sm border p-4 flex flex-col gap-3" style={{ backgroundColor: resume_color }}>
+              <div
+                key={i}
+                className="bg-[#F8F8F8] rounded-lg shadow-sm border p-4 flex flex-col gap-3"
+                style={{ backgroundColor: resume_color }}
+              >
                 <div className="flex justify-between text-xs italic">
-                  <p className="font-semibold !text-black">{training.name_of_institute}</p>
+                  <p className="font-semibold !text-black">
+                    {training.name_of_institute}
+                  </p>
                   <p className="!text-black">
-                    {dayjs(training.start_date).format("MMM YYYY")} – {training.end_date ? dayjs(training.end_date).format("MMM YYYY") : "Ongoing"}
+                    {dayjs(training.start_date).format("MMM YYYY")} –{" "}
+                    {training.end_date
+                      ? dayjs(training.end_date).format("MMM YYYY")
+                      : "Ongoing"}
                   </p>
                 </div>
-                <p className="italic font-semibold text-sm !text-black">{training.course_name}</p>
-                <p className="italic text-xs text-justify !text-black">{training.description}</p>
+                <p className="italic font-semibold text-sm !text-black">
+                  {training.course_name}
+                </p>
+                <p className="italic text-xs text-justify !text-black">
+                  {training.description}
+                </p>
               </div>
             ))}
           </div>

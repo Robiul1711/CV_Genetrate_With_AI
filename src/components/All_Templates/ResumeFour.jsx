@@ -11,11 +11,14 @@ import {
 import dayjs from "dayjs";
 import { useResume } from "@/providers/ResumeContext";
 import DownloadButton from "../common/DownloadButton";
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeFour = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const { allRedumeData } = useResume();
   const resumeData = allRedumeData?.data || [];
 
+  const { data: status } = useStatusCheck();
   const resumeRef = useRef();
   
 
@@ -24,9 +27,17 @@ const ResumeFour = () => {
       <DownloadButton resumeRef={resumeRef} />
       <div
         ref={resumeRef}
-        className="bg-white text-black px-5 py-8  w-[210mm]  h-[297mm] overflow-hidden mx-auto urbanist"
+        className="bg-white text-black relative px-5 py-8  w-[210mm]  h-[297mm] overflow-hidden mx-auto urbanist"
       >
         {/* Header */}
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         <div className="flex w-full justify-between items-start gap-4">
           {/* Left: Name and Title */}
           <div className="w-[80%]">

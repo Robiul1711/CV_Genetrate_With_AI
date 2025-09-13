@@ -4,6 +4,8 @@ import { useResume } from "@/providers/ResumeContext";
 import dayjs from "dayjs";
 import html2pdf from "html2pdf.js";
 import DownloadButton from "../common/DownloadButton";
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 
 const TitleSection = ({ name }) => {
   return (
@@ -34,6 +36,7 @@ const ResumeEight = () => {
   const { allRedumeData } = useResume();
   const resumeData = allRedumeData?.data || [];
 
+  const { data: status } = useStatusCheck();
     const resumeRef = useRef();
   
  
@@ -43,7 +46,15 @@ const ResumeEight = () => {
 
          <DownloadButton resumeRef={resumeRef}  />
 
-      <div ref={resumeRef} className=" flex flex-col bg-[#404040] gap-3 w-[210mm] h-[297mm] mx-auto mt-10">
+      <div ref={resumeRef} className=" flex relative flex-col bg-[#404040] gap-3 w-[210mm] h-[297mm] mx-auto mt-10">
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain z-[100]"
+            />
+          </div>
+        )}
       <header
         className={` bg-[#1F1F1F] pl-[153px] relative  pt-[34px] pb-4 pr-[172px] w-full`}
       >
