@@ -113,7 +113,7 @@ const UpdateExistingResumeEdit = () => {
 
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <div className="flex flex-col lg:flex-row gap-5">
+          <div className="flex flex-col-reverse lg:flex-row gap-5">
             {/* Left: CV Preview */}
             <div className="w-full lg:w-[70%] border border-[#262626] rounded-xl p-2 bg-[#0E0E10] overflow-hidden">
               {/* Mobile tab toggle */}
@@ -215,14 +215,14 @@ const UpdateExistingResumeEdit = () => {
               </div>
 
               {/* Sticky Save button for small screens */}
-              <div className="mt-5 lg:static sticky bottom-0 bg-[#0A0A0A] p-2">
+              {/* <div className="mt-5 lg:static sticky bottom-0 bg-[#0A0A0A] p-2">
                 <button
                   type="submit"
                   className="w-full py-3 bg-linearbg text-white font-semibold rounded-md hover:opacity-90 transition-opacity"
                 >
                   {language === "en" ? "Save Changes" : "Änderungen speichern"}
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </form>

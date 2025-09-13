@@ -9,7 +9,7 @@ const StepSix = () => {
   const { allRedumeData } = useResume();
   const data = allRedumeData?.data;
 
-  const { register, control, watch, setValue } = useFormContext();
+  const { register, control, watch, setValue,formState:{errors} } = useFormContext();
   const { language } = useEmail(); // Get language from useEmail
 
   const texts = {
@@ -98,7 +98,7 @@ const StepSix = () => {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <label className="text-sm text-white">{t.startDate}</label>
                 <input
@@ -113,6 +113,48 @@ const StepSix = () => {
                 <input
                   {...register(`courses_and_training_details.${index}.end_date`)}
                   type="date"
+                  className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
+                />
+              </div>
+            </div> */}
+
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm text-white">
+                  {language === "de" ? "Startjahr *" : "Start Year *"}
+                </label>
+                <input
+                  type="text"
+                  placeholder="YYYY"
+                  {...register(`courses_and_training_details.${index}.start_date`, {
+                    required: language === "de" ? "Startjahr ist erforderlich" : "Start year is required",
+                    // pattern: {
+                    //   value: /^\d{4}$/,
+                    //   message: language === "de" ? "Ungültiges Jahr" : "Invalid year",
+                    // },
+                  })}
+                  className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
+                />
+                {errors?.courses_and_training_details?.[index]?.start_date && (
+                  <p className="text-red-500 text-xs">
+                    {errors.courses_and_training_details[index].start_date.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-sm text-white">
+                  {language === "de" ? "Endjahr (optional)" : "End Year (optional)"}
+                </label>
+                <input
+                  type="text"
+                  placeholder="YYYY"
+                  {...register(`courses_and_training_details.${index}.end_date`, {
+                    // pattern: {
+                    //   value: /^\d{4}$/,
+                    //   message: language === "de" ? "Ungültiges Jahr" : "Invalid year",
+                    // },
+                  })}
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 />
               </div>

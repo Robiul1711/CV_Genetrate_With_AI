@@ -1,8 +1,9 @@
 import React from "react";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import Title from "../common/Title";
 import { useEmail } from "@/hooks/useEmail";
-
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 const textMap = {
   en: {
     pageTitle: "Basic Information",
@@ -76,6 +77,7 @@ const Step_1 = () => {
   const {
     register,
     formState: { errors },
+    control
   } = useFormContext();
 
   return (
@@ -141,21 +143,32 @@ const Step_1 = () => {
           </div>
 
           {/* Phone Number */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">{t.phone}</label>
-            <div className="flex items-center px-3 text-xs rounded-lg border border-[#262626] bg-[#0E0E10] text-white">
-              <span className="pr-2">🇬🇧</span>
-              <input
-                type="text"
-                placeholder={t.phonePlaceholder}
-                {...register("phone_number", { required: t.errors.phone })}
-                className="bg-transparent px-3 py-1.5 text-xs w-full focus:outline-none text-white"
-              />
-            </div>
+        <div className="flex flex-col gap-2">
+            <label className="md:text-base text-[14px] font-normal text-white">
+              {
+                language ==="en" ?"Phone Number" :"Telefonnummer"
+              }
+            </label>
+            <Controller
+              name="phone_number"
+              control={control}
+              rules={{
+                required: "Phone number is required",
+              }}
+              render={({ field }) => (
+                <PhoneInput
+                  {...field}
+                  country={ language ==="en" ?"us":"de"}
+                  placeholder="Enter phone number"
+                  inputClass=" md:text-base text-[14px]"
+                  containerClass={`flex font-poppins gap-2 items-center  p-1  border-[1px] border-[#262626] w-full rounded-[12px] phone_input_container_profile_edit  ${
+                    errors.phone ? "border-red-500" : "border-[#D8D8D]"
+                  } `}
+                />
+              )}
+            />
             {errors.phone_number && (
-              <span className="text-red-500 text-xs">
-                {errors.phone_number.message}
-              </span>
+              <p className="text-red-500 text-sm">{errors.phone_number.message}</p>
             )}
           </div>
 
