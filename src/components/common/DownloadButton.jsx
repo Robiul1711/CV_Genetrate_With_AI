@@ -161,17 +161,46 @@ import Swal from "sweetalert2";
 import { useAuth } from "@/hooks/useAuth";
 import { useLocation } from "react-router-dom";
 import { useEmail } from "@/hooks/useEmail";
+import { useStatusCheck } from "./useStatusCheck";
 
 const DownloadButton = ({ resumeRef }) => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const {language} = useEmail(); // expected to return "en" or "de"
+    const { data: status } = useStatusCheck();
+      const messages = {
+    en: {
+      downloadButton: "Download as PDF",
+      downloading: "Downloading...",
+      errorTitle: "Error",
+      errorImage: "Please upload an image to your CV.",
+      noSubTitle: "No Active Subscription or Credits",
+      noSubText:
+        "You can't download because your subscription has expired and you have no remaining credits.",
+      upgradePlan: "Upgrade Plan",
+      close: "Close",
+    },
+    de: {
+      downloadButton: "Als PDF herunterladen",
+      downloading: "Wird heruntergeladen...",
+      errorTitle: "Fehler",
+      errorImage: "Bitte laden Sie ein Bild für Ihren Lebenslauf hoch.",
+      noSubTitle: "Kein aktives Abonnement oder Guthaben",
+      noSubText:
+        "Sie können nicht herunterladen, da Ihr Abonnement abgelaufen ist und Sie keine verbleibenden Guthaben haben.",
+      upgradePlan: "Tarif upgraden",
+      close: "Schließen",
+    },
+  };
+  const t = messages[language] || messages.en;
 
   const resumeName =
     location.pathname === "/dashboard/create-cover-letter"
       ? "cover_letter"
       : "resume";
+
+      console.log(status)
 
   // Wait until all images are loaded
   const waitForImages = async (element) => {
@@ -232,7 +261,37 @@ const DownloadButton = ({ resumeRef }) => {
     }
   };
 
+    const canDownload = () => {
+    const sub = status?.has_subscription;
+    if (!sub) return false;
+
+    // const now = new Date();
+    // const startDate = sub.start_date ? new Date(sub.start_date) : null;
+    // const endDate = sub.end_date ? new Date(sub.end_date) : null;
+
+    // const inDateRange =
+    //   startDate && endDate ? now >= startDate && now <= endDate : false;
+
+    // return inDateRange || sub.pay_per_download_credits > 0;
+    return  sub.pay_per_download_credits > 0;
+  };
+
   const handleDownload = async () => {
+     if (!canDownload()) {
+      Swal.fire({
+        title: t.noSubTitle,
+        text: t.noSubText,
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#000",
+        cancelButtonColor: "#d33",
+        confirmButtonText: t.upgradePlan,
+        cancelButtonText: t.close,
+      }).then((result) => {
+        if (result.isConfirmed) window.location.href = "/price";
+      });
+      return;
+    }
     await handleDownloadPDF();
   };
 

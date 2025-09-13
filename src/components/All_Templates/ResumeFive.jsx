@@ -11,22 +11,30 @@ import {
 import dayjs from "dayjs";
 import { useResume } from "@/providers/ResumeContext";
 import DownloadButton from "../common/DownloadButton";
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeFive = () => {
   const { allRedumeData } = useResume();
   const resumeData = allRedumeData?.data || [];
   const resumeRef = useRef();
-
   
-
-
-
+  const { data: status } = useStatusCheck();
   return (
     <div className="min-h-screen  ">
          <DownloadButton resumeRef={resumeRef}  />
       <div
         ref={resumeRef}
-        className="bg-white text-black px-5  w-[210mm] h-[297mm] mx-auto !urbanist"
+        className="bg-white text-black px-5 relative  w-[210mm] h-[297mm] mx-auto !urbanist"
       >
+
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         {/* Body */}
         <div className="flex justify-between gap-5 h-full ">
           {/* Left Column */}

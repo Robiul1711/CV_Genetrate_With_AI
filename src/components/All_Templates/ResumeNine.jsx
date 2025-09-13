@@ -12,11 +12,15 @@ import {
 import { useResume } from "@/providers/ResumeContext";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeNine = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const { allRedumeData } = useResume();
   const resumeData = allRedumeData?.data || [];
   const resumeRef = useRef();
+  
+  const { data: status } = useStatusCheck();
 
 
   return (
@@ -25,8 +29,16 @@ const ResumeNine = () => {
 
       <div
         ref={resumeRef}
-        className=" flex flex-col gap-4 p-6 bg-white w-[210mm] h-[297mm] overflow-hidden mx-auto mt-10"
+        className=" flex flex-col gap-4 p-6 relative bg-white w-[210mm] h-[297mm] overflow-hidden mx-auto mt-10"
       >
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         <div className=" flex flex-col">
           <div className=" flex flex-col z-10 justify-center items-center gap-4">
             <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">

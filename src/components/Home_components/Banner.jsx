@@ -7,10 +7,12 @@ import { BannerLineIcon, EditIcon, UpgradeIcon } from "../AllIcons/HomeIcons";
 import { Link } from "react-router-dom";
 import { UseLangauge } from "@/hooks/UseLangauge";
 import { useEmail } from "@/hooks/useEmail";
+import { useStatusCheck } from "../common/useStatusCheck";
 
 const Banner = () => {
   const { selectedLanguage } = UseLangauge();
   const { language } = useEmail();
+  const { data: status } = useStatusCheck();
 
   // Static text based on language
   const content = {
@@ -32,6 +34,14 @@ const Banner = () => {
   };
 
   const text = content[language] || content.en; // fallback to English
+        const createResumePath =
+    status?.has_subscription === false
+      ? "/price"
+      : "/dashboard/create-new-resume";
+  const updateResumePath =
+    status?.has_subscription === false
+      ? "/price"
+      : "/dashboard/update-existing-resume";
 
   return (
     <div className="py-10 md:py-16 lg:py-20">
@@ -60,13 +70,13 @@ const Banner = () => {
 
         <div className="flex flex-col md:flex-row items-center gap-5">
           <Link
-            to={"/dashboard/create-new-resume"}
+            to={createResumePath}
             className="flex items-center gap-2 px-6 py-2 md:py-3 rounded-xl border hover:border-[#1b461c]"
           >
             {text.createResume} <EditIcon />
           </Link>
           <Link
-            to={"/dashboard/update-existing-resume"}
+            to={updateResumePath}
             className="flex items-center gap-2 px-6 py-2 md:py-3 rounded-xl border hover:border-[#1b461c]"
           >
             {text.upgradeResume} <UpgradeIcon />

@@ -5,7 +5,8 @@ import { useResume } from "@/providers/ResumeContext";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
 import { FaPhoneAlt, FaLinkedin, FaMapMarkerAlt, FaEnvelope, FaXing } from "react-icons/fa";
-
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeFiveEdit = () => {
   const { watch } = useFormContext();
   const { allRedumeData, color, setColor, font } = useResume();
@@ -22,6 +23,9 @@ const ResumeFiveEdit = () => {
     lato: "Lato, sans-serif",
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
+
+
+  const { data: status } = useStatusCheck();
 
   // Watch form values
   const first_name = watch("first_name") || resumeData.first_name;
@@ -49,9 +53,18 @@ const ResumeFiveEdit = () => {
       <DownloadButton resumeRef={resumeRef} />
       <div
         ref={resumeRef}
-        className="bg-white text-black px-5 w-[210mm] h-[297mm] overflow-hidden mx-auto"
+        className="bg-white text-black relative px-5 w-[210mm] h-[297mm] overflow-hidden mx-auto"
         style={{ fontFamily: appliedFont }}
       >
+
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         <div className="flex justify-between gap-5 h-full">
           {/* Left Column */}
           <div className="w-[40%] space-y-6 rounded-md py-10">

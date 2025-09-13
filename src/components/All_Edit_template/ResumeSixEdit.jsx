@@ -6,6 +6,8 @@ import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
 import user from "../../assets/images/user.png";
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 
 const ResumeSixEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
@@ -27,6 +29,8 @@ const ResumeSixEdit = () => {
     lato: "Lato, sans-serif",
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
+  
+  const { data: status } = useStatusCheck();
 
   const resumeData = {
     first_name: formData.first_name || allRedumeData?.data?.first_name || "",
@@ -71,10 +75,18 @@ const ResumeSixEdit = () => {
 
       <div
         ref={resumeRef}
-        className="bg-white text-black w-[210mm] mx-auto !urbanist h-[297mm]"
+        className="bg-white text-black relative w-[210mm] mx-auto !urbanist h-[297mm]"
         style={{ fontFamily: appliedFont }}
       >
         {/* Header */}
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         <div
           className="flex w-full relative justify-between px-12 py-9"
           style={{ backgroundColor: resume_color || "#373739" }}

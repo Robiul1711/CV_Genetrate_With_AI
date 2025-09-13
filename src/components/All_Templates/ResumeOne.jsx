@@ -4,9 +4,14 @@ import { useResume } from "@/providers/ResumeContext";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
 
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
+
 const ResumeOne = () => {
   const { allRedumeData } = useResume();
   const resumeData = allRedumeData?.data || [];
+  
+  const { data: status } = useStatusCheck();
 
   const resumeRef = useRef();
 
@@ -18,9 +23,18 @@ const ResumeOne = () => {
         />
       <div
         ref={resumeRef}
-        className="bg-white text-black px-4 py-8 w-[210mm]  mx-auto urbanist  h-[297mm] overflow-hidden"
+        className="bg-white text-black relative px-4 py-8 w-[210mm]  mx-auto urbanist  h-[297mm] overflow-hidden"
       >
         {/* Header */}
+
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         <div className="text-center border-b border-[#D9D9D9] pb-5">
           <h1 className="text-[32px] font-light tracking-[7px] text-[#484848]">
             {resumeData?.first_name}{" "}

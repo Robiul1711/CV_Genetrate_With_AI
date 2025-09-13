@@ -20,6 +20,7 @@ import {
 import Design from "./Design";
 import { useEmail } from "@/hooks/useEmail";
 import { resumeDataEdits } from "@/lib/Data";
+import { useStatusCheck } from "@/components/common/useStatusCheck";
 
 const UpdateExistingResumeEdit = () => {
   const { resumeId } = useParams();
@@ -29,13 +30,32 @@ const UpdateExistingResumeEdit = () => {
   const axiosSecure = useAxiosSecure();
   const { language } = useEmail();
 
+  const { data: status } = useStatusCheck();
   const steps = [
-    { title: language === "en" ? "Personal Info" : "Persönliche Informationen", component: <StepOne /> },
-    { title: language === "en" ? "Experience" : "Erfahrung", component: <StepTwo /> },
-    { title: language === "en" ? "Education" : "Bildung", component: <StepThree /> },
-    { title: language === "en" ? "Skill" : "Fähigkeiten", component: <StepFour /> },
-    { title: language === "en" ? "Language" : "Sprache", component: <StepFive /> },
-    { title: language === "en" ? "Training" : "Training", component: <StepSix /> },
+    {
+      title: language === "en" ? "Personal Info" : "Persönliche Informationen",
+      component: <StepOne />,
+    },
+    {
+      title: language === "en" ? "Experience" : "Erfahrung",
+      component: <StepTwo />,
+    },
+    {
+      title: language === "en" ? "Education" : "Bildung",
+      component: <StepThree />,
+    },
+    {
+      title: language === "en" ? "Skill" : "Fähigkeiten",
+      component: <StepFour />,
+    },
+    {
+      title: language === "en" ? "Language" : "Sprache",
+      component: <StepFive />,
+    },
+    {
+      title: language === "en" ? "Training" : "Training",
+      component: <StepSix />,
+    },
   ];
 
   const methods = useForm({ mode: "onChange" });
@@ -98,7 +118,10 @@ const UpdateExistingResumeEdit = () => {
     <div className="min-h-screen bg-[#0A0A0A] text-white p-4 md:p-6">
       {/* Header */}
       <div className="mb-6">
-        <Link to="/dashboard/choose-resume" className="flex items-center gap-2 mb-2">
+        <Link
+          to="/dashboard/choose-resume"
+          className="flex items-center gap-2 mb-2"
+        >
           <FaAngleLeft className="cursor-pointer text-xl p-1 border border-white/30 rounded-full" />
           <Title level="title32">
             {language === "en" ? "Create New Resume" : "Lebenslauf bearbeiten"}
@@ -135,8 +158,8 @@ const UpdateExistingResumeEdit = () => {
                           ? "Edit"
                           : "Design"
                         : tab === "edit"
-                          ? "Bearbeiten"
-                          : "Design"}
+                        ? "Bearbeiten"
+                        : "Design"}
                     </button>
                   ))}
                 </div>
@@ -176,8 +199,8 @@ const UpdateExistingResumeEdit = () => {
                           ? "Edit Content"
                           : "Design"
                         : tab === "edit"
-                          ? "Inhalt bearbeiten"
-                          : "Design"}
+                        ? "Inhalt bearbeiten"
+                        : "Design"}
                     </button>
                   ))}
                 </div>
@@ -207,7 +230,9 @@ const UpdateExistingResumeEdit = () => {
                       </div>
                     </div>
 
-                    <div className="min-h-[400px]">{steps[activeStep].component}</div>
+                    <div className="min-h-[400px]">
+                      {steps[activeStep].component}
+                    </div>
                   </>
                 ) : (
                   <Design />

@@ -14,7 +14,8 @@ import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
-
+import WaterMark from "@/assets/images/watermark.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeNineEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const { allRedumeData, color, setColor, font } = useResume();
@@ -33,6 +34,8 @@ const ResumeNineEdit = () => {
     playfair: "Playfair Display, serif",
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
+  
+  const { data: status } = useStatusCheck();
 
   // Merge formData and context data
   const resumeData = {
@@ -84,9 +87,18 @@ const ResumeNineEdit = () => {
 
       <div
         ref={resumeRef}
-        className="flex flex-col gap-4 p-6 bg-white w-[210mm] h-[297mm] overflow-hidden mx-auto mt-10"
+        className="flex flex-col relative gap-4 p-6 bg-white w-[210mm] h-[297mm] overflow-hidden mx-auto mt-10"
       >
         {/* Header */}
+
+         {status?.water_mark && (
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+            <img
+              src={WaterMark}
+              className="max-w-full max-h-full object-contain opacity-80"
+            />
+          </div>
+        )}
         <div className="flex flex-col z-10 justify-center items-center gap-4">
           <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
             {allRedumeData?.data?.resume_language === "en" ? "The resume of" : "Le CV de"}
