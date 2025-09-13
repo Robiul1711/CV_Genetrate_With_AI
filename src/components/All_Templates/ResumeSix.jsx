@@ -56,8 +56,8 @@ const ResumeSix = () => {
             resumeData.work_experiences?.length > 0 &&(
                <div>
               <div className="flex pb-3 items-center gap-1">
-                <h2 className="text-sm tracking-[2px]  text-[#171717] font-semibold leading-[24px]">
-                  EXPERIENCE
+                <h2 className="text-sm tracking-[2px]  text-[#171717] font-semibold leading-[24px] uppercase">
+                  {allRedumeData?.data?.resume_language === "en" ? "Work Experience" : "Arbeitserfahrung"}
                 </h2>
                 <div className="flex-1 border-b-[2px] mt-2 border-[#D9D9D9] max-w-[100px]"></div>
               </div>
@@ -86,8 +86,8 @@ const ResumeSix = () => {
 
             <div>
               <div className="flex pb-3 items-center gap-1">
-                <h2 className="text-sm tracking-[2px]  text-[#171717] font-semibold leading-[24px]">
-                  EDUCATION
+                <h2 className="text-sm tracking-[2px]  text-[#171717] font-semibold leading-[24px] uppercase">
+                 {allRedumeData?.data?.resume_language === "en" ? "Education" : "Ausbildung"}
                 </h2>
                 <div className="flex-1 border-b-[2px] mt-2 border-[#D9D9D9] max-w-[100px]"></div>
               </div>
@@ -111,8 +111,8 @@ const ResumeSix = () => {
 
             <div>
               <div className="flex pb-3 items-center gap-1">
-                <h2 className="text-sm tracking-[2px]  text-[#171717] font-semibold leading-[24px]">
-                  TRAINING
+                <h2 className="text-sm tracking-[2px]  text-[#171717] font-semibold leading-[24px] uppercase">
+               {allRedumeData?.data?.resume_language === "en" ? "Courses and Training" : "Kurse und Schulungen"}
                 </h2>
                 <div className="flex-1 border-b-[2px] mt-2 border-[#D9D9D9] max-w-[100px]"></div>
               </div>
@@ -140,8 +140,8 @@ const ResumeSix = () => {
           {/* Right Column */}
           <div className="w-[50%] space-y-4">
             <div>
-              <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] uppercase font-semibold leading-[24px]">
-                ABOUT Me
+              <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] uppercase font-semibold leading-[24px] ">
+                {allRedumeData?.data?.resume_language === "en" ? "About Me" : "Über mich"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData?.about}
@@ -149,8 +149,8 @@ const ResumeSix = () => {
             </div>
             <div className="border-b border-[#D9D9D9]"></div>
             <div className="text-center">
-              <h2 className="text-sm  tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px]">
-                CONTACT
+              <h2 className="text-sm  tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
+              {allRedumeData?.data?.resume_language === "en" ? "Contact" : "Kontakt"}
               </h2>
               <div className="space-y-3 text-center ">
                 <p className="text-xs flex flex-col items-center gap-1 leading-[18px]">
@@ -189,8 +189,8 @@ const ResumeSix = () => {
             </div>
             <div className="border-b border-[#D9D9D9]"></div>
             <div className="text-center">
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px]">
-                SKILL
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
+               {allRedumeData?.data?.resume_language === "en" ? "Skills" : "Fähigkeiten"}
               </h2>
               <ul className="text-xs space-y-3">
                 {resumeData?.skills?.map((skill, index) => (
@@ -211,8 +211,8 @@ const ResumeSix = () => {
 
             <div className="border-b border-[#D9D9D9]"></div>
             <div>
-              <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] font-semibold leading-[24px]">
-                LANGUAGE
+              <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
+               {allRedumeData?.data?.resume_language === "en" ? "Languages" : "Sprachen"}
               </h2>
               {resumeData?.languages?.map((language, index) => (
                 <p className="text-xs flex justify-between items-center ">

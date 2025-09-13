@@ -86,7 +86,7 @@ const ResumeFive = () => {
 
             <div className="flex flex-col items-center justify-center">
               <h2 className="text-sm font-semibold tracking-[2px] pb-3 text-[#0D0D0D] leading-[24px]">
-                SKILL
+            {allRedumeData?.data?.resume_language === "en" ? "SKILLS" : "FÄHIGKEITEN"}
               </h2>
               <ul className="text-xs space-y-3 text-center">
                 {resumeData.skills?.map((skill, index) => (
@@ -101,7 +101,7 @@ const ResumeFive = () => {
 
             <div className="flex flex-col items-center justify-center">
               <h2 className="text-sm font-semibold tracking-[2px]  text-[#0D0D0D] leading-[24px]">
-                EDUCATION
+                {allRedumeData?.data?.resume_language === "en" ? "EDUCATION" : "AUSBILDUNG"}
               </h2>
               {
                 resumeData.educations && resumeData.educations.length > 0 && (
@@ -132,7 +132,7 @@ const ResumeFive = () => {
           <div className="w-[60%] space-y-6 py-8 mt-8">
             <div>
               <h2 className="text-sm font-semibold tracking-[2px] pb-3 text-[#0D0D0D] leading-[24px]">
-                ABOUT
+                {allRedumeData?.data?.resume_language === "en" ? "ABOUT ME" : "ÜBER MICH"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData.about}
@@ -142,7 +142,7 @@ const ResumeFive = () => {
             resumeData.work_experiences?.length > 0 &&(
                <div>
               <h2 className="text-sm font-semibold tracking-[2px]  text-[#0D0D0D] leading-[24px]">
-                EXPERIENCE
+              {allRedumeData?.data?.resume_language === "en" ? "EXPERIENCE" : "ERFAHRUNG"}
               </h2>
               {
                 resumeData.work_experiences && resumeData.work_experiences.length > 0 && (
@@ -172,8 +172,8 @@ const ResumeFive = () => {
             )
            }
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px] text-[#0D0D0D] leading-[24px] ">
-                TRAINING
+              <h2 className="text-sm font-semibold tracking-[2px] text-[#0D0D0D] leading-[24px] uppercase">
+               {allRedumeData?.data?.resume_language === "en" ? "training and courses" : "Schulung"}
               </h2>
           {
                 resumeData.courses_and_training_details && resumeData.courses_and_training_details.length > 0 && (
@@ -196,8 +196,8 @@ const ResumeFive = () => {
               
             </div>
             <div>
-              <h2 className="text-sm font-semibold tracking-[2px]  text-[#0D0D0D] leading-[24px]">
-                LANGUAGE
+              <h2 className="text-sm font-semibold tracking-[2px]  text-[#0D0D0D] leading-[24px] uppercase">
+               {allRedumeData?.data?.resume_language === "en" ? "Languages" : "Sprachen"}
               </h2>
              
               {resumeData.languages && resumeData.languages.length > 0 && (

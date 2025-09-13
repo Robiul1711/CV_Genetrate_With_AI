@@ -83,7 +83,7 @@ const ResumeSevenEdit = () => {
         <div className="flex w-full px-6 justify-between items-center gap-5">
           <div className="w-1/3 text-center">
             <p className="uppercase text-sm font-semibold">
-              {language === "de" ? "Profil" : "Profile"}
+              {allRedumeData?.data?.resume_language === "de" ? "Profil" : "Profile"}
             </p>
             <p className="italic text-xs !text-black">{resumeData.about}</p>
           </div>
@@ -98,7 +98,7 @@ const ResumeSevenEdit = () => {
 
           <div className="w-1/3 flex flex-col gap-1 h-full">
             <p className="uppercase text-sm font-semibold text-center !text-black ">
-              {language === "de" ? "Kontakt" : "Contact"}
+              {allRedumeData?.data?.resume_language === "de" ? "Kontakt" : "Contact"}
             </p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-1">
@@ -139,9 +139,9 @@ const ResumeSevenEdit = () => {
             className="grid grid-cols-3 bg-[#E1E2E6] !text-black text-center font-semibold py-2 border border-[#9A9A9A]"
             style={{ backgroundColor: resume_color, borderColor: resume_color }}
           >
-            <div className="uppercase">{language === "de" ? "Bildung" : "Education"}</div>
-            <div className="uppercase">{language === "de" ? "Fertigkeiten" : "Skills"}</div>
-            <div className="uppercase">{language === "de" ? "Sprachen" : "Languages"}</div>
+            <div className="uppercase">{allRedumeData?.data?.resume_language === "de" ? "Bildung" : "Education"}</div>
+            <div className="uppercase">{allRedumeData?.data?.resume_language === "de" ? "Fertigkeiten" : "Skills"}</div>
+            <div className="uppercase">{allRedumeData?.data?.resume_language === "de" ? "Sprachen" : "Languages"}</div>
           </div>
 
           <div className="grid grid-cols-3 text-sm px-4 py-6 border border-[#ccc6c6] border-t-0" style={{ borderColor: resume_color }} >
@@ -178,11 +178,11 @@ const ResumeSevenEdit = () => {
 
           {resumeData.work_experiences?.length > 0 && (
             <div className="absolute -bottom-5 left-24 text-black bg-[#b1aaaa] p-2 uppercase" style={{ backgroundColor: resume_color }}>
-              {language === "de" ? "Erfahrung" : "Experience"}
+              {allRedumeData?.data?.resume_language === "de" ? "Erfahrung" : "Experience"}
             </div>
           )}
           <div className="absolute -bottom-5 right-24 text-black bg-[#b1aaaa] p-2 uppercase" style={{ backgroundColor: resume_color }}>
-            {language === "de" ? "AUSBILDUNGEN" : "Training"}
+            {allRedumeData?.data?.resume_language === "de" ? "AUSBILDUNGEN" : "Training"}
           </div>
         </div>
 

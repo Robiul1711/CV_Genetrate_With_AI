@@ -35,7 +35,7 @@ const ResumeEleven = () => {
           <div className="w-[40%] space-y-6">
             <div>
               <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
-                ABOUT
+            {allRedumeData?.data?.resume_language === "en" ? "ABOUT ME" : "ÜBER MICH"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData?.about}
@@ -44,7 +44,7 @@ const ResumeEleven = () => {
 
             <div>
               <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
-                CONTACT
+                {allRedumeData?.data?.resume_language === "en" ? "CONTACT" : "KONTAKT"}
               </h2>
               <div className="space-y-3 ">
                 <p className="text-xs  leading-[18px]">
@@ -76,7 +76,7 @@ const ResumeEleven = () => {
             </div>
             <div>
               <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969]  text-[#fff] text-center leading-[24px]">
-                EDUCATION
+               {allRedumeData?.data?.resume_language === "en" ? "EDUCATION" : "AUSBILDUNG"}
               </h2>
 
               {resumeData?.educations?.map((edu, index) => (
@@ -102,7 +102,7 @@ const ResumeEleven = () => {
               resumeData.work_experiences?.length > 0 &&(
                 <div>
               <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
-                EXPERIENCE
+               {allRedumeData?.data?.resume_language === "en" ? "WORK EXPERIENCE" : "ARBEITSBEREICH"}
               </h2>
               {resumeData?.work_experiences?.map((exp, index) => (
                 <div key={index} className="mt-3">
@@ -127,7 +127,7 @@ const ResumeEleven = () => {
 
             <div>
               <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
-                TRAINING
+              {allRedumeData?.data?.resume_language === "en" ? "COURSES" : "KURSE"}
               </h2>
               {resumeData?.courses_and_training_details?.map(
                 (training, index) => (
@@ -149,7 +149,7 @@ const ResumeEleven = () => {
 
             <div>
               <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
-                SKILL
+             {allRedumeData?.data?.resume_language === "en" ? "SKILLS" : "FÄHIGKEITEN"}
               </h2>
                  <ul className="text-xs  flex gap-3 flex-wrap">
                 {resumeData?.skills?.map((skill, index) => (
@@ -161,7 +161,7 @@ const ResumeEleven = () => {
             </div>
             <div>
               <h2 className="text-sm font-medium tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]">
-                LANGUAGE
+             {allRedumeData?.data?.resume_language === "en" ? "LANGUAGES" : "SPRACHEN"}
               </h2>
               <ul className="text-xs space-y-3">
                 {resumeData?.languages?.map((lang, index) => (
