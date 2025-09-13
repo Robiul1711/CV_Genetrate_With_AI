@@ -123,9 +123,9 @@ const ResumeFiveEdit = () => {
               >
                 {allRedumeData?.data?.resume_language === "de" ? "FÄHIGKEITEN" : "SKILLS"}
               </h2>
-              <ul className="text-xs space-y-3 text-center">
+               <ul className="text-xs flex flex-row gap-2 flex-wrap justify-center items-center text-center">
                 {skills.map((s, i) => (
-                  <li key={i}>{s.skill}</li>
+                  <p key={i}>{s.skill}</p>
                 ))}
               </ul>
             </div>

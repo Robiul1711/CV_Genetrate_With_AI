@@ -8,26 +8,32 @@ import { useMutation } from "@tanstack/react-query";
 import bot from "@/assets/images/bot.png";
 import userdummy from "@/assets/images/userdummy.png";
 import { useAuth } from "@/hooks/useAuth";
-import DummyUser from "@/assets/images/userdummy.png"
+import DummyUser from "@/assets/images/userdummy.png";
 
 // ✅ Improved parser function to format bot response with better bold text handling
 const parseMessage = (text) => {
   if (!text) return null;
   const lines = text.split("\n");
-  const {user} =useAuth()
+  const { user } = useAuth();
 
-  console.log(user?.profile?.profile_image)
+  console.log(user?.profile?.profile_image);
 
   return lines.map((line, i) => {
     const trimmed = line.trim();
-    
+
     // Function to process bold text in any content
     const processBoldText = (content) => {
       const boldPattern = /\*\*(.*?)\*\*/g;
       const parts = content.split(boldPattern);
-      
+
       return parts.map((part, idx) =>
-        idx % 2 === 1 ? <strong key={idx} className="text-white">{part}</strong> : part
+        idx % 2 === 1 ? (
+          <strong key={idx} className="text-white">
+            {part}
+          </strong>
+        ) : (
+          part
+        )
       );
     };
 
@@ -70,7 +76,7 @@ const ChatScreenWithReaction = ({
   const axiosSecure = useAxiosSecure();
   const { language } = useEmail();
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-  const {user}=useAuth()
+  const { user } = useAuth();
   console.log(language);
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -115,52 +121,53 @@ const ChatScreenWithReaction = ({
   // Initialize chat history
   useEffect(() => {
     if (history?.length) {
-      const formattedHistory = [...history]
-        .reverse()
-        .flatMap((item) => {
-          const msgs = [];
-          if (item.question) {
-            msgs.push({
-              id: Date.now() + Math.random(),
-              text: String(item.question),
-              sender: "me",
-              senderProfile: {
-                name: "You",
-                avatar: VITE_IMG_URL + user?.profile?.profile_image || userdummy,
-              },
-              timestamp: new Date(
-                item.created_at || Date.now()
-              ).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              }),
-              reaction: null,
-            });
-          }
-          if (item.answer) {
-            msgs.push({
-              id: Date.now() + Math.random(),
-              text: String(item.answer),
-              sender: "other",
-              senderProfile: { name: "Bot", avatar: bot },
-              timestamp: new Date(
-                item.created_at || Date.now()
-              ).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              }),
-              reaction: null,
-            });
-          }
-          return msgs;
-        });
+      const formattedHistory = [...history].reverse().flatMap((item) => {
+        const msgs = [];
+        if (item.question) {
+          msgs.push({
+            id: Date.now() + Math.random(),
+            text: String(item.question),
+            sender: "me",
+            senderProfile: {
+              name: "You",
+              avatar: VITE_IMG_URL + user?.profile?.profile_image || userdummy,
+            },
+            timestamp: new Date(
+              item.created_at || Date.now()
+            ).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+            reaction: null,
+          });
+        }
+        if (item.answer) {
+          msgs.push({
+            id: Date.now() + Math.random(),
+            text: String(item.answer),
+            sender: "other",
+            senderProfile: { name: "Bot", avatar: bot },
+            timestamp: new Date(
+              item.created_at || Date.now()
+            ).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+            reaction: null,
+          });
+        }
+        return msgs;
+      });
 
       setMessages(formattedHistory);
     } else {
       setMessages([
         {
           id: 1,
-         text: language === "en" ? "Hi there! How can I help you?" : "Hallo! Wie geht's?",
+          text:
+            language === "en"
+              ? "Hi there! How can I help you?"
+              : "Hallo! Wie geht's?",
           sender: "other",
           senderProfile: { name: "Bot", avatar: bot },
           timestamp: new Date().toLocaleTimeString([], {
@@ -181,9 +188,7 @@ const ChatScreenWithReaction = ({
   // Send message
   const handleSendMessage = (messageText = newMessage) => {
     const text =
-      typeof messageText === "string"
-        ? messageText
-        : String(messageText);
+      typeof messageText === "string" ? messageText : String(messageText);
     if (!text.trim()) return;
 
     const newId = Date.now();
@@ -273,7 +278,13 @@ const ChatScreenWithReaction = ({
               </div>
               {msg.sender === "me" && (
                 <img
-                   src={user?.profile?.profile_image ? `${import.meta.env.VITE_IMG_URL}${user?.profile?.profile_image}` :DummyUser}
+                  src={
+                    user?.profile?.profile_image
+                      ? `${import.meta.env.VITE_IMG_URL}${
+                          user?.profile?.profile_image
+                        }`
+                      : DummyUser
+                  }
                   alt=""
                   className="w-8 h-8 rounded-full"
                 />
@@ -284,9 +295,7 @@ const ChatScreenWithReaction = ({
                   className="text-xs ml-2 cursor-pointer"
                   onClick={() => toggleReactionMenu(msg.id)}
                 >
-                  {msg.reaction === "love" && (
-                    <LuHeart size={16} color="red" />
-                  )}
+                  {msg.reaction === "love" && <LuHeart size={16} color="red" />}
                   {msg.reaction === "like" && (
                     <LuThumbsUp size={16} color="blue" />
                   )}
@@ -333,7 +342,11 @@ const ChatScreenWithReaction = ({
           <input
             ref={inputRef}
             type="text"
-            placeholder="Type your message..."
+            placeholder={
+              language === "en"
+                ? "Type your message..."
+                : "Geben Sie Ihre Nachricht ein..."
+            }
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
