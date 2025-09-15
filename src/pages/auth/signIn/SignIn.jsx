@@ -2,14 +2,25 @@ import React, { useState } from "react";
 import logo from "../../../assets/images/logo.png";
 import Title from "@/components/common/Title";
 import { Check, Eye, EyeOff, Mail } from "lucide-react";
-import { Apple, Facebook, Google, Lock } from "@/components/CustomIcons/CustomIcon";
-import { Link, ScrollRestoration, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Apple,
+  Facebook,
+  Google,
+  Lock,
+} from "@/components/CustomIcons/CustomIcon";
+import {
+  Link,
+  ScrollRestoration,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks/useAuth";
 import { useEmail } from "@/hooks/useEmail";
+import { secureSet } from "@/lib/secure";
 
 const SignIn = () => {
   const { language } = useEmail(); // 'en' or 'de'
@@ -26,7 +37,7 @@ const SignIn = () => {
   const [serverError, setServerError] = useState(null);
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
-  const { setToken, setRefreshToken, user } = useAuth();
+  const { setToken, setRefreshToken, saveAuthData } = useAuth();
 
   // Language content
   const text = {
@@ -47,7 +58,8 @@ const SignIn = () => {
     },
     de: {
       welcome: "Willkommen zurück!",
-      subtitle: "Melden Sie sich an, um auf Ihre Lebensläufe und Tools zuzugreifen",
+      subtitle:
+        "Melden Sie sich an, um auf Ihre Lebensläufe und Tools zuzugreifen",
       email: "E-Mail",
       emailPlaceholder: "andrew.ainsley@ihrdomain.com",
       password: "Passwort",
@@ -73,12 +85,18 @@ const SignIn = () => {
     onSuccess: (data) => {
       setServerError(null);
       toast.success(t.signIn + " " + "Successfully");
-      setToken(data.access);
+      saveAuthData(data.access);
       setRefreshToken(data.refresh);
+      setToken(data.access);
+      secureSet("refreshToken", data.refresh);
+
       navigate(redirectPath);
     },
     onError: (error) => {
-      setServerError(error?.response?.data?.message || "Invalid credentials or server error.");
+      console.log(error);
+      setServerError(
+        error?.response?.data?.message || "Invalid credentials or server error."
+      );
     },
   });
 
@@ -138,7 +156,9 @@ const SignIn = () => {
               className="w-full bg-black focus:outline-none"
             />
           </div>
-          {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>
+          )}
         </div>
 
         {/* Password Input */}
@@ -154,7 +174,9 @@ const SignIn = () => {
               type={showPassword ? "text" : "password"}
               id="password"
               placeholder={t.passwordPlaceholder}
-              {...register("password", { required: t.password + " is required" })}
+              {...register("password", {
+                required: t.password + " is required",
+              })}
               className={`w-full px-3 py-1.5 pl-10 !text-xs md:text-base border ${
                 errors.password ? "border-red-500" : "border-[#666666]"
               } rounded-lg bg-black`}
@@ -165,7 +187,11 @@ const SignIn = () => {
             >
               {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
             </span>
-            {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>}
+            {errors.password && (
+              <p className="mt-1 text-xs text-red-500">
+                {errors.password.message}
+              </p>
+            )}
           </div>
         </div>
 
@@ -174,17 +200,26 @@ const SignIn = () => {
           <label className="flex items-center gap-3 cursor-pointer">
             <span
               className={`w-4 h-4 flex justify-center items-center border rounded-sm ${
-                checked ? "border-[#81FB84] bg-black" : "border-[#666666] bg-black"
+                checked
+                  ? "border-[#81FB84] bg-black"
+                  : "border-[#666666] bg-black"
               }`}
             >
               {checked && <Check size={14} className="text-[#81FB84]" />}
             </span>
-            <input type="checkbox" checked={checked} onChange={(e) => setChecked(e.target.checked)} className="hidden" />
+            <input
+              type="checkbox"
+              checked={checked}
+              onChange={(e) => setChecked(e.target.checked)}
+              className="hidden"
+            />
             <span className="text-sm">{t.rememberMe}</span>
           </label>
 
           <Link to={"/forgot-password"}>
-            <p className="cursor-pointer text-sm font-medium hover:underline">{t.forgotPassword}</p>
+            <p className="cursor-pointer text-sm font-medium hover:underline">
+              {t.forgotPassword}
+            </p>
           </Link>
         </div>
 
@@ -204,7 +239,14 @@ const SignIn = () => {
                 fill="none"
                 viewBox="0 0 24 24"
               >
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
                 <path
                   className="opacity-75"
                   fill="currentColor"
@@ -229,7 +271,9 @@ const SignIn = () => {
         <p className="text-center py-2 text-sm">
           {t.dontHaveAccount}{" "}
           <Link to={"/sign-up"}>
-            <span className="font-medium cursor-pointer underline">{t.signUp}</span>
+            <span className="font-medium cursor-pointer underline">
+              {t.signUp}
+            </span>
           </Link>
         </p>
       </form>

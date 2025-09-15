@@ -37,6 +37,8 @@ const Navbar = () => {
 
   const axiosSecure = useAxiosSecure();
 
+  console.log(user)
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
