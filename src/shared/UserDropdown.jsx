@@ -15,7 +15,7 @@ const UserDropdown = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { user, logout, token, setToken, setRefreshToken } = useAuth();
+  const { user,setUser, logout, token, setToken, setRefreshToken } = useAuth();
   const { language } = useEmail();
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const queryClient = useQueryClient();
@@ -23,9 +23,11 @@ const UserDropdown = ({
 
   const logOut = () => {
     setToken("");
+    setUser("");
     setRefreshToken("");
-    localStorage.removeItem("auth_token");
-    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
     queryClient.removeQueries({ queryKey: ["authUser"] });
     toast.success("Logout Successfully");
     setActiveStep(0)
