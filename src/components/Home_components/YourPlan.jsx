@@ -292,7 +292,7 @@ const YourPlan = () => {
 
               <div className="flex flex-col flex-grow justify-between">
                 <div className="mt-2">
-                  <h3 className="font-medium mb-1 text-sm">
+                  {/* <h3 className="font-medium mb-1 text-sm">
                     {plan.name === "Free Plan"
                       ? "Start building - no strings attached"
                       : plan.name === "Basic Plan"
@@ -300,7 +300,7 @@ const YourPlan = () => {
                       : plan.name === "Pro Plan"
                       ? "Advanced features for professionals"
                       : "Pay only when you download"}
-                  </h3>
+                  </h3> */}
 
                   <ul className="space-y-3 text-sm">
                     {plan.features.map((feature, index) => (
