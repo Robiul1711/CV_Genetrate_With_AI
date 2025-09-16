@@ -43,7 +43,7 @@ const SignUp = () => {
       password: "Password",
       passwordPlaceholder: "••••••••",
       confirmPassword: "Confirm Password",
-      terms: "I agree to the terms of service and privacy policy",
+      terms: "I agree to the ",
       signUp: "Sign Up",
       processing: "Processing...",
       alreadyAccount: "Already have an account?",
@@ -65,7 +65,7 @@ const SignUp = () => {
       passwordPlaceholder: "••••••••",
       confirmPassword: "Passwort bestätigen",
       terms:
-        "Ich stimme den Nutzungsbedingungen und der Datenschutzrichtlinie zu",
+        "Ich stimme zu",
       signUp: "Registrieren",
       processing: "Verarbeitung...",
       alreadyAccount: "Sie haben bereits ein Konto?",
