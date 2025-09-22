@@ -36,6 +36,7 @@ import PaymentSuccess from "@/components/SuccessCancle/PaymentSuccess";
 import PaymentCancelled from "@/components/SuccessCancle/PaymentCancelled";
 import HistoryView from "@/components/CreateCoverLetterComponents/HistoryView";
 import ResumeChoose from "@/components/common/ResumeChoose";
+import OTPCode2 from "@/pages/auth/otpCode2/OtpCode2";
 
 const router = createBrowserRouter([
   {
@@ -159,6 +160,10 @@ const router = createBrowserRouter([
   {
     path: "/otp-code",
     element: <OTPCode />,
+  },
+  {
+    path: "/otp-verify",
+    element: <OTPCode2 />,
   },
   {
     path: "/new-password",

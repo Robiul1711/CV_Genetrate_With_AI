@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useEmail } from "@/hooks/useEmail";
 
 const SignUp = () => {
-  const { language } = useEmail(); // 'en' or 'de'
+  const { language, setEmail } = useEmail(); // 'en' or 'de'
 
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
@@ -49,9 +49,8 @@ const SignUp = () => {
       alreadyAccount: "Already have an account?",
       signIn: "Sign In",
       agreeError: "You must agree to the terms and conditions",
-        passwordError:
-      "Password must be at least 8 characters, include uppercase, lowercase, number, and special character",
-
+      passwordError:
+        "Password must be at least 8 characters, include uppercase, lowercase, number, and special character",
     },
     de: {
       createAccount: "Erstellen Sie Ihr Konto",
@@ -64,17 +63,15 @@ const SignUp = () => {
       password: "Passwort",
       passwordPlaceholder: "••••••••",
       confirmPassword: "Passwort bestätigen",
-      terms:
-        "Ich stimme zu",
+      terms: "Ich stimme zu",
       signUp: "Registrieren",
       processing: "Verarbeitung...",
       alreadyAccount: "Sie haben bereits ein Konto?",
       signIn: "Anmelden",
       agreeError: "Sie müssen den Nutzungsbedingungen zustimmen",
       passwordError:
-    "Das Passwort muss mindestens 8 Zeichen lang sein und Großbuchstaben, Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten",
+        "Das Passwort muss mindestens 8 Zeichen lang sein und Großbuchstaben, Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten",
     },
-
   };
 
   const t = text[language || "en"];
@@ -94,12 +91,13 @@ const SignUp = () => {
       reset();
       setServerError(null);
       toast.success(data?.message);
-      navigate("/sign-in");
+      navigate("/otp-verify");
     },
     onError: (error) => {
       setServerError(
         error?.response?.data?.message || "Something went wrong. Try again."
       );
+      console.log(error);
     },
   });
 
@@ -109,6 +107,7 @@ const SignUp = () => {
       return;
     }
     setServerError(null);
+    setEmail(data?.email);
     signUpMutation.mutate(data);
   };
 
@@ -233,14 +232,14 @@ const SignUp = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
-               {...register("password", {
-  required: t.password + " is required",
-  pattern: {
-    value:
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#()[\]{}<>~_+=|\\/.,:;'"-]).{8,}$/,
-    message: t.passwordError,   // ✅ now uses translation
-  },
-})}
+                {...register("password", {
+                  required: t.password + " is required",
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#()[\]{}<>~_+=|\\/.,:;'"-]).{8,}$/,
+                    message: t.passwordError, // ✅ now uses translation
+                  },
+                })}
                 placeholder={t.passwordPlaceholder}
                 className={`w-full px-3 py-1.5 pl-10 !text-xs border ${
                   errors.password ? "border-red-500" : "border-[#666666]"
@@ -331,7 +330,7 @@ const SignUp = () => {
                 target="_blank"
                 className="text-[#81FB84] underline"
               >
-               {language === "de" ? "Datenschutzrichtlinie" : "privacy policy"}
+                {language === "de" ? "Datenschutzrichtlinie" : "privacy policy"}
               </Link>
             </span>
           </label>
