@@ -82,21 +82,23 @@ const CreateNewResume = () => {
       });
       return response.data;
     },
-    onMutate: () => ({ toastId: showLoadingToast(t.generate) }),
+    // onMutate: () => ({ toastId: showLoadingToast(t.generate) }),
     onSuccess: (data, _variables, context) => {
       setAllResumeData(data);
       setResumeId(data.id || data.resumeId);
-      updateToastSuccess(
-        context.toastId,
-        data?.message || "Resume Created Successfully!"
-      );
+      // updateToastSuccess(
+      //   context.toastId,
+        
+      // );
+
+      toast.success(t.generate);
       setActiveStep(9);
       setIsCreatingResume(false);
     },
     onError: (error, _variables, context) => {
       const errorMessage =
         error?.response?.data?.message || "Something went wrong!";
-      updateToastError(context.toastId, errorMessage);
+      toast.error(errorMessage);
       setIsCreatingResume(false);
     },
   });
