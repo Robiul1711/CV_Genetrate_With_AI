@@ -167,7 +167,10 @@ const Step2 = () => {
               name="phone_number"
               control={control}
               rules={{
-                required: "Phone number is required",
+                required: {
+                  value: true,
+                  message: t("Phone number is required", "Telefonnummer ist erforderlich"),
+                },
               }}
               render={({ field }) => (
                 <PhoneInput

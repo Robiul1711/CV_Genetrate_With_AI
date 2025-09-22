@@ -158,7 +158,7 @@ const ProfileSetting = ({ userData }) => {
             >
               <span className="pr-2">📞</span>
               <input
-                type="text"
+                type="numbert"
                 {...register("phone_number")}
                 className="bg-transparent text-xs w-full focus:outline-none text-white"
               />
