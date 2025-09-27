@@ -38,7 +38,9 @@ const [newSkill, setNewSkill] = useState("");
   register("skills", {
     validate: (value) =>
       (Array.isArray(value) && value.length > 0) ||
-      "Please select at least one skill",
+      (language === "de"
+        ? "Bitte wählen Sie mindestens eine Fähigkeit aus."
+        : "Please select at least one skill."), 
   });
 
   // Query for search skills

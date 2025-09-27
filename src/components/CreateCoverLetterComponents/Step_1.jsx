@@ -159,7 +159,11 @@ const Step_1 = () => {
                 <PhoneInput
                   {...field}
                   country={ language ==="en" ?"us":"de"}
-                  placeholder="Enter phone number"
+              placeholder={
+                  language === "en"
+                    ? "Enter your phone number"
+                    : "Geben Sie Ihre Telefonnummer ein"
+                }
                   inputClass=" md:text-base text-[14px]"
                   containerClass={`flex font-poppins gap-2 items-center  p-1  border-[1px] border-[#262626] w-full rounded-[12px] phone_input_container_profile_edit  ${
                     errors.phone ? "border-red-500" : "border-[#D8D8D]"
