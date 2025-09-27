@@ -176,7 +176,7 @@ const Step2 = () => {
                 <PhoneInput
                   {...field}
                   country={ language ==="en" ?"us":"de"}
-                  placeholder="Enter phone number"
+                  placeholder={t("Enter your phone number", "Geben Sie Ihre Telefonnummer ein")}
                   inputClass=" md:text-base text-[14px]"
                   containerClass={`flex font-poppins gap-2 items-center  p-1  border-[1px] border-[#262626] w-full rounded-[12px] phone_input_container_profile_edit  ${
                     errors.phone ? "border-red-500" : "border-[#D8D8D]"
@@ -226,12 +226,13 @@ const Step2 = () => {
 
           {/* About */}
           <div className="md:col-span-2 flex flex-col gap-2">
-            <label className="text-sm text-white">{t("About (Optional)", "Über mich (Optional)")}</label>
+            <label className="text-sm text-white">{t("About ", "Über mich ")}</label>
             <textarea
               placeholder={t("Tell us about yourself...", "Erzählen Sie uns etwas über sich...")}
-              {...register("about")}
+              {...register("about" ,{ required: t("About is required", "Über mich ist erforderlich") } )}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] h-20 resize-none text-white"
             />
+                     {errors.about && <p className="text-red-400 text-xs">{errors.about.message}</p>}
           </div>
 
           {/* LinkedIn */}
