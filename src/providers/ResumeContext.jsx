@@ -33,6 +33,8 @@ export const ResumeProvider = ({ children }) => {
     localStorage.setItem("imageString", imageString || "");
   }, [imageString]);
 
+  const [ imageset,setImageSet ] =useState()
+
   return (
     <ResumeContext.Provider
       value={{
@@ -45,7 +47,9 @@ export const ResumeProvider = ({ children }) => {
         color,
         setColor,
         font,
-        setFont
+        setFont,
+        imageset,
+        setImageSet
       }}
     >
       {children}

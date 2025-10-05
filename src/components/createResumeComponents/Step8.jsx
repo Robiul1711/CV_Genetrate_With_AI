@@ -62,7 +62,7 @@ const texts = {
 
 const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
   const axiosSecure = useAxiosSecure();
-  const {allRedumeData } =useResume()
+  const {allRedumeData,imageset, setImageSet } =useResume()
   const navigate = useNavigate();
   const { watch } = useFormContext();
   console.log()

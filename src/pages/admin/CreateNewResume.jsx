@@ -52,7 +52,7 @@ const textMap = {
 };
 
 const CreateNewResume = () => {
-  const { setAllResumeData } = useResume();
+  const { setAllResumeData,imageset, setImageSet } = useResume();
   // const [activeStep, setActiveStep] = useState(0);
   const [resumeId, setResumeId] = useState(null);
   const [isCreatingResume, setIsCreatingResume] = useState(false);
@@ -85,6 +85,7 @@ const CreateNewResume = () => {
     // onMutate: () => ({ toastId: showLoadingToast(t.generate) }),
     onSuccess: (data, _variables, context) => {
       setAllResumeData(data);
+      setImageSet(data?.data?.image);
       setResumeId(data.id || data.resumeId);
       // updateToastSuccess(
       //   context.toastId,
