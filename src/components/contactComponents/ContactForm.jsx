@@ -42,7 +42,7 @@ const ContactForm = () => {
       placeholderEmail: "Enter your Email",
       placeholderPhone: "Enter Phone Number",
       placeholderMessage: "Enter your Message",
-      checkbox: "I agree to the terms of service and privacy policy",
+      checkbox: "I agree to the terms of service ",
       sendButton: "Send Message",
       sendingButton: "Sending...",
       faqTitle: "Asked Questions",
@@ -64,7 +64,7 @@ const ContactForm = () => {
       placeholderEmail: "Geben Sie Ihre E-Mail ein",
       placeholderPhone: "Geben Sie die Telefonnummer ein",
       placeholderMessage: "Geben Sie Ihre Nachricht ein",
-      checkbox: "Ich stimme den Nutzungsbedingungen und der Datenschutzrichtlinie zu",
+      checkbox: "Ich stimme den Nutzungsbedingungen ",
       sendButton: "Nachricht senden",
       sendingButton: "Wird gesendet...",
       faqTitle: "Häufig gestellte Fragen",
@@ -80,7 +80,7 @@ const ContactForm = () => {
 
   const ContactMutation = useMutation({
     mutationFn: async (data) => {
-      const res = await axiosSecure.post("/contact-us/", data);
+      const res = await axiosPublic.post("/contact-us/", data);
       return res.data;
     },
     onSuccess: (data) => {
@@ -214,7 +214,7 @@ const ContactForm = () => {
                     className="hidden"
                   />
 
-                  <span className="text-sm">{t.checkbox}</span>
+                  <Link to={`/tearms-and-condition`} target="_blank" className="text-sm">{t.checkbox}</Link>
                 </label>
               </div>
 
