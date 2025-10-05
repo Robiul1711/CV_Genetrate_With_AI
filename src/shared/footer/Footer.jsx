@@ -7,11 +7,22 @@ import { FaLinkedin } from "react-icons/fa";
 import { useEmail } from "@/hooks/useEmail";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useStatusCheck } from "@/components/common/useStatusCheck";
 
 const Footer = () => {
   const { language } = useEmail();
   const axiosPublic = useAxiosPublic();
+  const { data: status } = useStatusCheck();
 
+
+        const createResumePath =
+    status?.has_subscription === false
+      ? "/price"
+      : "/dashboard/create-new-resume";
+      const updateCoverPath =
+    status?.has_subscription === false
+      ? "/price"
+      : "/dashboard/create-cover-letter";
   const { data: socialData, isLoading } = useQuery({
     queryKey: ["social-links"],
     queryFn: async () => {
@@ -121,25 +132,25 @@ const Footer = () => {
                 {t.service}
               </p>
               <Link
-                to="/dashboard/create-new-resume"
+                to={createResumePath}
                 className="text-[15px] md:text-base hover:text-white"
               >
                 {t.aiResumeBuilder}
               </Link>
               <Link
-                to="/dashboard/create-new-resume"
+                to={createResumePath}
                 className="text-[15px] md:text-base hover:text-white"
               >
                 {t.aiResumeOptimizer}
               </Link>
               <Link
-                to="/dashboard/create-new-resume"
+                to={updateCoverPath}
                 className="text-[15px] md:text-base hover:text-white"
               >
                 {t.createCoverLetter}
               </Link>
               <Link
-                to="/dashboard/create-new-resume"
+       to={createResumePath}
                 className="text-[15px] md:text-base hover:text-white"
               >
                 {t.multilingualResume}

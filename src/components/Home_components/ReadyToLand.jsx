@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useEmail } from "@/hooks/useEmail";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useStatusCheck } from "../common/useStatusCheck";
 
 const ReadyToLand = () => {
   const axiosPublic = useAxiosPublic();
@@ -14,6 +15,14 @@ const ReadyToLand = () => {
       params: { lan: language },
     })
   });
+
+      const { data: status } = useStatusCheck();
+    
+    
+            const createResumePath =
+        status?.has_subscription === false
+          ? "/price"
+          : "/dashboarde";
   const cta = data?.data?.data
   return (
     <div className="relative pb-28 h-[360px] md:h-[300px]  overflow-hidden">
@@ -34,7 +43,7 @@ const ReadyToLand = () => {
         </p>
         <div className="flex items-center gap-5">
           <Link
-            to="/dashboard/create-new-resume"
+            to={createResumePath}
             className="mt-10 px-6  py-3  rounded-xl text-sm md:text-base border border-[#81FB84]/20 text-white hover:bg-white hover:text-dark transition-all duration-300 font-medium"
           >
             {cta?.button_text}
