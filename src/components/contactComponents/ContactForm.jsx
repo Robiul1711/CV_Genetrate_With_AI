@@ -214,7 +214,7 @@ const ContactForm = () => {
                     className="hidden"
                   />
 
-                  <Link to={`/tearms-and-condition`} target="_blank" className="text-sm">{t.checkbox}</Link>
+                  <Link to={`/tearms-and-condition`} target="_blank" className="text-sm text-[#81FB84]">{t.checkbox}</Link>
                 </label>
               </div>
 
