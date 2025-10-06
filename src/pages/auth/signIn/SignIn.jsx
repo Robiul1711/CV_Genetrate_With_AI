@@ -118,7 +118,7 @@ const SignIn = () => {
           </Link>
         </div>
 
-        <h2 className="text-xl font-semibold text-center mb-2">{t.welcome}</h2>
+        {/* <h2 className="text-xl font-semibold text-center mb-2">{t.welcome}</h2> */}
 
         <Title level="title18" className="text-center mb-6">
           {t.subtitle}

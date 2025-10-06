@@ -131,18 +131,18 @@ const Footer = () => {
               <p className="text-white text-[18px] md:text-[20px] font-semibold mb-3">
                 {t.service}
               </p>
-              {/* <Link
-                to={createResumePath}
-                className="text-[15px] md:text-base hover:text-white"
-              >
-                {t.aiResumeBuilder}
-              </Link> */}
               <Link
                 to={createResumePath}
                 className="text-[15px] md:text-base hover:text-white"
               >
-                {t.aiResumeOptimizer}
+                {t.aiResumeBuilder}
               </Link>
+              {/* <Link
+                to={createResumePath}
+                className="text-[15px] md:text-base hover:text-white"
+              >
+                {t.aiResumeOptimizer}
+              </Link> */}
               <Link
                 to={updateCoverPath}
                 className="text-[15px] md:text-base hover:text-white"

@@ -241,7 +241,7 @@ if (!user) {
     background: "#0d0d0d",
     color: "#eaeaea",
     showCancelButton: true,
-    confirmButtonText: language === "de" ? "Anmelden" : "Login / Sign Up",
+    confirmButtonText: language === "de" ? "Anmelden" : " Sign Up",
     cancelButtonText: language === "de" ? "Abbrechen" : "Cancel",
     confirmButtonColor: "#00d084",
     cancelButtonColor: "#333",
