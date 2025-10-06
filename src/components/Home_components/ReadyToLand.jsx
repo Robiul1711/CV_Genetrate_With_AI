@@ -22,7 +22,7 @@ const ReadyToLand = () => {
             const createResumePath =
         status?.has_subscription === false
           ? "/price"
-          : "/dashboarde";
+          : "/dashboard";
   const cta = data?.data?.data
   return (
     <div className="relative pb-28 h-[360px] md:h-[300px]  overflow-hidden">
