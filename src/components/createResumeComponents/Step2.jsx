@@ -5,9 +5,10 @@ import Title from "../common/Title";
 import { Controller, useFormContext } from "react-hook-form";
 import { useResume } from "@/providers/ResumeContext";
 import { useEmail } from "@/hooks/useEmail"; // assuming it gives the language
-import DummyUser from "@/assets/images/userdummy.png"
+import DummyUser from "@/assets/images/userdummy.png";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+
 const Step2 = () => {
   const {
     register,
@@ -18,19 +19,32 @@ const Step2 = () => {
   } = useFormContext();
 
   const fileInputRef = useRef(null);
-  const [profilePreview, setProfilePreview] = useState(
-    DummyUser
-  );
+  const [profilePreview, setProfilePreview] = useState(DummyUser);
+  const [imageError, setImageError] = useState(""); // new state for image validation error
 
   const { imageString, setImageString } = useResume();
   const { language } = useEmail(); // "en" or "de"
 
   const profilePhoto = watch("profile_photo");
 
+  // Translation helper
+  const t = (en, de) => (language === "de" ? de : en);
+
   // Convert file to base64 and update state
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // Validate file size (max 4MB)
+    if (file.size > 4 * 1024 * 1024) {
+      setImageError(t("Image must be less than 4 MB", "Bild muss kleiner als 4 MB sein"));
+      setValue("profile_photo", "", { shouldValidate: true });
+      setProfilePreview(DummyUser);
+      return;
+    } else {
+      setImageError(""); // clear error if valid
+    }
+
     const reader = new FileReader();
     reader.onloadend = () => {
       if (reader.result) {
@@ -47,15 +61,13 @@ const Step2 = () => {
     e.stopPropagation();
     setValue("profile_photo", "", { shouldValidate: true });
     setProfilePreview("https://randomuser.me/api/portraits/men/32.jpg");
+    setImageError(""); // clear error on remove
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const handleAvatarClick = () => {
     if (fileInputRef.current) fileInputRef.current.click();
   };
-
-  // Translation helper
-  const t = (en, de) => (language === "de" ? de : en);
 
   return (
     <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
@@ -81,7 +93,7 @@ const Step2 = () => {
         </div>
 
         {/* Upload Section */}
-        <div className="flex flex-col gap-4 mb-8">
+        <div className="flex flex-col gap-2 mb-8">
           <p className="text-sm text-white">{t("Upload your photo *", "Laden Sie Ihr Foto hoch *")}</p>
           <div className="relative w-16 h-16 rounded-full border-2 border-white">
             <div
@@ -116,6 +128,8 @@ const Step2 = () => {
               </div>
             )}
           </div>
+          {/* Image error */}
+          {imageError && <p className="text-red-500 text-xs mt-1">{imageError}</p>}
         </div>
 
         {/* Form Fields */}
@@ -157,11 +171,9 @@ const Step2 = () => {
           </div>
 
           {/* Phone Number */}
-         <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <label className="md:text-base text-[14px] font-normal text-white">
-              {
-                language ==="en" ?"Phone Number" :"Telefonnummer"
-              }
+              {language === "en" ? "Phone Number" : "Telefonnummer"}
             </label>
             <Controller
               name="phone_number"
@@ -175,18 +187,16 @@ const Step2 = () => {
               render={({ field }) => (
                 <PhoneInput
                   {...field}
-                  country={ language ==="en" ?"us":"de"}
+                  country={language === "en" ? "us" : "de"}
                   placeholder={t("Enter your phone number", "Geben Sie Ihre Telefonnummer ein")}
                   inputClass=" md:text-base text-[14px]"
-                  containerClass={`flex font-poppins gap-2 items-center  p-1  border-[1px] border-[#262626] w-full rounded-[12px] phone_input_container_profile_edit  ${
-                    errors.phone ? "border-red-500" : "border-[#D8D8D]"
-                  } `}
+                  containerClass={`flex font-poppins gap-2 items-center p-1 border-[1px] border-[#262626] w-full rounded-[12px] phone_input_container_profile_edit ${
+                    errors.phone_number ? "border-red-500" : "border-[#D8D8D]"
+                  }`}
                 />
               )}
             />
-            {errors.phone_number && (
-              <p className="text-red-500 text-sm">{errors.phone_number.message}</p>
-            )}
+            {errors.phone_number && <p className="text-red-500 text-sm">{errors.phone_number.message}</p>}
           </div>
 
           {/* Address */}
@@ -229,10 +239,10 @@ const Step2 = () => {
             <label className="text-sm text-white">{t("About ", "Über mich ")}</label>
             <textarea
               placeholder={t("Tell us about yourself...", "Erzählen Sie uns etwas über sich...")}
-              {...register("about" ,{ required: t("About is required", "Über mich ist erforderlich") } )}
+              {...register("about", { required: t("About is required", "Über mich ist erforderlich") })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] h-20 resize-none text-white"
             />
-                     {errors.about && <p className="text-red-400 text-xs">{errors.about.message}</p>}
+            {errors.about && <p className="text-red-400 text-xs">{errors.about.message}</p>}
           </div>
 
           {/* LinkedIn */}

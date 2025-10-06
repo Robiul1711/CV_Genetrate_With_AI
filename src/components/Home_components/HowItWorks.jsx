@@ -6,6 +6,7 @@ import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useEmail } from "@/hooks/useEmail";
 import { useQuery } from "@tanstack/react-query";
 import dummyimg from "@/assets/images/plan1.png";
+import { useStatusCheck } from "../common/useStatusCheck";
 const HowItWorks = () => {
   const IMG_URL = import.meta.env.VITE_IMG_URL;
   const axiosPublic = useAxiosPublic();
@@ -18,6 +19,14 @@ const HowItWorks = () => {
         params: { lan: language },
       }),
   });
+
+    const { data: status } = useStatusCheck();
+  
+  
+          const createResumePath =
+      status?.has_subscription === false
+        ? "/price"
+        : "/dashboarde";
 
   const apiSteps = data?.data?.data || [];
 
@@ -84,7 +93,7 @@ const HowItWorks = () => {
                 </ul>
               </div>
               <Link
-                to={`/dashboard`}
+                to={createResumePath}
                 className="text-[15px] md:text-base inline-block items-center gap-2 px-6 py-2 md:py-3 rounded-lg mt-8 md:mt-10 border hover:border-[#1b461c]"
               >
                 {language === "de" ? "Jetzt starten" : "Get Started Now"}

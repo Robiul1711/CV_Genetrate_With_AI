@@ -21,7 +21,7 @@ const StepOne = () => {
   const data = allRedumeData?.data;
   const fileInputRef = useRef(null);
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-
+  const [imageError, setImageError] = useState("");
   const { language } = useEmail(); // "en" or "de"
 
   // Language texts
@@ -94,10 +94,24 @@ const StepOne = () => {
   }, [profilePhoto, data?.profile_photo, VITE_IMG_URL]);
 
   const liveTitle = watch("job_title");
+  console.log(imageError);
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    if (file.size > 4 * 1024 * 1024) {
+      setImageError(
+        language === "de"
+          ? "Bild muss kleiner als 4 MB sein"
+          : "Image must be less than 4 MB"
+      );
+      setValue("profile_photo", "", { shouldValidate: true });
+
+      return;
+    } else {
+      setImageError(""); // clear error if valid
+    }
 
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -167,7 +181,11 @@ const StepOne = () => {
               <RxCross2 size={12} className="text-white" />
             </div>
           )}
+          
         </div>
+        {imageError && (
+            <p className="text-red-500 text-xs mt-1">{imageError}</p>
+          )}
       </div>
 
       {/* Form */}
