@@ -271,7 +271,7 @@ const SignIn = () => {
         <p className="text-center py-2 text-sm">
           {t.dontHaveAccount}{" "}
           <Link to={"/sign-up"}>
-            <span className="font-medium cursor-pointer underline">
+            <span className="font-medium cursor-pointer underline text-[#81FB84]">
               {t.signUp}
             </span>
           </Link>

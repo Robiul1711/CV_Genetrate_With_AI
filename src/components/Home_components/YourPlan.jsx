@@ -215,38 +215,61 @@ const YourPlan = () => {
 
   const plans = data?.data?.data || [];
 
-  const handleClick = (plan) => {
-    if (!user) {
-      Swal.fire({
-        icon: "warning",
-        title: language === "de" ? "Nicht eingeloggt!" : "Not Logged In!",
-        text:
-          language === "de"
-            ? "Bitte melden Sie sich an, um einen Plan zu abonnieren."
-            : "Please log in to subscribe to a plan.",
-        showCancelButton: true,
-        confirmButtonText: language === "de" ? "Anmelden" : "Login",
-        cancelButtonText: language === "de" ? "Abbrechen" : "Cancel",
-        confirmButtonColor: "#000",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate("/sign-in");
-        }
-      });
-      return;
+const handleClick = (plan) => {
+if (!user) {
+  Swal.fire({
+    title: language === "de" ? "Zugang erforderlich" : "Access Required",
+    html:
+      language === "de"
+        ? `<p style="color:#c7c7c7; font-size:15px;">Sie müssen sich anmelden oder ein Konto erstellen, um einen Plan zu kaufen.</p>`
+        : `<p style="color:#c7c7c7; font-size:15px;">You need to <b>log in</b> or <b>create an account</b> to purchase this plan.</p>`,
+    iconHtml: `
+      <div style="
+        width:70px;
+        height:70px;
+        border:3px solid #00d084;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background-color:#000;
+        margin:0 auto;
+      ">
+        <i class="fas fa-check" style="color:#00d084; font-size:32px;"></i>
+      </div>
+    `,
+    background: "#0d0d0d",
+    color: "#eaeaea",
+    showCancelButton: true,
+    confirmButtonText: language === "de" ? "Anmelden" : "Login / Sign Up",
+    cancelButtonText: language === "de" ? "Abbrechen" : "Cancel",
+    confirmButtonColor: "#00d084",
+    cancelButtonColor: "#333",
+    customClass: {
+      popup: "rounded-2xl shadow-lg border border-[#1f1f1f]",
+      confirmButton: "text-white font-medium px-6 py-2 rounded-lg",
+      cancelButton: "text-gray-300 font-medium px-6 py-2 rounded-lg",
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      navigate("/sign-up");
     }
+  });
+  return;
+}
 
-    setLoadingPlanId(plan.id);
 
-    const payload = {
-      price_id: plan.stripe_price_id,
-      type: plan.type,
-      success_url: `${VITE_PAYMENT_URL}/success`,
-      cancel_url: `${VITE_PAYMENT_URL}/canceled`,
-    };
+  setLoadingPlanId(plan.id);
 
-    planMutation.mutate(payload);
+  const payload = {
+    price_id: plan.stripe_price_id,
+    type: plan.type,
+    success_url: `${VITE_PAYMENT_URL}/success`,
+    cancel_url: `${VITE_PAYMENT_URL}/canceled`,
   };
+
+  planMutation.mutate(payload);
+};
 
   const getPlanType = (type) => {
     if (!type) return "Unlimited";
