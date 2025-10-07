@@ -132,7 +132,7 @@ const SelectLanguageStep = () => {
 
                 {/* Render every available language */}
                 {allLanguages.map((lang) => (
-                  <option key={lang.code} value={lang.code}>
+                  <option key={lang.code} value={lang.language}>
                     {lang.language}
                   </option>
                 ))}

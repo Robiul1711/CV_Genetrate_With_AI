@@ -112,9 +112,10 @@ const EditResumePage = () => {
   });
 
   const onSubmit = (data) => {
+    console.log(allRedumeData?.data);
     const payload = {
       ...data,
-      resume_language: language || "en",
+      resume_language: allRedumeData?.data?.resume_language,
       resume_color: color,
     };
 
