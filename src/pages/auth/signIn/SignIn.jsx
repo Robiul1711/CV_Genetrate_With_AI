@@ -84,9 +84,10 @@ const SignIn = () => {
     },
     onSuccess: (data) => {
       setServerError(null);
-      toast.success(t.signIn + " " + "Successfully");
-      saveAuthData(data.access);
-      setRefreshToken(data.refresh);
+      console.log(data);
+      toast.success(data.message);
+      saveAuthData(data?.data?.access);
+      setRefreshToken(data?.data?.refresh);
       setToken(data.access);
       secureSet("refreshToken", data.refresh);
 
