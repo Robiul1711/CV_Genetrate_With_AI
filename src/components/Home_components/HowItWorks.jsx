@@ -26,7 +26,7 @@ const HowItWorks = () => {
           const createResumePath =
       status?.has_subscription === false
         ? "/price"
-        : "/dashboarde";
+        : "/dashboard";
 
   const apiSteps = data?.data?.data || [];
 

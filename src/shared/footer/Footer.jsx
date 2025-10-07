@@ -131,12 +131,12 @@ const Footer = () => {
               <p className="text-white text-[18px] md:text-[20px] font-semibold mb-3">
                 {t.service}
               </p>
-              <Link
+              {/* <Link
                 to={createResumePath}
                 className="text-[15px] md:text-base hover:text-white"
               >
                 {t.aiResumeBuilder}
-              </Link>
+              </Link> */}
               <Link
                 to={createResumePath}
                 className="text-[15px] md:text-base hover:text-white"
@@ -149,12 +149,12 @@ const Footer = () => {
               >
                 {t.createCoverLetter}
               </Link>
-              <Link
+              {/* <Link
        to={createResumePath}
                 className="text-[15px] md:text-base hover:text-white"
               >
                 {t.multilingualResume}
-              </Link>
+              </Link> */}
             </ul>
           </div>
         </div>
