@@ -81,10 +81,10 @@ const ChangePassword = () => {
       const response = await axiosSecure.post("/update-password/", data);
       return response.data;
     },
-    onMutate: () => {
-      const toastId = showLoadingToast(t.updatingPassword);
-      return { toastId };
-    },
+    // onMutate: () => {
+    //   const toastId = showLoadingToast(t.updatingPassword);
+    //   return { toastId };
+    // },
     onSuccess: (data, _variables, context) => {
       updateToastSuccess(
         context.toastId,
