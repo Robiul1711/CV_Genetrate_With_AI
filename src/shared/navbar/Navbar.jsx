@@ -37,7 +37,7 @@ const Navbar = () => {
 
   const axiosSecure = useAxiosSecure();
 
-  console.log(user)
+  console.log(user);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -106,9 +106,7 @@ const Navbar = () => {
           </div>
         ) : user ? (
           <div className="hidden lg:flex items-center gap-5">
-            <UserDropdown
-      
-            />
+            <UserDropdown />
             <LanguageDropdown />
           </div>
         ) : (

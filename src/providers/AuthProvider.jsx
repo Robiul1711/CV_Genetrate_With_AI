@@ -179,6 +179,7 @@ const AuthProvider = ({ children }) => {
     logout,
     loading,
     setUser,
+    fetchUser
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

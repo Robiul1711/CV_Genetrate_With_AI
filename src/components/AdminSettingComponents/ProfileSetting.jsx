@@ -13,7 +13,7 @@ import "react-phone-input-2/lib/style.css";
 
 const ProfileSetting = ({ userData }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const { user } = useAuth();
+  const { user,fetchUser,token } = useAuth();
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
   const { language } = useEmail(); // "en" or "de"
@@ -85,7 +85,7 @@ const ProfileSetting = ({ userData }) => {
     onSuccess: (data) => {
       toast.success(data?.message || "Profile updated successfully!");
       setIsEditing(false);
-      queryClient.invalidateQueries(["userProfile"]);
+     fetchUser(token)
     },
     onError: (error) => {
       toast.error(error?.response?.data?.message || "Update failed");

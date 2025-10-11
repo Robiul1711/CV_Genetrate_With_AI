@@ -51,6 +51,7 @@ const SignUp = () => {
       agreeError: "You must agree to the terms and conditions",
       passwordError:
         "Password must be at least 8 characters, include uppercase, lowercase, number, and special character",
+        and: "and",
     },
     de: {
       createAccount: "Erstellen Sie Ihr Konto",
@@ -71,6 +72,7 @@ const SignUp = () => {
       agreeError: "Sie müssen den Nutzungsbedingungen zustimmen",
       passwordError:
         "Das Passwort muss mindestens 8 Zeichen lang sein und Großbuchstaben, Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten",
+        and: "und",
     },
   };
 
@@ -314,7 +316,7 @@ const SignUp = () => {
               onChange={(e) => setChecked(e.target.checked)}
               className="hidden"
             />
-            <span className="text-sm flex gap-3">
+            <span className="text-sm flex gap-2">
               {t.terms.split("terms of service")[0]}
               <Link
                 to="/tearms-and-condition"
@@ -324,7 +326,7 @@ const SignUp = () => {
                 {language === "de" ? "Servicebedingungen" : "terms of service"}
               </Link>
               {t.terms.split("privacy policy")[1]}
-
+              <span>{language === "de" ? "und" : "and"}</span>
               <Link
                 to="/privacy-policy"
                 target="_blank"

@@ -18,7 +18,8 @@ const Banner = () => {
   const content = {
     en: {
       title: "Build Your Perfect Resume",
-      sub_title: "Smarter, Faster, with AI to land your dream job.",
+      sub_title: "Smarter, Faster, with AI.",
+      description:"Professional resumes made easy — create or upgrade with real-time smart suggestions.",
       createResume: "Create your Resume",
       upgradeResume: "Upgrade your Resume",
       usersText: "Loved by over 3 million users",
@@ -26,7 +27,8 @@ const Banner = () => {
     de: {
       title: "Erstellen Sie Ihren perfekten Lebenslauf",
       sub_title:
-        "Schneller, intelligenter, mit KI, um Ihren Traumjob zu bekommen.",
+        "Intelligenter, schneller, mit KI.",
+      description:"Professionelle Lebensläufe leicht gemacht – erstellen oder aktualisieren Sie sie mit intelligenten Vorschlägen in Echtzeit.",
       createResume: "Lebenslauf erstellen",
       upgradeResume: "Lebenslauf aktualisieren",
       usersText: "Geliebt von über 3 Millionen Nutzern",
@@ -56,17 +58,18 @@ const Banner = () => {
           </div>
         </div>
 
-        <div className="relative">
-          <h1 className="text-[24px] md:text-[45px] font-bold w-full">
+        <div className="relative ">
+          <div className="text-[24px] md:text-[45px] font-bold w-full">
             {text.title}
-          </h1>
+          <p className="max-w-[700px] mx-auto w-full">{text.sub_title}</p>
+          </div>
+          <p className="text-[#EBEBEB] sm:text-lg  md:text-xl  max-w-[600px] py-3 md:py-5 mx-auto w-full">{text.description}</p>
           {/* Optional: Uncomment if you want the line icon */}
           {/* <span className="absolute top-[45%] left-[88%] md:left-[94%] -translate-x-1/2 -translate-y-1/2">
             <BannerLineIcon />
           </span> */}
         </div>
 
-        <p className="max-w-[700px] text-primary">{text.sub_title}</p>
 
         <div className="flex flex-col md:flex-row items-center gap-5">
           <Link

@@ -127,9 +127,9 @@ const ResumeElevenEdit = () => {
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
                 style={{ backgroundColor: resume_color }}
               >
-                {allRedumeData?.data?.resume_language === "en"
-                  ? "About Me"
-                  : "Über mich"}
+                {allRedumeData?.data?.resume_language === "Deutsch"
+                  ? "Über mich" : "About Me"
+                  }
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData.about}
@@ -142,9 +142,9 @@ const ResumeElevenEdit = () => {
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
                 style={{ backgroundColor: resume_color }}
               >
-                {allRedumeData?.data?.resume_language === "en"
-                  ? "Contact"
-                  : "Kontakt"}
+                {allRedumeData?.data?.resume_language === "Deutsch"
+                  ? "Kontakt" : "Contact"
+                }
               </h2>
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-1">
@@ -192,9 +192,9 @@ const ResumeElevenEdit = () => {
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] text-[#fff] text-center leading-[24px]"
                 style={{ backgroundColor: resume_color }}
               >
-                {allRedumeData?.data?.resume_language === "en"
-                  ? "Education"
-                  : "Bildung"}
+                {allRedumeData?.data?.resume_language === "Deutsch"
+                  ? "Bildung" : "Education"
+                  }
               </h2>
               {resumeData.educations.map((edu, idx) => (
                 <div key={idx} className="mt-3">
@@ -227,7 +227,7 @@ const ResumeElevenEdit = () => {
                   className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
                   style={{ backgroundColor: resume_color }}
                 >
-                  {allRedumeData?.data?.resume_language === "de"
+                  {allRedumeData?.data?.resume_language === "Deutsch"
                     ? "Erfahrung"
                     : "Experience"}
                 </h2>
@@ -257,7 +257,7 @@ const ResumeElevenEdit = () => {
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
                 style={{ backgroundColor: resume_color }}
               >
-                {allRedumeData?.data?.resume_language === "de"
+                {allRedumeData?.data?.resume_language === "Deutsch"
                   ? "Ausbildung"
                   : "Training"}
               </h2>
@@ -283,7 +283,7 @@ const ResumeElevenEdit = () => {
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
                 style={{ backgroundColor: resume_color }}
               >
-                {allRedumeData?.data?.resume_language === "de"
+                {allRedumeData?.data?.resume_language === "Deutsch"
                   ? "Fertigkeiten"
                   : "Skills"}
               </h2>
@@ -302,7 +302,7 @@ const ResumeElevenEdit = () => {
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
                 style={{ backgroundColor: resume_color }}
               >
-                {allRedumeData?.data?.resume_language === "de"
+                {allRedumeData?.data?.resume_language === "Deutsch"
                   ? "Sprachen"
                   : "Languages"}
               </h2>
