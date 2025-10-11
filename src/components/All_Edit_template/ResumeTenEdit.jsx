@@ -128,7 +128,7 @@ const ResumeTenEdit = () => {
             {/* Contact */}
             <div>
               <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "en" ? "Contact" : "Kontakt"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ? "Kontakt" : "Contact" }
               </h2>
               <div className="px-4 space-y-2">
                 <p className="text-xs flex items-center gap-2">
@@ -169,7 +169,7 @@ const ResumeTenEdit = () => {
             {/* Training */}
             <div>
               <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "en" ? "Training" : "Ausbildung"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" : "Training"}
               </h2>
               <div className="space-y-3">
                 {resumeData.courses_and_training_details.map((training, idx) => (
@@ -194,7 +194,7 @@ const ResumeTenEdit = () => {
             {/* Languages */}
             <div>
               <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "en" ? "Languages" : "Sprachen"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ?  "Sprachen" :"Languages"}
               </h2>
               <div className="space-y-3 px-4">
                 {resumeData.languages.map((lang, idx) => (
@@ -211,7 +211,7 @@ const ResumeTenEdit = () => {
             {/* Skills */}
             <div>
               <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "en" ? "Skills" : "Fähigkeiten"}
+                {allRedumeData?.data?.resume_language === "English" ? "Fähigkeiten" :"Skills" }
               </h2>
               <ul className="text-xs space-y-3 list-disc list-inside px-4">
                 {resumeData.skills.map((skill, idx) => (
@@ -235,7 +235,7 @@ const ResumeTenEdit = () => {
             {/* About */}
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-[2px] mb-3 text-[#0D0D0D] leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "en" ? "About" : "Über mich"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ?  "Über mich" : "About"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717] px-4">
                 {resumeData.about}
@@ -245,7 +245,7 @@ const ResumeTenEdit = () => {
             {/* Education */}
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-[2px] mb-3 leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "en" ? "Education" : "Ausbildung"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" : "Education" }
               </h2>
               <div className="space-y-3 px-4">
                 {resumeData.educations.map((edu, idx) => (
@@ -271,7 +271,7 @@ const ResumeTenEdit = () => {
             {resumeData.work_experiences?.length > 0 && (
               <div>
                 <h2 className="text-sm font-semibold tracking-[2px] uppercase mb-3 leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
-                  {allRedumeData?.data?.resume_language === "en" ? "Experience" : "Erfahrung"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Erfahrung" : "Experience" }
                 </h2>
                 <div className="space-y-3 px-4">
                   {resumeData.work_experiences.map((exp, idx) => (

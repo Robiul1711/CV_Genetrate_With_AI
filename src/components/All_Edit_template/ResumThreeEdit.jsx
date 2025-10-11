@@ -99,7 +99,7 @@ const ResumeThreeEdit = () => {
             {about && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "de" ? "Über mich" : "About Me"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Über mich" : "About Me"}
                 </h2>
                 <p className="text-xs text-[#171717]">{about}</p>
               </div>
@@ -108,7 +108,7 @@ const ResumeThreeEdit = () => {
             {trainings.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "de" ? "AUSBILDUNGEN" : "Trainings"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ? "AUSBILDUNGEN" : "Trainings"}
                 </h2>
                 {trainings.map((t, i) => (
                   <div key={i} className="mt-4">
@@ -125,7 +125,7 @@ const ResumeThreeEdit = () => {
             {skills.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "de" ? "Fähigkeiten" : "Skills"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Fähigkeiten" : "Skills"}
                 </h2>
                    <ul className="text-xs  flex gap-3 flex-wrap">{skills.map((s, i) => <li key={i}>{s.skill}</li>)}</ul>
               </div>
@@ -134,7 +134,7 @@ const ResumeThreeEdit = () => {
             {languages.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "de" ? "Sprachen" : "Languages"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Sprachen" : "Languages"}
                 </h2>
                 {languages.map((lang, i) => (
                   <p key={i} className="text-xs flex justify-between items-center">
@@ -150,7 +150,7 @@ const ResumeThreeEdit = () => {
             {experiences.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "de" ? "Berufserfahrung" : "Work Experience"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Berufserfahrung" : "Work Experience"}
                 </h2>
                 {experiences.map((exp, i) => (
                   <div key={i} className="mt-4">
@@ -170,7 +170,7 @@ const ResumeThreeEdit = () => {
             {educations.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "de" ? "Ausbildung" : "Education"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" : "Education"}
                 </h2>
                 {educations.map((edu, i) => (
                   <div key={i} className="mt-4">

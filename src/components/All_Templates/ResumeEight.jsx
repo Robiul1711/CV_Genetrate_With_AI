@@ -77,7 +77,7 @@ const ResumeEight = () => {
         <div className=" flex flex-col  gap-3 w-[75%]">
           <SectionArea>
             <div className=" flex flex-col gap-1">
-              <TitleSection name={allRedumeData?.data?.resume_language === "en" ? "About Me" : "Über mich"} />
+              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ?  "Über mich" : "About Me"} />
               <p className=" text-xs  text-white font-normal leading-[18px] !urbanist">
                 {resumeData?.about}
               </p>
@@ -88,7 +88,7 @@ const ResumeEight = () => {
     
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection name={allRedumeData?.data?.resume_language === "en" ? "Work Experience" : "Arbeitszeit"} />
+              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ? "Arbeitszeit" :"Work Experience" } />
               <div className=" flex flex-col gap-2 w-full">
                 {resumeData?.work_experiences &&
                   resumeData.work_experiences.map((experience, index) => (
@@ -164,7 +164,7 @@ const ResumeEight = () => {
 
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection name={allRedumeData?.data?.resume_language === "en" ? "Skills" : "Fähigkeiten"} />
+              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ? "Fähigkeiten" :"Skills" } />
               <div className=" grid grid-cols-2  gap-2">
                 {resumeData?.skills &&
                   resumeData.skills.map((skill, index) => (
@@ -184,7 +184,7 @@ const ResumeEight = () => {
 
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection name={allRedumeData?.data?.resume_language === "en" ? "Languages" : "Sprachen"} />
+              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ? "Sprachen" : "Languages" } />
 
               <div className=" grid grid-cols-2">
                 {resumeData?.languages &&
@@ -207,7 +207,7 @@ const ResumeEight = () => {
 
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection name={allRedumeData?.data?.resume_language === "en" ? "Trainings" : "Trainings"} />
+              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ? "Trainings" : "Trainings"} />
 
               <div className=" grid gap-1 grid-cols-1">
                 {resumeData?.courses_and_training_details &&
@@ -262,7 +262,7 @@ const ResumeEight = () => {
         <div className=" w-[25%] mt-8 flex flex-col gap-3">
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection2 name={allRedumeData?.data?.resume_language === "en" ? "Education" : "Ausbildung"} />
+              <TitleSection2 name={allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" :"Education" } />
             </div>
             <div className=" grid  gap-2 mt-9">
               {resumeData?.educations &&
@@ -285,7 +285,7 @@ const ResumeEight = () => {
 
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection2 name={allRedumeData?.data?.resume_language === "en" ? "Contact" : "Kontakt"} />
+              <TitleSection2 name={allRedumeData?.data?.resume_language === "Deutsch" ? "Kontakt" :"Contact" } />
 
               <div className=" grid  gap-2 mt-9">
                 <div className=" flex flex-col gap-1">

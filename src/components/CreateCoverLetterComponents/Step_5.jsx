@@ -51,25 +51,26 @@ const Step_5 = () => {
         <form className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <label className="text-sm text-white">{t.label}</label>
-            <select
-              {...register("cover_letter_language", {
-                required: "Language is required",
-              })}
-              className={`bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white ${
-                isDisabled ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              defaultValue=""
-              disabled={isDisabled} // ✅ disable dropdown if not allowed
-            >
-              <option value="" disabled>
-                {t.placeholder}
-              </option>
-              {allLanguages.map((lang) => (
-                <option key={lang.code} value={lang.code}>
-                  {lang.language}
-                </option>
-              ))}
-            </select>
+       <select
+  {...register("cover_letter_language", {
+    required: "Language is required",
+  })}
+  className={`bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white ${
+    isDisabled ? "opacity-50 cursor-not-allowed" : ""
+  }`}
+  defaultValue=""
+  disabled={isDisabled}
+>
+  <option value="" disabled>
+    {t.placeholder}
+  </option>
+  {allLanguages.map((lang) => (
+    <option key={lang.code} value={lang.language}>
+      {lang.language}
+    </option>
+  ))}
+</select>
+
 
             {errors.cover_letter_language && !isDisabled && (
               <p className="text-red-500 text-xs">

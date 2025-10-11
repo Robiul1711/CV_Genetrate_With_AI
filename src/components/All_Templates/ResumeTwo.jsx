@@ -16,7 +16,7 @@ const ResumeTwo = () => {
   const { allRedumeData } = useResume();
   const resumeData = allRedumeData?.data || [];
   const resumeRef = useRef();
-  
+
   const { data: status } = useStatusCheck();
   return (
     <div className="min-h-screen ">
@@ -26,7 +26,7 @@ const ResumeTwo = () => {
         className="bg-white text-black relative px-4 py-8 w-[210mm] mx-auto h-[297mm] overflow-hidden "
       >
         {/* Header */}
-         {status?.water_mark && (
+        {status?.water_mark && (
           <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
             <img
               src={WaterMark}
@@ -53,9 +53,9 @@ const ResumeTwo = () => {
           <div className="w-[40%] space-y-6">
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "en"
-                  ? "ABOUT ME"
-                  : "ÜBER MICH"}
+                {allRedumeData?.data?.resume_language === "Deutsch"
+                  ? "ÜBER MICH"
+                  : "ABOUT ME"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData.about}
@@ -64,9 +64,9 @@ const ResumeTwo = () => {
 
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "en"
-                  ? "CONTACT"
-                  : "KONTAKT"}
+                {allRedumeData?.data?.resume_language === "Deutsch"
+                  ? "KONTAKT"
+                  : "CONTACT"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-2 leading-[18px]">
@@ -97,9 +97,9 @@ const ResumeTwo = () => {
             </div>
             <div>
               <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px]">
-                {allRedumeData?.data?.resume_language === "en"
-                  ? "EDUCATION"
-                  : "AUSBILDUNG"}
+                {allRedumeData?.data?.resume_language === "Deutsch"
+                  ? "AUSBILDUNG"
+                  : "EDUCATION"}
               </h2>
               {resumeData.educations &&
                 resumeData.educations.length > 0 &&
@@ -125,9 +125,9 @@ const ResumeTwo = () => {
             {resumeData.work_experiences?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px]">
-                  {allRedumeData?.data?.resume_language === "en"
-                    ? "WORK EXPERIENCE"
-                    : "BERUFSERFAHRUNG"}
+                  {allRedumeData?.data?.resume_language === "Deutsch"
+                    ? "BERUFSERFAHRUNG"
+                    : "WORK EXPERIENCE"}
                 </h2>
                 {resumeData.work_experiences &&
                   resumeData.work_experiences.length > 0 &&
@@ -153,9 +153,9 @@ const ResumeTwo = () => {
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
               <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] ">
-                {allRedumeData?.data?.resume_language === "en"
-                  ? "TRAINING"
-                  : "AUSBILDUNG"}
+                {allRedumeData?.data?.resume_language === "Deutsch"
+                  ? "AUSBILDUNG"
+                  : "TRAINING"}
               </h2>
               {resumeData.courses_and_training_details &&
                 resumeData.courses_and_training_details.length > 0 &&
@@ -177,9 +177,9 @@ const ResumeTwo = () => {
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                {allRedumeData?.data?.resume_language === "en"
-                  ? "SKILLS"
-                  : "FÄHIGKEITEN"}
+                {allRedumeData?.data?.resume_language === "Deutsch"
+                  ? "FÄHIGKEITEN"
+                  : "SKILLS"}
               </h2>
               <ul className="text-xs  flex gap-3 flex-wrap">
                 {resumeData.skills && resumeData.skills.length > 0
@@ -192,9 +192,9 @@ const ResumeTwo = () => {
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                {allRedumeData?.data?.resume_language === "en"
-                  ? "LANGUAGES"
-                  : "SPRACHEN"}
+                {allRedumeData?.data?.resume_language === "Deutsch"
+                  ? "SPRACHEN"
+                  : "LANGUAGES"}
               </h2>
               {resumeData.languages && resumeData.languages.length > 0
                 ? resumeData.languages.map((lang, index) => (

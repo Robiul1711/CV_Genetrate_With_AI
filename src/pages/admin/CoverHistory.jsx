@@ -263,7 +263,8 @@ export default function CoverHistory() {
 
           {/* Language */}
           <div className="flex items-center gap-2 px-3 py-1 bg-zinc-800 text-gray-200 text-sm rounded-lg border border-zinc-700">
-            {resume.resume_language === "de" ? "Deutsch" : "English"}
+           
+            {resume.cover_letter_language}
             <FaGlobe className="ml-1" />
           </div>
 

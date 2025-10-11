@@ -266,7 +266,7 @@ export default function ResumeHistory() {
 
           {/* Language */}
           <div className="flex items-center gap-2 px-3 py-1 bg-zinc-800 text-gray-200 text-sm rounded-lg border border-zinc-700">
-            {resume.resume_language === "de" ? "Deutsch" : "English"}
+            {resume.resume_language}
             <FaGlobe className="ml-1" />
           </div>
 

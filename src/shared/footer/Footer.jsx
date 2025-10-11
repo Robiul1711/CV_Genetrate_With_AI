@@ -31,7 +31,7 @@ const Footer = () => {
     },
   });
 
-  console.log(socialData?.data);
+
 
   const texts = {
     en: {

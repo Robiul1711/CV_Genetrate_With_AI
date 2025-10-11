@@ -14,7 +14,7 @@ const ProfileImage = ({ userData }) => {
   const fileInputRef = useRef(null);
 
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth();
+  const { user,fetchUser,token } = useAuth();
   const queryClient = useQueryClient();
   const { language } = useEmail();
 
@@ -64,6 +64,7 @@ const ProfileImage = ({ userData }) => {
       setPreviewImage(null);
       setValue("profile_image", null);
       queryClient.invalidateQueries(["userProfile"]);
+      fetchUser(token)
     },
     onError: (error) => {
       const errorMessage =

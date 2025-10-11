@@ -48,9 +48,9 @@ const ResumeSeven = () => {
         <div className="flex w-full px-6 justify-between items-center gap-5">
           <div className="w-1/3 flex flex-col gap-4">
             <p className="!urbanist text-center  leading-[20px] tracking-[2px] text-[#0D0D0D] text-sm font-semibold uppercase">
-              {allRedumeData?.data?.resume_language === "en"
-                ? "About Me"
-                : "Über mich"}
+              {allRedumeData?.data?.resume_language === "Deutsch"
+                ? "Über mich" : "About Me"
+                }
             </p>
 
             <p className="text-[#171717] italic !playfair text-xs font-normal text-center">
@@ -68,9 +68,9 @@ const ResumeSeven = () => {
 
           <div className="w-1/3 flex flex-col gap-1">
             <p className="!urbanist text-center uppercase leading-[20px] tracking-[2px] text-[#0D0D0D] text-sm font-semibold">
-              {allRedumeData?.data?.resume_language === "en"
-                ? "Contact"
-                : "Kontakt"}
+              {allRedumeData?.data?.resume_language === "Deutsch"
+                ? "Kontakt" : "Contact"
+                }
             </p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-1">
@@ -135,19 +135,19 @@ const ResumeSeven = () => {
             {/* Table Header */}
             <div className="grid grid-cols-3 bg-[#E1E2E6] text-center text-[#171717] !urbanist font-semibold leading-[15px] tracking-[2px] py-[10px]">
               <div className="py-[10px] border-r border-gray-300 uppercase">
-                {allRedumeData?.data?.resume_language === "en"
-                  ? "Education"
-                  : "Ausbildung"}
+                {allRedumeData?.data?.resume_language === "Deutsch"
+                  ?"Ausbildung" : "Education"
+                   }
               </div>
               <div className="py-[10px] border-r border-gray-300 uppercase">
-                {allRedumeData?.data?.resume_language === "en"
-                  ? "Skills"
-                  : "Fähigkeiten"}
+                {allRedumeData?.data?.resume_language === "Deutsch"
+                  ? "Fähigkeiten" : "Skills"
+                  }
               </div>
               <div className="py-[10px]">
-                {allRedumeData?.data?.resume_language === "en"
-                  ? "Expertise"
-                  : "Sachverstand"}
+                {allRedumeData?.data?.resume_language === "Deutsch"
+                  ? "Sachverstand" : "Expertise"
+                  }
               </div>
             </div>
 
@@ -200,15 +200,15 @@ const ResumeSeven = () => {
           </div>
           {resumeData.work_experiences?.length > 0 && (
             <div className="absolute z-50 -bottom-5  border-[1px] border-[#9A9A9A] bg-[#F7F7F7] left-10 px-[60px] py-[10px] text-[#171717] !urbanist text-xs uppercase font-semibold leading-[15px] tracking-[2px]">
-              {allRedumeData?.data?.resume_language === "en"
-                ? "Work Experience"
-                : "Arbeits Erfahrung"}
+              {allRedumeData?.data?.resume_language === "Deutsch"
+                ? "Arbeits Erfahrung" : "Work Experience"
+                }
             </div>
           )}
           <div className="absolute z-50 -bottom-5 border-[1px] border-[#9A9A9A] bg-[#F7F7F7] right-10 px-[60px] py-[10px] text-[#171717] !urbanist text-xs uppercase font-semibold leading-[15px] tracking-[2px]">
-            {allRedumeData?.data?.resume_language === "en"
-              ? "work experiences"
-              : "Berufserfahrungen"}
+            {allRedumeData?.data?.resume_language === "Deutsch"
+              ?"Ausbildung" : "TRAINING"
+              }
           </div>
 
           <div className="absolute h-[65%] top-16 w-[100px] border-[1px] border-[#9A9A9A] z-20 left-3 bg-[#E1E2E6]"></div>

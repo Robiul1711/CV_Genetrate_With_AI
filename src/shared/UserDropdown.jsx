@@ -74,6 +74,7 @@ const UserDropdown = ({
         onClick={() => setIsOpen(!isOpen)}
         className={`flex cursor-pointer items-center justify-center bg-gray-800 w-10 h-10 rounded-full font-medium hover:opacity-90 transition-opacity overflow-hidden`}
       >
+        {console.log(user)}
         {user?.profile?.profile_image ? (
           <img
             src={`${VITE_IMG_URL}${user?.profile?.profile_image}`}
