@@ -7,6 +7,8 @@ import { useEmail } from "@/hooks/useEmail";
 import userdummy from "@/assets/images/userdummy.png";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useStatusCheck } from "@/components/common/useStatusCheck";
+
 const UserDropdown = ({
   className = "",
   avatarBgColor = "bg-primary",
@@ -15,12 +17,15 @@ const UserDropdown = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { user,setUser, logout, token, setToken, setRefreshToken } = useAuth();
-  const { language } = useEmail();
-  const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
-  const queryClient = useQueryClient();
-  const { activeStep, setActiveStep } =useEmail()
 
+  const { user, setUser, logout, token, setToken, setRefreshToken } = useAuth();
+  const { language, activeStep, setActiveStep } = useEmail();
+  const { data: status } = useStatusCheck();
+  const queryClient = useQueryClient();
+
+  const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
+
+  // ✅ Logout function
   const logOut = () => {
     setToken("");
     setUser("");
@@ -30,19 +35,21 @@ const UserDropdown = ({
     localStorage.removeItem("user");
     queryClient.removeQueries({ queryKey: ["authUser"] });
     toast.success("Logout Successfully");
-    setActiveStep(0)
+    setActiveStep(0);
   };
 
+  // ✅ Default dropdown items
   const defaultItems = [
     {
       label: language === "de" ? "Übersicht" : "Dashboard",
       icon: <User className="w-4 h-4 mr-3" />,
-      href: "/dashboard",
+      href: status?.has_subscription === false ? "/price" : "/dashboard",
     },
     {
       label: language === "de" ? "Einstellungen" : "Settings",
       icon: <Settings className="w-4 h-4 mr-3" />,
-      href: "/dashboard/setting",
+      href:
+        status?.has_subscription === false ? "/price" : "/dashboard/setting",
     },
     {
       label: language === "de" ? "Abmelden" : "Sign Out",
@@ -53,7 +60,7 @@ const UserDropdown = ({
 
   const items = dropdownItems.length > 0 ? dropdownItems : defaultItems;
 
-  // Close dropdown on outside click
+  // ✅ Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -69,12 +76,11 @@ const UserDropdown = ({
 
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
-      {/* Avatar Button */}
+      {/* ✅ Avatar Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`flex cursor-pointer items-center justify-center bg-gray-800 w-10 h-10 rounded-full font-medium hover:opacity-90 transition-opacity overflow-hidden`}
       >
-        {console.log(user)}
         {user?.profile?.profile_image ? (
           <img
             src={`${VITE_IMG_URL}${user?.profile?.profile_image}`}
@@ -86,7 +92,7 @@ const UserDropdown = ({
         )}
       </button>
 
-      {/* Dropdown Menu */}
+      {/* ✅ Dropdown Menu */}
       {isOpen && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -97,10 +103,10 @@ const UserDropdown = ({
         >
           {/* User Info */}
           <div className="px-4 py-3 border-b">
-            <p className="text-sm font-medium !text-gray-900 truncate">
+            <p className="text-sm font-medium text-gray-900 truncate">
               {user?.profile?.first_name} {user?.profile?.last_name}
             </p>
-            <p className="text-xs !text-black truncate">
+            <p className="text-xs text-black truncate">
               {user?.profile?.user?.email}
             </p>
           </div>
@@ -125,7 +131,7 @@ const UserDropdown = ({
                     setIsOpen(false);
                     item.onClick?.();
                   }}
-                  className="flex w-full cursor-pointer items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  className="flex w-full items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                 >
                   {item.icon}
                   {item.label}

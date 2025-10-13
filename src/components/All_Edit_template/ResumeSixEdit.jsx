@@ -70,7 +70,7 @@ const ResumeSixEdit = () => {
   }, []);
 
   return (
-    <div className="min-h-screen" style={{ fontFamily: appliedFont }}>
+    <div className="min-h-screen overflow-hidden" style={{ fontFamily: appliedFont }}>
       <DownloadButton resumeRef={resumeRef} />
 
       <div
@@ -110,7 +110,7 @@ const ResumeSixEdit = () => {
         </div>
 
         {/* Body */}
-        <div className="flex justify-between gap-5 px-6 py-8 mt-12">
+        <div className="flex justify-between h-full gap-5 px-6 py-8 mt-12">
           {/* Left Column */}
           <div className="w-[50%] space-y-4 rounded-md">
             {/* EXPERIENCE */}
@@ -192,7 +192,7 @@ const ResumeSixEdit = () => {
             </div>
           </div>
 
-          <div className="border-r" style={{ borderColor: resume_color || "#D9D9D9" }}></div>
+          <div className="border-r  " style={{ borderColor: resume_color || "#D9D9D9" }}></div>
 
           {/* Right Column */}
           <div className="w-[50%] space-y-4">
