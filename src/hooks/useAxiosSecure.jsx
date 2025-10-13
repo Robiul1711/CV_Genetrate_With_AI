@@ -4,7 +4,7 @@ import { AuthContext } from "@/context";
 
 const useAxiosSecure = () => {
   const { token, saveAuthData, logout, user,refreshToken } = useContext(AuthContext);
-  console.log(token)
+
 
   const axiosSecure = useMemo(() => {
     const instance = axios.create({
