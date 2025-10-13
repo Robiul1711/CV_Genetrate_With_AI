@@ -62,9 +62,10 @@ const StepFive = () => {
       const mapped = data.languages.map((lang) => {
         const foundLang =
           languageOptions.find(
-            (opt) =>
-              opt.language.toLowerCase() === lang.language?.toLowerCase()
-          )?.language || lang.language || "";
+            (opt) => opt.language.toLowerCase() === lang.language?.toLowerCase()
+          )?.language ||
+          lang.language ||
+          "";
 
         const foundLevel =
           LEVEL_OPTIONS.find(
@@ -95,15 +96,17 @@ const StepFive = () => {
         {fields.map((field, index) => (
           <div
             key={field.id}
-            className="flex flex-col md:flex-row items-start md:items-center gap-3 w-full bg-[#0E0E10] border border-[#262626] rounded-lg p-4"
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full bg-[#0E0E10] border border-[#262626] rounded-lg p-4 relative"
           >
             {/* Language Select */}
-            <div className="flex-1 flex flex-col gap-2 w-full">
+            <div className="flex flex-col gap-2">
               <label className="text-sm text-gray-300">{t.language}</label>
               <select
-                {...register(`languages.${index}.language`)}
+                {...register(`languages.${index}.language`, {
+                  required: "Language is required",
+                })}
                 defaultValue={field.language || ""}
-                className="bg-[#0E0E10] px-3 py-2 text-sm rounded-lg border border-[#262626] text-white focus:outline-none focus:border-[#C7541A]"
+                className="bg-[#1A1A1A] px-3 py-2 text-sm rounded-lg border border-[#333] text-white focus:outline-none focus:border-[#C7541A] transition"
               >
                 <option value="">{t.selectLanguage}</option>
                 {languageOptions.map((opt, i) => (
@@ -115,12 +118,12 @@ const StepFive = () => {
             </div>
 
             {/* Level Select */}
-            <div className="flex-1 flex flex-col gap-2 w-full">
+            <div className="flex flex-col gap-2">
               <label className="text-sm text-gray-300">{t.level}</label>
               <select
                 {...register(`languages.${index}.level`)}
                 defaultValue={field.level || "Native"}
-                className="bg-[#0E0E10] px-3 py-2 text-sm rounded-lg border border-[#262626] text-white focus:outline-none focus:border-[#C7541A]"
+                className="bg-[#1A1A1A] px-3 py-2 text-sm rounded-lg border border-[#333] text-white focus:outline-none focus:border-[#C7541A] transition"
               >
                 {LEVEL_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -135,7 +138,7 @@ const StepFive = () => {
               <button
                 type="button"
                 onClick={() => remove(index)}
-                className="self-center mt-2 md:mt-5 text-red-400 hover:text-red-600 transition-colors"
+                className="absolute top-2 right-2 text-red-400 hover:text-red-600 transition-colors"
               >
                 <IoClose size={22} />
               </button>
@@ -144,11 +147,11 @@ const StepFive = () => {
         ))}
 
         {/* Add Button */}
-        <div className="mt-4">
+        <div className="mt-2">
           <button
             type="button"
             onClick={() => append({ language: "", level: "Native" })}
-            className="font-medium px-4 py-3 text-sm rounded-lg flex items-center gap-2 border border-white/20 hover:bg-white hover:text-black transition-colors duration-200"
+            className="font-medium px-4 py-3 text-sm rounded-lg flex items-center gap-2 border border-white/20 hover:bg-white hover:text-black transition duration-200"
           >
             <LuCirclePlus size={20} />
             {t.addLanguage}

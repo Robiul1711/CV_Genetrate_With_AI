@@ -1,5 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { FaPhoneAlt, FaLinkedin, FaMapMarkerAlt, FaEnvelope, FaXing } from "react-icons/fa";
+import {
+  FaPhoneAlt,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaXing,
+} from "react-icons/fa";
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
@@ -23,7 +29,6 @@ const ResumeThreeEdit = () => {
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
 
-  
   const { data: status } = useStatusCheck();
 
   // Watch form values
@@ -38,13 +43,24 @@ const ResumeThreeEdit = () => {
   const phone = formValues.phone_number || resumeData.phone_number || "";
   const address = formValues.address || resumeData.address || "";
   const email = formValues.email || resumeData.email || "";
-  const linkedIn = formValues.linked_in_profile || resumeData.linked_in_profile || "";
+  const linkedIn =
+    formValues.linked_in_profile || resumeData.linked_in_profile || "";
   const xing = formValues.xing_profile || resumeData.xing_profile || "";
-  const skills = formValues.skills?.length ? formValues.skills : resumeData.skills || [];
-  const languages = formValues.languages?.length ? formValues.languages : resumeData.languages || [];
-  const experiences = formValues.work_experiences?.length ? formValues.work_experiences : resumeData.work_experiences || [];
-  const educations = formValues.educations?.length ? formValues.educations : resumeData.educations || [];
-  const trainings = formValues.courses_and_training_details?.length ? formValues.courses_and_training_details : resumeData.courses_and_training_details || [];
+  const skills = formValues.skills?.length
+    ? formValues.skills
+    : resumeData.skills || [];
+  const languages = formValues.languages?.length
+    ? formValues.languages
+    : resumeData.languages || [];
+  const experiences = formValues.work_experiences?.length
+    ? formValues.work_experiences
+    : resumeData.work_experiences || [];
+  const educations = formValues.educations?.length
+    ? formValues.educations
+    : resumeData.educations || [];
+  const trainings = formValues.courses_and_training_details?.length
+    ? formValues.courses_and_training_details
+    : resumeData.courses_and_training_details || [];
   const resume_color = color || resumeData.resume_color || "";
 
   useEffect(() => {
@@ -61,8 +77,7 @@ const ResumeThreeEdit = () => {
         className="bg-white text-black relative px-5 py-8 w-[210mm] mx-auto h-[297mm] overflow-hidden"
         style={{ fontFamily: appliedFont }}
       >
-
-         {status?.water_mark && (
+        {status?.water_mark && (
           <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
             <img
               src={WaterMark}
@@ -76,14 +91,36 @@ const ResumeThreeEdit = () => {
             <h1 className="text-[32px] font-bold tracking-[2px] text-[#484848]">
               {firstName} <span className="font-semibold">{lastName}</span>
             </h1>
-            <p className="tracking-[3px] text-[#484848] uppercase leading-[24px]">{jobTitle}</p>
+            <p className="tracking-[3px] text-[#484848] uppercase leading-[24px]">
+              {jobTitle}
+            </p>
           </div>
           <div className="space-y-3 w-[40%]">
-            {phone && <p className="text-xs flex items-center gap-2"><FaPhoneAlt /> {phone}</p>}
-            {address && <p className="text-xs flex items-center gap-2"><FaMapMarkerAlt /> {address}</p>}
-            {email && <p className="text-xs flex items-center gap-2"><FaEnvelope /> {email}</p>}
-            {linkedIn && <p className="text-xs flex items-center gap-2"><FaLinkedin /> {linkedIn}</p>}
-            {xing && <p className="text-xs flex items-center gap-2"><FaXing /> {xing}</p>}
+            {phone && (
+              <p className="text-xs flex items-center gap-2">
+                <FaPhoneAlt /> {phone}
+              </p>
+            )}
+            {address && (
+              <p className="text-xs flex items-center gap-2">
+                <FaMapMarkerAlt /> {address}
+              </p>
+            )}
+            {email && (
+              <p className="text-xs flex items-center gap-2">
+                <FaEnvelope /> {email}
+              </p>
+            )}
+            {linkedIn && (
+              <p className="text-xs flex items-center gap-2">
+                <FaLinkedin /> {linkedIn}
+              </p>
+            )}
+            {xing && (
+              <p className="text-xs flex items-center gap-2">
+                <FaXing /> {xing}
+              </p>
+            )}
           </div>
         </div>
 
@@ -99,7 +136,10 @@ const ResumeThreeEdit = () => {
             {about && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Über mich" : "About Me"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "Über mich"
+                    : "About Me"}
                 </h2>
                 <p className="text-xs text-[#171717]">{about}</p>
               </div>
@@ -108,14 +148,18 @@ const ResumeThreeEdit = () => {
             {trainings.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "AUSBILDUNGEN" : "Trainings"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "AUSBILDUNGEN"
+                    : "Trainings"}
                 </h2>
                 {trainings.map((t, i) => (
                   <div key={i} className="mt-4">
                     <p className="font-medium text-xs">{t.name_of_institute}</p>
                     <p className="text-xs font-medium">{t.course_name}</p>
                     <p className="text-xs">
-                      {dayjs(t.start_date).format("YYYY")} – {dayjs(t.end_date).format("YYYY")}
+                      {dayjs(t.start_date).format("YYYY")} –{" "}
+                      {dayjs(t.end_date).format("YYYY")}
                     </p>
                   </div>
                 ))}
@@ -125,19 +169,32 @@ const ResumeThreeEdit = () => {
             {skills.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Fähigkeiten" : "Skills"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "Fähigkeiten"
+                    : "Skills"}
                 </h2>
-                   <ul className="text-xs  flex gap-3 flex-wrap">{skills.map((s, i) => <li key={i}>{s.skill}</li>)}</ul>
+                <ul className="text-xs  flex gap-3 flex-wrap">
+                  {skills.map((s, i) => (
+                    <li key={i}>{s.skill}</li>
+                  ))}
+                </ul>
               </div>
             )}
 
             {languages.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Sprachen" : "Languages"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "Sprachen"
+                    : "Languages"}
                 </h2>
                 {languages.map((lang, i) => (
-                  <p key={i} className="text-xs flex justify-between items-center">
+                  <p
+                    key={i}
+                    className="text-xs flex justify-between items-center"
+                  >
                     {lang.language} <span>{lang.level}</span>
                   </p>
                 ))}
@@ -150,7 +207,10 @@ const ResumeThreeEdit = () => {
             {experiences.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Berufserfahrung" : "Work Experience"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "Berufserfahrung"
+                    : "Work Experience"}
                 </h2>
                 {experiences.map((exp, i) => (
                   <div key={i} className="mt-4">
@@ -158,7 +218,8 @@ const ResumeThreeEdit = () => {
                     <p className="text-xs font-medium flex justify-between items-center">
                       {exp.company_name}
                       <span>
-                        {dayjs(exp.start_date).format("YYYY")} – {dayjs(exp.end_date).format("YYYY")}
+                        {dayjs(exp.start_date).format("YYYY")} –{" "}
+                        {dayjs(exp.end_date).format("YYYY")}
                       </span>
                     </p>
                     <p className="text-xs mt-2">{exp.responsibilities}</p>
@@ -170,14 +231,18 @@ const ResumeThreeEdit = () => {
             {educations.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" : "Education"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "Ausbildung"
+                    : "Education"}
                 </h2>
                 {educations.map((edu, i) => (
                   <div key={i} className="mt-4">
                     <p className="font-medium text-xs">{edu.institute_name}</p>
                     <p className="text-xs font-medium">{edu.degree}</p>
                     <p className="text-xs">
-                      {dayjs(edu.start_date).format("MMMM YYYY")} – {dayjs(edu.end_date).format("MMMM YYYY")}
+                      {dayjs(edu.start_date).format("MMMM YYYY")} –{" "}
+                      {dayjs(edu.end_date).format("MMMM YYYY")}
                     </p>
                   </div>
                 ))}

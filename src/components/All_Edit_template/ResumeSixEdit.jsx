@@ -1,5 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
-import { FaPhoneAlt, FaLinkedin, FaMapMarkerAlt, FaEnvelope, FaXing } from "react-icons/fa";
+import {
+  FaPhoneAlt,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaXing,
+} from "react-icons/fa";
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
@@ -29,34 +35,49 @@ const ResumeSixEdit = () => {
     lato: "Lato, sans-serif",
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
-  
+
   const { data: status } = useStatusCheck();
 
   const resumeData = {
     first_name: formData.first_name || allRedumeData?.data?.first_name || "",
     last_name: formData.last_name || allRedumeData?.data?.last_name || "",
     job_title: formData.job_title || allRedumeData?.data?.job_title || "",
-    profile_photo: formData.profile_photo || allRedumeData?.data?.profile_photo || "",
-    phone_number: formData.phone_number || allRedumeData?.data?.phone_number || "",
+    profile_photo:
+      formData.profile_photo || allRedumeData?.data?.profile_photo || "",
+    phone_number:
+      formData.phone_number || allRedumeData?.data?.phone_number || "",
     address: formData.address || allRedumeData?.data?.address || "",
     email: formData.email || allRedumeData?.data?.email || "",
-    linked_in_profile: formData.linked_in_profile || allRedumeData?.data?.linked_in_profile || "",
-    xing_profile: formData.xing_profile || allRedumeData?.data?.xing_profile || "",
+    linked_in_profile:
+      formData.linked_in_profile ||
+      allRedumeData?.data?.linked_in_profile ||
+      "",
+    xing_profile:
+      formData.xing_profile || allRedumeData?.data?.xing_profile || "",
     about: formData.about || allRedumeData?.data?.about || "",
-    skills: formData.skills?.length ? formData.skills : allRedumeData?.data?.skills || [],
+    skills: formData.skills?.length
+      ? formData.skills
+      : allRedumeData?.data?.skills || [],
     work_experiences: formData.work_experiences?.length
       ? formData.work_experiences
       : allRedumeData?.data?.work_experiences || [],
-    educations: formData.educations?.length ? formData.educations : allRedumeData?.data?.educations || [],
+    educations: formData.educations?.length
+      ? formData.educations
+      : allRedumeData?.data?.educations || [],
     courses_and_training_details: formData.courses_and_training_details?.length
       ? formData.courses_and_training_details
       : allRedumeData?.data?.courses_and_training_details || [],
-    languages: formData.languages?.length ? formData.languages : allRedumeData?.data?.languages || [],
+    languages: formData.languages?.length
+      ? formData.languages
+      : allRedumeData?.data?.languages || [],
   };
 
   // Handle profile photo preview
   useEffect(() => {
-    if (formData.profile_photo && !formData.profile_photo.startsWith("/media")) {
+    if (
+      formData.profile_photo &&
+      !formData.profile_photo.startsWith("/media")
+    ) {
       setProfilePreview(formData.profile_photo);
     } else if (resumeData.profile_photo) {
       setProfilePreview(VITE_IMG_URL + resumeData.profile_photo);
@@ -70,7 +91,10 @@ const ResumeSixEdit = () => {
   }, []);
 
   return (
-    <div className="min-h-screen overflow-hidden" style={{ fontFamily: appliedFont }}>
+    <div
+      className="min-h-screen overflow-hidden"
+      style={{ fontFamily: appliedFont }}
+    >
       <DownloadButton resumeRef={resumeRef} />
 
       <div
@@ -79,7 +103,7 @@ const ResumeSixEdit = () => {
         style={{ fontFamily: appliedFont }}
       >
         {/* Header */}
-         {status?.water_mark && (
+        {status?.water_mark && (
           <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
             <img
               src={WaterMark}
@@ -118,25 +142,37 @@ const ResumeSixEdit = () => {
               <div>
                 <div className="flex pb-3 items-center gap-1">
                   <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px] uppercase">
-                    {allRedumeData?.data?.resume_language === "Deutsch" ? "Erfahrung" : "Experience"}
+                    {allRedumeData?.data?.resume_language === "Deutsch" ||
+                    allRedumeData?.data?.resume_language === "German"
+                      ? "Erfahrung"
+                      : "Experience"}
                   </h2>
                   <div
                     className="flex-1 border-b-[2px] mt-2 max-w-[100px]"
                     style={{ borderColor: resume_color || "#D9D9D9" }}
                   ></div>
                 </div>
-                <div className="border-l pl-2 space-y-2" style={{ borderColor: resume_color || "#FF4089" }}>
+                <div
+                  className="border-l pl-2 space-y-2"
+                  style={{ borderColor: resume_color || "#FF4089" }}
+                >
                   {resumeData.work_experiences.map((exp, i) => (
                     <div key={i}>
-                      <p className="font-semibold leading-[18px] text-xs">{exp.job_title}</p>
+                      <p className="font-semibold leading-[18px] text-xs">
+                        {exp.job_title}
+                      </p>
                       <p className="text-xs leading-[18px] font-semibold flex justify-between items-center">
                         {exp.company_name}
                         <span>
                           {dayjs(exp.start_date).format("MMM YYYY")} -{" "}
-                          {exp.end_date ? dayjs(exp.end_date).format("MMM YYYY") : "Present"}
+                          {exp.end_date
+                            ? dayjs(exp.end_date).format("MMM YYYY")
+                            : "Present"}
                         </span>
                       </p>
-                      <p className="text-xs leading-[20px] mt-2">{exp.responsibilities}</p>
+                      <p className="text-xs leading-[20px] mt-2">
+                        {exp.responsibilities}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -147,20 +183,33 @@ const ResumeSixEdit = () => {
             <div>
               <div className="flex pb-3 items-center gap-1">
                 <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" : "Education"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "Ausbildung"
+                    : "Education"}
                 </h2>
                 <div
                   className="flex-1 border-b-[2px] mt-2 max-w-[100px]"
                   style={{ borderColor: resume_color || "#D9D9D9" }}
                 ></div>
               </div>
-              <div className="border-l pl-2 space-y-2" style={{ borderColor: resume_color || "#FF4089" }}>
+              <div
+                className="border-l pl-2 space-y-2"
+                style={{ borderColor: resume_color || "#FF4089" }}
+              >
                 {resumeData.educations.map((edu, i) => (
                   <div key={i} className="space-y-1">
-                    <p className="font-semibold leading-[18px] text-xs">{edu.institute_name}</p>
-                    <p className="text-xs leading-[18px] font-semibold flex justify-between items-center">{edu.degree}</p>
+                    <p className="font-semibold leading-[18px] text-xs">
+                      {edu.institute_name}
+                    </p>
+                    <p className="text-xs leading-[18px] font-semibold flex justify-between items-center">
+                      {edu.degree}
+                    </p>
                     <p className="text-xs leading-[18px]">
-                      {dayjs(edu.start_date).format("MMM YYYY")} – {edu?.end_date ? dayjs(edu.end_date).format("MMM YYYY") : "Present"}
+                      {dayjs(edu.start_date).format("MMM YYYY")} –{" "}
+                      {edu?.end_date
+                        ? dayjs(edu.end_date).format("MMM YYYY")
+                        : "Present"}
                     </p>
                   </div>
                 ))}
@@ -171,20 +220,31 @@ const ResumeSixEdit = () => {
             <div>
               <div className="flex pb-3 items-center gap-1">
                 <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "AUSBILDUNGEN" : "Training"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "AUSBILDUNGEN"
+                    : "Training"}
                 </h2>
                 <div
                   className="flex-1 border-b-[2px] mt-2 max-w-[100px]"
                   style={{ borderColor: resume_color || "#D9D9D9" }}
                 ></div>
               </div>
-              <div className="border-l pl-2 space-y-2" style={{ borderColor: resume_color || "#FF4089" }}>
+              <div
+                className="border-l pl-2 space-y-2"
+                style={{ borderColor: resume_color || "#FF4089" }}
+              >
                 {resumeData.courses_and_training_details.map((course, i) => (
                   <div key={i} className="space-y-1">
-                    <p className="font-semibold leading-[18px] text-xs">{course.name_of_institute}</p>
-                    <p className="text-xs leading-[18px] font-semibold flex justify-between items-center">{course.course_name}</p>
+                    <p className="font-semibold leading-[18px] text-xs">
+                      {course.name_of_institute}
+                    </p>
+                    <p className="text-xs leading-[18px] font-semibold flex justify-between items-center">
+                      {course.course_name}
+                    </p>
                     <p className="text-xs leading-[20px]">
-                      {dayjs(course.start_date).format("MMM YYYY")} – {dayjs(course.end_date).format("MMM YYYY")}
+                      {dayjs(course.start_date).format("MMM YYYY")} –{" "}
+                      {dayjs(course.end_date).format("MMM YYYY")}
                     </p>
                   </div>
                 ))}
@@ -192,47 +252,84 @@ const ResumeSixEdit = () => {
             </div>
           </div>
 
-          <div className="border-r  " style={{ borderColor: resume_color || "#D9D9D9" }}></div>
+          <div
+            className="border-r  "
+            style={{ borderColor: resume_color || "#D9D9D9" }}
+          ></div>
 
           {/* Right Column */}
           <div className="w-[50%] space-y-4">
             {/* ABOUT */}
             <div>
               <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Über mich" : "About Me"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Über mich"
+                  : "About Me"}
               </h2>
-              <p className="text-xs leading-[18px] text-[#171717]">{resumeData.about}</p>
+              <p className="text-xs leading-[18px] text-[#171717]">
+                {resumeData.about}
+              </p>
             </div>
 
-            <div className="border-b" style={{ borderColor: resume_color || "#D9D9D9" }}></div>
+            <div
+              className="border-b"
+              style={{ borderColor: resume_color || "#D9D9D9" }}
+            ></div>
 
             {/* CONTACT */}
             <div className="text-center">
               <h2 className="text-sm tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Kontakt" : "Contact"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Kontakt"
+                  : "Contact"}
               </h2>
               <div className="space-y-3 text-center">
                 <p className="text-xs flex flex-col items-center gap-1 leading-[18px]">
-                  <FaPhoneAlt className="text-[#79819A] text-xl p-1 border rounded-full" style={{ borderColor: resume_color || "#FF4089" }} />
+                  <FaPhoneAlt
+                    className="text-[#79819A] text-xl p-1 border rounded-full"
+                    style={{ borderColor: resume_color || "#FF4089" }}
+                  />
                   {resumeData.phone_number}
                 </p>
                 <p className="text-xs flex flex-col items-center gap-1">
-                  <FaMapMarkerAlt className="text-[#79819A] text-xl p-1 border rounded-full" style={{ borderColor: resume_color || "#FF4089" }} />
+                  <FaMapMarkerAlt
+                    className="text-[#79819A] text-xl p-1 border rounded-full"
+                    style={{ borderColor: resume_color || "#FF4089" }}
+                  />
                   {resumeData.address}
                 </p>
                 <p className="text-xs flex flex-col items-center gap-1">
-                  <FaEnvelope className="text-[#79819A] text-xl p-1 border rounded-full" style={{ borderColor: resume_color || "#FF4089" }} />
+                  <FaEnvelope
+                    className="text-[#79819A] text-xl p-1 border rounded-full"
+                    style={{ borderColor: resume_color || "#FF4089" }}
+                  />
                   {resumeData.email}
                 </p>
                 {resumeData.linked_in_profile && (
-                  <a href={resumeData.linked_in_profile} target="_blank" className="flex flex-col items-center justify-center">
-                    <FaLinkedin className="text-[#79819A] text-xl p-1 border rounded-full" style={{ borderColor: resume_color || "#FF4089" }} />
+                  <a
+                    href={resumeData.linked_in_profile}
+                    target="_blank"
+                    className="flex flex-col items-center justify-center"
+                  >
+                    <FaLinkedin
+                      className="text-[#79819A] text-xl p-1 border rounded-full"
+                      style={{ borderColor: resume_color || "#FF4089" }}
+                    />
                     <p className="text-xs">{resumeData.linked_in_profile}</p>
                   </a>
                 )}
                 {resumeData.xing_profile && (
-                  <a href={resumeData.xing_profile} target="_blank" className="flex flex-col items-center justify-center">
-                    <FaXing className="text-[#79819A] text-xl p-1 border rounded-full" style={{ borderColor: resume_color || "#FF4089" }} />
+                  <a
+                    href={resumeData.xing_profile}
+                    target="_blank"
+                    className="flex flex-col items-center justify-center"
+                  >
+                    <FaXing
+                      className="text-[#79819A] text-xl p-1 border rounded-full"
+                      style={{ borderColor: resume_color || "#FF4089" }}
+                    />
                     <p className="text-xs">{resumeData.xing_profile}</p>
                   </a>
                 )}
@@ -240,10 +337,16 @@ const ResumeSixEdit = () => {
             </div>
 
             {/* SKILLS */}
-            <div className="border-b" style={{ borderColor: resume_color || "#D9D9D9" }}></div>
+            <div
+              className="border-b"
+              style={{ borderColor: resume_color || "#D9D9D9" }}
+            ></div>
             <div className="text-center">
               <h2 className="text-sm tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Fähigkeiten" : "Skills"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Fähigkeiten"
+                  : "Skills"}
               </h2>
               <ul className="text-xs  flex flex-wrap gap-3 justify-between">
                 {resumeData.skills.map((skill, i) => (
@@ -260,13 +363,22 @@ const ResumeSixEdit = () => {
             </div>
 
             {/* LANGUAGES */}
-            <div className="border-b" style={{ borderColor: resume_color || "#D9D9D9" }}></div>
+            <div
+              className="border-b"
+              style={{ borderColor: resume_color || "#D9D9D9" }}
+            ></div>
             <div>
               <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Sprachen" : "Languages"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Sprachen"
+                  : "Languages"}
               </h2>
               {resumeData.languages.map((lang, i) => (
-                <p key={i} className="text-xs flex justify-between items-center">
+                <p
+                  key={i}
+                  className="text-xs flex justify-between items-center"
+                >
                   {lang.language} <span>{lang.level}</span>
                 </p>
               ))}
