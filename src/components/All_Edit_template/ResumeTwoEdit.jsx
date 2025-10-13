@@ -1,5 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { FaPhoneAlt, FaLinkedin, FaMapMarkerAlt, FaEnvelope, FaXing } from "react-icons/fa";
+import {
+  FaPhoneAlt,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaXing,
+} from "react-icons/fa";
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
@@ -24,24 +30,37 @@ const ResumeTwoEdit = () => {
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
 
-  
-    const { data: status } = useStatusCheck();
+  const { data: status } = useStatusCheck();
 
   // Merge form values with API/context fallback
-  const first_name = formValues.first_name || allRedumeData?.data?.first_name || "";
-  const last_name = formValues.last_name || allRedumeData?.data?.last_name || "";
-  const job_title = formValues.job_title || allRedumeData?.data?.job_title || "";
+  const first_name =
+    formValues.first_name || allRedumeData?.data?.first_name || "";
+  const last_name =
+    formValues.last_name || allRedumeData?.data?.last_name || "";
+  const job_title =
+    formValues.job_title || allRedumeData?.data?.job_title || "";
   const about = formValues.about || allRedumeData?.data?.about || "";
-  const phone_number = formValues.phone_number || allRedumeData?.data?.phone_number || "";
+  const phone_number =
+    formValues.phone_number || allRedumeData?.data?.phone_number || "";
   const address = formValues.address || allRedumeData?.data?.address || "";
   const email = formValues.email || allRedumeData?.data?.email || "";
-  const linked_in_profile = formValues.linked_in_profile || allRedumeData?.data?.linked_in_profile || "";
-  const xing_profile = formValues.xing_profile || allRedumeData?.data?.xing_profile || "";
-  const educations = formValues.educations || allRedumeData?.data?.educations || [];
-  const work_experiences = formValues.work_experiences || allRedumeData?.data?.work_experiences || [];
-  const courses_and_training_details = formValues.courses_and_training_details || allRedumeData?.data?.courses_and_training_details || [];
+  const linked_in_profile =
+    formValues.linked_in_profile ||
+    allRedumeData?.data?.linked_in_profile ||
+    "";
+  const xing_profile =
+    formValues.xing_profile || allRedumeData?.data?.xing_profile || "";
+  const educations =
+    formValues.educations || allRedumeData?.data?.educations || [];
+  const work_experiences =
+    formValues.work_experiences || allRedumeData?.data?.work_experiences || [];
+  const courses_and_training_details =
+    formValues.courses_and_training_details ||
+    allRedumeData?.data?.courses_and_training_details ||
+    [];
   const skills = formValues.skills || allRedumeData?.data?.skills || [];
-  const languages = formValues.languages || allRedumeData?.data?.languages || [];
+  const languages =
+    formValues.languages || allRedumeData?.data?.languages || [];
   const resume_color = color || allRedumeData?.data?.resume_color || "";
 
   useEffect(() => {
@@ -61,7 +80,7 @@ const ResumeTwoEdit = () => {
       >
         {/* Header */}
 
-         {status?.water_mark && (
+        {status?.water_mark && (
           <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
             <img
               src={WaterMark}
@@ -94,7 +113,10 @@ const ResumeTwoEdit = () => {
             {/* About */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Über mich" : "About Me"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Über mich"
+                  : "About Me"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">{about}</p>
             </div>
@@ -102,26 +124,33 @@ const ResumeTwoEdit = () => {
             {/* Contact */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Kontakt" : "Contact"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Kontakt"
+                  : "Contact"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-2">
-                  <FaPhoneAlt className="text-[12px] text-[#666]" /> {phone_number}
+                  <FaPhoneAlt className="text-[12px] text-[#666]" />{" "}
+                  {phone_number}
                 </p>
                 <p className="text-xs flex items-center gap-2">
-                  <FaMapMarkerAlt className="text-[12px] text-[#666]" /> {address}
+                  <FaMapMarkerAlt className="text-[12px] text-[#666]" />{" "}
+                  {address}
                 </p>
                 <p className="text-xs flex items-center gap-2">
                   <FaEnvelope className="text-[12px] text-[#666]" /> {email}
                 </p>
                 {linked_in_profile && (
                   <p className="text-xs flex items-center gap-2">
-                    <FaLinkedin className="text-[12px] text-[#666]" /> {linked_in_profile}
+                    <FaLinkedin className="text-[12px] text-[#666]" />{" "}
+                    {linked_in_profile}
                   </p>
                 )}
                 {xing_profile && (
                   <p className="text-xs flex items-center gap-2">
-                    <FaXing className="text-[12px] text-[#666]" /> {xing_profile}
+                    <FaXing className="text-[12px] text-[#666]" />{" "}
+                    {xing_profile}
                   </p>
                 )}
               </div>
@@ -130,15 +159,18 @@ const ResumeTwoEdit = () => {
             {/* Education */}
             <div>
               <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" : "Education"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Ausbildung"
+                  : "Education"}
               </h2>
               {educations.map((edu, idx) => (
                 <div key={idx} className="mt-4">
                   <p className="font-medium text-xs">{edu.institute_name}</p>
                   <p className="text-xs font-medium py-0.5">{edu.degree}</p>
                   <p className="text-xs">
-                    {edu.start_date ? dayjs(edu.start_date).format("YYYY") : ""} –{" "}
-                    {edu.end_date ? dayjs(edu.end_date).format("YYYY") : ""}
+                    {edu.start_date ? dayjs(edu.start_date).format("YYYY") : ""}{" "}
+                    – {edu.end_date ? dayjs(edu.end_date).format("YYYY") : ""}
                   </p>
                 </div>
               ))}
@@ -154,7 +186,10 @@ const ResumeTwoEdit = () => {
             {work_experiences?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Berufserfahrung" : "Work Experience"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "Berufserfahrung"
+                    : "Work Experience"}
                 </h2>
                 {work_experiences.map((exp, idx) => (
                   <div key={idx} className="mt-4">
@@ -162,7 +197,10 @@ const ResumeTwoEdit = () => {
                     <p className="text-xs font-medium flex justify-between py-1">
                       {exp.company_name}
                       <span>
-                        {exp.start_date ? dayjs(exp.start_date).format("YYYY") : ""} –{" "}
+                        {exp.start_date
+                          ? dayjs(exp.start_date).format("YYYY")
+                          : ""}{" "}
+                        –{" "}
                         {exp.end_date ? dayjs(exp.end_date).format("YYYY") : ""}
                       </span>
                     </p>
@@ -177,15 +215,25 @@ const ResumeTwoEdit = () => {
             {/* Courses/Training */}
             <div>
               <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "AUSBILDUNGEN" : "Trainings"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "AUSBILDUNGEN"
+                  : "Trainings"}
               </h2>
               {courses_and_training_details.map((course, idx) => (
                 <div key={idx} className="mt-4 flex flex-col gap-2">
-                  <p className="font-medium text-xs">{course.name_of_institute}</p>
+                  <p className="font-medium text-xs">
+                    {course.name_of_institute}
+                  </p>
                   <p className="text-xs font-medium">{course.course_name}</p>
                   <p className="text-xs">
-                    {course.start_date ? dayjs(course.start_date).format("YYYY") : ""} –{" "}
-                    {course.end_date ? dayjs(course.end_date).format("YYYY") : ""}
+                    {course.start_date
+                      ? dayjs(course.start_date).format("YYYY")
+                      : ""}{" "}
+                    –{" "}
+                    {course.end_date
+                      ? dayjs(course.end_date).format("YYYY")
+                      : ""}
                   </p>
                 </div>
               ))}
@@ -196,10 +244,15 @@ const ResumeTwoEdit = () => {
             {/* Skills */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Fähigkeiten" : "Skills"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Fähigkeiten"
+                  : "Skills"}
               </h2>
-                 <ul className="text-xs  flex gap-3 flex-wrap">
-                {skills.length > 0 ? skills.map((s, idx) => <li key={idx}>{s.skill}</li>) : "No skills listed"}
+              <ul className="text-xs  flex gap-3 flex-wrap">
+                {skills.length > 0
+                  ? skills.map((s, idx) => <li key={idx}>{s.skill}</li>)
+                  : "No skills listed"}
               </ul>
             </div>
 
@@ -208,7 +261,10 @@ const ResumeTwoEdit = () => {
             {/* Languages */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Sprachen" : "Languages"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Sprachen"
+                  : "Languages"}
               </h2>
               {languages.length > 0
                 ? languages.map((lang, idx) => (

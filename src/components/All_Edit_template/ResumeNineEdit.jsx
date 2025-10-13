@@ -34,7 +34,7 @@ const ResumeNineEdit = () => {
     playfair: "Playfair Display, serif",
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
-  
+
   const { data: status } = useStatusCheck();
 
   // Merge formData and context data
@@ -51,7 +51,9 @@ const ResumeNineEdit = () => {
     email: formData?.email || allRedumeData?.data?.email || "",
     address: formData?.address || allRedumeData?.data?.address || "",
     linked_in_profile:
-      formData?.linked_in_profile || allRedumeData?.data?.linked_in_profile || "",
+      formData?.linked_in_profile ||
+      allRedumeData?.data?.linked_in_profile ||
+      "",
     xing_profile:
       formData?.xing_profile || allRedumeData?.data?.xing_profile || "",
     educations: formData?.educations || allRedumeData?.data?.educations || [],
@@ -66,7 +68,10 @@ const ResumeNineEdit = () => {
 
   // Set profile photo preview
   useEffect(() => {
-    if (formData?.profile_photo && !formData.profile_photo.startsWith("/media")) {
+    if (
+      formData?.profile_photo &&
+      !formData.profile_photo.startsWith("/media")
+    ) {
       setProfilePreview(formData.profile_photo);
     } else if (resumeData.profile_photo) {
       setProfilePreview(VITE_IMG_URL + resumeData.profile_photo);
@@ -91,7 +96,7 @@ const ResumeNineEdit = () => {
       >
         {/* Header */}
 
-         {status?.water_mark && (
+        {status?.water_mark && (
           <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
             <img
               src={WaterMark}
@@ -101,7 +106,10 @@ const ResumeNineEdit = () => {
         )}
         <div className="flex flex-col z-10 justify-center items-center gap-4">
           <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
-            {allRedumeData?.data?.resume_language === "Deutsch" ? "Le CV de" : "The resume of" }
+            {allRedumeData?.data?.resume_language === "Deutsch" ||
+            allRedumeData?.data?.resume_language === "German"
+              ? "Le CV de"
+              : "The resume of"}
           </p>
           <h1
             style={{ color: resumeData?.resume_color || color || "" }}
@@ -115,7 +123,9 @@ const ResumeNineEdit = () => {
           {/* Profile Image */}
           <div className="w-1/3 relative h-[200px] -mt-5">
             <div
-              style={{ backgroundColor: resumeData?.resume_color || color || "" }}
+              style={{
+                backgroundColor: resumeData?.resume_color || color || "",
+              }}
               className="absolute inset-0 bg-[#F7DCD1]"
             ></div>
             <div className="w-[133px] h-[166px] relative top-16 left-20">
@@ -207,7 +217,10 @@ const ResumeNineEdit = () => {
         <div className="flex flex-row gap-4 mt-2">
           <div className="w-[250px] p-6 bg-[#B0B3AC] flex flex-col gap-3">
             <p className="uppercase text-sm font-medium leading-5 text-white !urbanist text-center">
-              {allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" : "Education"}
+              {allRedumeData?.data?.resume_language === "Deutsch" ||
+              allRedumeData?.data?.resume_language === "German"
+                ? "Ausbildung"
+                : "Education"}
             </p>
             <div className="flex flex-col gap-3">
               {resumeData.educations.map((edu, index) => (
@@ -234,7 +247,10 @@ const ResumeNineEdit = () => {
             <div className="flex-1 flex flex-col gap-4">
               <div className="w-[90%] px-[60px] py-6 bg-[#293946] text-center">
                 <p className="leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Erfahrung" : "Experience"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "Erfahrung"
+                    : "Experience"}
                 </p>
               </div>
               <div className="flex flex-col gap-3 pr-6">
@@ -271,7 +287,10 @@ const ResumeNineEdit = () => {
         <div className="flex gap-4 mt-4">
           <div className="flex flex-col w-[250px] gap-3">
             <p className="leading-5 text-sm font-medium text-[#0D0D0D] uppercase !urbanist">
-              {allRedumeData?.data?.resume_language === "Deutsch" ? "Fähigkeiten" : "Skills"}
+              {allRedumeData?.data?.resume_language === "Deutsch" ||
+              allRedumeData?.data?.resume_language === "German"
+                ? "Fähigkeiten"
+                : "Skills"}
             </p>
             <div className="flex flex-col gap-1">
               {resumeData.skills.map((skill, index) => (
@@ -292,7 +311,10 @@ const ResumeNineEdit = () => {
           >
             <div className="w-[90%] px-[60px] py-6 bg-[#293946] text-center">
               <p className="leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" : "Trainings" }
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Ausbildung"
+                  : "Trainings"}
               </p>
             </div>
             <div className="flex flex-col gap-3 pr-4">

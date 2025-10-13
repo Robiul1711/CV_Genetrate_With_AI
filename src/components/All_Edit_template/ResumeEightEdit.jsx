@@ -43,7 +43,6 @@ const ResumeEightEdit = () => {
   const formData = watch();
   const { language } = useEmail();
 
-  
   const { data: status } = useStatusCheck();
 
   const resumeRef = useRef();
@@ -68,22 +67,35 @@ const ResumeEightEdit = () => {
     last_name: formData?.last_name || allRedumeData?.data?.last_name || "",
     job_title: formData?.job_title || allRedumeData?.data?.job_title || "",
     about: formData?.about || allRedumeData?.data?.about || "",
-    profile_photo: formData?.profile_photo || allRedumeData?.data?.profile_photo || "",
-    phone_number: formData?.phone_number || allRedumeData?.data?.phone_number || "",
+    profile_photo:
+      formData?.profile_photo || allRedumeData?.data?.profile_photo || "",
+    phone_number:
+      formData?.phone_number || allRedumeData?.data?.phone_number || "",
     email: formData?.email || allRedumeData?.data?.email || "",
     address: formData?.address || allRedumeData?.data?.address || "",
-    linked_in_profile: formData?.linked_in_profile || allRedumeData?.data?.linked_in_profile || "",
-    xing_profile: formData?.xing_profile || allRedumeData?.data?.xing_profile || "",
+    linked_in_profile:
+      formData?.linked_in_profile ||
+      allRedumeData?.data?.linked_in_profile ||
+      "",
+    xing_profile:
+      formData?.xing_profile || allRedumeData?.data?.xing_profile || "",
     educations: formData?.educations || allRedumeData?.data?.educations || [],
     skills: formData?.skills || allRedumeData?.data?.skills || [],
     languages: formData?.languages || allRedumeData?.data?.languages || [],
-    work_experiences: formData?.work_experiences || allRedumeData?.data?.work_experiences || [],
-    courses_and_training_details: formData?.courses_and_training_details || allRedumeData?.data?.courses_and_training_details || [],
+    work_experiences:
+      formData?.work_experiences || allRedumeData?.data?.work_experiences || [],
+    courses_and_training_details:
+      formData?.courses_and_training_details ||
+      allRedumeData?.data?.courses_and_training_details ||
+      [],
   };
 
   // Set profile preview
   useEffect(() => {
-    if (formData?.profile_photo && !formData.profile_photo.startsWith("/media")) {
+    if (
+      formData?.profile_photo &&
+      !formData.profile_photo.startsWith("/media")
+    ) {
       setProfilePreview(formData.profile_photo);
     } else if (resumeData.profile_photo) {
       setProfilePreview(VITE_IMG_URL + resumeData.profile_photo);
@@ -105,7 +117,7 @@ const ResumeEightEdit = () => {
       >
         {/* Header */}
 
-         {status?.water_mark && (
+        {status?.water_mark && (
           <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
             <img
               src={WaterMark}
@@ -138,8 +150,14 @@ const ResumeEightEdit = () => {
             {/* Profile */}
             <SectionArea color={resume_color}>
               <div className="flex flex-col gap-1">
-              
-                <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ? "Über mich" : "About" } />
+                <TitleSection
+                  name={
+                    allRedumeData?.data?.resume_language === "Deutsch" ||
+                    allRedumeData?.data?.resume_language === "German"
+                      ? "Über mich"
+                      : "About"
+                  }
+                />
                 <p className="text-xs text-white font-normal leading-[18px]">
                   {resumeData.about}
                 </p>
@@ -150,7 +168,14 @@ const ResumeEightEdit = () => {
             {resumeData.work_experiences?.length > 0 && (
               <SectionArea color={resume_color}>
                 <div className="flex flex-col gap-2">
-                  <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ?"Erfahrung" : "Experience"  } />
+                  <TitleSection
+                    name={
+                      allRedumeData?.data?.resume_language === "Deutsch" ||
+                      allRedumeData?.data?.resume_language === "German"
+                        ? "Erfahrung"
+                        : "Experience"
+                    }
+                  />
                   <div className="flex flex-col gap-2 w-full">
                     {resumeData.work_experiences.map((exp, i) => (
                       <div key={i} className="flex flex-row gap-2 items-start">
@@ -160,7 +185,9 @@ const ResumeEightEdit = () => {
                           </p>
                           <p className="text-white text-xs font-normal leading-[15px]">
                             {dayjs(exp.start_date).format("YYYY")} –{" "}
-                            {exp.end_date ? dayjs(exp.end_date).format("YYYY") : "Present"}
+                            {exp.end_date
+                              ? dayjs(exp.end_date).format("YYYY")
+                              : "Present"}
                           </p>
                         </div>
                         <div className="flex-1 flex-col gap-2">
@@ -181,11 +208,23 @@ const ResumeEightEdit = () => {
             {/* Skills */}
             <SectionArea color={resume_color}>
               <div className="flex flex-col gap-2">
-                <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ? "Fähigkeiten" : "Skills"  } />
+                <TitleSection
+                  name={
+                    allRedumeData?.data?.resume_language === "Deutsch" ||
+                    allRedumeData?.data?.resume_language === "German"
+                      ? "Fähigkeiten"
+                      : "Skills"
+                  }
+                />
                 <div className="grid grid-cols-2 gap-2">
                   {resumeData.skills.map((skill, i) => (
-                    <div key={i} className="flex gap-2 items-center justify-between">
-                      <p className="text-xs text-white font-normal leading-[18px]">{skill.skill}</p>
+                    <div
+                      key={i}
+                      className="flex gap-2 items-center justify-between"
+                    >
+                      <p className="text-xs text-white font-normal leading-[18px]">
+                        {skill.skill}
+                      </p>
                       <div className="flex-1 rounded-[16px] bg-[#FECB00] h-1"></div>
                     </div>
                   ))}
@@ -196,12 +235,26 @@ const ResumeEightEdit = () => {
             {/* Languages */}
             <SectionArea color={resume_color}>
               <div className="flex flex-col gap-2">
-                <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ? "Sprachen" : "Languages" } />
+                <TitleSection
+                  name={
+                    allRedumeData?.data?.resume_language === "Deutsch" ||
+                    allRedumeData?.data?.resume_language === "German"
+                      ? "Sprachen"
+                      : "Languages"
+                  }
+                />
                 <div className="grid grid-cols-2">
                   {resumeData.languages.map((lang, i) => (
-                    <div key={i} className="flex gap-2 items-center justify-between">
-                      <p className="text-xs pl-4 pr-6 text-white font-normal leading-[18px]">{lang.language}</p>
-                      <p className="text-xs text-white font-normal leading-[18px]">{lang.level}</p>
+                    <div
+                      key={i}
+                      className="flex gap-2 items-center justify-between"
+                    >
+                      <p className="text-xs pl-4 pr-6 text-white font-normal leading-[18px]">
+                        {lang.language}
+                      </p>
+                      <p className="text-xs text-white font-normal leading-[18px]">
+                        {lang.level}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -211,23 +264,32 @@ const ResumeEightEdit = () => {
             {/* Training */}
             <SectionArea color={resume_color}>
               <div className="flex flex-col gap-2">
-                <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" : "Training"} />
+                <TitleSection
+                  name={
+                    allRedumeData?.data?.resume_language === "Deutsch" ||
+                    allRedumeData?.data?.resume_language === "German"
+                      ? "Ausbildung"
+                      : "Training"
+                  }
+                />
                 <div className="grid gap-1 grid-cols-1">
-                  {resumeData.courses_and_training_details.map((training, i) => (
-                    <div key={i} className="flex gap-2">
-                      <div className="flex flex-col gap-1 w-[171px]">
-                        <p className="text-xs text-white leading-[15px] font-medium">
-                          {training.name_of_institute}
-                        </p>
-                        <p className="text-[10px] text-white font-normal">
-                          {training.start_date} - {training.end_date}
+                  {resumeData.courses_and_training_details.map(
+                    (training, i) => (
+                      <div key={i} className="flex gap-2">
+                        <div className="flex flex-col gap-1 w-[171px]">
+                          <p className="text-xs text-white leading-[15px] font-medium">
+                            {training.name_of_institute}
+                          </p>
+                          <p className="text-[10px] text-white font-normal">
+                            {training.start_date} - {training.end_date}
+                          </p>
+                        </div>
+                        <p className="text-xs w-[144px] text-[#FECB00] font-semibold leading-[18px]">
+                          {training.course_name}
                         </p>
                       </div>
-                      <p className="text-xs w-[144px] text-[#FECB00] font-semibold leading-[18px]">
-                        {training.course_name}
-                      </p>
-                    </div>
-                  ))}
+                    )
+                  )}
                 </div>
               </div>
             </SectionArea>
@@ -238,16 +300,28 @@ const ResumeEightEdit = () => {
             {/* Education */}
             <SectionArea color={resume_color}>
               <div className="flex flex-col gap-2">
-                <TitleSection2 name={allRedumeData?.data?.resume_language === "Deutsch" ?  "Ausbildung" : "Education" } />
+                <TitleSection2
+                  name={
+                    allRedumeData?.data?.resume_language === "Deutsch" ||
+                    allRedumeData?.data?.resume_language === "German"
+                      ? "Ausbildung"
+                      : "Education"
+                  }
+                />
               </div>
               <div className="grid gap-2 mt-9">
                 {resumeData.educations.map((edu, i) => (
                   <div key={i} className="flex flex-col gap-1">
                     <p className="text-[10px] text-white leading-[15px] font-normal">
-                      {dayjs(edu.start_date).format("YYYY")} – {dayjs(edu.end_date).format("YYYY")}
+                      {dayjs(edu.start_date).format("YYYY")} –{" "}
+                      {dayjs(edu.end_date).format("YYYY")}
                     </p>
-                    <p className="text-[#FECB00] text-xs leading-[18px] font-semibold">{edu.degree}</p>
-                    <p className="text-xs leading-[18px] font-medium text-white">{edu.institute_name}</p>
+                    <p className="text-[#FECB00] text-xs leading-[18px] font-semibold">
+                      {edu.degree}
+                    </p>
+                    <p className="text-xs leading-[18px] font-medium text-white">
+                      {edu.institute_name}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -256,38 +330,74 @@ const ResumeEightEdit = () => {
             {/* Contact */}
             <SectionArea color={resume_color}>
               <div className="flex flex-col gap-2">
-                <TitleSection2 name={allRedumeData?.data?.resume_language === "Deutsch" ? "Kontakt" : "Contact"} />
+                <TitleSection2
+                  name={
+                    allRedumeData?.data?.resume_language === "Deutsch" ||
+                    allRedumeData?.data?.resume_language === "German"
+                      ? "Kontakt"
+                      : "Contact"
+                  }
+                />
                 <div className="grid gap-2 mt-9">
                   <div className="flex flex-col gap-1">
-                    <p className="text-[#FECB00] text-xs font-semibold leading-[18px]">{
-                      allRedumeData?.data?.resume_language === "Deutsch" ? "Telefon" : "Phone"
-                    }</p>
-                    <p className="text-[10px] font-normal leading-[16px] text-white">{resumeData.phone_number}</p>
+                    <p className="text-[#FECB00] text-xs font-semibold leading-[18px]">
+                      {allRedumeData?.data?.resume_language === "Deutsch" ||
+                      allRedumeData?.data?.resume_language === "German"
+                        ? "Telefon"
+                        : "Phone"}
+                    </p>
+                    <p className="text-[10px] font-normal leading-[16px] text-white">
+                      {resumeData.phone_number}
+                    </p>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <p className="text-[#FECB00] text-xs font-semibold leading-[18px]">{
-                      allRedumeData?.data?.resume_language === "Deutsch" ? "Standort" : "Location"
-                    }</p>
-                    <p className="text-[10px] font-normal leading-[16px] text-white">{resumeData.address}</p>
+                    <p className="text-[#FECB00] text-xs font-semibold leading-[18px]">
+                      {allRedumeData?.data?.resume_language === "Deutsch" ||
+                      allRedumeData?.data?.resume_language === "German"
+                        ? "Standort"
+                        : "Location"}
+                    </p>
+                    <p className="text-[10px] font-normal leading-[16px] text-white">
+                      {resumeData.address}
+                    </p>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <p className="text-[#FECB00] text-xs font-semibold leading-[18px]">{
-                      allRedumeData?.data?.resume_language === "Deutsch" ? "E-Mail" : "Email"
-                    }</p>
-                    <p className="text-[10px] font-normal leading-[16px] text-white">{resumeData.email}</p>
+                    <p className="text-[#FECB00] text-xs font-semibold leading-[18px]">
+                      {allRedumeData?.data?.resume_language === "Deutsch" ||
+                      allRedumeData?.data?.resume_language === "German"
+                        ? "E-Mail"
+                        : "Email"}
+                    </p>
+                    <p className="text-[10px] font-normal leading-[16px] text-white">
+                      {resumeData.email}
+                    </p>
                   </div>
                   {resumeData.linked_in_profile && (
                     <div className="flex flex-col gap-1">
-                      <p className="text-[#FECB00] text-xs font-semibold leading-[18px]">LinkedIn</p>
-                      <a href={resumeData.linked_in_profile} target="_blank" rel="noopener noreferrer" className="text-[10px] font-normal leading-[16px] text-white break-words underline">
+                      <p className="text-[#FECB00] text-xs font-semibold leading-[18px]">
+                        LinkedIn
+                      </p>
+                      <a
+                        href={resumeData.linked_in_profile}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] font-normal leading-[16px] text-white break-words underline"
+                      >
                         {resumeData.linked_in_profile}
                       </a>
                     </div>
                   )}
                   {resumeData.xing_profile && (
                     <div className="flex flex-col gap-1">
-                      <p className="text-[#FECB00] text-xs font-semibold leading-[18px]">Xing</p>
-                      <a href={resumeData.xing_profile} target="_blank" rel="noopener noreferrer" className="text-[10px] font-normal leading-[16px] text-white break-words underline">
+                      <p className="text-[#FECB00] text-xs font-semibold leading-[18px]">
+                        Xing
+                      </p>
+                      <a
+                        href={resumeData.xing_profile}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] font-normal leading-[16px] text-white break-words underline"
+                      >
                         {resumeData.xing_profile}
                       </a>
                     </div>

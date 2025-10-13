@@ -141,7 +141,8 @@ const ResumeFourEdit = () => {
             {/* CONTACT */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
                   ? "Kontakt"
                   : "Contact"}
               </h2>
@@ -187,7 +188,8 @@ const ResumeFourEdit = () => {
             {/* TRAINING */}
             <div>
               <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
                   ? "AUSBILDUNGEN"
                   : "Training"}
               </h2>
@@ -216,7 +218,8 @@ const ResumeFourEdit = () => {
             {/* SKILL */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
                   ? "Fertigkeiten"
                   : "Skills"}
               </h2>
@@ -232,7 +235,8 @@ const ResumeFourEdit = () => {
             {/* LANGUAGE */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
                   ? "Sprachen"
                   : "Languages"}
               </h2>
@@ -257,7 +261,8 @@ const ResumeFourEdit = () => {
             {/* ABOUT */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
                   ? "Über mich"
                   : "About Me"}
               </h2>
@@ -272,7 +277,8 @@ const ResumeFourEdit = () => {
             {resumeData.work_experiences?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch"
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
                     ? "Erfahrung"
                     : "Experience"}
                 </h2>
@@ -303,7 +309,8 @@ const ResumeFourEdit = () => {
             {/* EDUCATION */}
             <div>
               <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
                   ? "Ausbildung"
                   : "Education"}
               </h2>

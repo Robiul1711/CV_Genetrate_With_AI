@@ -24,8 +24,6 @@ const ResumeTenEdit = () => {
   const [profilePreview, setProfilePreview] = useState(user);
   const { language } = useEmail();
 
-  
-
   // Dynamic font map
   const fontMap = {
     inter: "Inter, sans-serif",
@@ -36,7 +34,7 @@ const ResumeTenEdit = () => {
     playfair: "Playfair Display, serif",
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
-  
+
   const { data: status } = useStatusCheck();
 
   // Merge formData and context data
@@ -99,8 +97,7 @@ const ResumeTenEdit = () => {
           fontFamily: appliedFont, // Apply dynamic font
         }}
       >
-
-         {status?.water_mark && (
+        {status?.water_mark && (
           <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
             <img
               src={WaterMark}
@@ -128,7 +125,10 @@ const ResumeTenEdit = () => {
             {/* Contact */}
             <div>
               <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Kontakt" : "Contact" }
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Kontakt"
+                  : "Contact"}
               </h2>
               <div className="px-4 space-y-2">
                 <p className="text-xs flex items-center gap-2">
@@ -169,32 +169,40 @@ const ResumeTenEdit = () => {
             {/* Training */}
             <div>
               <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" : "Training"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Ausbildung"
+                  : "Training"}
               </h2>
               <div className="space-y-3">
-                {resumeData.courses_and_training_details.map((training, idx) => (
-                  <div key={idx} className="px-4 space-y-1">
-                    <p className="font-medium leading-[18px] text-xs">
-                      {training.name_of_institute}
-                    </p>
-                    <p className="text-xs leading-[18px] font-medium">
-                      {training.course_name}
-                    </p>
-                    <p className="text-xs leading-[20px]">
-                      {dayjs(training.start_date).format("MMMM YYYY")} –{" "}
-                      {training.end_date
-                        ? dayjs(training.end_date).format("MMMM YYYY")
-                        : "Present"}
-                    </p>
-                  </div>
-                ))}
+                {resumeData.courses_and_training_details.map(
+                  (training, idx) => (
+                    <div key={idx} className="px-4 space-y-1">
+                      <p className="font-medium leading-[18px] text-xs">
+                        {training.name_of_institute}
+                      </p>
+                      <p className="text-xs leading-[18px] font-medium">
+                        {training.course_name}
+                      </p>
+                      <p className="text-xs leading-[20px]">
+                        {dayjs(training.start_date).format("MMMM YYYY")} –{" "}
+                        {training.end_date
+                          ? dayjs(training.end_date).format("MMMM YYYY")
+                          : "Present"}
+                      </p>
+                    </div>
+                  )
+                )}
               </div>
             </div>
 
             {/* Languages */}
             <div>
               <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "Deutsch" ?  "Sprachen" :"Languages"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Sprachen"
+                  : "Languages"}
               </h2>
               <div className="space-y-3 px-4">
                 {resumeData.languages.map((lang, idx) => (
@@ -211,7 +219,9 @@ const ResumeTenEdit = () => {
             {/* Skills */}
             <div>
               <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "English" ? "Fähigkeiten" :"Skills" }
+                {allRedumeData?.data?.resume_language === "English"
+                  ? "Fähigkeiten"
+                  : "Skills"}
               </h2>
               <ul className="text-xs space-y-3 list-disc list-inside px-4">
                 {resumeData.skills.map((skill, idx) => (
@@ -235,7 +245,10 @@ const ResumeTenEdit = () => {
             {/* About */}
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-[2px] mb-3 text-[#0D0D0D] leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "Deutsch" ?  "Über mich" : "About"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Über mich"
+                  : "About"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717] px-4">
                 {resumeData.about}
@@ -245,7 +258,10 @@ const ResumeTenEdit = () => {
             {/* Education */}
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-[2px] mb-3 leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" : "Education" }
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "Ausbildung"
+                  : "Education"}
               </h2>
               <div className="space-y-3 px-4">
                 {resumeData.educations.map((edu, idx) => (
@@ -271,7 +287,10 @@ const ResumeTenEdit = () => {
             {resumeData.work_experiences?.length > 0 && (
               <div>
                 <h2 className="text-sm font-semibold tracking-[2px] uppercase mb-3 leading-[24px] bg-[#F7F7F7] px-4 py-2 border-l-[5px] border-[#FECB00]">
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Erfahrung" : "Experience" }
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "Erfahrung"
+                    : "Experience"}
                 </h2>
                 <div className="space-y-3 px-4">
                   {resumeData.work_experiences.map((exp, idx) => (

@@ -62,7 +62,7 @@ const ResumeOneEdit = () => {
     lato: "Lato, sans-serif",
   };
 
-  console.log(status)
+  console.log(status);
 
   const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
   return (
@@ -103,7 +103,8 @@ const ResumeOneEdit = () => {
             {/* About */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
                   ? "Über mich"
                   : "About"}
               </h2>
@@ -113,7 +114,8 @@ const ResumeOneEdit = () => {
             {/* Contact */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
                   ? "Kontakt"
                   : "Contact"}
               </h2>
@@ -130,7 +132,8 @@ const ResumeOneEdit = () => {
             {languages?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch"
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
                     ? "Sprachen"
                     : "Languages"}
                 </h2>
@@ -146,7 +149,8 @@ const ResumeOneEdit = () => {
             {skills?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch"
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
                     ? "Fähigkeiten"
                     : "Skills"}
                 </h2>
@@ -167,7 +171,8 @@ const ResumeOneEdit = () => {
             {workExperiences?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch"
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
                     ? "Berufserfahrung"
                     : "Work Experience"}
                 </h2>
@@ -198,7 +203,8 @@ const ResumeOneEdit = () => {
             {educations?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch"
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
                     ? "Ausbildung"
                     : "Education"}
                 </h2>
@@ -228,7 +234,8 @@ const ResumeOneEdit = () => {
             {traingings?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch"
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
                     ? "Trainings"
                     : "Trainings"}
                 </h2>

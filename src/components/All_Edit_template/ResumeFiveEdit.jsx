@@ -4,7 +4,13 @@ import { useFormContext } from "react-hook-form";
 import { useResume } from "@/providers/ResumeContext";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
-import { FaPhoneAlt, FaLinkedin, FaMapMarkerAlt, FaEnvelope, FaXing } from "react-icons/fa";
+import {
+  FaPhoneAlt,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaXing,
+} from "react-icons/fa";
 import WaterMark from "@/assets/images/watermark.png";
 import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeFiveEdit = () => {
@@ -24,7 +30,6 @@ const ResumeFiveEdit = () => {
   };
   const appliedFont = fontMap[font] || "Urbanist, sans-serif";
 
-
   const { data: status } = useStatusCheck();
 
   // Watch form values
@@ -36,12 +41,17 @@ const ResumeFiveEdit = () => {
   const phone_number = watch("phone_number") || resumeData.phone_number;
   const address = watch("address") || resumeData.address;
   const email = watch("email") || resumeData.email;
-  const linked_in_profile = watch("linked_in_profile") || resumeData.linked_in_profile;
+  const linked_in_profile =
+    watch("linked_in_profile") || resumeData.linked_in_profile;
   const xing_profile = watch("xing_profile") || resumeData.xing_profile;
   const skills = watch("skills") || resumeData.skills || [];
   const educations = watch("educations") || resumeData.educations || [];
-  const work_experiences = watch("work_experiences") || resumeData.work_experiences || [];
-  const trainings = watch("courses_and_training_details") || resumeData.courses_and_training_details || [];
+  const work_experiences =
+    watch("work_experiences") || resumeData.work_experiences || [];
+  const trainings =
+    watch("courses_and_training_details") ||
+    resumeData.courses_and_training_details ||
+    [];
   const languages = watch("languages") || resumeData.languages || [];
 
   useEffect(() => {
@@ -56,8 +66,7 @@ const ResumeFiveEdit = () => {
         className="bg-white text-black relative px-5 w-[210mm] h-[297mm] overflow-hidden mx-auto"
         style={{ fontFamily: appliedFont }}
       >
-
-         {status?.water_mark && (
+        {status?.water_mark && (
           <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
             <img
               src={WaterMark}
@@ -134,9 +143,12 @@ const ResumeFiveEdit = () => {
                 className="text-sm font-semibold tracking-[2px] pb-3 leading-[24px] text-center uppercase"
                 style={{ color: resume_color || "#0D0D0D" }}
               >
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "FÄHIGKEITEN" : "SKILLS"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "FÄHIGKEITEN"
+                  : "SKILLS"}
               </h2>
-               <ul className="text-xs flex flex-row gap-2 flex-wrap justify-center items-center text-center">
+              <ul className="text-xs flex flex-row gap-2 flex-wrap justify-center items-center text-center">
                 {skills.map((s, i) => (
                   <p key={i}>{s.skill}</p>
                 ))}
@@ -149,7 +161,10 @@ const ResumeFiveEdit = () => {
                 className="text-sm font-semibold tracking-[2px] leading-[24px] text-center uppercase"
                 style={{ color: resume_color || "#0D0D0D" }}
               >
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "AUSbildung" : "EDUCATION"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "AUSbildung"
+                  : "EDUCATION"}
               </h2>
               <div className="space-y-3 mt-3 text-center">
                 {educations.map((edu, i) => (
@@ -158,7 +173,9 @@ const ResumeFiveEdit = () => {
                     <p className="text-xs font-medium">{edu.degree}</p>
                     <p className="text-xs">
                       {dayjs(edu.start_date).format("MMM YYYY")} -{" "}
-                      {edu.end_date ? dayjs(edu.end_date).format("MMM YYYY") : "Present"}
+                      {edu.end_date
+                        ? dayjs(edu.end_date).format("MMM YYYY")
+                        : "Present"}
                     </p>
                   </div>
                 ))}
@@ -166,7 +183,10 @@ const ResumeFiveEdit = () => {
             </div>
           </div>
 
-          <div className="w-[1px]" style={{ background: resume_color || "#0D0D0D" }}></div>
+          <div
+            className="w-[1px]"
+            style={{ background: resume_color || "#0D0D0D" }}
+          ></div>
 
           {/* Right Column */}
           <div className="w-[60%] space-y-6 py-8 mt-8">
@@ -176,7 +196,10 @@ const ResumeFiveEdit = () => {
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                 style={{ color: resume_color || "#0D0D0D" }}
               >
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "ÜBER MICH" : "ABOUT ME"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "ÜBER MICH"
+                  : "ABOUT ME"}
               </h2>
               <p className="text-xs leading-[18px]">{about}</p>
             </div>
@@ -188,7 +211,10 @@ const ResumeFiveEdit = () => {
                   className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                   style={{ color: resume_color || "#0D0D0D" }}
                 >
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "ERFAHRUNGEN" : "EXPERIENCE"}
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "ERFAHRUNGEN"
+                    : "EXPERIENCE"}
                 </h2>
                 <div className="space-y-3 mt-3">
                   {work_experiences.map((exp, i) => (
@@ -198,7 +224,9 @@ const ResumeFiveEdit = () => {
                         <span>{exp.company_name}</span>
                         <span>
                           {dayjs(exp.start_date).format("YYYY")} –{" "}
-                          {exp.end_date ? dayjs(exp.end_date).format("YYYY") : "Present"}
+                          {exp.end_date
+                            ? dayjs(exp.end_date).format("YYYY")
+                            : "Present"}
                         </span>
                       </p>
                       <p className="text-xs mt-2">{exp.responsibilities}</p>
@@ -214,7 +242,10 @@ const ResumeFiveEdit = () => {
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                 style={{ color: resume_color || "#0D0D0D" }}
               >
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "AUSBILDUNGEN" : "TRAINING"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "AUSBILDUNGEN"
+                  : "TRAINING"}
               </h2>
               <div className="space-y-3 mt-3">
                 {trainings.map((t, i) => (
@@ -223,7 +254,9 @@ const ResumeFiveEdit = () => {
                     <p className="text-xs font-medium">{t.name_of_institute}</p>
                     <p className="text-xs">
                       {dayjs(t.start_date).format("MMM YYYY")} –{" "}
-                      {t.end_date ? dayjs(t.end_date).format("MMM YYYY") : "Present"}
+                      {t.end_date
+                        ? dayjs(t.end_date).format("MMM YYYY")
+                        : "Present"}
                     </p>
                   </div>
                 ))}
@@ -236,7 +269,10 @@ const ResumeFiveEdit = () => {
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
                 style={{ color: resume_color || "#0D0D0D" }}
               >
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "SPRACHEN" : "LANGUAGES"}
+                {allRedumeData?.data?.resume_language === "Deutsch" ||
+                allRedumeData?.data?.resume_language === "German"
+                  ? "SPRACHEN"
+                  : "LANGUAGES"}
               </h2>
               <div className="space-y-2 mt-3">
                 {languages.map((l, i) => (
