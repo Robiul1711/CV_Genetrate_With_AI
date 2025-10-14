@@ -182,55 +182,56 @@ const CreateNewResume = () => {
   //   else handleNext();
   // };
 
-  const onSubmit = (data) => {
-    // Trim goal field
-    data.goal = String(data.goal).trim();
+const onSubmit = (data) => {
+  // Trim goal field
+  data.goal = String(data.goal).trim();
 
-    // --- Clean up work experiences ---
-    if (data.work_experiences && Array.isArray(data.work_experiences)) {
-      data.work_experiences = data.work_experiences.filter(
-        (exp) =>
-          exp.job_title?.trim() !== "" ||
-          exp.company_name?.trim() !== "" ||
-          exp.start_date?.trim() !== "" ||
-          exp.end_date?.trim() !== "" ||
-          exp.still_working_here === true ||
-          exp.responsibilities?.trim() !== ""
-      );
+  // --- Clean up work experiences ---
+  if (Array.isArray(data.work_experiences)) {
+    data.work_experiences = data.work_experiences.filter((exp) => {
+      const hasAnyValue =
+        exp.job_title?.trim() ||
+        exp.company_name?.trim() ||
+        exp.start_date?.trim() ||
+        exp.end_date?.trim() ||
+        exp.responsibilities?.trim() ||
+        exp.still_working_here === true;
 
-      if (data.work_experiences.length === 0) {
-        delete data.work_experiences;
-      }
+      return Boolean(hasAnyValue);
+    });
+
+    if (data.work_experiences.length === 0) {
+      delete data.work_experiences;
     }
+  }
 
-    // --- Clean up courses and training details ---
-    if (
-      data.courses_and_training_details &&
-      Array.isArray(data.courses_and_training_details)
-    ) {
-      data.courses_and_training_details =
-        data.courses_and_training_details.filter(
-          (course) =>
-            course.name_of_institute?.trim() !== "" ||
-            course.course_name?.trim() !== "" ||
-            course.start_date?.trim() !== "" ||
-            course.end_date?.trim() !== ""
-        );
+  // --- Clean up courses and training details ---
+  if (Array.isArray(data.courses_and_training_details)) {
+    data.courses_and_training_details =
+      data.courses_and_training_details.filter((course) => {
+        const hasAnyValue =
+          course.name_of_institute?.trim() ||
+          course.course_name?.trim() ||
+          course.start_date?.trim() ||
+          course.end_date?.trim();
 
-      if (data.courses_and_training_details.length === 0) {
-        delete data.courses_and_training_details;
-      }
+        return Boolean(hasAnyValue);
+      });
+
+    if (data.courses_and_training_details.length === 0) {
+      delete data.courses_and_training_details;
     }
+  }
 
-    console.log(data);
+  console.log(data);
 
-    // Submit or go to next step
-    if (activeStep === 8) {
-      ResumeMutation.mutate(data);
-    } else {
-      handleNext();
-    }
-  };
+  // Submit or go to next step
+  if (activeStep === 8) {
+    ResumeMutation.mutate(data);
+  } else {
+    handleNext();
+  }
+};
 
   return (
     <FormProvider {...methods}>

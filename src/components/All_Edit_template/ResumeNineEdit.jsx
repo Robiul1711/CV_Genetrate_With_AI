@@ -130,7 +130,7 @@ const ResumeNineEdit = () => {
             ></div>
             <div className="w-[133px] h-[166px] relative top-16 left-20">
               <img
-              crossOrigin="anonymous" 
+
                 src={profilePreview}
                 className="w-full h-full object-cover rounded-lg"
                 alt="Profile"
