@@ -53,7 +53,7 @@ const ResumeTwo = () => {
           <div className="w-[40%] space-y-6">
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
                   ? "ÜBER MICH"
                   : "ABOUT ME"}
               </h2>
@@ -64,14 +64,14 @@ const ResumeTwo = () => {
 
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
                   ? "KONTAKT"
                   : "CONTACT"}
               </h2>
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-2 leading-[18px]">
                   <FaPhoneAlt className="text-[12px] text-[#666]" />
-                  {resumeData.phone_number}
+                  +{resumeData.phone_number}
                 </p>
                 <p className="text-xs flex items-center gap-2">
                   <FaMapMarkerAlt className="text-[12px] text-[#666]" />
@@ -97,7 +97,7 @@ const ResumeTwo = () => {
             </div>
             <div>
               <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px]">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
                   ? "AUSBILDUNG"
                   : "EDUCATION"}
               </h2>
@@ -125,7 +125,7 @@ const ResumeTwo = () => {
             {resumeData.work_experiences?.length > 0 && (
               <div>
                 <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px]">
-                  {allRedumeData?.data?.resume_language === "Deutsch"
+                  {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
                     ? "BERUFSERFAHRUNG"
                     : "WORK EXPERIENCE"}
                 </h2>
@@ -151,10 +151,12 @@ const ResumeTwo = () => {
               </div>
             )}
             <div className="border-b border-[#D9D9D9] "></div>
+            {resumeData.courses_and_training_details?.length > 0 && (
+              <>
             <div>
               <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] ">
-                {allRedumeData?.data?.resume_language === "Deutsch"
-                  ? "AUSBILDUNG"
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                  ? "Kurs und Training"
                   : "TRAINING"}
               </h2>
               {resumeData.courses_and_training_details &&
@@ -175,9 +177,11 @@ const ResumeTwo = () => {
                 ))}
             </div>
             <div className="border-b border-[#D9D9D9] "></div>
+              </>
+            )}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
                   ? "FÄHIGKEITEN"
                   : "SKILLS"}
               </h2>
@@ -192,7 +196,7 @@ const ResumeTwo = () => {
             <div className="border-b border-[#D9D9D9] "></div>
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-                {allRedumeData?.data?.resume_language === "Deutsch"
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
                   ? "SPRACHEN"
                   : "LANGUAGES"}
               </h2>

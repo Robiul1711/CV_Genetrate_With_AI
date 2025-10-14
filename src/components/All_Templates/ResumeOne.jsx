@@ -53,7 +53,7 @@ const ResumeOne = () => {
           <div className="w-[35%] space-y-6">
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-               {allRedumeData?.data?.resume_language === "Deutsch" ? "ÜBER MICH" : "ABOUT ME" }
+               {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ? "ÜBER MICH" : "ABOUT ME" }
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData?.about}
@@ -62,11 +62,11 @@ const ResumeOne = () => {
 
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-               {allRedumeData?.data?.resume_language === "Deutsch" ? "KONTAKT" : "CONTACT" }
+               {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ? "KONTAKT" : "CONTACT" }
               </h2>
               <div className="space-y-3 ">
                 <p className="text-xs  leading-[18px]">
-                  {resumeData?.phone_number}
+                  +{resumeData?.phone_number}
                 </p>
                 <p className="text-xs">{resumeData?.address}</p>
                 <p className="text-xs">{resumeData?.email}</p>
@@ -77,7 +77,7 @@ const ResumeOne = () => {
 
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-             {allRedumeData?.data?.resume_language === "Deutsch" ? "SPRACHEN" : "LANGUAGES" }
+             {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ? "SPRACHEN" : "LANGUAGES" }
               </h2>
               {resumeData?.languages &&
                 resumeData.languages.length > 0 &&
@@ -95,7 +95,7 @@ const ResumeOne = () => {
 
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ? "FÄHIGKEITEN" : "SKILLS" }
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ? "FÄHIGKEITEN" : "SKILLS" }
               </h2>
                 <ul className="text-xs  flex gap-3 flex-wrap">
                 {resumeData?.skills &&
@@ -112,8 +112,8 @@ const ResumeOne = () => {
             {
               resumeData.work_experiences?.length > 0 &&(
                 <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-               {allRedumeData?.data?.resume_language === "Deutsch" ? "BERUFSERFAHRUNG" : "WORK EXPERIENCE" }
+              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
+               {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ? "BERUFSERFAHRUNG" : "WORK EXPERIENCE" }
               </h2>
 
               {resumeData?.work_experiences &&
@@ -141,8 +141,8 @@ const ResumeOne = () => {
             }
 
             <div>
-              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-               {allRedumeData?.data?.resume_language === "Deutsch" ?  "AUSBILDUNG" : "EDUCATION" }
+              <h2 className="text-sm tracking-[2px]  text-[#666] leading-[24px] uppercase">
+               {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ?  "AUSBILDUNG" : "EDUCATION" }
               </h2>
               {
                 resumeData?.educations &&
@@ -165,10 +165,11 @@ const ResumeOne = () => {
  
 
             </div>
-
+{
+  resumeData?.courses_and_training_details?.length > 0 && (
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-              {allRedumeData?.data?.resume_language === "Deutsch" ? "Schulung" : "TRAINING" }
+              {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ? "Kurs und Training" : "TRAINING" }
               </h2>
               {
                 resumeData?.courses_and_training_details &&
@@ -188,19 +189,11 @@ const ResumeOne = () => {
                   </div>
                 ))
               }
-              <div className="">
-                <p className="font-medium leading-[18px] text-xs">
-                  Siemens Training Center, Berlin
-                </p>
-                <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
-                  Advanced Project Management Certification
-                </p>
-                <p className="text-xs leading-[20px]">
-                  February 2021 – April 2021
-                </p>
-              </div>
+         
         
             </div>
+  
+)}
           </div>
         </div>
       </div>

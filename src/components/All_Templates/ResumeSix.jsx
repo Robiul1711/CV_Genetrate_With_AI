@@ -20,18 +20,17 @@ const ResumeSix = () => {
   const resumeRef = useRef();
 
   const { data: status } = useStatusCheck();
-  
 
   return (
     <div className="min-h-screen  ">
-        <DownloadButton resumeRef={resumeRef}  />
+      <DownloadButton resumeRef={resumeRef} />
       <div
         ref={resumeRef}
         className="bg-white text-black relative  w-[210mm] mx-auto !urbanist h-[297mm] overflow-hidden"
       >
         {/* Header */}
 
-         {status?.water_mark && (
+        {status?.water_mark && (
           <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
             <img
               src={WaterMark}
@@ -64,42 +63,44 @@ const ResumeSix = () => {
         <div className="flex justify-between gap-5 px-6 py-8 mt-12 h-full">
           {/* Left Column */}
           <div className="w-[50%] space-y-4  rounded-md">
-           {
-            resumeData.work_experiences?.length > 0 &&(
-               <div>
-              <div className="flex pb-3 items-center gap-1">
-                <h2 className="text-sm tracking-[2px]  text-[#171717] font-semibold leading-[24px] uppercase">
-                  {allRedumeData?.data?.resume_language === "Deutsch" ? "Arbeitserfahrung" : "Work Experience" }
-                </h2>
-                <div className="flex-1 border-b-[2px] mt-2 border-[#D9D9D9] max-w-[100px]"></div>
+            {resumeData.work_experiences?.length > 0 && (
+              <div>
+                <div className="flex pb-3 items-center gap-1">
+                  <h2 className="text-sm tracking-[2px]  text-[#171717] font-semibold leading-[24px] uppercase">
+                    {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                      ? "Arbeitserfahrung"
+                      : "Work Experience"}
+                  </h2>
+                  <div className="flex-1 border-b-[2px] mt-2 border-[#D9D9D9] max-w-[100px]"></div>
+                </div>
+                <div className=" border-l border-[#FF4089] pl-2 space-y-2">
+                  {resumeData?.work_experiences?.map((experience, index) => (
+                    <div key={index}>
+                      <p className="font-semibold leading-[18px]  text-xs">
+                        {experience?.job_title}
+                      </p>
+                      <p className="text-xs leading-[18px] font-semibold flex justify-between items-center">
+                        {experience?.company_name}
+                        <span>
+                          {dayjs(experience?.start_date).format("MMM YYYY")} -{" "}
+                          {dayjs(experience?.end_date).format("MMM YYYY")}
+                        </span>
+                      </p>
+                      <p className="text-xs leading-[20px] mt-2">
+                        {experience?.responsibilities}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className=" border-l border-[#FF4089] pl-2 space-y-2">
-                {resumeData?.work_experiences?.map((experience, index) => (
-                  <div key={index}>
-                    <p className="font-semibold leading-[18px]  text-xs">
-                      {experience?.job_title}
-                    </p>
-                    <p className="text-xs leading-[18px] font-semibold flex justify-between items-center">
-                      {experience?.company_name}
-                      <span>
-                        {dayjs(experience?.start_date).format("MMM YYYY")} -{" "}
-                        {dayjs(experience?.end_date).format("MMM YYYY")}
-                      </span>
-                    </p>
-                    <p className="text-xs leading-[20px] mt-2">
-                      {experience?.responsibilities}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            )
-           }
+            )}
 
             <div>
               <div className="flex pb-3 items-center gap-1">
                 <h2 className="text-sm tracking-[2px]  text-[#171717] font-semibold leading-[24px] uppercase">
-                 {allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" : "Education" }
+                  {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                    ? "Ausbildung"
+                    : "Education"}
                 </h2>
                 <div className="flex-1 border-b-[2px] mt-2 border-[#D9D9D9] max-w-[100px]"></div>
               </div>
@@ -120,11 +121,13 @@ const ResumeSix = () => {
                 ))}
               </div>
             </div>
-
+{resumeData?.courses_and_training_details?.length > 0 && (
             <div>
               <div className="flex pb-3 items-center gap-1">
                 <h2 className="text-sm tracking-[2px]  text-[#171717] font-semibold leading-[24px] uppercase">
-               {allRedumeData?.data?.resume_language === "Deutsch" ? "Kurse und Schulungen" : "Courses and Training" }
+                  {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                    ? "Kurse und Schulungen"
+                    : "Courses and Training"}
                 </h2>
                 <div className="flex-1 border-b-[2px] mt-2 border-[#D9D9D9] max-w-[100px]"></div>
               </div>
@@ -147,13 +150,17 @@ const ResumeSix = () => {
                 )}
               </div>
             </div>
+  
+)}
           </div>
           <div className="border-r border-[#D9D9D9]"></div>
           {/* Right Column */}
           <div className="w-[50%] space-y-4">
             <div>
               <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] uppercase font-semibold leading-[24px] ">
-                {allRedumeData?.data?.resume_language === "Deutsch" ?  "Über mich" :"About Me"}
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                  ? "Über mich"
+                  : "About Me"}
               </h2>
               <p className="text-xs leading-[18px] text-[#171717]">
                 {resumeData?.about}
@@ -162,12 +169,14 @@ const ResumeSix = () => {
             <div className="border-b border-[#D9D9D9]"></div>
             <div className="text-center">
               <h2 className="text-sm  tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
-              {allRedumeData?.data?.resume_language === "Deutsch" ? "Kontakt" :"Contact" }
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                  ? "Kontakt"
+                  : "Contact"}
               </h2>
               <div className="space-y-3 text-center ">
                 <p className="text-xs flex flex-col items-center gap-1 leading-[18px]">
                   <FaPhoneAlt className="text-[#79819A] text-xl p-1 border-[#FF4089] border rounded-full" />
-                  {resumeData?.phone_number}
+                  +{resumeData?.phone_number}
                 </p>
                 <p className="text-xs flex flex-col items-center gap-1">
                   <FaMapMarkerAlt className="text-[#79819A] text-xl p-1 border-[#FF4089] border rounded-full" />
@@ -202,9 +211,11 @@ const ResumeSix = () => {
             <div className="border-b border-[#D9D9D9]"></div>
             <div className="text-center">
               <h2 className="text-sm tracking-[2px] pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
-               {allRedumeData?.data?.resume_language === "Deutsch" ? "Fähigkeiten" : "Skills" }
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                  ? "Fähigkeiten"
+                  : "Skills"}
               </h2>
-         <ul className="text-xs  flex flex-wrap gap-3 justify-between">
+              <ul className="text-xs  flex flex-wrap gap-3 justify-between">
                 {resumeData?.skills?.map((skill, index) => (
                   <li key={index} className="">
                     <span>{skill?.skill}</span>
@@ -224,10 +235,15 @@ const ResumeSix = () => {
             <div className="border-b border-[#D9D9D9]"></div>
             <div>
               <h2 className="text-sm tracking-[2px] text-center pb-3 text-[#171717] font-semibold leading-[24px] uppercase">
-               {allRedumeData?.data?.resume_language === "Deutsch" ? "Sprachen" : "Languages" }
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                  ? "Sprachen"
+                  : "Languages"}
               </h2>
               {resumeData?.languages?.map((language, index) => (
-                <p key={index} className="text-xs flex justify-between items-center ">
+                <p
+                  key={index}
+                  className="text-xs flex justify-between items-center "
+                >
                   {language?.language} <span>{language?.level}</span>
                 </p>
               ))}

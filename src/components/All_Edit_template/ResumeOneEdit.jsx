@@ -120,7 +120,7 @@ const ResumeOneEdit = () => {
                   : "Contact"}
               </h2>
               <div className="space-y-3">
-                <p className="text-xs">{phone_number}</p>
+                <p className="text-xs">+{phone_number}</p>
                 <p className="text-xs">{address}</p>
                 <p className="text-xs">{email}</p>
                 <p className="text-xs">{linked_in_profile}</p>
@@ -202,7 +202,7 @@ const ResumeOneEdit = () => {
             {/* Education */}
             {educations?.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
+                <h2 className="text-sm tracking-[2px]  text-[#666] uppercase">
                   {allRedumeData?.data?.resume_language === "Deutsch" ||
                   allRedumeData?.data?.resume_language === "German"
                     ? "Ausbildung"
@@ -236,7 +236,7 @@ const ResumeOneEdit = () => {
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
                   {allRedumeData?.data?.resume_language === "Deutsch" ||
                   allRedumeData?.data?.resume_language === "German"
-                    ? "Trainings"
+                    ? "Kurs und Training"
                     : "Trainings"}
                 </h2>
                 {traingings.map((exp, idx) => (

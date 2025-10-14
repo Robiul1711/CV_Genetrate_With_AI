@@ -130,6 +130,7 @@ const ResumeNineEdit = () => {
             ></div>
             <div className="w-[133px] h-[166px] relative top-16 left-20">
               <img
+              crossOrigin="anonymous" 
                 src={profilePreview}
                 className="w-full h-full object-cover rounded-lg"
                 alt="Profile"
@@ -154,7 +155,7 @@ const ResumeNineEdit = () => {
                     <PhoneIcon className="size-3" />
                   </div>
                   <p className="leading-[12px] text-[#171717] font-normal italic text-xs !playfair">
-                    {resumeData.phone_number}
+                    +{resumeData.phone_number}
                   </p>
                 </div>
 
@@ -233,7 +234,9 @@ const ResumeNineEdit = () => {
                   </p>
                   <p className="leading-4 text-xs text-white font-normal !urbanist">
                     {dayjs(edu.start_date).format("MMM YYYY")} -{" "}
-                    {edu.end_date ? dayjs(edu.end_date).format("YYYY") : "Present"}
+                    {edu.end_date
+                      ? dayjs(edu.end_date).format("YYYY")
+                      : "Present"}
                   </p>
                 </div>
               ))}
@@ -263,7 +266,9 @@ const ResumeNineEdit = () => {
                         </p>
                         <p className="text-xs font-semibold leading-5 !urbanist text-[#171717]">
                           {dayjs(exp.start_date).format("MMM YYYY")} -{" "}
-                          {exp.end_date ? dayjs(exp.end_date).format("YYYY") : "Present"}
+                          {exp.end_date
+                            ? dayjs(exp.end_date).format("YYYY")
+                            : "Present"}
                         </p>
                       </div>
                       <p className="leading-4 !urbanist text-xs text-[#171717] font-medium">
@@ -303,41 +308,43 @@ const ResumeNineEdit = () => {
               ))}
             </div>
           </div>
-
-          <div
-            className={`flex flex-col gap-4 flex-1 ${
-              resumeData.work_experiences?.length > 0 ? "-mt-12" : "-mt-40"
-            }`}
-          >
-            <div className="w-[90%] px-[60px] py-6 bg-[#293946] text-center">
-              <p className="leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ||
-                allRedumeData?.data?.resume_language === "German"
-                  ? "Ausbildung"
-                  : "Trainings"}
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 pr-4">
-              {resumeData.courses_and_training_details.map(
-                (training, index) => (
-                  <div key={index} className="flex flex-col gap-1">
-                    <div className="flex items-center gap-2 w-full justify-between">
-                      <p className="text-sm font-semibold leading-5 !urbanist text-[#171717]">
-                        {training.name_of_institute}
-                      </p>
-                      <p className="text-xs font-semibold leading-5 !urbanist text-[#171717]">
-                        {dayjs(training.start_date).format("MMM YYYY")} -{" "}
-                        {dayjs(training.end_date).format("MMM YYYY")}
+          {/* Training */}
+          {resumeData.courses_and_training_details?.length > 0 && (
+            <div
+              className={`flex flex-col gap-4 flex-1 ${
+                resumeData.work_experiences?.length > 0 ? "-mt-12" : "-mt-40"
+              }`}
+            >
+              <div className="w-[90%] px-[60px] py-6 bg-[#293946] text-center">
+                <p className="leading-4 tracking-[2px] !urbanist text-sm font-semibold text-white uppercase">
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "Kurs und Training"
+                    : "Trainings"}
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 pr-4">
+                {resumeData.courses_and_training_details.map(
+                  (training, index) => (
+                    <div key={index} className="flex flex-col gap-1">
+                      <div className="flex items-center gap-2 w-full justify-between">
+                        <p className="text-sm font-semibold leading-5 !urbanist text-[#171717]">
+                          {training.name_of_institute}
+                        </p>
+                        <p className="text-xs font-semibold leading-5 !urbanist text-[#171717]">
+                          {dayjs(training.start_date).format("MMM YYYY")} -{" "}
+                          {dayjs(training.end_date).format("MMM YYYY")}
+                        </p>
+                      </div>
+                      <p className="leading-4 !urbanist text-xs text-[#171717] font-medium">
+                        {training.course_name}
                       </p>
                     </div>
-                    <p className="leading-4 !urbanist text-xs text-[#171717] font-medium">
-                      {training.course_name}
-                    </p>
-                  </div>
-                )
-              )}
+                  )
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

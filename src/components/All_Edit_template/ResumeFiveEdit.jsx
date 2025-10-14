@@ -103,7 +103,7 @@ const ResumeFiveEdit = () => {
             <div className="space-y-3">
               <p className="text-xs flex items-center gap-2">
                 <FaPhoneAlt className="text-[12px]" />
-                {phone_number}
+                +{phone_number}
               </p>
               <p className="text-xs flex items-center gap-2">
                 <FaMapMarkerAlt className="text-[12px]" />
@@ -237,6 +237,7 @@ const ResumeFiveEdit = () => {
             )}
 
             {/* Trainings */}
+            {trainings.length > 0 && (
             <div>
               <h2
                 className="text-sm font-semibold tracking-[2px] leading-[24px] uppercase"
@@ -244,7 +245,7 @@ const ResumeFiveEdit = () => {
               >
                 {allRedumeData?.data?.resume_language === "Deutsch" ||
                 allRedumeData?.data?.resume_language === "German"
-                  ? "AUSBILDUNGEN"
+                  ? "Kurs und Training"
                   : "TRAINING"}
               </h2>
               <div className="space-y-3 mt-3">
@@ -262,6 +263,8 @@ const ResumeFiveEdit = () => {
                 ))}
               </div>
             </div>
+
+            )}
 
             {/* Languages */}
             <div>

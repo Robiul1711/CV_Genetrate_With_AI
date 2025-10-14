@@ -12,12 +12,11 @@ import { useEmail } from "@/hooks/useEmail"; // assuming it provides { language 
 import { useStatusCheck } from "@/components/common/useStatusCheck";
 
 const AdminDashboard = () => {
-  const { language } = useEmail(); 
+  const { language } = useEmail();
 
-    const { data: status } = useStatusCheck();
+  const { data: status } = useStatusCheck();
 
-
-      const createResumePath =
+  const createResumePath =
     status?.has_subscription === false
       ? "/price"
       : "/dashboard/create-new-resume";
@@ -33,7 +32,8 @@ const AdminDashboard = () => {
   const data = [
     {
       id: 1,
-      title: language === "de" ? "Neuen Lebenslauf erstellen" : "Create New Resume",
+      title:
+        language === "de" ? "Neuen Lebenslauf erstellen" : "Create New Resume",
       descript:
         language === "de"
           ? "Lassen Sie die KI einen erfolgreichen Lebenslauf von Grund auf erstellen."
@@ -43,7 +43,10 @@ const AdminDashboard = () => {
     },
     {
       id: 2,
-      title: language === "de" ? "Vorhandenen Lebenslauf aktualisieren" : "Update Existing Resume",
+      title:
+        language === "de"
+          ? "Vorhandenen Lebenslauf aktualisieren"
+          : "Update Existing Resume",
       descript:
         language === "de"
           ? "Laden Sie Ihren aktuellen Lebenslauf hoch, und die KI verbessert ihn für den Erfolg."
@@ -53,7 +56,8 @@ const AdminDashboard = () => {
     },
     {
       id: 3,
-      title: language === "de" ? "Anschreiben erstellen" : "Create Cover Letter",
+      title:
+        language === "de" ? "Anschreiben erstellen" : "Create Cover Letter",
       descript:
         language === "de"
           ? "Personalisierte Anschreiben, abgestimmt auf Ihren Lebenslauf und die Zielstelle."
@@ -82,7 +86,7 @@ const AdminDashboard = () => {
           </Title>
         </div>
         <div className="hidden md:block px-4">
-          <img src={dashboard} alt="" className="w-full size-32 xl:size-48" />
+          <img src={dashboard} alt="" className="w-full size-32 xl:size-48 object-cover" />
         </div>
       </div>
 

@@ -149,7 +149,7 @@ const ResumeFourEdit = () => {
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-2 leading-[18px]">
                   <FaPhoneAlt className="text-[12px]" />{" "}
-                  {resumeData?.phone_number}
+                 +{resumeData?.phone_number}
                 </p>
                 <p className="text-xs flex items-center gap-2">
                   <FaMapMarkerAlt className="text-[12px]" />{" "}
@@ -186,34 +186,39 @@ const ResumeFourEdit = () => {
             <div className="border-b border-[#D9D9D9]"></div>
 
             {/* TRAINING */}
-            <div>
-              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-                {allRedumeData?.data?.resume_language === "Deutsch" ||
-                allRedumeData?.data?.resume_language === "German"
-                  ? "AUSBILDUNGEN"
-                  : "Training"}
-              </h2>
-              {resumeData?.courses_and_training_details?.map(
-                (training, index) => (
-                  <div key={index} className="mt-3">
-                    <p className="font-medium leading-[18px] text-xs">
-                      {training.course_name}
-                    </p>
-                    <p className="text-xs leading-[18px] font-medium">
-                      {training.name_of_institute}
-                    </p>
-                    <p className="text-xs leading-[20px]">
-                      {dayjs(training.start_date).format("MMMM YYYY")} –{" "}
-                      {training.end_date
-                        ? dayjs(training.end_date).format("MMMM YYYY")
-                        : "Present"}
-                    </p>
-                  </div>
-                )
-              )}
-            </div>
-
-            <div className="border-b border-[#D9D9D9]"></div>
+            {resumeData?.courses_and_training_details?.length > 0 && (
+              <>
+              
+              <div>
+                <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
+                  {allRedumeData?.data?.resume_language === "Deutsch" ||
+                  allRedumeData?.data?.resume_language === "German"
+                    ? "Kurs und Training"
+                    : "Training"}
+                </h2>
+                {resumeData?.courses_and_training_details?.map(
+                  (training, index) => (
+                    <div key={index} className="mt-3">
+                      <p className="font-medium leading-[18px] text-xs">
+                        {training.course_name}
+                      </p>
+                      <p className="text-xs leading-[18px] font-medium">
+                        {training.name_of_institute}
+                      </p>
+                      <p className="text-xs leading-[20px]">
+                        {dayjs(training.start_date).format("MMMM YYYY")} –{" "}
+                        {training.end_date
+                          ? dayjs(training.end_date).format("MMMM YYYY")
+                          : "Present"}
+                      </p>
+                    </div>
+                  )
+                )}
+              </div>
+  
+              <div className="border-b border-[#D9D9D9]"></div>
+              </>
+            )}
 
             {/* SKILL */}
             <div>

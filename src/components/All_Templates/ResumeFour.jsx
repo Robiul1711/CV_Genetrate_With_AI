@@ -20,7 +20,6 @@ const ResumeFour = () => {
 
   const { data: status } = useStatusCheck();
   const resumeRef = useRef();
-  
 
   return (
     <div className="min-h-screen  !text-black ">
@@ -30,7 +29,7 @@ const ResumeFour = () => {
         className="bg-white text-black relative px-5 py-8  w-[210mm]  h-[297mm] overflow-hidden mx-auto urbanist"
       >
         {/* Header */}
-         {status?.water_mark && (
+        {status?.water_mark && (
           <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
             <img
               src={WaterMark}
@@ -64,142 +63,194 @@ const ResumeFour = () => {
           </div>
         </div>
 
-{/* Body */}
-<div className="flex justify-between h-full gap-5 mt-6">
-  {/* Left Column */}
-  <div className="w-[40%] space-y-3 rounded-md">
-    <div>
-      <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
-        {allRedumeData?.data?.resume_language === "Deutsch" ? "KONTAKT" : "CONTACT"}
-      </h2>
-      <div className="space-y-3">
-        <p className="text-xs flex items-center gap-2 leading-[18px]">
-          <FaPhoneAlt className="text-[12px]" />
-          {resumeData?.phone_number}
-        </p>
-        <p className="text-xs flex items-center gap-2">
-          <FaMapMarkerAlt className="text-[12px]" />
-          {resumeData?.address}
-        </p>
-        <p className="text-xs flex items-center gap-2">
-          <FaEnvelope className="text-[12px]" />
-          {resumeData?.email}
-        </p>
-        {resumeData?.linked_in_profile && (
-          <a href={resumeData?.linked_in_profile} target="_blank" className="text-xs flex items-center gap-2">
-            <FaLinkedin className="text-[12px]" />
-            {resumeData?.linked_in_profile}
-          </a>
-        )}
-        {resumeData?.xing_profile && (
-          <a href={resumeData?.xing_profile} target="_blank" className="text-xs flex items-center gap-2">
-            <FaXing className="text-[12px]" />
-            {resumeData?.xing_profile}
-          </a>
-        )}
-      </div>
-    </div>
+        {/* Body */}
+        <div className="flex justify-between h-full gap-5 mt-6">
+          {/* Left Column */}
+          <div className="w-[40%] space-y-3 rounded-md">
+            <div>
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px]">
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                  ? "KONTAKT"
+                  : "CONTACT"}
+              </h2>
+              <div className="space-y-3">
+                <p className="text-xs flex items-center gap-2 leading-[18px]">
+                  <FaPhoneAlt className="text-[12px]" />
+                  +{resumeData?.phone_number}
+                </p>
+                <p className="text-xs flex items-center gap-2">
+                  <FaMapMarkerAlt className="text-[12px]" />
+                  {resumeData?.address}
+                </p>
+                <p className="text-xs flex items-center gap-2">
+                  <FaEnvelope className="text-[12px]" />
+                  {resumeData?.email}
+                </p>
+                {resumeData?.linked_in_profile && (
+                  <a
+                    href={resumeData?.linked_in_profile}
+                    target="_blank"
+                    className="text-xs flex items-center gap-2"
+                  >
+                    <FaLinkedin className="text-[12px]" />
+                    {resumeData?.linked_in_profile}
+                  </a>
+                )}
+                {resumeData?.xing_profile && (
+                  <a
+                    href={resumeData?.xing_profile}
+                    target="_blank"
+                    className="text-xs flex items-center gap-2"
+                  >
+                    <FaXing className="text-[12px]" />
+                    {resumeData?.xing_profile}
+                  </a>
+                )}
+              </div>
+            </div>
 
-    <div className="border-b border-[#D9D9D9] "></div>
+            <div className="border-b border-[#D9D9D9] "></div>
+{/* Education */}
+{resumeData?.courses_and_training_details?.length > 0 && (
+  <>
+            <div>
+              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                  ? "Kurs und Training"
+                  : "TRAINING"}
+              </h2>
+              {resumeData?.courses_and_training_details?.map(
+                (training, index) => (
+                  <div key={index} className="mt-3">
+                    <p className="font-medium leading-[18px] text-xs">
+                      {training.course_name}
+                    </p>
+                    <p className="text-xs leading-[18px] font-medium">
+                      {training.name_of_institute}
+                    </p>
+                    <p className="text-xs leading-[20px]">
+                      {dayjs(training.start_date).format("MMMM YYYY")} –{" "}
+                      {training.end_date
+                        ? dayjs(training.end_date).format("MMMM YYYY")
+                        : "Present"}
+                    </p>
+                  </div>
+                )
+              )}
+            </div>
 
-    <div>
-      <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-        {allRedumeData?.data?.resume_language === "Deutsch" ? "SCHULUNG" : "TRAINING"}
-      </h2>
-      {resumeData?.courses_and_training_details?.map((training, index) => (
-        <div key={index} className="mt-3">
-          <p className="font-medium leading-[18px] text-xs">{training.course_name}</p>
-          <p className="text-xs leading-[18px] font-medium">{training.name_of_institute}</p>
-          <p className="text-xs leading-[20px]">
-            {dayjs(training.start_date).format("MMMM YYYY")} –{" "}
-            {training.end_date ? dayjs(training.end_date).format("MMMM YYYY") : "Present"}
-          </p>
-        </div>
-      ))}
-    </div>
+            <div className="border-b border-[#D9D9D9]"></div>
+  </>
+)}
 
-    <div className="border-b border-[#D9D9D9]"></div>
+            <div>
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                  ? "FÄHIGKEITEN"
+                  : "SKILLS"}
+              </h2>
+              <ul className="text-xs flex gap-3 flex-wrap">
+                {resumeData?.skills?.map((skill, index) => (
+                  <li key={index}>{skill.skill}</li>
+                ))}
+              </ul>
+            </div>
 
-    <div>
-      <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-        {allRedumeData?.data?.resume_language === "Deutsch" ? "FÄHIGKEITEN" : "SKILLS"}
-      </h2>
-      <ul className="text-xs flex gap-3 flex-wrap">
-        {resumeData?.skills?.map((skill, index) => (
-          <li key={index}>{skill.skill}</li>
-        ))}
-      </ul>
-    </div>
+            <div className="border-b border-[#D9D9D9] "></div>
 
-    <div className="border-b border-[#D9D9D9] "></div>
-
-    <div>
-      <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-        {allRedumeData?.data?.resume_language === "Deutsch" ? "SPRACHEN" : "LANGUAGES"}
-      </h2>
-      {resumeData?.languages?.map((language, index) => (
-        <div key={index} className="flex justify-between items-center text-xs py-1 border-b border-gray-200/20">
-          <span className="font-medium text-gray-800">{language.language}</span>
-          <span className="text-gray-600">{language.level}</span>
-        </div>
-      ))}
-    </div>
-  </div>
-
-  <div className="w-[1px] bg-[#D9D9D9]"></div>
-
-  {/* Right Column */}
-  <div className="w-[60%] space-y-3">
-    <div>
-      <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
-        {allRedumeData?.data?.resume_language === "Deutsch" ? "ÜBER MICH" : "ABOUT"}
-      </h2>
-      <p className="text-xs leading-[18px] text-[#171717]">{resumeData?.about}</p>
-    </div>
-
-    <div className="border-b border-[#D9D9D9] "></div>
-
-    {resumeData.work_experiences?.length > 0 && (
-      <div>
-        <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-          {allRedumeData?.data?.resume_language === "Deutsch" ? "BERUFSERFAHRUNG" : "WORK EXPERIENCE"}
-        </h2>
-        {resumeData?.work_experiences?.map((exp, index) => (
-          <div key={index} className="mt-3">
-            <p className="font-medium leading-[18px] text-xs">{exp.job_title}</p>
-            <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
-              {exp.company_name}
-              <span>
-                {dayjs(exp.start_date).format("MMM YYYY")} –{" "}
-                {exp.end_date ? dayjs(exp.end_date).format("MMM YYYY") : "Present"}
-              </span>
-            </p>
-            <p className="text-xs leading-[20px] mt-2">{exp.responsibilities}</p>
+            <div>
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                  ? "SPRACHEN"
+                  : "LANGUAGES"}
+              </h2>
+              {resumeData?.languages?.map((language, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-center text-xs py-1 border-b border-gray-200/20"
+                >
+                  <span className="font-medium text-gray-800">
+                    {language.language}
+                  </span>
+                  <span className="text-gray-600">{language.level}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
-      </div>
-    )}
 
-    <div className="border-b border-[#D9D9D9] "></div>
+          <div className="w-[1px] bg-[#D9D9D9]"></div>
 
-    <div>
-      <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
-        {allRedumeData?.data?.resume_language === "Deutsch" ? "AUSBILDUNG" : "EDUCATION"}
-      </h2>
-      {resumeData?.educations?.map((education, index) => (
-        <div key={index} className="mt-3">
-          <p className="font-medium leading-[18px] text-xs">{education.degree}</p>
-          <p className="text-xs leading-[18px]">{education.institute_name}</p>
-          <p className="text-xs mt-1">
-            {dayjs(education.start_date).format("MMM YYYY")} –{" "}
-            {education.end_date ? dayjs(education.end_date).format("MMM YYYY") : "Present"}
-          </p>
+          {/* Right Column */}
+          <div className="w-[60%] space-y-3">
+            <div>
+              <h2 className="text-sm tracking-[2px] pb-3 text-[#666] leading-[24px] uppercase">
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                  ? "ÜBER MICH"
+                  : "ABOUT"}
+              </h2>
+              <p className="text-xs leading-[18px] text-[#171717]">
+                {resumeData?.about}
+              </p>
+            </div>
+
+            <div className="border-b border-[#D9D9D9] "></div>
+
+            {resumeData.work_experiences?.length > 0 && (
+              <div>
+                <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
+                  {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                    ? "BERUFSERFAHRUNG"
+                    : "WORK EXPERIENCE"}
+                </h2>
+                {resumeData?.work_experiences?.map((exp, index) => (
+                  <div key={index} className="mt-3">
+                    <p className="font-medium leading-[18px] text-xs">
+                      {exp.job_title}
+                    </p>
+                    <p className="text-xs leading-[18px] font-medium flex justify-between items-center">
+                      {exp.company_name}
+                      <span>
+                        {dayjs(exp.start_date).format("MMM YYYY")} –{" "}
+                        {exp.end_date
+                          ? dayjs(exp.end_date).format("MMM YYYY")
+                          : "Present"}
+                      </span>
+                    </p>
+                    <p className="text-xs leading-[20px] mt-2">
+                      {exp.responsibilities}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="border-b border-[#D9D9D9] "></div>
+
+            <div>
+              <h2 className="text-sm tracking-[2px] text-[#666] leading-[24px] uppercase">
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
+                  ? "AUSBILDUNG"
+                  : "EDUCATION"}
+              </h2>
+              {resumeData?.educations?.map((education, index) => (
+                <div key={index} className="mt-3">
+                  <p className="font-medium leading-[18px] text-xs">
+                    {education.degree}
+                  </p>
+                  <p className="text-xs leading-[18px]">
+                    {education.institute_name}
+                  </p>
+                  <p className="text-xs mt-1">
+                    {dayjs(education.start_date).format("MMM YYYY")} –{" "}
+                    {education.end_date
+                      ? dayjs(education.end_date).format("MMM YYYY")
+                      : "Present"}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</div>
-
       </div>
     </div>
   );
