@@ -219,7 +219,7 @@ const ResumeThreeEdit = () => {
                       {exp.company_name}
                       <span>
                         {dayjs(exp.start_date).format("YYYY")} –{" "}
-                        {dayjs(exp.end_date).format("YYYY")}
+                        {exp.end_date ? dayjs(exp.end_date).format("YYYY") : "Present"}
                       </span>
                     </p>
                     <p className="text-xs mt-2">{exp.responsibilities}</p>
@@ -242,7 +242,7 @@ const ResumeThreeEdit = () => {
                     <p className="text-xs font-medium">{edu.degree}</p>
                     <p className="text-xs">
                       {dayjs(edu.start_date).format("MMMM YYYY")} –{" "}
-                      {dayjs(edu.end_date).format("MMMM YYYY")}
+                      {edu.end_date ? dayjs(edu.end_date).format("YYYY") : "Present"}
                     </p>
                   </div>
                 ))}

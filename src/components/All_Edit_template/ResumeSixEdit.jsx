@@ -11,7 +11,7 @@ import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
-import user from "../../assets/images/user.png";
+import user from "@/assets/images/placeholder-user.png";
 import WaterMark from "@/assets/images/watermark.png";
 import { useStatusCheck } from "../common/useStatusCheck";
 

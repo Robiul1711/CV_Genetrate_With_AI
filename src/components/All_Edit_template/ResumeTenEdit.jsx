@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import html2pdf from "html2pdf.js";
-import user from "../../assets/images/user.png";
+import user from "@/assets/images/placeholder-user.png";
 import {
   FaPhoneAlt,
   FaLinkedin,
