@@ -61,13 +61,17 @@ export default function CoverLetter({ resumeRef }) {
 
       {/* Body */}
       <div className="text-sm leading-relaxed">
-        <p className="text-[#2E2E48] font-medium flex items-end justify-end my-2">
-          {new Date().toLocaleDateString("en-US", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          })}
-        </p>
+       <p className="text-[#2E2E48] font-medium flex items-end justify-end my-2">
+  {new Date().toLocaleDateString(
+    language === "German" || language === "Deutsch" ? "de-DE" : "en-US",
+    {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }
+  )}
+</p>
+
 
         {/* Markdown Body */}
         <div className="prose-sm mt-6 prose-p:mb-4 prose-h2:mt-8 prose-h2:mb-4 prose-h3:mt-6 prose-h3:mb-3 tracking-[0.5px] leading-[24px] text-[#000]">

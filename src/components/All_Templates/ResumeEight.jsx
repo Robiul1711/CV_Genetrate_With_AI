@@ -77,7 +77,7 @@ const ResumeEight = () => {
         <div className=" flex flex-col  gap-3 w-[75%]">
           <SectionArea>
             <div className=" flex flex-col gap-1">
-              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ?  "Über mich" : "About Me"} />
+              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ?  "Über mich" : "About Me"} />
               <p className=" text-xs  text-white font-normal leading-[18px] !urbanist">
                 {resumeData?.about}
               </p>
@@ -88,7 +88,7 @@ const ResumeEight = () => {
     
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ? "Arbeitszeit" :"Work Experience" } />
+              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ? "Arbeitszeit" :"Work Experience" } />
               <div className=" flex flex-col gap-2 w-full">
                 {resumeData?.work_experiences &&
                   resumeData.work_experiences.map((experience, index) => (
@@ -164,7 +164,7 @@ const ResumeEight = () => {
 
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ? "Fähigkeiten" :"Skills" } />
+              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ? "Fähigkeiten" :"Skills" } />
               <div className=" grid grid-cols-2  gap-2">
                 {resumeData?.skills &&
                   resumeData.skills.map((skill, index) => (
@@ -184,7 +184,7 @@ const ResumeEight = () => {
 
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ? "Sprachen" : "Languages" } />
+              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ? "Sprachen" : "Languages" } />
 
               <div className=" grid grid-cols-2">
                 {resumeData?.languages &&
@@ -204,10 +204,10 @@ const ResumeEight = () => {
               </div>
             </div>
           </SectionArea>
-
+{resumeData?.courses_and_training_details?.length > 0 && (
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" ? "Trainings" : "Trainings"} />
+              <TitleSection name={allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ? "Kurs und Training" : "Trainings"} />
 
               <div className=" grid gap-1 grid-cols-1">
                 {resumeData?.courses_and_training_details &&
@@ -257,12 +257,14 @@ const ResumeEight = () => {
               </div>
             </div>
           </SectionArea>
+  
+)}
         </div>
 
         <div className=" w-[25%] mt-8 flex flex-col gap-3">
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection2 name={allRedumeData?.data?.resume_language === "Deutsch" ? "Ausbildung" :"Education" } />
+              <TitleSection2 name={allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ? "Ausbildung" :"Education" } />
             </div>
             <div className=" grid  gap-2 mt-9">
               {resumeData?.educations &&
@@ -285,7 +287,7 @@ const ResumeEight = () => {
 
           <SectionArea>
             <div className=" flex flex-col gap-2">
-              <TitleSection2 name={allRedumeData?.data?.resume_language === "Deutsch" ? "Kontakt" :"Contact" } />
+              <TitleSection2 name={allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German" ? "Kontakt" :"Contact" } />
 
               <div className=" grid  gap-2 mt-9">
                 <div className=" flex flex-col gap-1">
@@ -295,7 +297,7 @@ const ResumeEight = () => {
                       : "Telefon"}
                   </p>
                   <p className=" text-[10px] font-normal leading-[16px] text-white !urbanist">
-                    {resumeData?.phone_number}
+                    +{resumeData?.phone_number}
                   </p>
                 </div>
                 <div className=" flex flex-col gap-1">

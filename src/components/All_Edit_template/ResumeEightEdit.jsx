@@ -262,13 +262,14 @@ const ResumeEightEdit = () => {
             </SectionArea>
 
             {/* Training */}
+            {resumeData.courses_and_training_details?.length > 0 && (
             <SectionArea color={resume_color}>
               <div className="flex flex-col gap-2">
                 <TitleSection
                   name={
                     allRedumeData?.data?.resume_language === "Deutsch" ||
                     allRedumeData?.data?.resume_language === "German"
-                      ? "Ausbildung"
+                      ? "Kurs und Training"
                       : "Training"
                   }
                 />
@@ -293,6 +294,8 @@ const ResumeEightEdit = () => {
                 </div>
               </div>
             </SectionArea>
+              
+            )}
           </div>
 
           {/* Right Column */}
@@ -347,7 +350,7 @@ const ResumeEightEdit = () => {
                         : "Phone"}
                     </p>
                     <p className="text-[10px] font-normal leading-[16px] text-white">
-                      {resumeData.phone_number}
+                      +{resumeData.phone_number}
                     </p>
                   </div>
                   <div className="flex flex-col gap-1">

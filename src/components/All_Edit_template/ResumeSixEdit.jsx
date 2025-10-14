@@ -217,12 +217,14 @@ const ResumeSixEdit = () => {
             </div>
 
             {/* TRAINING */}
+            {resumeData.courses_and_training_details.length > 0 && (
+              
             <div>
               <div className="flex pb-3 items-center gap-1">
                 <h2 className="text-sm tracking-[2px] text-[#171717] font-semibold leading-[24px] uppercase">
                   {allRedumeData?.data?.resume_language === "Deutsch" ||
                   allRedumeData?.data?.resume_language === "German"
-                    ? "AUSBILDUNGEN"
+                    ? "Kurs und Training"
                     : "Training"}
                 </h2>
                 <div
@@ -250,6 +252,7 @@ const ResumeSixEdit = () => {
                 ))}
               </div>
             </div>
+            )}
           </div>
 
           <div
@@ -291,7 +294,7 @@ const ResumeSixEdit = () => {
                     className="text-[#79819A] text-xl p-1 border rounded-full"
                     style={{ borderColor: resume_color || "#FF4089" }}
                   />
-                  {resumeData.phone_number}
+                  +{resumeData.phone_number}
                 </p>
                 <p className="text-xs flex flex-col items-center gap-1">
                   <FaMapMarkerAlt

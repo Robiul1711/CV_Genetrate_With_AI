@@ -98,7 +98,7 @@ const ResumeThreeEdit = () => {
           <div className="space-y-3 w-[40%]">
             {phone && (
               <p className="text-xs flex items-center gap-2">
-                <FaPhoneAlt /> {phone}
+                <FaPhoneAlt /> +{phone}
               </p>
             )}
             {address && (
@@ -150,7 +150,7 @@ const ResumeThreeEdit = () => {
                 <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
                   {allRedumeData?.data?.resume_language === "Deutsch" ||
                   allRedumeData?.data?.resume_language === "German"
-                    ? "AUSBILDUNGEN"
+                    ? "Kurs und Training"
                     : "Trainings"}
                 </h2>
                 {trainings.map((t, i) => (
@@ -230,7 +230,7 @@ const ResumeThreeEdit = () => {
 
             {educations.length > 0 && (
               <div>
-                <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">
+                <h2 className="text-sm tracking-[2px]  text-[#666] uppercase">
                   {allRedumeData?.data?.resume_language === "Deutsch" ||
                   allRedumeData?.data?.resume_language === "German"
                     ? "Ausbildung"

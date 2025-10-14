@@ -141,7 +141,7 @@ const ResumeSevenEdit = () => {
               <div className="flex items-center gap-1">
                 <FaPhoneAlt className="text-sm text-black" />
                 <span className="text-xs italic !text-black">
-                  {resumeData.phone_number}
+                  +{resumeData.phone_number}
                 </span>
               </div>
               <div className="flex items-center gap-1">
@@ -263,15 +263,18 @@ const ResumeSevenEdit = () => {
                 : "Experience"}
             </div>
           )}
+          {resumeData.trainings?.length > 0 && (
           <div
             className="absolute -bottom-5 right-24 text-black bg-[#b1aaaa] p-2 uppercase"
             style={{ backgroundColor: resume_color }}
           >
             {allRedumeData?.data?.resume_language === "Deutsch" ||
             allRedumeData?.data?.resume_language === "German"
-              ? "AUSBILDUNGEN"
+              ? "Kurs und Training"
               : "Training"}
           </div>
+
+          )}
         </div>
 
         {/* Work Experience / Trainings */}

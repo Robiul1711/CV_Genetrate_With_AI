@@ -133,7 +133,7 @@ const ResumeTenEdit = () => {
               <div className="px-4 space-y-2">
                 <p className="text-xs flex items-center gap-2">
                   <FaPhoneAlt className="text-[12px]" />
-                  {resumeData.phone_number}
+                  +{resumeData.phone_number}
                 </p>
                 <p className="text-xs flex items-center gap-2">
                   <FaMapMarkerAlt className="text-[12px]" />
@@ -167,11 +167,12 @@ const ResumeTenEdit = () => {
             </div>
 
             {/* Training */}
+            {resumeData.courses_and_training_details.length > 0 && (
             <div>
               <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
                 {allRedumeData?.data?.resume_language === "Deutsch" ||
                 allRedumeData?.data?.resume_language === "German"
-                  ? "Ausbildung"
+                  ? "Kurs und Training"
                   : "Training"}
               </h2>
               <div className="space-y-3">
@@ -196,6 +197,8 @@ const ResumeTenEdit = () => {
               </div>
             </div>
 
+            )}
+
             {/* Languages */}
             <div>
               <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
@@ -219,7 +222,7 @@ const ResumeTenEdit = () => {
             {/* Skills */}
             <div>
               <h2 className="text-sm uppercase font-semibold tracking-[2px] mb-3 leading-[24px] bg-[#fff]/15 px-4 py-2 border-l-[5px] border-[#FECB00]">
-                {allRedumeData?.data?.resume_language === "English"
+                {allRedumeData?.data?.resume_language === "Deutsch" || allRedumeData?.data?.resume_language === "German"
                   ? "Fähigkeiten"
                   : "Skills"}
               </h2>

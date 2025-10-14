@@ -274,31 +274,38 @@ const CreateNewResume = () => {
             <div />
           )}
 
-          {activeStep === 8 ? ( // Generate happens at Step8 now
-            <button
-              type="submit"
-              className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              disabled={isCreatingResume}
-            >
-              {isCreatingResume ? t.generating : t.generate}
-            </button>
-          ) : activeStep === steps.length - 1 ? (
-            <Link
-              to={`/dashboard/edit-resume/${resumeId}`}
-              className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md flex items-center gap-2 hover:bg-white hover:text-black transition-colors duration-300"
-            >
-              <Edit size={18} /> {t.editResume}
-            </Link>
-          ) : (
-            <button
-              type="button"
-              className="font-semibold border border-white bg-white text-black px-3 py-2 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:cursor-not-allowed"
-              onClick={methods.handleSubmit(() => handleNext())}
-              disabled={isCreatingResume}
-            >
-              {activeStep === 9 ? t.chooseTemplate : t.next}
-            </button>
-          )}
+        {activeStep === 8 ? ( 
+  // ✅ Generate button at Step 8
+  <button
+    type="submit"
+    className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+    disabled={isCreatingResume}
+  >
+    {isCreatingResume ? t.generating : t.generate}
+  </button>
+) : activeStep === steps.length - 1 ? (
+  // ✅ Edit Resume Link
+  <Link
+    to={`/dashboard/edit-resume/${resumeId}`}
+    className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md flex items-center gap-2 hover:bg-white hover:text-black transition-colors duration-300"
+  >
+    <Edit size={18} /> {t.editResume}
+  </Link>
+) : activeStep === 9 ? (
+  // ❌ Hide button on step 9
+  null
+) : (
+  // ✅ Default NEXT button
+  <button
+    type="button"
+    className="font-semibold border border-white bg-white text-black px-3 py-2 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:cursor-not-allowed"
+    onClick={methods.handleSubmit(() => handleNext())}
+    disabled={isCreatingResume}
+  >
+    {t.next}
+  </button>
+)}
+
         </div>
       </form>
     </FormProvider>

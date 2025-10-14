@@ -168,7 +168,6 @@
 
 // export default DownloadButton;
 
-
 import React, { useState } from "react";
 import * as htmlToImage from "html-to-image";
 import jsPDF from "jspdf";
@@ -230,6 +229,7 @@ const DownloadButton = ({ resumeRef }) => {
         quality: 1,
         pixelRatio: 1.8,
         cacheBust: true,
+        useCORS: true,
         imagePlaceholder: `${import.meta.env.VITE_IMAGE_URL}${imageset}`,
       });
 

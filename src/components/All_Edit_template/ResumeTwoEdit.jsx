@@ -132,7 +132,7 @@ const ResumeTwoEdit = () => {
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-2">
                   <FaPhoneAlt className="text-[12px] text-[#666]" />{" "}
-                  {phone_number}
+                  +{phone_number}
                 </p>
                 <p className="text-xs flex items-center gap-2">
                   <FaMapMarkerAlt className="text-[12px] text-[#666]" />{" "}
@@ -213,11 +213,13 @@ const ResumeTwoEdit = () => {
             <div className="border-b border-[#D9D9D9]"></div>
 
             {/* Courses/Training */}
+               {courses_and_training_details?.length > 0 && (
+                <>
             <div>
               <h2 className="text-sm tracking-[2px] text-[#666] uppercase">
                 {allRedumeData?.data?.resume_language === "Deutsch" ||
                 allRedumeData?.data?.resume_language === "German"
-                  ? "AUSBILDUNGEN"
+                  ? "Kurs und Training"
                   : "Trainings"}
               </h2>
               {courses_and_training_details.map((course, idx) => (
@@ -240,7 +242,8 @@ const ResumeTwoEdit = () => {
             </div>
 
             <div className="border-b border-[#D9D9D9]"></div>
-
+                </>
+            )}
             {/* Skills */}
             <div>
               <h2 className="text-sm tracking-[2px] pb-3 text-[#666] uppercase">

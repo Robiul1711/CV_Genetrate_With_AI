@@ -151,7 +151,7 @@ const ResumeElevenEdit = () => {
               <div className="space-y-3">
                 <p className="text-xs flex items-center gap-1">
                   <FaPhoneAlt className="text-[12px]" />
-                  {resumeData.phone_number}
+                  +{resumeData.phone_number}
                 </p>
                 <p className="text-xs flex items-center gap-1">
                   <FaMapMarkerAlt className="text-[12px]" />
@@ -256,6 +256,7 @@ const ResumeElevenEdit = () => {
             )}
 
             {/* Training */}
+            {resumeData.courses_and_training_details?.length > 0 && (
             <div>
               <h2
                 className="text-sm font-medium uppercase tracking-[2px] py-1 bg-[#696969] mb-3 text-[#fff] text-center leading-[24px]"
@@ -263,7 +264,7 @@ const ResumeElevenEdit = () => {
               >
                 {allRedumeData?.data?.resume_language === "Deutsch" ||
                 allRedumeData?.data?.resume_language === "German"
-                  ? "Ausbildung"
+                  ? "Kurs und Training"
                   : "Training"}
               </h2>
               {resumeData.courses_and_training_details.map((training, idx) => (
@@ -281,6 +282,8 @@ const ResumeElevenEdit = () => {
                 </div>
               ))}
             </div>
+
+            )}
 
             {/* Skills */}
             <div>

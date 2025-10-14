@@ -211,14 +211,14 @@ const UpdateExistingResumeEdit = () => {
                 {activeTab === "edit" ? (
                   <>
                     {/* Step Navigation */}
-                    <div className="mb-6 overflow-x-auto">
-                      <div className="flex min-w-max pb-2 border-b border-[#262626]">
+                    <div className="mb-6">
+                      <div className="flex flex-wrap pb-2 border-b border-[#262326] gap-2">
                         {steps.map((step, index) => (
                           <button
                             key={index}
                             type="button"
                             onClick={() => setActiveStep(index)}
-                            className={`whitespace-nowrap px-3 py-1 mr-3 text-sm rounded-t-md transition-colors duration-300 ${
+                            className={`whitespace-nowrap px-3 py-1 text-sm rounded-md transition-colors duration-300 ${
                               activeStep === index
                                 ? "bg-linearbg text-white"
                                 : "text-white/70 hover:bg-white/10"
