@@ -10,7 +10,7 @@ import {
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import CvImage from "@/assets/images/cv7.png";
-import user from "@/assets/images/user.png";
+import user from "@/assets/images/placeholder-user.png";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
 import WaterMark from "@/assets/images/watermark.png";
@@ -225,7 +225,7 @@ const ResumeSevenEdit = () => {
                   </p>
                   <p className="italic text-xs !text-black">
                     {dayjs(edu.start_date).format("MMM YYYY")} -{" "}
-                    {dayjs(edu.end_date).format("MMM YYYY")}
+                     {edu.end_date ? dayjs(edu.end_date).format("YYYY") : "Present"}
                   </p>
                 </div>
               ))}

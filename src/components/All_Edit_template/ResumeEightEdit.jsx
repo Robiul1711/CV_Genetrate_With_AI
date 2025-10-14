@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Image from "@/assets/images/cv8.png";
+import Image from "@/assets/images/placeholder-user.png";
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
@@ -314,7 +314,7 @@ const ResumeEightEdit = () => {
                   <div key={i} className="flex flex-col gap-1">
                     <p className="text-[10px] text-white leading-[15px] font-normal">
                       {dayjs(edu.start_date).format("YYYY")} –{" "}
-                      {dayjs(edu.end_date).format("YYYY")}
+                      {edu.end_date ? dayjs(edu.end_date).format("YYYY") : "Present"}
                     </p>
                     <p className="text-[#FECB00] text-xs leading-[18px] font-semibold">
                       {edu.degree}

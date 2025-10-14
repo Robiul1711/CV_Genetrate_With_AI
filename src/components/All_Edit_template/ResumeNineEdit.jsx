@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Cv9 from "@/assets/images/cv9.png";
+import Cv9 from "@/assets/images/placeholder-user.png";
 import { PhoneIcon } from "lucide-react";
 import html2pdf from "html2pdf.js";
 import {
@@ -233,7 +233,7 @@ const ResumeNineEdit = () => {
                   </p>
                   <p className="leading-4 text-xs text-white font-normal !urbanist">
                     {dayjs(edu.start_date).format("MMM YYYY")} -{" "}
-                    {dayjs(edu.end_date).format("MMM YYYY")}
+                    {edu.end_date ? dayjs(edu.end_date).format("YYYY") : "Present"}
                   </p>
                 </div>
               ))}
@@ -263,7 +263,7 @@ const ResumeNineEdit = () => {
                         </p>
                         <p className="text-xs font-semibold leading-5 !urbanist text-[#171717]">
                           {dayjs(exp.start_date).format("MMM YYYY")} -{" "}
-                          {dayjs(exp.end_date).format("MMM YYYY")}
+                          {exp.end_date ? dayjs(exp.end_date).format("YYYY") : "Present"}
                         </p>
                       </div>
                       <p className="leading-4 !urbanist text-xs text-[#171717] font-medium">

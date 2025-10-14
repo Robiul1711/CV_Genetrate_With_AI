@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import user from "../../assets/images/user.png";
+import user from "@/assets/images/placeholder-user.png";
 import {
   FaPhoneAlt,
   FaLinkedin,

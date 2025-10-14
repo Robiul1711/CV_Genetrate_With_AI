@@ -170,7 +170,7 @@ const ResumeTwoEdit = () => {
                   <p className="text-xs font-medium py-0.5">{edu.degree}</p>
                   <p className="text-xs">
                     {edu.start_date ? dayjs(edu.start_date).format("YYYY") : ""}{" "}
-                    – {edu.end_date ? dayjs(edu.end_date).format("YYYY") : ""}
+                    – {edu.end_date ? dayjs(edu.end_date).format("YYYY") : "Present"}
                   </p>
                 </div>
               ))}
@@ -201,7 +201,7 @@ const ResumeTwoEdit = () => {
                           ? dayjs(exp.start_date).format("YYYY")
                           : ""}{" "}
                         –{" "}
-                        {exp.end_date ? dayjs(exp.end_date).format("YYYY") : ""}
+                        {exp.end_date ? dayjs(exp.end_date).format("YYYY") : "Present"}
                       </span>
                     </p>
                     <p className="text-xs mt-2">{exp.responsibilities}</p>

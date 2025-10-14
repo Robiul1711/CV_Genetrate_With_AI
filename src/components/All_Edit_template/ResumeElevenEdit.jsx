@@ -209,7 +209,7 @@ const ResumeElevenEdit = () => {
                   </p>
                   <p className="text-xs leading-[18px]">
                     {dayjs(edu.start_date).format("MMMM YYYY")} -{" "}
-                    {dayjs(edu.end_date).format("MMMM YYYY")}
+                  {edu.end_date ? dayjs(edu.end_date).format("YYYY") : "Present"}
                   </p>
                 </div>
               ))}
@@ -244,7 +244,7 @@ const ResumeElevenEdit = () => {
                       {exp.company_name}{" "}
                       <span>
                         {dayjs(exp.start_date).format("YYYY")} -{" "}
-                        {dayjs(exp.end_date).format("YYYY")}
+                       {exp.end_date ? dayjs(exp.end_date).format("YYYY") : "Present"}
                       </span>
                     </p>
                     <p className="text-xs leading-[20px] mt-2">
