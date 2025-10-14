@@ -105,12 +105,12 @@ const ResumeNineEdit = () => {
           </div>
         )}
         <div className="flex flex-col z-10 justify-center items-center gap-4">
-          <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
+          {/* <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
             {allRedumeData?.data?.resume_language === "Deutsch" ||
             allRedumeData?.data?.resume_language === "German"
               ? "Le CV de"
               : "The resume of"}
-          </p>
+          </p> */}
           <h1
             style={{ color: resumeData?.resume_color || color || "" }}
             className="text-[32px] tracking-[7px]  leading-[48px] text-[#0D0D0D] font-bold"
