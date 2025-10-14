@@ -41,9 +41,9 @@ const ResumeNine = () => {
         )}
         <div className=" flex flex-col">
           <div className=" flex flex-col z-10 justify-center items-center gap-4">
-            <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
+            {/* <p className="text-[#0D0D0D] text-xs font-medium !urbanist tracking-[8px] leading-[12px]">
               {allRedumeData?.data?.resume_language === "Deutsch" ? "Der Lebenslauf von" : "The resume of" }
-            </p>
+            </p> */}
             <h1 className=" text-[32px] tracking-[7px] playfair leading-[48px] text-[#0D0D0D] font-bold   ">
               {resumeData?.first_name} {resumeData?.last_name}
             </h1>
