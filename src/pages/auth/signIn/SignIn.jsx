@@ -89,7 +89,7 @@ const SignIn = () => {
       saveAuthData(data?.data?.access);
       setRefreshToken(data?.data?.refresh);
       setToken(data.access);
-      secureSet("refreshToken", data.refresh);
+      secureSet("refreshToken", data?.data?.refresh);
 
       navigate(redirectPath);
     },
