@@ -16,11 +16,11 @@ const Footer = () => {
 
 
         const createResumePath =
-    status?.has_subscription === false
+    (status?.has_subscription === false && status?.has_pay_per_download_credits === false) 
       ? "/price"
       : "/dashboard/create-new-resume";
       const updateCoverPath =
-    status?.has_subscription === false
+       (status?.has_subscription === false && status?.has_pay_per_download_credits === false) 
       ? "/price"
       : "/dashboard/create-cover-letter";
   const { data: socialData, isLoading } = useQuery({
@@ -30,6 +30,15 @@ const Footer = () => {
       return res.data;
     },
   });
+  const { data: footerData, isLoading: footerLoading } = useQuery({
+    queryKey: ["footer-data"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/about-system/?lan=${language}`);
+      return res.data;
+    },
+  });
+
+  console.log(footerData?.data);
 
 
 
@@ -80,13 +89,13 @@ const Footer = () => {
         <div className="w-full md:w-[40%]">
           <Link to={"/"}>
             <img
-              src={footer}
+              src={`${import.meta.env.VITE_IMG_URL}/${footerData?.data?.logo}`}
               alt="icon"
               className="mb-4 w-[40px] md:w-[60px] text-white cursor-pointer"
             />
           </Link>
           <p className="text-[15px] md:text-base text-[#666] leading-relaxed">
-            {t.description}
+            {footerData?.data?.description}
           </p>
         </div>
 
@@ -205,7 +214,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="text-[15px] md:text-base text-[#666] text-center">
           <p>
-            © {new Date().getFullYear()} {t.copyright}
+            {footerData?.data?.copyright}
           </p>
         </div>
       </div>

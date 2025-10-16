@@ -124,15 +124,18 @@ const AdminLayout = () => {
   }, [location]);
 
   const createResumePath =
-    status?.has_subscription === false
+    status?.has_subscription === false &&
+    status?.has_pay_per_download_credits === false
       ? "/price"
       : "/dashboard/create-new-resume";
   const updateResumePath =
-    status?.has_subscription === false
+    status?.has_subscription === false &&
+    status?.has_pay_per_download_credits === false
       ? "/price"
       : "/dashboard/update-existing-resume";
   const coverLetterPath =
-    status?.has_subscription === false && status?.cover_letter === false
+    status?.has_subscription === false &&
+    status?.has_pay_per_download_credits === false
       ? "/price"
       : "/dashboard/create-cover-letter";
 

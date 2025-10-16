@@ -43,13 +43,13 @@ const UserDropdown = ({
     {
       label: language === "de" ? "Übersicht" : "Dashboard",
       icon: <User className="w-4 h-4 mr-3" />,
-      href: status?.has_subscription === false ? "/price" : "/dashboard",
+      href: (status?.has_subscription === false && status?.has_pay_per_download_credits === false) ? "/price" : "/dashboard",
     },
     {
       label: language === "de" ? "Einstellungen" : "Settings",
       icon: <Settings className="w-4 h-4 mr-3" />,
       href:
-        status?.has_subscription === false ? "/price" : "/dashboard/setting",
+        (status?.has_subscription === false && status?.has_pay_per_download_credits === false)  ? "/price" : "/dashboard/setting",
     },
     {
       label: language === "de" ? "Abmelden" : "Sign Out",

@@ -168,7 +168,7 @@
 
 // export default DownloadButton;
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as htmlToImage from "html-to-image";
 import jsPDF from "jspdf";
 import Swal from "sweetalert2";
@@ -177,14 +177,23 @@ import { useLocation } from "react-router-dom";
 import { useEmail } from "@/hooks/useEmail";
 import { useStatusCheck } from "./useStatusCheck";
 import { useResume } from "@/providers/ResumeContext";
+import { useMutation } from "@tanstack/react-query";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 const DownloadButton = ({ resumeRef }) => {
-  const { user } = useAuth();
+  const { user, fetchUser, token } = useAuth();
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const { imageset } = useResume();
   const { language } = useEmail(); // expected to return "en" or "de"
   const { data: status } = useStatusCheck();
+  const axiosSecure = useAxiosSecure();
+
+  console.log(user);
+
+  useEffect(() => {
+    fetchUser(token);
+  }, []);
 
   const messages = {
     en: {
@@ -213,6 +222,16 @@ const DownloadButton = ({ resumeRef }) => {
   };
 
   const t = messages[language] || messages.en;
+
+  const cvDownload =useMutation({
+    mutationFn: async () => {
+      const response = await axiosSecure.post("pay-per-download-credits-decrease/");
+      return response.data;
+    },
+    onSuccess: (data) => {
+      fetchUser(token);
+    },
+  });
 
   const resumeName =
     location.pathname === "/dashboard/create-cover-letter"
@@ -244,6 +263,8 @@ const DownloadButton = ({ resumeRef }) => {
 
       pdf.addImage(dataUrl, "JPEG", 0, 0, pdfWidth, finalHeight);
       pdf.save(`${resumeName}.pdf`);
+      cvDownload.mutate();
+
     } catch (err) {
       console.error(err);
       Swal.fire({
@@ -279,10 +300,15 @@ const DownloadButton = ({ resumeRef }) => {
   };
 
   const canDownload = () => {
-    const sub = status?.has_subscription;
-    if (!sub) return false;
-    return true;
-  };
+  const sub = status?.has_subscription;
+  const payperDownload = user?.subscription?.pay_per_download_credits;
+
+  console.log(payperDownload);
+
+  if (sub || payperDownload > 0) return true;
+  return false;
+};
+
 
   const handleDownload = async () => {
     if (!canDownload()) {
