@@ -41,12 +41,12 @@ const useAxiosSecure = () => {
               { headers: { Authorization: `Bearer ${token}` } }
             );
 
-            if (refreshRes.data?.data?.access) {
+            if (refreshRes.data?.access) {
               // Save new token
-              saveAuthData(refreshRes.data.data?.access);
+              saveAuthData(refreshRes.data?.access);
 
               // Update header and retry original request
-              originalRequest.headers.Authorization = `Bearer ${refreshRes.data.data?.access}`;
+              originalRequest.headers.Authorization = `Bearer ${refreshRes.data?.access}`;
               return instance(originalRequest);
             } else {
               logout();
