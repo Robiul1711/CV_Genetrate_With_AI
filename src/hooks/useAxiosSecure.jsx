@@ -3,8 +3,8 @@ import { useContext, useMemo } from "react";
 import { AuthContext } from "@/context";
 
 const useAxiosSecure = () => {
-  const { token, saveAuthData, logout, user,refreshToken } = useContext(AuthContext);
-
+  const { token, saveAuthData, logout, user, refreshToken } =
+    useContext(AuthContext);
 
   const axiosSecure = useMemo(() => {
     const instance = axios.create({
@@ -26,32 +26,33 @@ const useAxiosSecure = () => {
       async (error) => {
         const originalRequest = error.config;
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        if (
+          error.response &&
+          error.response.status === 401 &&
+          !originalRequest._retry
+        ) {
           originalRequest._retry = true; // prevent infinite loop
           try {
             const refreshRes = await axios.post(
               `${import.meta.env.VITE_API_URL}/token/refresh/`,
               {
-                refresh:refreshToken
+                refresh: refreshToken,
               },
               { headers: { Authorization: `Bearer ${token}` } }
             );
 
             if (refreshRes.data?.access) {
               // Save new token
-              saveAuthData(
-                refreshRes.data.access,
-              );
+              saveAuthData(refreshRes.data?.access);
 
               // Update header and retry original request
-              originalRequest.headers.Authorization = `Bearer ${refreshRes.data.access}`;
+              originalRequest.headers.Authorization = `Bearer ${refreshRes.data?.access}`;
               return instance(originalRequest);
             } else {
               logout();
             }
           } catch (err) {
             console.error("Refresh token failed", err);
-      
           }
         }
 
