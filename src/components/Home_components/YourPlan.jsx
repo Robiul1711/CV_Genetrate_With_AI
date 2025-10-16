@@ -177,7 +177,7 @@ const YourPlan = () => {
   const { language } = useEmail();
   const [loadingPlanId, setLoadingPlanId] = useState(null);
   const VITE_PAYMENT_URL = import.meta.env.VITE_PAYMENT_URL;
-  const { user } = useAuth();
+  const { user,  fetchUser ,token} = useAuth();
   const navigate = useNavigate();
 
   // Fetch subscription plans

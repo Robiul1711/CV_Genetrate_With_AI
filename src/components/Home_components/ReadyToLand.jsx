@@ -8,22 +8,23 @@ import { useStatusCheck } from "../common/useStatusCheck";
 
 const ReadyToLand = () => {
   const axiosPublic = useAxiosPublic();
-  const {  language } = useEmail();
-    const { data, isLoading, error } = useQuery({
-    queryKey: ['global-cta', language],
-    queryFn: () => axiosPublic.get('/global-cta', {
-      params: { lan: language },
-    })
+  const { language } = useEmail();
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["global-cta", language],
+    queryFn: () =>
+      axiosPublic.get("/global-cta", {
+        params: { lan: language },
+      }),
   });
 
-      const { data: status } = useStatusCheck();
-    
-    
-            const createResumePath =
-        status?.has_subscription === false
-          ? "/price"
-          : "/dashboard";
-  const cta = data?.data?.data
+  const { data: status } = useStatusCheck();
+
+  const createResumePath =
+    status?.has_subscription === false &&
+    status?.has_pay_per_download_credits === false
+      ? "/price"
+      : "/dashboard";
+  const cta = data?.data?.data;
   return (
     <div className="relative pb-28 h-[360px] md:h-[300px]  overflow-hidden">
       {/* Background Image */}

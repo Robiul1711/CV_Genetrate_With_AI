@@ -20,13 +20,13 @@ const HowItWorks = () => {
       }),
   });
 
-    const { data: status } = useStatusCheck();
-  
-  
-          const createResumePath =
-      status?.has_subscription === false
-        ? "/price"
-        : "/dashboard";
+  const { data: status } = useStatusCheck();
+
+  const createResumePath =
+    status?.has_subscription === false &&
+    status?.has_pay_per_download_credits === false
+      ? "/price"
+      : "/dashboard";
 
   const apiSteps = data?.data?.data || [];
 
@@ -60,7 +60,11 @@ const HowItWorks = () => {
               <div className="relative">
                 <div className="absolute bottom-0 left-0 w-full h-[100px] md:h-[150px] bg-banner rounded-2xl"></div>
                 <img
-                  src={ language === 'en' ?  IMG_URL + item?.side_image_en : IMG_URL + item?.side_image_de}
+                  src={
+                    language === "en"
+                      ? IMG_URL + item?.side_image_en
+                      : IMG_URL + item?.side_image_de
+                  }
                   alt="Plan illustration"
                   className="w-full border border-[#171718] rounded-2xl p-6 md:p-10 relative z-10"
                 />
