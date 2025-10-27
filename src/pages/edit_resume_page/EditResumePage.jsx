@@ -74,7 +74,7 @@ const EditResumePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(methods.watch());
+  // console.log(methods.watch());
 
   const ResumeMutation = useMutation({
     mutationFn: async (formData) => {
@@ -112,7 +112,7 @@ const EditResumePage = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(allRedumeData?.data);
+    // console.log(allRedumeData?.data);
     const payload = {
       ...data,
       resume_language: allRedumeData?.data?.resume_language,
@@ -140,7 +140,7 @@ const EditResumePage = () => {
       delete payload.profile_photo;
     }
 
-    console.log(payload?.profile_photo);
+    // console.log(payload?.profile_photo);
     ResumeMutation.mutate(payload);
   };
 

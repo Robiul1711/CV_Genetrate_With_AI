@@ -22,7 +22,7 @@ const CommonNavbar = ({ open, setOpen }) => {
 
   const handleLogout = () => {
     // Perform logout logic here
-    console.log("Logging out...");
+    // console.log("Logging out...");
   };
 
   return (

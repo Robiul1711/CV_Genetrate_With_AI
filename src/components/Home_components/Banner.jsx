@@ -25,7 +25,7 @@ const Banner = () => {
       return res.data;
     },
   });
-  console.log(bannerData);
+  // console.log(bannerData);
   // Static text based on language
   const content = {
     en: {

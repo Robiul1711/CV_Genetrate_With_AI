@@ -65,7 +65,7 @@ const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
   const {allRedumeData,imageset, setImageSet } =useResume()
   const navigate = useNavigate();
   const { watch } = useFormContext();
-  console.log()
+  // console.log()
    const {language} =useEmail()
   const t = texts[language];
 

@@ -88,7 +88,7 @@ const SelectLanguageStep = () => {
   // Custom hook to keep track of selected language globally
   const { language, setLanguage } = useEmail(); // e.g. 'de' or 'en'
 
-  console.log(watch())
+  // console.log(watch())
 
   // UI labels depending on current interface language
   const labels = {

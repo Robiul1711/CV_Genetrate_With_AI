@@ -12,7 +12,7 @@ import { useStatusCheck } from "../common/useStatusCheck";
 
 const ResumeOneEdit = () => {
   const { allRedumeData, color, setColor, font, setFont } = useResume();
-  console.log(allRedumeData?.data?.resume_language);
+
   const { watch } = useFormContext();
   const resumeRef = useRef();
   const { language } = useEmail();
@@ -62,7 +62,7 @@ const ResumeOneEdit = () => {
     lato: "Lato, sans-serif",
   };
 
-  console.log(status);
+
 
   const appliedFontFamily = fontMap[font] || "Urbanist, sans-serif";
   return (

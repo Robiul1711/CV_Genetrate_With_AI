@@ -100,7 +100,7 @@ const { language } = useEmail();
             key={index}
             className="p-4 rounded-xl border border-[#262626] hover:border hover:border-white duration-300 transition-all transform"
           >
-            {console.log(item.logo)}
+            {/* {console.log(item.logo)} */}
            <img src={IMG_URL+item.logo} alt="" />
             <h1 className=" font-bold mt-4">{item.title}</h1>
             <p className=" text-[#9B9B9B] text-sm pt-1">{item.sub_title}</p>

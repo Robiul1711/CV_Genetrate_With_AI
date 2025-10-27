@@ -90,7 +90,7 @@ const CreateCoverLetter = () => {
       updateToastSuccess(context.toastId, t.toastSuccess);
     },
     onError: (error, _variables, context) => {
-      console.log(error);
+      // console.log(error);
       toast.error(error?.response?.data?.message || t.toastError);
       updateToastError(context.toastId, t.toastError);
     },

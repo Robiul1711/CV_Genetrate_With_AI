@@ -13,7 +13,7 @@ export default function HistoryViewOfCoverLetter({ resumeRef }) {
   const { coverLetter } = useResume();
   const { language } = useEmail();
   const cover = coverLetter?.data;
-console.log(cover);
+
   return (
     <div
       ref={resumeRef}

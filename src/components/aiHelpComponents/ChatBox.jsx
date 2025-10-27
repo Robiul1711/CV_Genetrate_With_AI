@@ -89,7 +89,6 @@ const ChatBox = () => {
       });
   };
 
-  console.log(History?.data?.data)
  
   return (
     <>

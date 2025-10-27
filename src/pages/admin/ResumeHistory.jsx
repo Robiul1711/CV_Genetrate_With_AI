@@ -207,10 +207,10 @@ export default function ResumeHistory() {
     },
   });
 
-  console.log(allCvData?.data)
+  // console.log(allCvData?.data)
   const handleClick = (templateData) => {
     setAllResumeData({ data: templateData });
-    console.log("Template Data:", templateData);
+    // console.log("Template Data:", templateData);
     navigate(`/dashboard/edit-resume/${templateData?.template_id}`);
   };
   const queryClient = useQueryClient();

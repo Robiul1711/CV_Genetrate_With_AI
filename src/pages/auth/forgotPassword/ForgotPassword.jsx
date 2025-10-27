@@ -4,11 +4,12 @@ import logo from "../../../assets/images/logo.png";
 import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import Title from "@/components/common/Title";
 import { Mail } from "lucide-react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useEmail } from "@/hooks/useEmail";
 
 const ForgotPassword = () => {
+    const IMG_URL = import.meta.env.VITE_IMG_URL;
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
@@ -76,6 +77,11 @@ const ForgotPassword = () => {
   const onSubmit = (data) => {
     mutate(data);
   };
+  const {data:navData}=useQuery({
+    queryKey: ["navData", language],
+    queryFn: () =>
+      axiosPublic.get("/about-system/", { params: { lan: language } }),
+  })
 
   return (
     <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center">
@@ -87,7 +93,7 @@ const ForgotPassword = () => {
         {/* Logo */}
         <div className="flex justify-center mb-4">
           <Link to="/">
-            <img src={logo} alt="logo" className="h-12 md:h-16" />
+            <img src={IMG_URL + navData?.data?.data?.logo} alt="logo" className="h-12 md:h-16" />
           </Link>
         </div>
 

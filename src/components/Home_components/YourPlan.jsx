@@ -265,7 +265,7 @@ if (!user) {
     price_id: plan.stripe_price_id,
     type: plan.type,
     success_url: `${VITE_PAYMENT_URL}/success`,
-    cancel_url: `${VITE_PAYMENT_URL}/canceled`,
+    cancel_url: `${VITE_PAYMENT_URL}/cancled`,
   };
 
   planMutation.mutate(payload);
