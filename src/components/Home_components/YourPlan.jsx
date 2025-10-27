@@ -271,15 +271,24 @@ if (!user) {
   planMutation.mutate(payload);
 };
 
-  const getPlanType = (type) => {
-    if (!type) return "Unlimited";
-    if (type === "month")
-      return {
-        de: "monat",
-        en: "month",
-      }[language || "en"];
-    return type;
-  };
+const getPlanType = (type) => {
+  if (!type) return "Unlimited";
+
+  if (type === "month")
+    return {
+      de: "Monat",
+      en: "Month",
+    }[language || "en"];
+
+  else if (type === "pay_per_download")
+    return {
+      de: "Bezahlen pro Download",
+      en: "Pay Per Download",
+    }[language || "en"];
+
+  return type;
+};
+
 
   return (
     <div className="pb-12 py-6 md:py-10">
