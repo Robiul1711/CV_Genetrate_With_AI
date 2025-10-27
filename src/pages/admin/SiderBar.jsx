@@ -6,9 +6,15 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import LogOutModal from "./LogOutModal";
 import { useAuth } from "@/hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useEmail } from "@/hooks/useEmail";
 // import { Logout } from "@/components/common/adminIcon/CustomIcon";
 
 const SideBar = ({ sidebar, open, setOpen }) => {
+    const IMG_URL = import.meta.env.VITE_IMG_URL;
+  const axiosPublic = useAxiosPublic();
+  const { language } = useEmail();
   const location = useLocation();
   const [activeParentIndex, setActiveParentIndex] = useState(null);
 const {user}=useAuth()
@@ -38,6 +44,11 @@ const {user}=useAuth()
   const toggleSubmenu = (index) => {
     setActiveParentIndex((prev) => (prev === index ? null : index));
   };
+  const {data:navData}=useQuery({
+    queryKey: ["navData", language],
+    queryFn: () =>
+      axiosPublic.get("/about-system/", { params: { lan: language } }),
+  })
 
   return (
     <>
@@ -63,7 +74,7 @@ const {user}=useAuth()
           <div className="flex justify-center gap-4 items-center">
             <div className=" w-[50px] h-[50px]">
               <img
-                src={Logo}
+                src={IMG_URL + navData?.data?.data?.logo}
                 alt="Safe"
                 className="object-contain w-full h-full "
               />
