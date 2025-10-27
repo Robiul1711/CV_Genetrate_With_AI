@@ -8,12 +8,24 @@ import { Link } from "react-router-dom";
 import { UseLangauge } from "@/hooks/UseLangauge";
 import { useEmail } from "@/hooks/useEmail";
 import { useStatusCheck } from "../common/useStatusCheck";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 
 const Banner = () => {
+  const IMG_URL = import.meta.env.VITE_IMG_URL;
   const { selectedLanguage } = UseLangauge();
+  const axiosPublic = useAxiosPublic();
   const { language } = useEmail();
   const { data: status } = useStatusCheck();
 
+  const { data: bannerData } = useQuery({
+    queryKey: ["banner-data", language],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/hero-section/?lan=${language}`);
+      return res.data;
+    },
+  });
+  console.log(bannerData);
   // Static text based on language
   const content = {
     en: {
@@ -63,11 +75,11 @@ const Banner = () => {
 
         <div className="relative ">
           <div className="text-[24px] md:text-[45px] font-bold w-full">
-            {text.title}
+            {bannerData?.data?.title}
             <p className="max-w-[700px] mx-auto w-full">{text.sub_title}</p>
           </div>
           <p className="text-[#EBEBEB] sm:text-lg  md:text-xl  max-w-[600px] py-3 md:py-5 mx-auto w-full">
-            {text.description}
+            {bannerData?.data?.sub_title}
           </p>
           {/* Optional: Uncomment if you want the line icon */}
           {/* <span className="absolute top-[45%] left-[88%] md:left-[94%] -translate-x-1/2 -translate-y-1/2">
@@ -98,7 +110,11 @@ const Banner = () => {
 
       <div>
         <img
-          src={banner}
+          src={
+            bannerData?.data?.banner
+              ? IMG_URL + bannerData?.data?.banner
+              : banner
+          }
           alt="Banner"
           className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-xl"
         />

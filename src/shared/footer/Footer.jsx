@@ -13,7 +13,7 @@ const Footer = () => {
   const { language } = useEmail();
   const axiosPublic = useAxiosPublic();
   const { data: status } = useStatusCheck();
-
+console.log(language)
 
         const createResumePath =
     (status?.has_subscription === false && status?.has_pay_per_download_credits === false) 
@@ -38,7 +38,14 @@ const Footer = () => {
     },
   });
 
-  console.log(footerData?.data);
+  const { data: copyrightData, isLoading: copyrightLoading } = useQuery({
+    queryKey: ["copyright-data", language],
+    queryFn: async () => {  
+      const res = await axiosPublic.get(`/footer-section/`, { params: { lan: language } });
+      return res.data;
+    },
+  });
+  console.log(copyrightData);
 
 
 
@@ -56,9 +63,9 @@ const Footer = () => {
       privacyPolicy: "Privacy Policy",
       termsOfService: "Terms of Service",
       imprint: "Imprint",
-      description:
-        "CleverCV is an AI-powered resume and cover letter builder that helps you stand out with confidence. Whether you're starting from scratch or improving an existing CV, our platform gives you step-by-step guidance, smart design suggestions, and powerful language enhancements.",
-      copyright: " FutureTech. All rights reserved.",
+      // description:
+      //   "CleverCV is an AI-powered resume and cover letter builder that helps you stand out with confidence. Whether you're starting from scratch or improving an existing CV, our platform gives you step-by-step guidance, smart design suggestions, and powerful language enhancements.",
+      // copyright: " FutureTech. All rights reserved.",
     },
     de: {
       company: "Unternehmen",
@@ -73,9 +80,9 @@ const Footer = () => {
       privacyPolicy: "Datenschutzrichtlinie",
       termsOfService: "Nutzungsbedingungen",
       imprint: "Impressum",
-      description:
-        "CleverCV ist ein KI-gestützter Lebenslauf- und Anschreiben-Builder, der Ihnen hilft, selbstbewusst hervorzustechen. Egal, ob Sie von Grund auf beginnen oder einen bestehenden Lebenslauf verbessern, unsere Plattform bietet Schritt-für-Schritt-Anleitungen, intelligente Designvorschläge und leistungsstarke Sprachverbesserungen.",
-      copyright: " FutureTech. Alle Rechte vorbehalten.",
+      // description:
+      //   "CleverCV ist ein KI-gestützter Lebenslauf- und Anschreiben-Builder, der Ihnen hilft, selbstbewusst hervorzustechen. Egal, ob Sie von Grund auf beginnen oder einen bestehenden Lebenslauf verbessern, unsere Plattform bietet Schritt-für-Schritt-Anleitungen, intelligente Designvorschläge und leistungsstarke Sprachverbesserungen.",
+      // copyright: " FutureTech. Alle Rechte vorbehalten.",
     },
   };
 
@@ -95,7 +102,7 @@ const Footer = () => {
             />
           </Link>
           <p className="text-[15px] md:text-base text-[#666] leading-relaxed">
-            {footerData?.data?.description}
+            {copyrightData?.data?.content}
           </p>
         </div>
 
@@ -214,7 +221,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="text-[15px] md:text-base text-[#666] text-center">
           <p>
-            {footerData?.data?.copyright}
+            {copyrightData?.data?.copyright_text}
           </p>
         </div>
       </div>
