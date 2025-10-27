@@ -6,13 +6,13 @@ import { Lock } from "@/components/CustomIcons/CustomIcon";
 import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useEmail } from "@/hooks/useEmail";
 
 const SignUp = () => {
   const { language, setEmail } = useEmail(); // 'en' or 'de'
-
+  const IMG_URL = import.meta.env.VITE_IMG_URL;
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -99,7 +99,7 @@ const SignUp = () => {
       setServerError(
         error?.response?.data?.message || "Something went wrong. Try again."
       );
-      console.log(error);
+      // console.log(error);
     },
   });
 
@@ -113,6 +113,12 @@ const SignUp = () => {
     signUpMutation.mutate(data);
   };
 
+    const {data:navData}=useQuery({
+    queryKey: ["navData", language],
+    queryFn: () =>
+      axiosPublic.get("/about-system/", { params: { lan: language } }),
+  })
+
   return (
     <div className="section-padding-x section-padding-y md:py-4 min-h-screen flex justify-center items-center overflow-auto md:overflow-y-hidden">
       <ScrollRestoration />
@@ -123,7 +129,7 @@ const SignUp = () => {
       >
         <div className="flex justify-center mb-4">
           <Link to={"/"}>
-            <img src={logo} alt="logo" className="h-12 md:h-16" />
+            <img src={IMG_URL+navData?.data?.data?.logo} alt="logo" className="h-12 md:h-16" />
           </Link>
         </div>
 

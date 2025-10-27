@@ -16,7 +16,7 @@ const parseMessage = (text) => {
   const lines = text.split("\n");
   const { user } = useAuth();
 
-  console.log(user?.profile?.profile_image);
+
 
   return lines.map((line, i) => {
     const trimmed = line.trim();
@@ -77,7 +77,7 @@ const ChatScreenWithReaction = ({
   const { language } = useEmail();
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const { user } = useAuth();
-  console.log(language);
+
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");

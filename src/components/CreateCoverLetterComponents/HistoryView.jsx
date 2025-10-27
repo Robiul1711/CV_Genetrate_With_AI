@@ -7,7 +7,7 @@ import HistoryViewOfCoverLetter from "../All_Templates/HistoryViewOfCoverLetter"
 const HistoryView = () => {
   const { coverLetter } = useResume();
   const resumeRef = useRef();
-  console.log(coverLetter);
+  // console.log(coverLetter);
   return (
     <div className="bg-black text-white flex justify-center">
       <div className="w-full flex flex-col md:flex-row gap-6 md:gap-14">

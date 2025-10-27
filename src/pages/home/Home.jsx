@@ -12,7 +12,7 @@ import { ScrollRestoration } from "react-router-dom";
 const Home = () => {
 
   const {user} =useAuth()
-   console.log(user);
+  //  console.log(user);
   return (
     <div className="section-padding-x">
       <ScrollRestoration />

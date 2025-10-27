@@ -94,7 +94,7 @@ const StepOne = () => {
   }, [profilePhoto, data?.profile_photo, VITE_IMG_URL]);
 
   const liveTitle = watch("job_title");
-  console.log(imageError);
+  // console.log(imageError);
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];

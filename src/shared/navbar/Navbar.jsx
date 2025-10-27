@@ -10,6 +10,8 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import UserDropdown from "../UserDropdown";
 import { useEmail } from "@/hooks/useEmail";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 
 const navLinksByLanguage = {
   en: [
@@ -28,16 +30,21 @@ const navLinksByLanguage = {
 };
 
 const Navbar = () => {
+  const IMG_URL = import.meta.env.VITE_IMG_URL;
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const sidebarRef = useRef(null);
+  const axiosPublic = useAxiosPublic();
   const { user, logout, isLoadingUser } = useAuth();
   const { language } = useEmail(); // <-- use the hook properly
+  const {data:navData}=useQuery({
+    queryKey: ["navData", language],
+    queryFn: () =>
+      axiosPublic.get("/about-system/", { params: { lan: language } }),
+  })
 
-  const axiosSecure = useAxiosSecure();
-
-  console.log(user);
+  // console.log(navData?.data?.data?.logo);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,7 +81,7 @@ const Navbar = () => {
         {/* Left: Logo + Desktop Nav */}
         <div className="flex items-center gap-24">
           <Link to={"/"}>
-            <img src={logo} alt="Logo" className="w-10 md:w-12 xl:w-16" />
+            <img src={IMG_URL + navData?.data?.data?.logo} alt="Logo" className="w-10 md:w-12 xl:w-16" />
           </Link>
 
           <ul className="hidden lg:flex items-center gap-4">

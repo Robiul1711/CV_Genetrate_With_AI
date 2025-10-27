@@ -189,7 +189,7 @@ const DownloadButton = ({ resumeRef }) => {
   const { data: status } = useStatusCheck();
   const axiosSecure = useAxiosSecure();
 
-  console.log(user);
+  // console.log(user);
 
   useEffect(() => {
     fetchUser(token);
@@ -303,7 +303,7 @@ const DownloadButton = ({ resumeRef }) => {
   const sub = status?.has_subscription;
   const payperDownload = user?.subscription?.pay_per_download_credits;
 
-  console.log(payperDownload);
+  // console.log(payperDownload);
 
   if (sub || payperDownload > 0) return true;
   return false;

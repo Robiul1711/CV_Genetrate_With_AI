@@ -12,7 +12,7 @@ const SideBar = ({ sidebar, open, setOpen }) => {
   const location = useLocation();
   const [activeParentIndex, setActiveParentIndex] = useState(null);
 const {user}=useAuth()
-console.log(user);
+// console.log(user);
   useEffect(() => {
     sidebar.forEach((item, index) => {
       if (item.sublink) {

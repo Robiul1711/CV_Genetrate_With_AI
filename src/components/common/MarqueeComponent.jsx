@@ -2,7 +2,7 @@ import { IoIosStarOutline } from "react-icons/io";
 
 const MarqueeComponent = ({ data }) => {
     const IMG_URL = import.meta.env.VITE_IMG_URL;
-  console.log(data?.data?.data);
+  // console.log(data?.data?.data);
   const getStarColor = (index, rating) => {
     if (index < rating) {
       if (rating === 5) return "bg-[#219653] text-white";

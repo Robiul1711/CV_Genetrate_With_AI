@@ -13,7 +13,7 @@ const Footer = () => {
   const { language } = useEmail();
   const axiosPublic = useAxiosPublic();
   const { data: status } = useStatusCheck();
-console.log(language)
+// console.log(language)
 
         const createResumePath =
     (status?.has_subscription === false && status?.has_pay_per_download_credits === false) 
@@ -45,7 +45,7 @@ console.log(language)
       return res.data;
     },
   });
-  console.log(copyrightData);
+  // console.log(copyrightData);
 
 
 

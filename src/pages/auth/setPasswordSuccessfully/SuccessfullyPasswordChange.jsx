@@ -4,8 +4,12 @@ import image from "../../../assets/images/password.png";
 import { Link, ScrollRestoration } from "react-router-dom";
 import Title from "@/components/common/Title";
 import { useEmail } from "@/hooks/useEmail"; // For language
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 
 const SuccessfullyPasswordChange = () => {
+    const IMG_URL = import.meta.env.VITE_IMG_URL;
+    const axiosPublic = useAxiosPublic();
   const { language } = useEmail(); // 'en' or 'de'
 
   const text = {
@@ -22,6 +26,11 @@ const SuccessfullyPasswordChange = () => {
   };
 
   const t = text[language || "en"];
+  const {data:navData}=useQuery({
+    queryKey: ["navData", language],
+    queryFn: () =>
+      axiosPublic.get("/about-system/", { params: { lan: language } }),
+  })
 
   return (
     <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center overflow-auto md:overflow-y-hidden">
@@ -29,7 +38,7 @@ const SuccessfullyPasswordChange = () => {
       <form className="w-full max-w-2xl h-auto md:h-[600px] px-4 sm:px-8 md:px-12 lg:px-32 py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]">
         <div className="flex justify-center mb-4">
           <Link to={"/"}>
-            <img src={logo} alt="logo" className="h-12 md:h-16" />
+            <img src={IMG_URL + navData?.data?.data?.logo} alt="logo" className="h-12 md:h-16" />
           </Link>
         </div>
 
