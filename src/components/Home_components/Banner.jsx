@@ -76,7 +76,7 @@ const Banner = () => {
         <div className="relative ">
           <div className="text-[24px] md:text-[45px] font-bold w-full">
             {bannerData?.data?.title}
-            <p className="max-w-[700px] mx-auto w-full">{text.sub_title}</p>
+            {/* <p className="max-w-[700px] mx-auto w-full">{text.sub_title}</p> */}
           </div>
           <p className="text-[#EBEBEB] sm:text-lg  md:text-xl  max-w-[600px] py-3 md:py-5 mx-auto w-full">
             {bannerData?.data?.sub_title}

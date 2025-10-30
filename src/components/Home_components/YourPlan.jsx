@@ -294,7 +294,7 @@ const getPlanType = (type) => {
     <div className="pb-12 py-6 md:py-10">
       <div className="flex flex-col items-center text-center">
         <h1 className="text-[24px] md:text-[28px] font-bold">
-          {language === "de" ? "Wählen Sie Ihren Plan" : "Choose Your Plan"}
+          {language === "de" ? "Wähle deinen Plan" : "Choose Your Plan"}
         </h1>
         <p className="text-[15px] md:text-base text-[#9B9B9B] pt-2">
           {language === "de"
