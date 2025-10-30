@@ -89,7 +89,7 @@ const { language } = useEmail();
   </h1>
   <p className="text-[15px] md:text-base text-[#9B9B9B] pt-1">
     {language === "de"
-      ? "Erstellen Sie Lebensläufe, die zu Vorstellungsgesprächen führen – datenbasiert und ergebnisorientiert."
+      ? "Erstelle Lebensläufe, die zu Vorstellungsgesprächen führen - datenbasiert, optimiert und ergebnisorientiert."
       : "Build resumes that get interviews – backed by data, designed for results."}
   </p>
 </div>

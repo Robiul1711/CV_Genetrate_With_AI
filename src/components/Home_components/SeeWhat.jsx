@@ -20,7 +20,7 @@ const SeeWhat = () => {
       <div className="flex flex-col items-center text-center">
         <h1 className="text-[24px] md:text-[28px] font-bold">
           {language === "de"
-            ? "Sehen Sie, was unsere Nutzer sagen"
+            ? "Was unsere Nutzer sagen"
             : "See What Our Users Are Saying"}
         </h1>
       </div>

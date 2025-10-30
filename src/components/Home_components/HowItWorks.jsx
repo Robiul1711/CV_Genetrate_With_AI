@@ -42,7 +42,7 @@ const HowItWorks = () => {
 
         <p className="text-[15px] text-[#9B9B9B] pt-1 max-w-2xl">
           {language === "de"
-            ? "Nächste Generation No-Code. Über die natürliche Sprache hinaus. Warum tippen, wenn Sie klicken können?"
+            ? "Modern und zukunftsorientiert. Warum ewiges tippen, wenn du klicken kannst?"
             : "Next generation no-code. Beyond natural language. Why type when you can click?"}
         </p>
       </div>
@@ -85,8 +85,9 @@ const HowItWorks = () => {
                 <p className="text-[16px] md:text-[20px] text-[#F1F1F1] pt-2">
                   {item.title}
                 </p>
+                {console.log(item)}
                 <p className="text-[15px] md:text-base text-[#9B9B9B] pt-4">
-                  {item.detail || item.short_description}
+                  {item.short_description}
                 </p>
                 <ul className="md:text-xl text-[#F1F1F1] pt-4 space-y-2">
                   {(item.list || item.features || []).map((listItem, idx) => (

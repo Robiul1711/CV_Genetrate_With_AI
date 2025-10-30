@@ -53,7 +53,7 @@ const ContactForm = () => {
       agreeTerms: "You must agree to the terms of service.",
     },
     de: {
-      title: "Kontaktieren Sie Clever CV",
+      title: "Kontaktiere Clever-CV",
       firstName: "Vorname",
       lastName: "Nachname",
       email: "E-Mail",
@@ -69,7 +69,7 @@ const ContactForm = () => {
       sendingButton: "Wird gesendet...",
       faqTitle: "Häufig gestellte Fragen",
       faqDescription:
-        "Wenn die Frage nicht in unserem FAQ-Bereich verfügbar ist, kontaktieren Sie uns gerne persönlich, wir werden Ihre jeweiligen Zweifel klären.",
+        "Wenn die Frage nicht in unserem FAQ-Bereich verfügbar ist, kontaktieren Sie uns gerne persönlich, wir werden Ihre Fragen gerne beantworten",
       askQuestion: "Frage stellen",
       fillRequired: "Bitte füllen Sie alle erforderlichen Felder aus.",
       agreeTerms: "Sie müssen den Nutzungsbedingungen zustimmen.",
