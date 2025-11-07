@@ -69,7 +69,7 @@ const ContactForm = () => {
       sendingButton: "Wird gesendet...",
       faqTitle: "Häufig gestellte Fragen",
       faqDescription:
-        "Wenn die Frage nicht in unserem FAQ-Bereich verfügbar ist, kontaktieren Sie uns gerne persönlich, wir werden Ihre Fragen gerne beantworten",
+        "Wenn die Frage nicht in unserem FAQ-Bereich verfügbar ist, kontaktiere uns gerne persönlich, wir werden deine Fragen gerne beantworten",
       askQuestion: "Frage stellen",
       fillRequired: "Bitte füllen Sie alle erforderlichen Felder aus.",
       agreeTerms: "Sie müssen den Nutzungsbedingungen zustimmen.",

@@ -20,7 +20,7 @@ const { language } = useEmail();
     <div className="">
       <p className="text-xl md:text-[28px] text-center mb-8  md:mb-14 font-medium text-primary">
       {language === "de"
-    ? "Stellenangebote von diesen Firmen und weiteren..."
+    ? "Jobzusagen von diesen Firmen und weiteren..."
     : "Trusted by Professionals Who Landed Jobs At"}
       </p>
       <Marquee
