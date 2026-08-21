@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import logo from "../../../assets/images/logo.png";
+import Logo from "@/components/common/Logo";
 import Title from "@/components/common/Title";
 import { Check, Eye, EyeOff, Mail } from "lucide-react";
-import {
-  Apple,
-  Facebook,
-  Google,
-  Lock,
-} from "@/components/CustomIcons/CustomIcon";
+import { Lock } from "@/components/CustomIcons/CustomIcon";
 import {
   Link,
   ScrollRestoration,
@@ -15,16 +10,10 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
-import { useEmail } from "@/hooks/useEmail";
-import { secureSet } from "@/lib/secure";
 
 const SignIn = () => {
-    const IMG_URL = import.meta.env.VITE_IMG_URL;
-  const { language } = useEmail(); // 'en' or 'de'
   const [searchParams] = useSearchParams();
   const redirectPath = searchParams.get("redirect") || "/";
 
@@ -36,84 +25,33 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
   const [serverError, setServerError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-  const axiosPublic = useAxiosPublic();
-  const { setToken, setRefreshToken, saveAuthData } = useAuth();
+  const { login } = useAuth();
 
-  // Language content
-  const text = {
-    en: {
-      welcome: "Welcome back!",
-      subtitle: "Sign in to access your resumes and tools",
-      email: "Email",
-      emailPlaceholder: "andrew.ainsley@yourdomain.com",
-      password: "Password",
-      passwordPlaceholder: "••••••••",
-      rememberMe: "Remember Me",
-      forgotPassword: "Forgot Password?",
-      signIn: "Sign In",
-      signingIn: "Signing In...",
-      orContinueWith: "Or continue with",
-      dontHaveAccount: "Don’t have an account?",
-      signUp: "Sign Up",
-    },
-    de: {
-      welcome: "Willkommen zurück!",
-      subtitle:
-        "Melden Sie sich an, um auf Ihre Lebensläufe und Tools zuzugreifen",
-      email: "E-Mail",
-      emailPlaceholder: "andrew.ainsley@ihrdomain.com",
-      password: "Passwort",
-      passwordPlaceholder: "••••••••",
-      rememberMe: "Angemeldet bleiben",
-      forgotPassword: "Passwort vergessen?",
-      signIn: "Anmelden",
-      signingIn: "Anmeldung läuft...",
-      orContinueWith: "Oder fortfahren mit",
-      dontHaveAccount: "Sie haben noch kein Konto?",
-      signUp: "Registrieren",
-    },
-  };
-
-  const t = text[language || "en"];
-
-  const signInMutation = useMutation({
-    mutationFn: async (data) => {
-      const payload = { email: data.email, password: data.password };
-      const res = await axiosPublic.post(`/signin/`, payload);
-      return res.data; // { access, refresh }
-    },
-    onSuccess: (data) => {
-      setServerError(null);
-      // console.log(data);
-      toast.success(data.message);
-      saveAuthData(data?.data?.access);
-      setRefreshToken(data?.data?.refresh);
-      setToken(data.access);
-      secureSet("refreshToken", data?.data?.refresh);
-
-      navigate(redirectPath);
-    },
-    onError: (error) => {
-      console.log(error);
-      setServerError(
-        error?.response?.data?.message || "Invalid credentials or server error."
-      );
-    },
-  });
-
+  // Mock login
   const onSubmit = (data) => {
     setServerError(null);
-    signInMutation.mutate(data);
+    setIsSubmitting(true);
+
+    setTimeout(() => {
+      const mockUser = {
+        first_name: data.email.split("@")[0],
+        last_name: "User",
+        profile: {
+          first_name: data.email.split("@")[0],
+          last_name: "User",
+          user: { email: data.email },
+        },
+        user: { email: data.email },
+      };
+      const mockToken = "mock-jwt-token-" + Date.now();
+      login(mockUser, mockToken);
+      toast.success("Signed in successfully!");
+      setIsSubmitting(false);
+      navigate(redirectPath);
+    }, 800);
   };
-
-
-    const {data:navData}=useQuery({
-    queryKey: ["navData", language],
-    queryFn: () =>
-      axiosPublic.get("/about-system/", { params: { lan: language } }),
-  })
-
 
   return (
     <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center overflow-y-auto md:overflow-y-hidden">
@@ -122,16 +60,12 @@ const SignIn = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-2xl px-4 sm:px-10 lg:px-[120px] py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
       >
-        <div className="flex justify-center mb-4">
-          <Link to={"/"}>
-            <img src={IMG_URL + navData?.data?.data?.logo} alt="logo" className="h-12 md:h-16" />
-          </Link>
+        <div className="flex justify-center mb-5">
+          <Logo size="lg" />
         </div>
 
-        {/* <h2 className="text-xl font-semibold text-center mb-2">{t.welcome}</h2> */}
-
         <Title level="title18" className="text-center mb-6">
-          {t.subtitle}
+          Sign in to access your resumes and tools
         </Title>
 
         {/* Server Error */}
@@ -144,7 +78,7 @@ const SignIn = () => {
         {/* Email Input */}
         <div className="mb-1 relative">
           <label htmlFor="email" className="block mb-2 text-sm">
-            {t.email}
+            Email
           </label>
           <div
             className={`relative flex items-center w-full px-3 py-1.5 gap-3 !text-xs md:text-base border rounded-lg ${
@@ -156,13 +90,13 @@ const SignIn = () => {
               type="email"
               id="email"
               {...register("email", {
-                required: t.email + " is required",
+                required: "Email is required",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   message: "Invalid email address",
                 },
               })}
-              placeholder={t.emailPlaceholder}
+              placeholder="andrew.ainsley@yourdomain.com"
               className="w-full bg-black focus:outline-none"
             />
           </div>
@@ -174,7 +108,7 @@ const SignIn = () => {
         {/* Password Input */}
         <div className="mb-4 relative">
           <label htmlFor="password" className="block mb-2 text-sm">
-            {t.password}
+            Password
           </label>
           <div className="relative">
             <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
@@ -183,9 +117,9 @@ const SignIn = () => {
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              placeholder={t.passwordPlaceholder}
+              placeholder="••••••••"
               {...register("password", {
-                required: t.password + " is required",
+                required: "Password is required",
               })}
               className={`w-full px-3 py-1.5 pl-10 !text-xs md:text-base border ${
                 errors.password ? "border-red-500" : "border-[#666666]"
@@ -223,12 +157,12 @@ const SignIn = () => {
               onChange={(e) => setChecked(e.target.checked)}
               className="hidden"
             />
-            <span className="text-sm">{t.rememberMe}</span>
+            <span className="text-sm">Remember Me</span>
           </label>
 
           <Link to={"/forgot-password"}>
             <p className="cursor-pointer text-sm font-medium hover:underline">
-              {t.forgotPassword}
+              Forgot Password?
             </p>
           </Link>
         </div>
@@ -236,12 +170,12 @@ const SignIn = () => {
         {/* Sign In Button */}
         <button
           type="submit"
-          disabled={signInMutation.isPending}
+          disabled={isSubmitting}
           className={`w-full ${
-            signInMutation.isPending ? "bg-gray-400" : "bg-[#FFF]"
+            isSubmitting ? "bg-gray-400" : "bg-[#FFF]"
           } text-black py-2 my-3 text-sm font-medium rounded-xl flex justify-center items-center gap-2`}
         >
-          {signInMutation.isPending ? (
+          {isSubmitting ? (
             <>
               <svg
                 className="animate-spin -ml-1 mr-2 h-4 w-4 text-black"
@@ -263,26 +197,26 @@ const SignIn = () => {
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
-              {t.signingIn}
+              Signing In...
             </>
           ) : (
-            t.signIn
+            "Sign In"
           )}
         </button>
 
         {/* Divider */}
         <div className="flex items-center my-3">
           <hr className="flex-grow border-gray-300" />
-          <span className="mx-4 text-[#FFF] text-sm">{t.orContinueWith}</span>
+          <span className="mx-4 text-[#FFF] text-sm">Or continue with</span>
           <hr className="flex-grow border-gray-300" />
         </div>
 
-        {/* Sign Up */}
+        {/* Sign Up Link */}
         <p className="text-center py-2 text-sm">
-          {t.dontHaveAccount}{" "}
+          Don’t have an account?{" "}
           <Link to={"/sign-up"}>
             <span className="font-medium cursor-pointer underline text-[#81FB84]">
-              {t.signUp}
+              Sign Up
             </span>
           </Link>
         </p>

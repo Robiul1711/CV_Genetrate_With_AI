@@ -1,185 +1,210 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { toast } from "sonner";
 import { CiEdit } from "react-icons/ci";
-import Title from "../common/Title";
 import { useAuth } from "@/hooks/useAuth";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
 import ProfileImage from "./ProfileImage";
-import { useEmail } from "@/hooks/useEmail"; // Custom hook for language
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { User, Mail, CheckCircle2, Shield } from "lucide-react";
 
-const ProfileSetting = ({ userData }) => {
+const ProfileSetting = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const { user,fetchUser,token } = useAuth();
-  const axiosSecure = useAxiosSecure();
-  const queryClient = useQueryClient();
-  const { language } = useEmail(); // "en" or "de"
+  const { user, setUser } = useAuth();
 
-  // Translation texts
-  const texts = {
-    en: {
-      profileSettings: "Profile Settings",
-      updateInfo: "Update your personal information",
-      firstName: "First Name *",
-      lastName: "Last Name *",
-      email: "Email *",
-      phoneNumber: "Phone Number *",
-      editProfile: "Edit Profile",
-      cancel: "Cancel",
-      saveChanges: "Save Changes",
-    },
-    de: {
-      profileSettings: "Profile-Einstellungen",
-      updateInfo: "Aktualisieren Sie Ihre persönlichen Informationen",
-      firstName: "Vorname *",
-      lastName: "Nachname *",
-      email: "E-Mail *",
-      phoneNumber: "Telefonnummer *",
-      editProfile: "Profil bearbeiten",
-      cancel: "Abbrechen",
-      saveChanges: "Änderungen speichern",
-    },
-  };
-
-  const t = language === "de" ? texts.de : texts.en;
-
-  // Extract user email safely
-  const userEmail = userData?.profile?.user?.email || "";
-
-  // Initialize form with default values
-  const defaultValues = {
-    first_name: userData?.profile?.first_name || "",
-    last_name: userData?.profile?.last_name || "",
-    email: userEmail,
-    phone_number: userData?.profile?.phone_number || "",
-  };
+  const displayName = user?.profile?.first_name || user?.first_name || "John";
+  const displayLastName = user?.profile?.last_name || user?.last_name || "Doe";
+  const displayEmail = user?.profile?.user?.email || user?.email || "john.doe@example.com";
+  const displayPhone = user?.profile?.phone_number || user?.phone_number || "1234567890";
 
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
-    reset,
   } = useForm({
-    defaultValues,
-  });
-
-  // Keep form values synced when userData changes
-  useEffect(() => {
-    reset({
-      first_name: userData?.profile?.first_name || "",
-      last_name: userData?.profile?.last_name || "",
-      email: userEmail,
-      phone_number: userData?.profile?.phone_number || "",
-    });
-  }, [userData, reset, userEmail]);
-
-  // Mutation for profile update
-  const updateMutation = useMutation({
-    mutationFn: async (data) => {
-      const response = await axiosSecure.put("/update-profile/", data);
-      return response.data;
-    },
-    onSuccess: (data) => {
-      toast.success(data?.message || "Profile updated successfully!");
-      setIsEditing(false);
-     fetchUser(token)
-    },
-    onError: (error) => {
-      toast.error(error?.response?.data?.message || "Update failed");
-      console.error(error);
+    defaultValues: {
+      first_name: displayName,
+      last_name: displayLastName,
+      email: displayEmail,
+      phone_number: displayPhone,
     },
   });
 
   const onSubmit = (data) => {
-    updateMutation.mutate({ ...data, email: userEmail });
+    setUser({
+      ...user,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email,
+      phone_number: data.phone_number,
+      profile: {
+        ...(user?.profile || {}),
+        first_name: data.first_name,
+        last_name: data.last_name,
+        user: { email: data.email },
+        phone_number: data.phone_number,
+      },
+    });
+    toast.success("Profile updated successfully!");
+    setIsEditing(false);
   };
 
   return (
-    <div className="max-w-6xl w-full p-3 lg:p-6">
-      <Title level="title22">{t.profileSettings}</Title>
-      <Title level="title16" className="my-2">
-        {t.updateInfo}
-      </Title>
+    <div className="space-y-6">
+      {/* Header with Title and Edit toggle */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#262626]">
+        <div>
+          <h2 className="text-xl sm:text-2xl font-bold text-white">
+            Profile Settings
+          </h2>
+          <p className="text-gray-400 text-sm mt-1">
+            Update your public profile details and contact information.
+          </p>
+        </div>
+        {!isEditing ? (
+          <button
+            type="button"
+            onClick={() => setIsEditing(true)}
+            className="inline-flex items-center justify-center gap-2 bg-white text-black font-semibold px-4 py-2.5 rounded-xl text-sm hover:bg-gray-200 transition shadow-md"
+          >
+            <CiEdit size={18} /> Edit Profile
+          </button>
+        ) : (
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-[#81FB84] flex items-center gap-1 bg-[#81FB84]/10 border border-[#81FB84]/20 px-3 py-1.5 rounded-lg">
+              <CheckCircle2 size={14} /> Editing Enabled
+            </span>
+          </div>
+        )}
+      </div>
 
-      <ProfileImage userData={userData} />
+      {/* Avatar Section */}
+      <div className="bg-[#141416] border border-[#262626] rounded-xl p-5 flex flex-col sm:flex-row items-center gap-6">
+        <ProfileImage />
+        <div className="text-center sm:text-left space-y-1">
+          <h3 className="text-sm font-semibold text-white">Profile Photo</h3>
+          <p className="text-xs text-gray-400 max-w-sm">
+            Click your avatar to upload a new portrait. JPG, PNG or WEBP (Max 4MB).
+          </p>
+        </div>
+      </div>
 
-      {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* Profile Form */}
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {/* First Name */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">{t.firstName}</label>
-            <input
-              type="text"
-              {...register("first_name")}
-              className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] text-white `}
-            />
+          <div className="space-y-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300">
+              First Name *
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                disabled={!isEditing}
+                {...register("first_name", { required: "First name is required" })}
+                className={`w-full bg-[#141416] border ${
+                  errors.first_name ? "border-red-500" : "border-[#333]"
+                } p-3 rounded-xl text-sm text-white focus:outline-none focus:border-white transition ${
+                  !isEditing ? "opacity-60 cursor-not-allowed" : ""
+                }`}
+                placeholder="Enter first name"
+              />
+            </div>
             {errors.first_name && (
-              <span className="text-red-500 text-xs">
-                {errors.first_name.message}
-              </span>
+              <p className="text-red-500 text-xs mt-1">{errors.first_name.message}</p>
             )}
           </div>
 
           {/* Last Name */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">{t.lastName}</label>
-            <input
-              type="text"
-              {...register("last_name")}
-              className={`bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] text-white `}
-            />
+          <div className="space-y-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300">
+              Last Name *
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                disabled={!isEditing}
+                {...register("last_name", { required: "Last name is required" })}
+                className={`w-full bg-[#141416] border ${
+                  errors.last_name ? "border-red-500" : "border-[#333]"
+                } p-3 rounded-xl text-sm text-white focus:outline-none focus:border-white transition ${
+                  !isEditing ? "opacity-60 cursor-not-allowed" : ""
+                }`}
+                placeholder="Enter last name"
+              />
+            </div>
             {errors.last_name && (
-              <span className="text-red-500 text-xs">
-                {errors.last_name.message}
-              </span>
+              <p className="text-red-500 text-xs mt-1">{errors.last_name.message}</p>
             )}
           </div>
+        </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {/* Email */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">{t.email}</label>
-            <input
-              type="email"
-              disabled
-              {...register("email")}
-              className="bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] text-white opacity-50 cursor-not-allowed"
-            />
+          <div className="space-y-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300">
+              Email Address *
+            </label>
+            <div className="relative">
+              <input
+                type="email"
+                disabled={!isEditing}
+                {...register("email", { required: "Email is required" })}
+                className={`w-full bg-[#141416] border ${
+                  errors.email ? "border-red-500" : "border-[#333]"
+                } p-3 rounded-xl text-sm text-white focus:outline-none focus:border-white transition ${
+                  !isEditing ? "opacity-60 cursor-not-allowed" : ""
+                }`}
+                placeholder="name@example.com"
+              />
+            </div>
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
+            )}
           </div>
 
           {/* Phone Number */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm text-white">{t.phoneNumber}</label>
-            <div
-              className={`flex items-center rounded-[10px] px-3 py-1.5 text-xs border border-[#262626] bg-[#0E0E10] text-white `}
-            >
-              <span className="pr-2">📞</span>
-              <input
-                type="numbert"
-                {...register("phone_number")}
-                className="bg-transparent text-xs w-full focus:outline-none text-white"
-              />
-            </div>
-            {errors.phone_number && (
-              <span className="text-red-500 text-xs">
-                {errors.phone_number.message}
-              </span>
-            )}
+          <div className="space-y-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300">
+              Phone Number *
+            </label>
+            <Controller
+              name="phone_number"
+              control={control}
+              rules={{ required: "Phone number is required" }}
+              render={({ field }) => (
+                <PhoneInput
+                  country={"us"}
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={!isEditing}
+                  inputClass="!w-full !bg-[#141416] !border-[#333] !text-white !h-[46px] !rounded-xl !text-sm"
+                  buttonClass="!bg-[#141416] !border-[#333]"
+                />
+              )}
+            />
           </div>
         </div>
 
-        {/* Buttons */}
-        <div className="flex flex-wrap justify-end gap-4 mt-3 sm:mt-8">
-          <button
-            type="submit"
-            className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition"
-          >
-            {updateMutation.isPending ? "Saving..." : t.saveChanges}
-          </button>
-        </div>
+        {/* Action Buttons when editing */}
+        {isEditing && (
+          <div className="flex flex-wrap items-center justify-end gap-3 pt-6 border-t border-[#262626]">
+            <button
+              type="button"
+              onClick={() => setIsEditing(false)}
+              className="px-5 py-2.5 border border-[#333] hover:border-white text-gray-300 hover:text-white rounded-xl text-sm font-medium transition"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-6 py-2.5 bg-white text-black font-semibold rounded-xl text-sm hover:bg-gray-200 transition shadow-md"
+            >
+              Save Changes
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );

@@ -1,374 +1,383 @@
-// import { Check } from "lucide-react";
-// import React, { useState } from "react";
-// import { UpgradeIcon } from "../AllIcons/HomeIcons";
-// import { useQuery, useMutation } from "@tanstack/react-query";
-// import useAxiosPublic from "@/hooks/useAxiosPublic";
-// import useAxiosSecure from "@/hooks/useAxiosSecure";
-// import { useEmail } from "@/hooks/useEmail";
-// import Swal from "sweetalert2";
-// import { useAuth } from "@/hooks/useAuth";
-
-// const YourPlan = () => {
-//   const axiosPublic = useAxiosPublic();
-//   const axiosSecure = useAxiosSecure();
-//   const { language } = useEmail();
-//   const [loadingPlanId, setLoadingPlanId] = useState(null);
-//   const VITE_PAYMENT_URL = import.meta.env.VITE_PAYMENT_URL;
-//   const {user} =useAuth()
-
-//   // Fetch subscription plans
-//   const { data, isLoading, error } = useQuery({
-//     queryKey: ["subscription", language],
-//     queryFn: () =>
-//       axiosPublic.get("/subscription-packages", { params: { lan: language } }),
-//   });
-
-//   // Mutation for Stripe checkout
-//   const planMutation = useMutation({
-//     mutationFn: async (payload) => {
-//       const response = await axiosSecure.post("/stripe-checkout/", payload);
-//       return response.data;
-//     },
-//     onSuccess: (data) => {
-//       setLoadingPlanId(null);
-//       window.open(data?.data, "_blank");
-//     },
-//     onError: (error) => {
-//       setLoadingPlanId(null);
-//       console.error("Error during plan mutation:", error);
-//       Swal.fire({
-//         icon: "error",
-//         title: "Oops...",
-//         text:
-//           error?.response?.data?.message ||
-//           "An error occurred while processing your request. Please try again.",
-//       });
-//     },
-//   });
-
-//   if (isLoading) return <div>Loading plans...</div>;
-//   if (error) return <div>Error loading plans: {error.message}</div>;
-
-//   const plans = data?.data?.data || [];
-
-//   const handleClick = (plan) => {
-//     setLoadingPlanId(plan.id);
-
-//     const payload = {
-//       price_id: plan.stripe_price_id,
-//       type: plan.type,
-//       success_url: `${VITE_PAYMENT_URL}/success`,
-//       cancel_url: `${VITE_PAYMENT_URL}/canceled`,
-//     };
-
-//     planMutation.mutate(payload);
-//   };
-
-//   const getPlanType = (type) => {
-//     if (!type) return "Unlimited";
-//     if (type === "month") return {
-//       de: "monat",
-//       en: "month",
-//     }[language || "en"];
-//     return type;
-//   };
-
-//   return (
-//     <div className="pb-12 py-6 md:py-10">
-//       <div className="flex flex-col items-center text-center">
-//         <h1 className="text-[24px] md:text-[28px] font-bold">
-//           {language === "de" ? "Wählen Sie Ihren Plan" : "Choose Your Plan"}
-//         </h1>
-//         <p className="text-[15px] md:text-base text-[#9B9B9B] pt-2">
-//           {language === "de"
-//             ? "Flexible Optionen für jeden Arbeitssuchenden."
-//             : "Flexible options for every job seeker."}
-//         </p>
-//       </div>
-
-//       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-//         {plans.map((plan) => (
-//           <div
-//             key={plan.id}
-//             className="hover:border border border-white/20 rounded-xl shadow-lg p-4 text-white hover:border-white duration-300 transition-all transform"
-//           >
-//             <div className="flex items-start flex-col h-full">
-//               <button className="border mb-4 flex items-center gap-2 text-sm font-semibold py-2 px-5 rounded-md">
-//                 {plan.name}
-//                 <UpgradeIcon />
-//               </button>
-
-//               <p className="text-2xl md:text-3xl font-bold">
-//                 €{plan.price}{" "}
-//                 <span className="text-gray-500 text-xl">
-//                   /{getPlanType(plan.type)}
-//                 </span>
-//               </p>
-
-//               <div className="flex flex-col flex-grow justify-between">
-//                 <div className="mt-2">
-//                   <h3 className="font-medium mb-1 text-sm">
-//                     {plan.name === "Free Plan"
-//                       ? "Start building - no strings attached"
-//                       : plan.name === "Basic Plan"
-//                       ? "Essential tools for your job search"
-//                       : plan.name === "Pro Plan"
-//                       ? "Advanced features for professionals"
-//                       : "Pay only when you download"}
-//                   </h3>
-
-//                   <ul className="space-y-3 text-sm">
-//                     {plan.features.map((feature, index) => (
-//                       <li key={index} className="flex items-start gap-2">
-//                         <Check className="w-5 h-5 overflow-visible" />
-//                         <span>{feature.name}</span>
-//                       </li>
-//                     ))}
-//                   </ul>
-//                 </div>
-//               </div>
-
-//               <button
-//                 onClick={() => handleClick(plan)}
-//                 disabled={loadingPlanId === plan.id}
-//                 className={`text-center flex justify-center items-center w-full bg-white text-sm text-black font-semibold py-2 rounded-md mt-4 transition-all ${
-//                   loadingPlanId === plan.id
-//                     ? "opacity-60 cursor-not-allowed"
-//                     : ""
-//                 }`}
-//               >
-//                 {loadingPlanId === plan.id
-//                   ? language === "de"
-//                     ? "Verarbeitung..."
-//                     : "Processing..."
-//                   : plan.name === "Free Plan"
-//                   ? language === "de"
-//                     ? "Kostenlose Testversion starten"
-//                     : "Start Free Trial"
-//                   : language === "de"
-//                   ? "Jetzt starten"
-//                   : "Get Started"}
-//               </button>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default YourPlan;
-
-
-import { Check } from "lucide-react";
 import React, { useState } from "react";
-import { UpgradeIcon } from "../AllIcons/HomeIcons";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useEmail } from "@/hooks/useEmail";
-import Swal from "sweetalert2";
+import { Check, Sparkles, Zap, ShieldCheck, HelpCircle, ChevronDown, ArrowRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { motion, AnimatePresence } from "framer-motion";
+
+const pricingPlans = [
+  {
+    id: "free",
+    name: "Free Trial",
+    badge: "Starter",
+    description: "Ideal for trying out our AI resume tools and basic export.",
+    monthlyPrice: 0,
+    yearlyPrice: 0,
+    period: "Forever Free",
+    popular: false,
+    buttonText: "Start Free",
+    buttonVariant: "secondary",
+    features: [
+      "1 Resume Template",
+      "Basic AI Content Suggestions",
+      "Standard PDF Export",
+      "Email Support",
+      "Watermark on Downloads",
+    ],
+  },
+  {
+    id: "basic",
+    name: "Basic Plan",
+    badge: "Job Seeker",
+    description: "Great for active job seekers needing complete template access.",
+    monthlyPrice: 9.99,
+    yearlyPrice: 7.99,
+    period: "per month",
+    popular: false,
+    buttonText: "Get Started",
+    buttonVariant: "secondary",
+    features: [
+      "All 11+ Resume Templates",
+      "Advanced AI Suggestions",
+      "Unlimited PDF Downloads",
+      "AI Cover Letter Builder",
+      "No Watermark on Exports",
+      "Priority Email Support",
+    ],
+  },
+  {
+    id: "pro",
+    name: "Pro Plan",
+    badge: "Most Popular",
+    description: "The complete AI toolkit to supercharge your applications & interviews.",
+    monthlyPrice: 19.99,
+    yearlyPrice: 14.99,
+    period: "per month",
+    popular: true,
+    buttonText: "Unlock Pro AI",
+    buttonVariant: "primary",
+    features: [
+      "Everything in Basic",
+      "AI Interview Prep Coach",
+      "Multilingual Resume Translation",
+      "Targeted Job ATS Match Score",
+      "Smart Tone & Voice Tuning",
+      "Advanced Analytics & Insights",
+      "24/7 Dedicated Support",
+    ],
+  },
+  {
+    id: "pay_per_download",
+    name: "One-Time Pass",
+    badge: "Flexible",
+    description: "Pay only when you need a finished, polished document.",
+    monthlyPrice: 4.99,
+    yearlyPrice: 4.99,
+    period: "per download",
+    popular: false,
+    buttonText: "Buy Single Pass",
+    buttonVariant: "secondary",
+    features: [
+      "All Premium Resume Templates",
+      "AI Optimization Engine",
+      "1 High-Res PDF Export",
+      "No Recurring Subscription",
+      "Instant Delivery",
+    ],
+  },
+];
+
+const pricingFaqs = [
+  {
+    q: "Can I change or cancel my subscription anytime?",
+    a: "Yes, you can upgrade, downgrade, or cancel your subscription at any time directly from your account settings with zero penalties or hidden fees.",
+  },
+  {
+    q: "What payment methods do you accept?",
+    a: "We support all major credit cards (Visa, MasterCard, American Express), PayPal, Apple Pay, and Google Pay via Stripe's encrypted payment gateway.",
+  },
+  {
+    q: "How does the Multilingual AI translation work?",
+    a: "Our Pro plan uses fine-tuned AI models to accurately translate and adapt your resume for international markets while maintaining professional terminology.",
+  },
+  {
+    q: "Is there a money-back guarantee?",
+    a: "Absolutely! We offer a 14-day 100% money-back guarantee if you are not completely satisfied with your resume results.",
+  },
+];
 
 const YourPlan = () => {
-  const axiosPublic = useAxiosPublic();
-  const axiosSecure = useAxiosSecure();
-  const { language } = useEmail();
-  const [loadingPlanId, setLoadingPlanId] = useState(null);
-  const VITE_PAYMENT_URL = import.meta.env.VITE_PAYMENT_URL;
-  const { user,  fetchUser ,token} = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
+  const [billingCycle, setBillingCycle] = useState("monthly"); // "monthly" | "yearly"
+  const [openFaq, setOpenFaq] = useState(null);
 
-  // Fetch subscription plans
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["subscription", language],
-    queryFn: () =>
-      axiosPublic.get("/subscription-packages", { params: { lan: language } }),
-  });
-
-  // Mutation for Stripe checkout
-  const planMutation = useMutation({
-    mutationFn: async (payload) => {
-      const response = await axiosSecure.post("/stripe-checkout/", payload);
-      return response.data;
-    },
-    onSuccess: (data) => {
-      setLoadingPlanId(null);
-      window.open(data?.data, "_blank");
-    },
-    onError: (error) => {
-      setLoadingPlanId(null);
-      console.error("Error during plan mutation:", error);
+  const handlePlanSelect = (plan) => {
+    if (!user) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text:
-          error?.response?.data?.message ||
-          "An error occurred while processing your request. Please try again.",
+        title: "Access Required",
+        html: `<p style="color:#c7c7c7; font-size:15px;">You need to <b>log in</b> or <b>create an account</b> to activate the <b>${plan.name}</b>.</p>`,
+        background: "#0d0d0d",
+        color: "#eaeaea",
+        showCancelButton: true,
+        confirmButtonText: "Sign Up Free",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#00d084",
+        cancelButtonColor: "#333",
+        customClass: {
+          popup: "rounded-2xl shadow-lg border border-[#1f1f1f]",
+          confirmButton: "text-white font-medium px-6 py-2 rounded-lg",
+          cancelButton: "text-gray-300 font-medium px-6 py-2 rounded-lg",
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/sign-up");
+        }
       });
-    },
-  });
-
-  if (isLoading) return <div>Loading plans...</div>;
-  if (error) return <div>Error loading plans: {error.message}</div>;
-
-  const plans = data?.data?.data || [];
-
-const handleClick = (plan) => {
-if (!user) {
-  Swal.fire({
-    title: language === "de" ? "Zugang erforderlich" : "Access Required",
-    html:
-      language === "de"
-        ? `<p style="color:#c7c7c7; font-size:15px;">Sie müssen sich anmelden oder ein Konto erstellen, um einen Plan zu kaufen.</p>`
-        : `<p style="color:#c7c7c7; font-size:15px;">You need to <b>log in</b> or <b>create an account</b> to purchase this plan.</p>`,
-    iconHtml: `
-      <div style="
-        width:70px;
-        height:70px;
-        border:3px solid #00d084;
-        border-radius:50%;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        background-color:#000;
-        margin:0 auto;
-      ">
-        <i class="fas fa-check" style="color:#00d084; font-size:32px;"></i>
-      </div>
-    `,
-    background: "#0d0d0d",
-    color: "#eaeaea",
-    showCancelButton: true,
-    confirmButtonText: language === "de" ? "Anmelden" : " Sign Up",
-    cancelButtonText: language === "de" ? "Abbrechen" : "Cancel",
-    confirmButtonColor: "#00d084",
-    cancelButtonColor: "#333",
-    customClass: {
-      popup: "rounded-2xl shadow-lg border border-[#1f1f1f]",
-      confirmButton: "text-white font-medium px-6 py-2 rounded-lg",
-      cancelButton: "text-gray-300 font-medium px-6 py-2 rounded-lg",
-    },
-  }).then((result) => {
-    if (result.isConfirmed) {
-      navigate("/sign-up");
+      return;
     }
-  });
-  return;
-}
 
-
-  setLoadingPlanId(plan.id);
-
-  const payload = {
-    price_id: plan.stripe_price_id,
-    type: plan.type,
-    success_url: `${VITE_PAYMENT_URL}/success`,
-    cancel_url: `${VITE_PAYMENT_URL}/cancled`,
+    Swal.fire({
+      title: `${plan.name} Selected!`,
+      html: `<p style="color:#c7c7c7; font-size:15px;">You have chosen the <b>${plan.name}</b> (${billingCycle === "yearly" ? "Billed Annually" : "Billed Monthly"}). Payment integration will be connected with Stripe in your next step.</p>`,
+      background: "#0d0d0d",
+      color: "#eaeaea",
+      confirmButtonText: "Proceed to Checkout",
+      confirmButtonColor: "#00d084",
+      customClass: {
+        popup: "rounded-2xl shadow-lg border border-[#1f1f1f]",
+      },
+    });
   };
 
-  planMutation.mutate(payload);
-};
-
-const getPlanType = (type) => {
-  if (!type) return "Unlimited";
-
-  if (type === "month")
-    return {
-      de: "Monat",
-      en: "Month",
-    }[language || "en"];
-
-  else if (type === "pay_per_download")
-    return {
-      de: "Bezahlen pro Download",
-      en: "Pay Per Download",
-    }[language || "en"];
-
-  return type;
-};
-
-
   return (
-    <div className="pb-12 py-6 md:py-10">
-      <div className="flex flex-col items-center text-center">
-        <h1 className="text-[24px] md:text-[28px] font-bold">
-          {language === "de" ? "Wähle deinen Plan" : "Choose Your Plan"}
+    <div className="pb-8 md:pb-16 max-w-7xl mx-auto space-y-16">
+      {/* Hero Header */}
+      <div className="text-center space-y-4 max-w-3xl mx-auto">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#81FB84]/10 border border-[#81FB84]/30 text-[#81FB84] text-xs font-semibold uppercase tracking-wider">
+          <Sparkles size={13} /> Transparent & Flexible Pricing
+        </div>
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          Invest in Your Career with the <br className="hidden sm:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#81FB84] via-emerald-400 to-teal-300">
+            Right Plan for You
+          </span>
         </h1>
-        <p className="text-[15px] md:text-base text-[#9B9B9B] pt-2">
-          {language === "de"
-            ? "Flexible Optionen für jeden Arbeitssuchenden."
-            : "Flexible options for every job seeker."}
+        <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
+          Choose a plan that fits your job search timeline. Upgrade or cancel anytime with zero commitments.
         </p>
+
+        {/* Billing Toggle */}
+        <div className="pt-4 flex items-center justify-center gap-3">
+          <div className="bg-[#121214] border border-[#262626] p-1.5 rounded-xl flex items-center gap-1 shadow-inner">
+            <button
+              type="button"
+              onClick={() => setBillingCycle("monthly")}
+              className={`px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+                billingCycle === "monthly"
+                  ? "bg-white text-black shadow-md"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Monthly Billing
+            </button>
+            <button
+              type="button"
+              onClick={() => setBillingCycle("yearly")}
+              className={`px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                billingCycle === "yearly"
+                  ? "bg-white text-black shadow-md"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              <span>Annual Billing</span>
+              <span className="bg-[#81FB84] text-black text-[10px] font-bold px-1.5 py-0.5 rounded-md">
+                SAVE 20%
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {plans.map((plan) => (
-          <div
-            key={plan.id}
-            className="hover:border border border-white/20 rounded-xl shadow-lg p-4 text-white hover:border-white duration-300 transition-all transform"
-          >
-            <div className="flex items-start flex-col h-full">
-              <button className="border mb-4 flex items-center gap-2 text-sm font-semibold py-2 px-5 rounded-md">
-                {plan.name}
-                <UpgradeIcon />
-              </button>
+      {/* Pricing Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        {pricingPlans.map((plan) => {
+          const isPro = plan.popular;
+          const displayPrice =
+            billingCycle === "yearly" && plan.id !== "free" && plan.id !== "pay_per_download"
+              ? plan.yearlyPrice
+              : plan.monthlyPrice;
 
-              <p className="text-2xl md:text-3xl font-bold">
-                €{plan.price}{" "}
-                <span className="text-gray-500 text-xl">
-                  /{getPlanType(plan.type)}
-                </span>
-              </p>
+          return (
+            <motion.div
+              key={plan.id}
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.2 }}
+              className={`relative rounded-2xl flex flex-col justify-between p-6 transition-all ${
+                isPro
+                  ? "bg-gradient-to-b from-[#16221c] via-[#0E0E10] to-[#0A0A0B] border-2 border-[#81FB84] shadow-[0_0_30px_rgba(129,251,132,0.18)] lg:-translate-y-2"
+                  : "bg-[#0E0E10] border border-[#262626] hover:border-[#444] shadow-xl"
+              }`}
+            >
+              {/* Most Popular Floating Pill */}
+              {isPro && (
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#81FB84] to-[#34D399] text-black text-[11px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-lg flex items-center gap-1">
+                  <Sparkles size={12} /> {plan.badge}
+                </div>
+              )}
 
-              <div className="flex flex-col flex-grow justify-between">
-                <div className="mt-2">
-                  {/* <h3 className="font-medium mb-1 text-sm">
-                    {plan.name === "Free Plan"
-                      ? "Start building - no strings attached"
-                      : plan.name === "Basic Plan"
-                      ? "Essential tools for your job search"
-                      : plan.name === "Pro Plan"
-                      ? "Advanced features for professionals"
-                      : "Pay only when you download"}
-                  </h3> */}
+              {/* Top Card Info */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="text-xl font-bold text-white">{plan.name}</h3>
+                  {!isPro && (
+                    <span className="text-[11px] font-medium text-gray-400 bg-white/5 border border-white/10 px-2.5 py-0.5 rounded-full">
+                      {plan.badge}
+                    </span>
+                  )}
+                </div>
 
-                  <ul className="space-y-3 text-sm">
-                    {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <Check className="w-5 h-5 overflow-visible" />
-                        <span>{feature.name}</span>
+                <p className="text-xs text-gray-400 leading-relaxed min-h-[36px]">
+                  {plan.description}
+                </p>
+
+                {/* Price Display */}
+                <div className="pt-2 pb-4 border-b border-[#262626]">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl sm:text-4xl font-extrabold text-white">
+                      ${displayPrice}
+                    </span>
+                    <span className="text-xs text-gray-400 font-medium">
+                      /{plan.period}
+                    </span>
+                  </div>
+                  {billingCycle === "yearly" && plan.id !== "free" && plan.id !== "pay_per_download" && (
+                    <p className="text-[11px] text-[#81FB84] mt-1 font-medium">
+                      Billed annually (${(displayPrice * 12).toFixed(2)}/yr)
+                    </p>
+                  )}
+                </div>
+
+                {/* Features List */}
+                <div className="space-y-3 pt-2">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-gray-300">
+                    What's included:
+                  </p>
+                  <ul className="space-y-2.5">
+                    {plan.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 text-xs text-gray-300">
+                        <span
+                          className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                            isPro
+                              ? "bg-[#81FB84]/20 text-[#81FB84]"
+                              : "bg-white/10 text-white"
+                          }`}
+                        >
+                          <Check size={11} strokeWidth={3} />
+                        </span>
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
 
-              <button
-                onClick={() => handleClick(plan)}
-                disabled={loadingPlanId === plan.id}
-                className={`text-center flex justify-center items-center w-full bg-white text-sm text-black font-semibold py-2 rounded-md mt-4 transition-all ${
-                  loadingPlanId === plan.id
-                    ? "opacity-60 cursor-not-allowed"
-                    : ""
-                }`}
-              >
-                {loadingPlanId === plan.id
-                  ? language === "de"
-                    ? "Verarbeitung..."
-                    : "Processing..."
-                  : plan.name === "Free Plan"
-                  ? language === "de"
-                    ? "Kostenlose Testversion starten"
-                    : "Start Free Trial"
-                  : language === "de"
-                  ? "Jetzt starten"
-                  : "Get Started"}
-              </button>
-            </div>
+              {/* Action Button */}
+              <div className="pt-6 mt-6 border-t border-[#262626]/50">
+                <button
+                  type="button"
+                  onClick={() => handlePlanSelect(plan)}
+                  className={`w-full py-3 px-4 rounded-xl text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
+                    isPro
+                      ? "bg-[#81FB84] text-black hover:bg-[#a6fca9] shadow-lg shadow-[#81FB84]/20"
+                      : "bg-white text-black hover:bg-gray-200"
+                  }`}
+                >
+                  <span>{plan.buttonText}</span>
+                  <ArrowRight size={15} />
+                </button>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Trust & Guarantee Banner */}
+      <div className="bg-[#0E0E10] border border-[#262626] rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-[#81FB84]/10 border border-[#81FB84]/30 flex items-center justify-center text-[#81FB84] flex-shrink-0">
+            <ShieldCheck size={26} />
           </div>
-        ))}
+          <div>
+            <h4 className="text-base font-bold text-white">
+              14-Day Money-Back Guarantee
+            </h4>
+            <p className="text-xs text-gray-400 mt-0.5">
+              Not satisfied with your generated CV or results? Get an instant, hassle-free refund.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-6 text-xs text-gray-400 font-medium">
+          <div className="flex items-center gap-2">
+            <Check size={16} className="text-[#81FB84]" /> Instant Account Activation
+          </div>
+          <div className="flex items-center gap-2">
+            <Check size={16} className="text-[#81FB84]" /> Cancel Anytime Online
+          </div>
+          <div className="flex items-center gap-2">
+            <Check size={16} className="text-[#81FB84]" /> 256-Bit SSL Encryption
+          </div>
+        </div>
+      </div>
+
+      {/* Frequently Asked Questions */}
+      <div className="max-w-3xl mx-auto space-y-6 pt-6">
+        <div className="text-center space-y-2">
+          <h2 className="text-2xl font-bold text-white">Frequently Asked Questions</h2>
+          <p className="text-gray-400 text-xs sm:text-sm">
+            Everything you need to know about our plans and billing.
+          </p>
+        </div>
+
+        <div className="space-y-3">
+          {pricingFaqs.map((faq, idx) => {
+            const isOpen = openFaq === idx;
+            return (
+              <div
+                key={idx}
+                className="bg-[#0E0E10] border border-[#262626] rounded-xl overflow-hidden transition"
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(isOpen ? null : idx)}
+                  className="w-full p-4 text-left flex items-center justify-between gap-4 text-sm font-semibold text-white hover:text-[#81FB84] transition"
+                >
+                  <span>{faq.q}</span>
+                  <ChevronDown
+                    size={18}
+                    className={`text-gray-400 transform transition-transform duration-200 ${
+                      isOpen ? "rotate-180 text-[#81FB84]" : ""
+                    }`}
+                  />
+                </button>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="px-4 pb-4 text-xs sm:text-sm text-gray-400 leading-relaxed border-t border-[#262626]/40 pt-3"
+                    >
+                      {faq.a}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

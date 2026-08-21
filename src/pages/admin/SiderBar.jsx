@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Logo from "@/assets/adminlogo.png";
+import Logo from "@/components/common/Logo";
 
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import LogOutModal from "./LogOutModal";
 import { useAuth } from "@/hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useEmail } from "@/hooks/useEmail";
 // import { Logout } from "@/components/common/adminIcon/CustomIcon";
 
 const SideBar = ({ sidebar, open, setOpen }) => {
-    const IMG_URL = import.meta.env.VITE_IMG_URL;
-  const axiosPublic = useAxiosPublic();
-  const { language } = useEmail();
   const location = useLocation();
   const [activeParentIndex, setActiveParentIndex] = useState(null);
-const {user}=useAuth()
-// console.log(user);
+  const { language } = useEmail();
+  const {user} = useAuth();
   useEffect(() => {
     sidebar.forEach((item, index) => {
       if (item.sublink) {
@@ -44,11 +39,7 @@ const {user}=useAuth()
   const toggleSubmenu = (index) => {
     setActiveParentIndex((prev) => (prev === index ? null : index));
   };
-  const {data:navData}=useQuery({
-    queryKey: ["navData", language],
-    queryFn: () =>
-      axiosPublic.get("/about-system/", { params: { lan: language } }),
-  })
+
 
   return (
     <>
@@ -70,26 +61,9 @@ const {user}=useAuth()
         bg-[#0E0E10] border-r-[1px] border-[#262626] backdrop-blur-md xl:px-8 px-4 flex flex-col gap-8 shadow-md xl:static fixed transition-all duration-300`}
       >
         {/* Logo */}
-        <Link to={"/"}>
-          <div className="flex justify-center gap-4 items-center">
-            <div className=" w-[50px] h-[50px]">
-              <img
-                src={IMG_URL + navData?.data?.data?.logo}
-                alt="Safe"
-                className="object-contain w-full h-full "
-              />
-            </div>
-            <div className=" flex flex-col gap-1">
-              <p className=" text-[20px] font-semibold text-[#FFF]">
-               {user?.profile?.first_name} {user?.profile?.last_name}
-              </p>
-              <p className="text-[#9B9B9B] text-sm font-normal">
-                {" "}
-                {user?.profile?.user?.email}
-              </p>
-            </div>
-          </div>
-        </Link>
+        <div className="pb-2 border-b border-[#262626]">
+          <Logo size="md" href="/" />
+        </div>
 
         {/* Navigation */}
         <div className="flex flex-col gap-3">

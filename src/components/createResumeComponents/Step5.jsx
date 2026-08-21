@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Title from "../common/Title";
 import { FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { useFormContext } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { toast } from "sonner";
 
-import { useEmail } from "@/hooks/useEmail";
-import { toast } from "react-toastify";
+const mockSkills = [
+  "JavaScript", "TypeScript", "React", "Node.js", "Express", "Next.js", "Python",
+  "HTML5", "CSS3", "TailwindCSS", "Git & GitHub", "REST APIs", "GraphQL",
+  "SQL", "MongoDB", "PostgreSQL", "Docker", "AWS", "Agile / Scrum", "Figma",
+  "Problem Solving", "Communication", "Leadership", "Teamwork", "Project Management"
+];
 
 const Step5 = () => {
   const {
@@ -16,186 +19,137 @@ const Step5 = () => {
     register,
     formState: { errors },
   } = useFormContext();
-  const axiosPublic = useAxiosPublic();
-  const { language } = useEmail();
-const [newSkill, setNewSkill] = useState("");
-  // Selected skills
+
+  const [newSkill, setNewSkill] = useState("");
   const skills = watch("skills") || [];
-
-  // Search state
   const [search, setSearch] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  // Debounce effect
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedSearch(search);
-    }, 400);
-    return () => clearTimeout(handler);
-  }, [search]);
-
-  // Register field with safe validation
   register("skills", {
     validate: (value) =>
       (Array.isArray(value) && value.length > 0) ||
-      (language === "de"
-        ? "Bitte wählen Sie mindestens eine Fähigkeit aus."
-        : "Please select at least one skill."), 
+      "Please select at least one skill.",
   });
 
-  // Query for search skills
-  const { data: skillsAll, isLoading } = useQuery({
-    queryKey: ["search-skills", language, debouncedSearch],
-    queryFn: async () => {
-      const res = await axiosPublic.get(
-        `/search-skills/?lan=${language}&q=${debouncedSearch}`
-      );
-      return res.data;
-    },
-    enabled: !!language, // run only when language is available
-  });
+  const filteredSkills = mockSkills.filter((s) =>
+    s.toLowerCase().includes(search.toLowerCase())
+  );
 
   const handleSelectSkill = (skill) => {
     if (skills.some((s) => s.skill === skill)) return;
     const updated = [...skills, { skill }];
-    setValue("skills", updated, { shouldValidate: true });
+    setValue("skills", updated, { shouldValidate: true, shouldDirty: true });
   };
 
-  const handleRemoveSkill = (skillToRemove) => {
-    const updated = skills.filter((s) => s.skill !== skillToRemove);
-    setValue("skills", updated, { shouldValidate: true });
+  const handleRemoveSkill = (skill) => {
+    const updated = skills.filter((s) => s.skill !== skill);
+    setValue("skills", updated, { shouldValidate: true, shouldDirty: true });
   };
 
-  const handleAddNewSkill = async () => {
-    if (!newSkill.trim()) return;
-    try {
-      const res = await axiosPublic.post(`/add-skill/?lan=${language}`, { name: newSkill });
-      handleSelectSkill(newSkill); // add new skill to selected
-      setNewSkill(""); // clear input
-      queryClient.invalidateQueries(["search-skills", language]); // refresh skills list
-      toast.success()
-    } catch (err) {
-      toast.error(err?.response?.data?.message)
+  const handleAddCustomSkill = () => {
+    const trimmed = newSkill.trim();
+    if (!trimmed) {
+      toast.warning("Please type a skill name first.");
+      return;
     }
+    if (skills.some((s) => s.skill.toLowerCase() === trimmed.toLowerCase())) {
+      toast.info("This skill is already added.");
+      return;
+    }
+    handleSelectSkill(trimmed);
+    setNewSkill("");
   };
 
   return (
-    <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
-      <div className="w-[800px] mx-auto">
-        {/* Title */}
-        <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
-          <Title level="title24">
-            {language === "de"
-              ? "Heben Sie Ihre Fähigkeiten hervor"
-              : "Highlight Your Skills"}
-          </Title>
-          <Title level="title14">
-            {language === "de"
-              ? "Zeigen Sie sowohl Ihre technischen als auch Ihre sozialen Fähigkeiten, um den Anforderungen der Stelle gerecht zu werden."
-              : "Showcase both your technical expertise and soft skills to match job requirements."}
-          </Title>
-        </div>
+    <div className="flex flex-col items-center justify-center mt-4">
+      {/* Title */}
+      <div className="text-center">
+        <Title level="title48">Skills & Expertise</Title>
+        <Title level="title20" className="mt-2">
+          Select or add your top technical and professional skills.
+        </Title>
+      </div>
 
-        <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
-          <Title level="title40">
-            {language === "de"
-              ? "Heben Sie Ihre Fähigkeiten hervor"
-              : "Highlight Your Skills"}
-          </Title>
-          <Title level="title20">
-            {language === "de"
-              ? "Zeigen Sie sowohl Ihre technischen als auch Ihre sozialen Fähigkeiten, um den Anforderungen der Stelle gerecht zu werden."
-              : "Showcase both your technical expertise and soft skills to match job requirements."}
-          </Title>
-        </div>
-
-        {/* Selected Skills */}
-        <p className="text-sm mb-2">
-          {language === "de"
-            ? "Ausgewählte Fähigkeiten *"
-            : "Selected Skills *"}
-        </p>
-
-        <div className="flex flex-wrap gap-3 mb-1">
-          {skills.map((skillObj) => (
-            <div
-              key={skillObj.skill}
-              className="flex items-center bg-[#0E0E10] border border-[#2A2A2A] px-3 py-1.5 rounded-full text-sm"
-            >
-              <span className="mr-2">{skillObj.skill}</span>
-              <button
-                type="button"
-                onClick={() => handleRemoveSkill(skillObj.skill)}
+      <div className="mt-6 w-full max-w-xl">
+        {/* Selected skills */}
+        <div className="flex flex-wrap gap-2 min-h-[40px] p-2 bg-[#0E0E10] border border-[#262626] rounded-md">
+          {skills?.length > 0 ? (
+            skills.map((item, index) => (
+              <span
+                key={index}
+                className="flex items-center gap-2 bg-[#1A1A1A] border border-[#333] px-3 py-1 rounded-full text-sm font-medium text-white shadow-sm"
               >
-                <IoClose className="text-white hover:text-red-400" size={14} />
-              </button>
-            </div>
-          ))}
+                {item.skill}
+                <button
+                  type="button"
+                  onClick={() => handleRemoveSkill(item.skill)}
+                  className="text-gray-400 hover:text-red-500 transition-colors"
+                >
+                  <IoClose size={16} />
+                </button>
+              </span>
+            ))
+          ) : (
+            <span className="text-gray-500 text-sm">No skills selected yet</span>
+          )}
         </div>
 
-        {/* Error */}
         {errors.skills && (
-          <p className="text-red-500 text-xs mb-2">{errors.skills.message}</p>
+          <p className="text-red-500 text-sm mt-2">{errors.skills.message}</p>
         )}
 
-        {/* Search Input */}
-        <p className="text-sm mb-2">
-          {language === "de" ? "Fähigkeit" : "Skill"}
-        </p>
-
-        <div className="relative w-full">
+        {/* Custom skill input */}
+        <div className="mt-4 flex gap-2">
           <input
             type="text"
-            placeholder={language === "de" ? "Suchen..." : "Search..."}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full p-2 pl-10 text-xs rounded-md bg-[#0E0E10] border border-[#262626] placeholder:text-gray-400 focus:outline-none"
-          />
-          <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
-        </div>
-
-        {/* Suggested Skills */}
-        <p className="mt-5 text-sm">
-          {language === "de"
-            ? "Vorgeschlagene Fähigkeiten"
-            : "Suggested Skills"}
-        </p>
-
-        <div className="flex flex-wrap gap-2 mt-2">
-          {isLoading && <p className="text-xs text-gray-400">Loading...</p>}
-          {!isLoading &&
-            skillsAll?.data?.slice(0,20)?.map((skill, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => handleSelectSkill(skill?.name)}
-                disabled={skills.some((s) => s.skill === skill?.name)}
-                className={`px-3 py-1.5 rounded-full text-sm border border-[#2A2A2A] bg-[#0E0E10] hover:border-white ${
-                  skills.some((s) => s.skill === skill?.name)
-                    ? "opacity-50 cursor-not-allowed"
-                    : ""
-                }`}
-              >
-                {skill?.name}
-              </button>
-            ))}
-        </div>
-
-          <div className="mt-5 flex gap-2 items-center">
-          <input
-            type="text"
-            placeholder={language === "de" ? "Neue Fähigkeit hinzufügen" : "Add new skill"}
             value={newSkill}
             onChange={(e) => setNewSkill(e.target.value)}
-            className="flex-1 p-2 text-xs rounded-md bg-[#0E0E10] border border-[#262626] placeholder:text-gray-400 focus:outline-none"
+            placeholder="Add a custom skill..."
+            className="flex-1 bg-[#0E0E10] border border-[#262626] rounded-md p-2 text-sm text-white focus:outline-none focus:border-white"
           />
           <button
             type="button"
-            onClick={handleAddNewSkill}
-            className="px-4 py-2 text-sm rounded-md bg-blue-600 hover:bg-blue-700"
+            onClick={handleAddCustomSkill}
+            className="px-4 py-2 bg-white text-black font-semibold text-sm rounded-md hover:bg-gray-200 transition-colors"
           >
-            {language === "de" ? "Hinzufügen" : "Add"}
+            Add
           </button>
+        </div>
+
+        {/* Search Input */}
+        <div className="mt-4">
+          <div className="relative">
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search suggestions..."
+              className="w-full bg-[#0E0E10] border border-[#262626] rounded-md p-2 pl-9 text-sm text-white focus:outline-none focus:border-white"
+            />
+            <FiSearch className="absolute left-3 top-3 text-gray-400" />
+          </div>
+        </div>
+
+        {/* Suggested Skills */}
+        <p className="mt-4 text-sm font-medium text-gray-300">Suggested Skills</p>
+        <div className="flex flex-wrap gap-2 mt-2 max-h-48 overflow-y-auto p-1">
+          {filteredSkills.map((skill, index) => {
+            const isSelected = skills.some((s) => s.skill === skill);
+            return (
+              <button
+                type="button"
+                key={index}
+                disabled={isSelected}
+                onClick={() => handleSelectSkill(skill)}
+                className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+                  isSelected
+                    ? "bg-gray-800 border-gray-700 text-gray-500 cursor-not-allowed"
+                    : "bg-[#1A1A1A] border-[#333] hover:border-white text-white"
+                }`}
+              >
+                + {skill}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

@@ -2,15 +2,10 @@ import { EmailContext } from "@/context";
 import { useState, useEffect } from "react";
 
 const EmailProvider = ({ children }) => {
-  // Initialize from localStorage if exists
-  const [language, setLanguage] = useState(() => localStorage.getItem("language") || "en");
+  const [language, setLanguage] = useState("en");
   const [email, setEmail] = useState(() => localStorage.getItem("email") || "");
   const [resetToken, setResetToken] = useState(() => localStorage.getItem("resetToken") || "");
-   const [activeStep, setActiveStep] = useState(0);
-  // Sync language with localStorage
-  useEffect(() => {
-    localStorage.setItem("language", language);
-  }, [language]);
+  const [activeStep, setActiveStep] = useState(0);
 
   // Sync email with localStorage
   useEffect(() => {
@@ -22,9 +17,15 @@ const EmailProvider = ({ children }) => {
     localStorage.setItem("resetToken", resetToken);
   }, [resetToken]);
 
+  // Clear any leftover language setting
+  useEffect(() => {
+    localStorage.setItem("language", "en");
+    localStorage.setItem("selectedLanguage", "en");
+  }, []);
+
   return (
     <EmailContext.Provider
-      value={{ email, setEmail, resetToken, setResetToken, language, setLanguage, activeStep, setActiveStep }}
+      value={{ email, setEmail, resetToken, setResetToken, language: "en", setLanguage, activeStep, setActiveStep }}
     >
       {children}
     </EmailContext.Provider>

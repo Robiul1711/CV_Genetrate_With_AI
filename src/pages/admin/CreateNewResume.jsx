@@ -14,143 +14,68 @@ import { Link, useLocation } from "react-router-dom";
 import StepProgressBar from "@/components/common/StepProgressBar";
 import { useForm, FormProvider } from "react-hook-form";
 import SelectLangaugeStep from "@/components/createResumeComponents/SelectLangaugeStep";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useResume } from "@/providers/ResumeContext";
-import {
-  showLoadingToast,
-  updateToastError,
-  updateToastSuccess,
-} from "@/lib/utils";
 import { useEmail } from "@/hooks/useEmail";
-import Parameter from "@/components/createResumeComponents/Parameter";
-import Tailor_Modal from "@/components/createResumeComponents/Tailor_Modal";
 import TailorStep from "@/components/createResumeComponents/TailorStep";
-const textMap = {
-  en: {
-    pageTitle: "Create New Resume",
-    pageSubTitle: "Build your resume step-by-step with AI assistance",
-    next: "Next",
-    back: "Back",
-    generate: "Generate Resume With AI",
-    generating: "Generating...",
-    chooseTemplate: "Choose Resume Template",
-    editResume: "Edit Resume",
-  },
-  de: {
-    pageTitle: "Neuen Lebenslauf erstellen",
-    pageSubTitle:
-      "Erstellen Sie Ihren Lebenslauf Schritt für Schritt mit KI-Unterstützung",
-    next: "Weiter",
-    back: "Zurück",
-    generate: "Lebenslauf mit KI generieren",
-    generating: "Wird generiert...",
-    chooseTemplate: "Lebenslaufvorlage auswählen",
-    editResume: "Lebenslauf bearbeiten",
-  },
-};
 
 const CreateNewResume = () => {
-  const { setAllResumeData, imageset, setImageSet } = useResume();
-  // const [activeStep, setActiveStep] = useState(0);
+  const { setAllResumeData, setImageSet } = useResume();
   const [resumeId, setResumeId] = useState(null);
   const [isCreatingResume, setIsCreatingResume] = useState(false);
-  const axiosSecure = useAxiosSecure();
-  const { language, activeStep, setActiveStep } = useEmail(); // 'en' or 'de'
+  const { activeStep, setActiveStep } = useEmail();
   const methods = useForm({
     mode: "onChange",
   });
-
-  const resume_language = language;
-  const t = textMap[resume_language];
   const location = useLocation();
 
   useEffect(() => {
     if (location.state?.step) {
-      setActiveStep(location.state.step); // 👈 keep 9
+      setActiveStep(location.state.step);
     } else {
-      setActiveStep(0); // 👈 reset if no state
+      setActiveStep(0);
     }
   }, [location.state, setActiveStep]);
 
-  const ResumeMutation = useMutation({
-    mutationFn: async (formData) => {
-      setIsCreatingResume(true);
-      const response = await axiosSecure.post("/create-resume/", formData, {
-        headers: { "Content-Type": "application/json" },
-      });
-      return response.data;
-    },
-    // onMutate: () => ({ toastId: showLoadingToast(t.generate) }),
-    onSuccess: (data, _variables, context) => {
-      setAllResumeData(data);
-      setImageSet(data?.data?.image);
-      setResumeId(data.id || data.resumeId);
-      // updateToastSuccess(
-      //   context.toastId,
-
-      // );
-
-      toast.success(t.generate);
-      setActiveStep(9);
-      setIsCreatingResume(false);
-    },
-    onError: (error, _variables, context) => {
-      const errorMessage =
-        error?.response?.data?.message || "Something went wrong!";
-      toast.error(errorMessage);
-      setIsCreatingResume(false);
-    },
-  });
-
   const steps = [
     {
-      label: resume_language === "de" ? "Ziel wählen" : "Choose Your Goal",
+      label: "Choose Your Goal",
       component: <Step1 />,
     },
     {
-      label: resume_language === "de" ? "Persönliche Infos" : "Personal Info",
+      label: "Personal Info",
       component: <Step2 />,
     },
     {
-      label: resume_language === "de" ? "Erfahrung" : "Experience",
+      label: "Experience",
       component: <Step3 />,
     },
     {
-      label: resume_language === "de" ? "Bildung" : "Education",
+      label: "Education",
       component: <Step4 />,
     },
     {
-      label: resume_language === "de" ? "Fähigkeiten" : "Skills",
+      label: "Skills",
       component: <Step5 />,
     },
     {
-      label:
-        resume_language === "de" ? "Sprachkenntnisse" : "Languages Proficiency",
+      label: "Languages Proficiency",
       component: <Step6 />,
     },
     {
-      label:
-        resume_language === "de"
-          ? "Zertifikate / Training"
-          : "Certificate / Train",
+      label: "Certificate / Training",
       component: <Step7 />,
     },
-
     {
-      label: resume_language === "de" ? "Sprache" : "Language",
+      label: "Language",
       component: <SelectLangaugeStep />,
     },
     {
-      label:
-        resume_language === "de"
-          ? "Stimme des Dokuments anpassen"
-          : "Tailor Your Document’s Voice",
+      label: "Tailor Your Document’s Voice",
       component: <TailorStep />,
     },
     {
-      label: resume_language === "de" ? "Lebenslauf wählen" : "Choose Resume",
+      label: "Choose Resume",
       component: (
         <Step8
           activeStep={activeStep}
@@ -160,10 +85,8 @@ const CreateNewResume = () => {
         />
       ),
     },
-
     {
-      label:
-        resume_language === "de" ? "Vorschau & Download" : "Preview & Download",
+      label: "Preview & Download",
       component: <Step9 resumeId={resumeId} setResumeId={setResumeId} />,
     },
   ];
@@ -175,71 +98,30 @@ const CreateNewResume = () => {
     if (activeStep > 0) setActiveStep((prev) => prev - 1);
   };
 
-  // const onSubmit = (data) => {
-  //   data.goal = String(data.goal).trim();
-  //   console.log(data);
-  //   if (activeStep === 8) ResumeMutation.mutate(data);
-  //   else handleNext();
-  // };
+  const onSubmit = (data) => {
+    data.goal = String(data.goal || "").trim();
 
-const onSubmit = (data) => {
-  // Trim goal field
-  data.goal = String(data.goal).trim();
-
-  // --- Clean up work experiences ---
-  if (Array.isArray(data.work_experiences)) {
-    data.work_experiences = data.work_experiences.filter((exp) => {
-      const hasAnyValue =
-        exp.job_title?.trim() ||
-        exp.company_name?.trim() ||
-        exp.start_date?.trim() ||
-        exp.end_date?.trim() ||
-        exp.responsibilities?.trim() ||
-        exp.still_working_here === true;
-
-      return Boolean(hasAnyValue);
-    });
-
-    if (data.work_experiences.length === 0) {
-      delete data.work_experiences;
+    if (activeStep === 8) {
+      setIsCreatingResume(true);
+      setTimeout(() => {
+        setAllResumeData(data);
+        setResumeId("demo-resume-1");
+        toast.success("Resume Generated Successfully with AI!");
+        setActiveStep(9);
+        setIsCreatingResume(false);
+      }, 1000);
+    } else {
+      handleNext();
     }
-  }
-
-  // --- Clean up courses and training details ---
-  if (Array.isArray(data.courses_and_training_details)) {
-    data.courses_and_training_details =
-      data.courses_and_training_details.filter((course) => {
-        const hasAnyValue =
-          course.name_of_institute?.trim() ||
-          course.course_name?.trim() ||
-          course.start_date?.trim() ||
-          course.end_date?.trim();
-
-        return Boolean(hasAnyValue);
-      });
-
-    if (data.courses_and_training_details.length === 0) {
-      delete data.courses_and_training_details;
-    }
-  }
-
-  // console.log(data);
-
-  // Submit or go to next step
-  if (activeStep === 8) {
-    ResumeMutation.mutate(data);
-  } else {
-    handleNext();
-  }
-};
+  };
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         {/* Header */}
         <div className="flex flex-col gap-2">
-          <Title level="title32">{t.pageTitle}</Title>
-          <Title level="title22">{t.pageSubTitle}</Title>
+          <Title level="title32">Create New Resume</Title>
+          <Title level="title22">Build your resume step-by-step with AI assistance</Title>
         </div>
 
         {/* Step Progress */}
@@ -253,7 +135,7 @@ const onSubmit = (data) => {
           {isCreatingResume ? (
             <div className="flex flex-col items-center justify-center p-8">
               <Loader2 className="h-12 w-12 animate-spin text-white mb-4" />
-              <p className="text-white text-lg">{t.generating}</p>
+              <p className="text-white text-lg">Generating Resume With AI...</p>
             </div>
           ) : (
             steps[activeStep].component
@@ -269,44 +151,37 @@ const onSubmit = (data) => {
               onClick={handleBack}
               disabled={activeStep === 0 || isCreatingResume}
             >
-              {t.back}
+              Back
             </button>
           ) : (
             <div />
           )}
 
-        {activeStep === 8 ? ( 
-  // ✅ Generate button at Step 8
-  <button
-    type="submit"
-    className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-    disabled={isCreatingResume}
-  >
-    {isCreatingResume ? t.generating : t.generate}
-  </button>
-) : activeStep === steps.length - 1 ? (
-  // ✅ Edit Resume Link
-  <Link
-    to={`/dashboard/edit-resume/${resumeId}`}
-    className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md flex items-center gap-2 hover:bg-white hover:text-black transition-colors duration-300"
-  >
-    <Edit size={18} /> {t.editResume}
-  </Link>
-) : activeStep === 9 ? (
-  // ❌ Hide button on step 9
-  null
-) : (
-  // ✅ Default NEXT button
-  <button
-    type="button"
-    className="font-semibold border border-white bg-white text-black px-3 py-2 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:cursor-not-allowed"
-    onClick={methods.handleSubmit(() => handleNext())}
-    disabled={isCreatingResume}
-  >
-    {t.next}
-  </button>
-)}
-
+          {activeStep === 8 ? (
+            <button
+              type="submit"
+              className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              disabled={isCreatingResume}
+            >
+              {isCreatingResume ? "Generating..." : "Generate Resume With AI"}
+            </button>
+          ) : activeStep === steps.length - 1 ? (
+            <Link
+              to={`/dashboard/edit-resume/${resumeId || "demo-resume-1"}`}
+              className="font-semibold border border-white text-white px-3 py-2 text-sm rounded-md flex items-center gap-2 hover:bg-white hover:text-black transition-colors duration-300"
+            >
+              <Edit size={18} /> Edit Resume
+            </Link>
+          ) : activeStep === 9 ? null : (
+            <button
+              type="button"
+              className="font-semibold border border-white bg-white text-black px-3 py-2 text-sm rounded-md hover:bg-[#69CA6A] hover:text-white transition-colors duration-300 disabled:cursor-not-allowed"
+              onClick={methods.handleSubmit(() => handleNext())}
+              disabled={isCreatingResume}
+            >
+              Next
+            </button>
+          )}
         </div>
       </form>
     </FormProvider>

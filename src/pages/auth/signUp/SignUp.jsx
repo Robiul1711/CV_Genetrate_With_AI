@@ -1,23 +1,20 @@
 import React, { useState } from "react";
-import logo from "../../../assets/images/logo.png";
+import Logo from "@/components/common/Logo";
 import Title from "@/components/common/Title";
 import { Check, Eye, EyeOff, Mail } from "lucide-react";
 import { Lock } from "@/components/CustomIcons/CustomIcon";
 import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useEmail } from "@/hooks/useEmail";
 
 const SignUp = () => {
-  const { language, setEmail } = useEmail(); // 'en' or 'de'
-  const IMG_URL = import.meta.env.VITE_IMG_URL;
+  const { setEmail } = useEmail();
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
   const [checked, setChecked] = useState(false);
   const [serverError, setServerError] = useState(null);
-  const axiosPublic = useAxiosPublic();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -30,94 +27,23 @@ const SignUp = () => {
 
   const password = watch("password");
 
-  // Language content
-  const text = {
-    en: {
-      createAccount: "Create Your Account",
-      subtitle:
-        "Join Clever-CV to build, optimize, and land your dream job with AI-powered resumes and cover letters.",
-      firstName: "First Name",
-      lastName: "Last Name",
-      email: "Email",
-      emailPlaceholder: "andrew.ainsley@yourdomain.com",
-      password: "Password",
-      passwordPlaceholder: "••••••••",
-      confirmPassword: "Confirm Password",
-      terms: "I agree to the ",
-      signUp: "Sign Up",
-      processing: "Processing...",
-      alreadyAccount: "Already have an account?",
-      signIn: "Sign In",
-      agreeError: "You must agree to the terms and conditions",
-      passwordError:
-        "Password must be at least 8 characters, include uppercase, lowercase, number, and special character",
-        and: "and",
-    },
-    de: {
-      createAccount: "Erstellen Sie Ihr Konto",
-      subtitle:
-        "Melden Sie sich bei Clever-CV an, um Ihren Lebenslauf zu erstellen, zu optimieren und mit KI-gestützten Anschreiben Ihren Traumjob zu erreichen.",
-      firstName: "Vorname",
-      lastName: "Nachname",
-      email: "E-Mail",
-      emailPlaceholder: "andrew.ainsley@ihrdomain.com",
-      password: "Passwort",
-      passwordPlaceholder: "••••••••",
-      confirmPassword: "Passwort bestätigen",
-      terms: "Ich stimme zu",
-      signUp: "Registrieren",
-      processing: "Verarbeitung...",
-      alreadyAccount: "Sie haben bereits ein Konto?",
-      signIn: "Anmelden",
-      agreeError: "Sie müssen den Nutzungsbedingungen zustimmen",
-      passwordError:
-        "Das Passwort muss mindestens 8 Zeichen lang sein und Großbuchstaben, Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten",
-        and: "und",
-    },
-  };
-
-  const t = text[language || "en"];
-
-  const signUpMutation = useMutation({
-    mutationFn: async (data) => {
-      const payload = {
-        first_name: data.firstName,
-        last_name: data.lastName,
-        email: data.email,
-        password: data.password,
-      };
-      const res = await axiosPublic.post(`/signup/`, payload);
-      return res.data;
-    },
-    onSuccess: (data) => {
-      reset();
-      setServerError(null);
-      toast.success(data?.message);
-      navigate("/otp-verify");
-    },
-    onError: (error) => {
-      setServerError(
-        error?.response?.data?.message || "Something went wrong. Try again."
-      );
-      // console.log(error);
-    },
-  });
-
+  // Mock signup
   const onSubmit = async (data) => {
     if (!checked) {
-      setServerError(t.agreeError);
+      setServerError("You must agree to the terms and conditions");
       return;
     }
     setServerError(null);
+    setIsSubmitting(true);
     setEmail(data?.email);
-    signUpMutation.mutate(data);
-  };
 
-    const {data:navData}=useQuery({
-    queryKey: ["navData", language],
-    queryFn: () =>
-      axiosPublic.get("/about-system/", { params: { lan: language } }),
-  })
+    setTimeout(() => {
+      toast.success("Account created successfully!");
+      setIsSubmitting(false);
+      reset();
+      navigate("/sign-in");
+    }, 800);
+  };
 
   return (
     <div className="section-padding-x section-padding-y md:py-4 min-h-screen flex justify-center items-center overflow-auto md:overflow-y-hidden">
@@ -127,20 +53,18 @@ const SignUp = () => {
         className="w-full max-w-4xl px-4 sm:px-4 md:px-12 lg:px-24 xl:px-32 py-5 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
         noValidate
       >
-        <div className="flex justify-center mb-4">
-          <Link to={"/"}>
-            <img src={IMG_URL+navData?.data?.data?.logo} alt="logo" className="h-12 md:h-16" />
-          </Link>
+        <div className="flex justify-center mb-5">
+          <Logo size="lg" />
         </div>
 
         <h2 className="text-xl font-semibold text-center mb-2">
-          {t.createAccount}
+          Create Your Account
         </h2>
         <Title
           level="title18"
           className="text-center !text-[14px] pb-3 !font-normal"
         >
-          {t.subtitle}
+          Join Clever-CV to build, optimize, and land your dream job with AI-powered resumes and cover letters.
         </Title>
 
         {serverError && (
@@ -153,15 +77,15 @@ const SignUp = () => {
         <div className="flex flex-col md:flex-row gap-5 w-full pt-2">
           <div className="mb-1 w-full">
             <label htmlFor="firstName" className="block mb-2 text-sm">
-              {t.firstName}
+              First Name
             </label>
             <input
               type="text"
               id="firstName"
               {...register("firstName", {
-                required: t.firstName + " is required",
+                required: "First Name is required",
               })}
-              placeholder={t.firstName}
+              placeholder="First Name"
               className={`w-full px-3 py-1.5 text-xs border ${
                 errors.firstName ? "border-red-500" : "border-[#666666]"
               } text-[15px] rounded-lg bg-black focus:outline-none`}
@@ -175,15 +99,15 @@ const SignUp = () => {
 
           <div className="mb-1 w-full">
             <label htmlFor="lastName" className="block mb-2 text-sm">
-              {t.lastName}
+              Last Name
             </label>
             <input
               type="text"
               id="lastName"
               {...register("lastName", {
-                required: t.lastName + " is required",
+                required: "Last Name is required",
               })}
-              placeholder={t.lastName}
+              placeholder="Last Name"
               className={`w-full px-3 py-1.5 text-xs border ${
                 errors.lastName ? "border-red-500" : "border-[#666666]"
               } text-[15px] rounded-lg bg-black focus:outline-none`}
@@ -199,7 +123,7 @@ const SignUp = () => {
         {/* Email Input */}
         <div className="mb-1 relative">
           <label htmlFor="email" className="block mb-2 text-sm">
-            {t.email}
+            Email
           </label>
           <div
             className={`relative flex items-center w-full px-3 py-1.5 gap-3 !text-xs md:text-base border rounded-lg ${
@@ -211,13 +135,13 @@ const SignUp = () => {
               type="email"
               id="email"
               {...register("email", {
-                required: t.email + " is required",
+                required: "Email is required",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   message: "Invalid email address",
                 },
               })}
-              placeholder={t.emailPlaceholder}
+              placeholder="andrew.ainsley@yourdomain.com"
               className="w-full bg-black focus:outline-none"
             />
           </div>
@@ -231,7 +155,7 @@ const SignUp = () => {
           {/* Password */}
           <div className="mb-1 relative w-full">
             <label htmlFor="password" className="block mb-2 text-sm">
-              {t.password}
+              Password
             </label>
             <div className="relative">
               <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
@@ -241,14 +165,14 @@ const SignUp = () => {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 {...register("password", {
-                  required: t.password + " is required",
+                  required: "Password is required",
                   pattern: {
                     value:
                       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#()[\]{}<>~_+=|\\/.,:;'"-]).{8,}$/,
-                    message: t.passwordError, // ✅ now uses translation
+                    message: "Password must be at least 8 characters, include uppercase, lowercase, number, and special character",
                   },
                 })}
-                placeholder={t.passwordPlaceholder}
+                placeholder="••••••••"
                 className={`w-full px-3 py-1.5 pl-10 !text-xs border ${
                   errors.password ? "border-red-500" : "border-[#666666]"
                 } rounded-lg bg-black`}
@@ -270,7 +194,7 @@ const SignUp = () => {
           {/* Confirm Password */}
           <div className="mb-1 relative w-full">
             <label htmlFor="confirmPassword" className="block mb-2 text-sm">
-              {t.confirmPassword}
+              Confirm Password
             </label>
             <div className="relative">
               <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
@@ -280,11 +204,11 @@ const SignUp = () => {
                 type={showPassword1 ? "text" : "password"}
                 id="confirmPassword"
                 {...register("confirmPassword", {
-                  required: t.confirmPassword + " is required",
+                  required: "Please confirm your password",
                   validate: (value) =>
                     value === password || "Passwords do not match",
                 })}
-                placeholder={t.passwordPlaceholder}
+                placeholder="••••••••"
                 className={`w-full px-3 py-1.5 pl-10 !text-xs border ${
                   errors.confirmPassword ? "border-red-500" : "border-[#666666]"
                 } rounded-lg bg-black`}
@@ -323,26 +247,25 @@ const SignUp = () => {
               className="hidden"
             />
             <span className="text-sm flex gap-2">
-              {t.terms.split("terms of service")[0]}
+              I agree to the{" "}
               <Link
                 to="/tearms-and-condition"
                 target="_blank"
                 className="text-[#81FB84] underline"
               >
-                {language === "de" ? "Servicebedingungen" : "terms of service"}
-              </Link>
-              {t.terms.split("privacy policy")[1]}
-              <span>{language === "de" ? "und" : "and"}</span>
+                terms of service
+              </Link>{" "}
+              and{" "}
               <Link
                 to="/privacy-policy"
                 target="_blank"
                 className="text-[#81FB84] underline"
               >
-                {language === "de" ? "Datenschutzrichtlinie" : "privacy policy"}
+                privacy policy
               </Link>
             </span>
           </label>
-          {!checked && serverError === t.agreeError && (
+          {!checked && serverError === "You must agree to the terms and conditions" && (
             <p className="mt-1 text-xs text-red-500">{serverError}</p>
           )}
         </div>
@@ -350,20 +273,20 @@ const SignUp = () => {
         {/* Submit */}
         <button
           type="submit"
-          disabled={signUpMutation.isPending}
+          disabled={isSubmitting}
           className={`w-full ${
-            signUpMutation.isPending ? "bg-gray-400" : "bg-[#FFF]"
+            isSubmitting ? "bg-gray-400" : "bg-[#FFF]"
           } text-black py-2 my-3 text-sm font-medium rounded-lg flex justify-center items-center gap-2`}
         >
-          {signUpMutation.isPending ? t.processing : t.signUp}
+          {isSubmitting ? "Processing..." : "Sign Up"}
         </button>
 
         {/* Already Account */}
         <p className="text-center text-sm my-3">
-          {t.alreadyAccount}{" "}
+          Already have an account?{" "}
           <Link to={"/sign-in"}>
             <span className="font-medium cursor-pointer text-[#81FB84] underline">
-              {t.signIn}
+              Sign In
             </span>
           </Link>
         </p>

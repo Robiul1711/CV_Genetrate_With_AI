@@ -1,20 +1,16 @@
-import { useResume } from "@/providers/ResumeContext";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { useFormContext } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
-import { useAuth } from "@/hooks/useAuth";
-import { useEmail } from "@/hooks/useEmail";
+
+const mockSkills = [
+  "JavaScript", "TypeScript", "React", "Node.js", "Express", "Next.js", "Python",
+  "HTML5", "CSS3", "TailwindCSS", "Git & GitHub", "REST APIs", "GraphQL",
+  "SQL", "MongoDB", "PostgreSQL", "Docker", "AWS", "Agile / Scrum", "Figma",
+  "Problem Solving", "Communication", "Leadership", "Teamwork", "Project Management"
+];
 
 const StepFour = () => {
-  const { allRedumeData } = useResume();
-  const data = allRedumeData?.data;
-
-  const { language } = useEmail();
-  const axiosPublic = useAxiosPublic();
-
   const {
     setValue,
     watch,
@@ -23,36 +19,17 @@ const StepFour = () => {
   } = useFormContext();
 
   const formSkills = watch("skills") || [];
-
   const [search, setSearch] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  // Debounce search input
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedSearch(search);
-    }, 400);
-    return () => clearTimeout(handler);
-  }, [search]);
-
-  // Register skills field with validation
   register("skills", {
     validate: (value) =>
       (Array.isArray(value) && value.length > 0) ||
       "Please select at least one skill",
   });
 
-  // Fetch skills from API
-  const { data: skillsAll, isLoading } = useQuery({
-    queryKey: ["resume-edit-skills", language, debouncedSearch],
-    queryFn: async () => {
-      const res = await axiosPublic.get(
-        `/search-skills/?lan=${language}&q=${debouncedSearch}`
-      );
-      return res.data;
-    },
-    enabled: !!language,
-  });
+  const filteredSkills = mockSkills.filter((s) =>
+    s.toLowerCase().includes(search.toLowerCase())
+  );
 
   const handleSelectSkill = (skill) => {
     if (!formSkills.some((s) => s.skill === skill)) {
@@ -61,76 +38,77 @@ const StepFour = () => {
     }
   };
 
-  const handleRemoveSkill = (skillToRemove) => {
-    const updated = formSkills.filter((s) => s.skill !== skillToRemove);
+  const handleRemoveSkill = (skill) => {
+    const updated = formSkills.filter((s) => s.skill !== skill);
     setValue("skills", updated, { shouldValidate: true, shouldDirty: true });
   };
 
   return (
-    <div className="w-full text-white">
-      {/* Selected Skills */}
-       <p className="text-sm mb-2">
-          {language === "de"
-            ? "Ausgewählte Fähigkeiten *"
-            : "Selected Skills *"}
-        </p>
-      <div className="flex flex-wrap gap-3 mb-3">
-        {formSkills.map((skillObj,idx) => (
-          <div
-            key={idx}
-            className="flex items-center bg-[#0E0E10] border border-[#2A2A2A] px-2 py-1.5 rounded-full text-sm"
-          >
-            <span className="mr-2">{skillObj.skill}</span>
-            <button
-              type="button"
-              onClick={() => handleRemoveSkill(skillObj.skill)}
+    <div className="text-white">
+      {/* Selected Skills Section */}
+      <h2 className="text-lg font-semibold mb-3">Selected Skills</h2>
+      <div className="flex flex-wrap gap-2 min-h-[40px] p-2 bg-[#0E0E10] border border-[#262626] rounded-md">
+        {formSkills?.length > 0 ? (
+          formSkills.map((item, index) => (
+            <span
+              key={index}
+              className="flex items-center gap-2 bg-[#1A1A1A] border border-[#333] px-3 py-1 rounded-full text-sm font-medium text-white shadow-sm"
             >
-              <IoClose className="text-white hover:text-red-400" size={14} />
-            </button>
-          </div>
-        ))}
+              {item.skill}
+              <button
+                type="button"
+                onClick={() => handleRemoveSkill(item.skill)}
+                className="text-gray-400 hover:text-red-500 transition-colors"
+              >
+                <IoClose size={16} />
+              </button>
+            </span>
+          ))
+        ) : (
+          <span className="text-gray-500 text-sm">No skills selected</span>
+        )}
       </div>
 
-      {/* Error */}
       {errors.skills && (
-        <p className="text-red-500 text-xs mb-2">{errors.skills.message}</p>
+        <p className="text-red-500 text-sm mt-1">{errors.skills.message}</p>
       )}
 
       {/* Search Input */}
-     {language === "de" ? "Fähigkeit" : "Skill"}
-      <div className="relative w-full">
-        <input
-          type="text"
-            placeholder={language === "de" ? "Suchen..." : "Search..."}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full px-3 py-1.5 text-xs pl-10 rounded-md bg-[#0E0E10] border border-[#262626] placeholder:text-gray-400 focus:outline-none"
-        />
-        <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+      <div className="mt-5">
+        <label className="block text-sm font-medium mb-1">Search & Add Skills</label>
+        <div className="relative">
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search skills (e.g. React, Node.js, Leadership)..."
+            className="w-full bg-[#0E0E10] border border-[#262626] rounded-md p-2 pl-9 text-sm focus:outline-none focus:border-white transition-colors"
+          />
+          <FiSearch className="absolute left-3 top-3 text-gray-400" />
+        </div>
       </div>
 
-      {/* Suggested Skills */}
-      <p className="mt-5 text-sm">{language === "de"
-            ? "Vorgeschlagene Fähigkeiten"
-            : "Suggested Skills"}</p>
-      <div className="flex flex-wrap gap-3 mt-3">
-        {isLoading && <p className="text-xs text-gray-400">Loading...</p>}
-        {!isLoading &&
-          skillsAll?.data?.map((skill, idx) => (
+      {/* Available Skills List */}
+      <p className="mt-5 text-sm font-medium">Suggested Skills</p>
+      <div className="flex flex-wrap gap-2 mt-2 max-h-48 overflow-y-auto p-1">
+        {filteredSkills.map((skill, index) => {
+          const isSelected = formSkills.some((s) => s.skill === skill);
+          return (
             <button
-              key={idx}
               type="button"
-              onClick={() => handleSelectSkill(skill?.name)}
-              disabled={formSkills.some((s) => s.skill === skill?.name)}
-              className={`px-3 py-1.5 rounded-full text-sm border border-[#2A2A2A] bg-[#0E0E10] hover:border-white ${
-                formSkills.some((s) => s.skill === skill?.name)
-                  ? "opacity-50 cursor-not-allowed"
-                  : ""
+              key={index}
+              disabled={isSelected}
+              onClick={() => handleSelectSkill(skill)}
+              className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+                isSelected
+                  ? "bg-gray-800 border-gray-700 text-gray-500 cursor-not-allowed"
+                  : "bg-[#1A1A1A] border-[#333] hover:border-white text-white"
               }`}
             >
-              {skill?.name}
+              + {skill}
             </button>
-          ))}
+          );
+        })}
       </div>
     </div>
   );

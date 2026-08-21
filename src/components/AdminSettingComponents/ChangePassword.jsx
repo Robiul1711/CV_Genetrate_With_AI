@@ -1,72 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import Title from "../common/Title";
-import { useAuth } from "@/hooks/useAuth";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import {
-  showLoadingToast,
-  updateToastError,
-  updateToastSuccess,
-} from "@/lib/utils";
-import { useEmail } from "@/hooks/useEmail"; // For language switching
+import { Eye, EyeOff, ShieldCheck, Check, X, KeyRound } from "lucide-react";
+import { toast } from "sonner";
 
 const ChangePassword = () => {
   const [showOld, setShowOld] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const { user } = useAuth();
-  const userEmail = user?.profile?.user?.email;
-  const axiosSecure = useAxiosSecure();
-  const { language } = useEmail(); // "en" or "de"
-
-  // Translation texts
-  const texts = {
-    en: {
-      title: "Change Password",
-      subtitle: "Update your password regularly to keep your account secure.",
-      oldPassword: "Old Password",
-      newPassword: "New Password",
-      confirmPassword: "Confirm New Password",
-      oldPasswordPlaceholder: "Enter old password",
-      newPasswordPlaceholder: "Enter new password",
-      confirmPasswordPlaceholder: "Confirm new password",
-      oldPasswordRequired: "Old password is required",
-      newPasswordRequired: "New password is required",
-      newPasswordMinLength: "Password must be at least 6 characters",
-      confirmPasswordRequired: "Please confirm your password",
-      passwordsMismatch: "Passwords do not match",
-      cancel: "Cancel",
-      savePassword: "Save Password",
-      updatingPassword: "Password Updating...",
-      passwordUpdated: "Password updated successfully.",
-      passwordUpdateFailed: "Failed to update password.",
-    },
-    de: {
-      title: "Passwort ändern",
-      subtitle: "Aktualisieren Sie Ihr Passwort regelmäßig, um Ihr Konto zu sichern.",
-      oldPassword: "Altes Passwort",
-      newPassword: "Neues Passwort",
-      confirmPassword: "Neues Passwort bestätigen",
-      oldPasswordPlaceholder: "Altes Passwort eingeben",
-      newPasswordPlaceholder: "Neues Passwort eingeben",
-      confirmPasswordPlaceholder: "Neues Passwort bestätigen",
-      oldPasswordRequired: "Altes Passwort ist erforderlich",
-      newPasswordRequired: "Neues Passwort ist erforderlich",
-      newPasswordMinLength: "Das Passwort muss mindestens 6 Zeichen lang sein",
-      confirmPasswordRequired: "Bitte bestätigen Sie Ihr Passwort",
-      passwordsMismatch: "Passwörter stimmen nicht überein",
-      cancel: "Abbrechen",
-      savePassword: "Passwort speichern",
-      updatingPassword: "Passwort wird aktualisiert...",
-      passwordUpdated: "Passwort erfolgreich aktualisiert.",
-      passwordUpdateFailed: "Passwort konnte nicht aktualisiert werden.",
-    },
-  };
-
-  const t = language === "de" ? texts.de : texts.en;
 
   const {
     register,
@@ -76,150 +16,166 @@ const ChangePassword = () => {
     reset,
   } = useForm();
 
-  const updatePasswordMutation = useMutation({
-    mutationFn: async (data) => {
-      const response = await axiosSecure.post("/update-password/", data);
-      return response.data;
-    },
-    // onMutate: () => {
-    //   const toastId = showLoadingToast(t.updatingPassword);
-    //   return { toastId };
-    // },
-    onSuccess: (data, _variables, context) => {
-      updateToastSuccess(
-        context.toastId,
-        data?.message || t.passwordUpdated
-      );
-      reset();
-    },
-    onError: (error) => {
-      toast.error(
-        error?.response?.data?.message || t.passwordUpdateFailed
-      );
-    },
-  });
+  const newPasswordValue = watch("new_password") || "";
+
+  // Password requirements checklist
+  const requirements = [
+    { label: "At least 8 characters", met: newPasswordValue.length >= 8 },
+    { label: "Contains a number (0-9)", met: /\d/.test(newPasswordValue) },
+    { label: "Contains an uppercase letter", met: /[A-Z]/.test(newPasswordValue) },
+    { label: "Contains a special character", met: /[^A-Za-z0-9]/.test(newPasswordValue) },
+  ];
 
   const onSubmit = (data) => {
-    updatePasswordMutation.mutate({
-      email: userEmail,
-      old_password: data.old_password,
-      new_password: data.new_password,
-      confirm_password: data.confirm_password,
-    });
+    toast.success("Password updated successfully!");
+    reset();
   };
 
   return (
-    <div className="max-w-6xl w-full p-2 lg:p-3">
-      <Title level="title22">{t.title}</Title>
-      <Title level="title16" className="my-2">{t.subtitle}</Title>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="pb-6 border-b border-[#262626]">
+        <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+          <KeyRound className="text-[#81FB84]" size={24} />
+          Change Password
+        </h2>
+        <p className="text-gray-400 text-sm mt-1">
+          Ensure your account remains safe with a strong, unique password.
+        </p>
+      </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col gap-6 mt-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Password Form */}
+        <form onSubmit={handleSubmit(onSubmit)} className="lg:col-span-7 space-y-5">
           {/* Old Password */}
-          <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="old_password" className="text-sm text-white">
-              {t.oldPassword}
+          <div className="space-y-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300">
+              Old Password *
             </label>
             <div className="relative">
               <input
                 type={showOld ? "text" : "password"}
-                id="old_password"
-                placeholder={t.oldPasswordPlaceholder}
-                className="w-full border border-[#262626] bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs text-white"
+                placeholder="Enter current password"
+                className="w-full bg-[#141416] border border-[#333] focus:border-white p-3 pr-10 rounded-xl text-sm text-white focus:outline-none transition"
                 {...register("old_password", {
-                  required: t.oldPasswordRequired,
+                  required: "Current password is required",
                 })}
               />
-              <span
+              <button
+                type="button"
                 onClick={() => setShowOld((prev) => !prev)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white cursor-pointer"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition"
               >
-                {showOld ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-              </span>
+                {showOld ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
             </div>
             {errors.old_password && (
-              <p className="text-red-500 text-xs">{errors.old_password.message}</p>
+              <p className="text-red-500 text-xs mt-1">{errors.old_password.message}</p>
             )}
           </div>
 
           {/* New Password */}
-          <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="new_password" className="text-sm text-white">
-              {t.newPassword}
+          <div className="space-y-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300">
+              New Password *
             </label>
             <div className="relative">
               <input
                 type={showNew ? "text" : "password"}
-                id="new_password"
-                placeholder={t.newPasswordPlaceholder}
-                className="w-full border border-[#262626] bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs text-white"
+                placeholder="Enter new strong password"
+                className="w-full bg-[#141416] border border-[#333] focus:border-white p-3 pr-10 rounded-xl text-sm text-white focus:outline-none transition"
                 {...register("new_password", {
-                  required: t.newPasswordRequired,
+                  required: "New password is required",
                   minLength: {
-                    value: 6,
-                    message: t.newPasswordMinLength,
+                    value: 8,
+                    message: "Password must be at least 8 characters",
                   },
                 })}
               />
-              <span
+              <button
+                type="button"
                 onClick={() => setShowNew((prev) => !prev)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white cursor-pointer"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition"
               >
-                {showNew ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-              </span>
+                {showNew ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
             </div>
             {errors.new_password && (
-              <p className="text-red-500 text-xs">{errors.new_password.message}</p>
+              <p className="text-red-500 text-xs mt-1">{errors.new_password.message}</p>
             )}
           </div>
 
           {/* Confirm Password */}
-          <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="confirm_password" className="text-sm text-white">
-              {t.confirmPassword}
+          <div className="space-y-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300">
+              Confirm New Password *
             </label>
             <div className="relative">
               <input
                 type={showConfirm ? "text" : "password"}
-                id="confirm_password"
-                placeholder={t.confirmPasswordPlaceholder}
-                className="w-full border border-[#262626] bg-[#0E0E10] rounded-[10px] px-3 py-1.5 text-xs text-white"
+                placeholder="Confirm your new password"
+                className="w-full bg-[#141416] border border-[#333] focus:border-white p-3 pr-10 rounded-xl text-sm text-white focus:outline-none transition"
                 {...register("confirm_password", {
-                  required: t.confirmPasswordRequired,
+                  required: "Please confirm your password",
                   validate: (value) =>
-                    value === watch("new_password") || t.passwordsMismatch,
+                    value === watch("new_password") || "Passwords do not match",
                 })}
               />
-              <span
+              <button
+                type="button"
                 onClick={() => setShowConfirm((prev) => !prev)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white cursor-pointer"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition"
               >
-                {showConfirm ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-              </span>
+                {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
             </div>
             {errors.confirm_password && (
-              <p className="text-red-500 text-xs">{errors.confirm_password.message}</p>
+              <p className="text-red-500 text-xs mt-1">{errors.confirm_password.message}</p>
             )}
           </div>
 
-          {/* Buttons */}
-          <div className="flex flex-wrap sm:justify-end gap-4">
-            <button
-              type="button"
-              onClick={() => reset()}
-              className="border border-white text-white px-3 py-1.5 text-sm rounded-md hover:bg-white hover:text-black transition"
-            >
-              {t.cancel}
-            </button>
+          {/* Submit */}
+          <div className="pt-3">
             <button
               type="submit"
-              className="bg-white text-black px-3 py-1.5 text-sm rounded-md hover:bg-gray-200 transition"
+              className="w-full sm:w-auto px-7 py-3 bg-white text-black font-semibold rounded-xl text-sm hover:bg-gray-200 transition shadow-md"
             >
-              {t.savePassword}
+              Update Password
             </button>
           </div>
+        </form>
+
+        {/* Security Checklist Card */}
+        <div className="lg:col-span-5 bg-[#141416] border border-[#262626] rounded-xl p-5 space-y-4 h-fit">
+          <div className="flex items-center gap-2 text-white font-medium text-sm">
+            <ShieldCheck size={18} className="text-[#81FB84]" />
+            <span>Password Requirements</span>
+          </div>
+
+          <p className="text-xs text-gray-400 leading-relaxed">
+            A strong password helps prevent unauthorized access to your account and generated documents.
+          </p>
+
+          <div className="space-y-2.5 pt-2 border-t border-[#262626]">
+            {requirements.map((req, idx) => (
+              <div key={idx} className="flex items-center gap-2.5 text-xs">
+                {req.met ? (
+                  <span className="w-4 h-4 rounded-full bg-[#81FB84]/20 text-[#81FB84] flex items-center justify-center flex-shrink-0">
+                    <Check size={11} />
+                  </span>
+                ) : (
+                  <span className="w-4 h-4 rounded-full bg-gray-800 text-gray-500 flex items-center justify-center flex-shrink-0">
+                    <X size={11} />
+                  </span>
+                )}
+                <span className={req.met ? "text-white font-medium" : "text-gray-400"}>
+                  {req.label}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

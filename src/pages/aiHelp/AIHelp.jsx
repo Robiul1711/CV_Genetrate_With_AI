@@ -4,7 +4,7 @@ import { ScrollRestoration } from "react-router-dom";
 
 const AIHelp = () => {
   return (
-    <div className="section-padding-x ">
+    <div className="w-full h-full overflow-hidden">
       <ScrollRestoration />
       <ChatBox />
     </div>

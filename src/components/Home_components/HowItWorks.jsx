@@ -1,113 +1,120 @@
 import React from "react";
-
-import { DotIcon } from "../AllIcons/HomeIcons";
 import { Link } from "react-router-dom";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
-import { useEmail } from "@/hooks/useEmail";
-import { useQuery } from "@tanstack/react-query";
+import { Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
 import dummyimg from "@/assets/images/plan1.png";
-import { useStatusCheck } from "../common/useStatusCheck";
+
+const steps = [
+  {
+    number: "01",
+    title: "Choose Your Path",
+    description:
+      "Start fresh from scratch or upload your existing PDF/Word resume for immediate AI diagnosis and reformatting.",
+    tags: ["Upload Existing CV", "11+ ATS Ready Templates", "Instant Auto-Fill"],
+  },
+  {
+    number: "02",
+    title: "AI-Powered Optimization",
+    description:
+      "Our fine-tuned LLM enhances your bullet points with high-impact metrics, action verbs, and relevant target keywords.",
+    tags: ["Smart Keyword Matching", "Action Verb Suggestions", "Real-Time Preview"],
+  },
+  {
+    number: "03",
+    title: "Customize & Personalize",
+    description:
+      "Fine-tune colors, fonts, section orders, and layouts with an intuitive live editor to match your personal brand.",
+    tags: ["Custom Color Palettes", "Pro Typography", "ATS Clean Structure"],
+  },
+  {
+    number: "04",
+    title: "Export & Land Interviews",
+    description:
+      "Download a pristine, high-resolution vector PDF ready for job portals, recruiters, and LinkedIn direct apply.",
+    tags: ["Instant Vector PDF", "No Watermarks", "Cover Letter Pairing"],
+  },
+];
+
 const HowItWorks = () => {
-  const IMG_URL = import.meta.env.VITE_IMG_URL;
-  const axiosPublic = useAxiosPublic();
-  const { language } = useEmail();
-
-  const { data } = useQuery({
-    queryKey: ["how-it-works", language],
-    queryFn: () =>
-      axiosPublic.get("/how-it-works", {
-        params: { lan: language },
-      }),
-  });
-
-  const { data: status } = useStatusCheck();
-
-  const createResumePath =
-    status?.has_subscription === false &&
-    status?.has_pay_per_download_credits === false
-      ? "/price"
-      : "/dashboard";
-
-  const apiSteps = data?.data?.data || [];
-
-  // Merge API steps with fallback steps
-  const steps = [...apiSteps];
-
   return (
-    <div className="py-10">
-      <div className="flex flex-col items-center text-center">
-        <h1 className="text-[25px] md:text-[28px] font-bold">
-          {language === "de" ? "Wie es funktioniert" : "How It Works"}
-        </h1>
-
-        <p className="text-[15px] text-[#9B9B9B] pt-1 max-w-2xl">
-          {language === "de"
-            ? "Modern und zukunftsorientiert. Warum ewiges tippen, wenn du klicken kannst?"
-            : "Next generation no-code. Beyond natural language. Why type when you can click?"}
+    <section className="py-16 md:py-24">
+      {/* Section Header */}
+      <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#81FB84]/10 border border-[#81FB84]/30 text-[#81FB84] text-xs font-semibold uppercase tracking-wider">
+          <Sparkles size={13} /> Effortless 4-Step Process
+        </div>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+          How CleverCV Works
+        </h2>
+        <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
+          From blank page to a hired resume in under 10 minutes. Here is the simple step-by-step workflow.
         </p>
       </div>
 
-      <div className="mt-12 md:mt-20 space-y-20">
-        {steps.map((item, index) => (
-          <div
-            key={index}
-            className={`flex flex-col ${
-              index % 2 !== 0 ? "lg:flex-row-reverse" : "lg:flex-row"
-            } justify-between items-center gap-6 md:gap-16`}
-          >
-            {/* Left or Right Image */}
-            <div className="w-full lg:w-1/2">
-              <div className="relative">
-                <div className="absolute bottom-0 left-0 w-full h-[100px] md:h-[150px] bg-banner rounded-2xl"></div>
-                <img
-                  src={
-                    language === "en"
-                      ? IMG_URL + item?.side_image_en
-                      : IMG_URL + item?.side_image_de
-                  }
-                  alt="Plan illustration"
-                  className="w-full border border-[#171718] rounded-2xl p-6 md:p-10 relative z-10"
-                />
-              </div>
-            </div>
-
-            {/* Text Content */}
-            <div className="w-full lg:w-1/2">
-              <div>
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="inline-flex items-center justify-center size-10 text-base md:text-xl font-medium border border-[#81FB84]/20 rounded-full">
-                    {index + 1}
-                  </span>
-                  <h2 className="text-[22px] md:text-3xl font-medium">
-                    {item.plan || item.title}
-                  </h2>
+      {/* Steps List */}
+      <div className="space-y-12 md:space-y-16">
+        {steps.map((item, index) => {
+          const isEven = index % 2 === 1;
+          return (
+            <div
+              key={index}
+              className={`flex flex-col ${
+                isEven ? "lg:flex-row-reverse" : "lg:flex-row"
+              } items-center justify-between gap-8 lg:gap-14 bg-[#0E0E10] border border-[#262626] rounded-3xl p-6 sm:p-10 shadow-xl`}
+            >
+              {/* Visual Preview */}
+              <div className="w-full lg:w-1/2">
+                <div className="relative rounded-2xl overflow-hidden border border-[#262626] bg-[#141416] p-4 sm:p-6 shadow-inner">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#81FB84]/10 blur-3xl rounded-full pointer-events-none" />
+                  <img
+                    src={dummyimg}
+                    alt={`Step ${item.number} preview`}
+                    className="w-full h-auto object-cover rounded-xl border border-white/5"
+                  />
                 </div>
-                <p className="text-[16px] md:text-[20px] text-[#F1F1F1] pt-2">
-                  {item.title}
-                </p>
-                {console.log(item)}
-                <p className="text-[15px] md:text-base text-[#9B9B9B] pt-4">
-                  {item.short_description}
-                </p>
-                <ul className="md:text-xl text-[#F1F1F1] pt-4 space-y-2">
-                  {(item.list || item.features || []).map((listItem, idx) => (
-                    <li key={idx} className="flex items-center gap-3 text-sm">
-                      <DotIcon /> {listItem}
-                    </li>
-                  ))}
-                </ul>
               </div>
-              <Link
-                to={createResumePath}
-                className="text-[15px] md:text-base inline-block items-center gap-2 px-6 py-2 md:py-3 rounded-lg mt-8 md:mt-10 border hover:border-[#1b461c]"
-              >
-                {language === "de" ? "Jetzt starten" : "Get Started Now"}
-              </Link>
+
+              {/* Text Info */}
+              <div className="w-full lg:w-1/2 space-y-5">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#16221c] border border-[#81FB84]/40 text-[#81FB84] text-lg font-black shadow-md">
+                  {item.number}
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                  {item.title}
+                </h3>
+
+                <p className="text-sm sm:text-base text-gray-400 leading-relaxed">
+                  {item.description}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {item.tags.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#141416] border border-[#262626] text-xs font-medium text-gray-300"
+                    >
+                      <CheckCircle2 size={13} className="text-[#81FB84]" />
+                      <span>{tag}</span>
+                    </span>
+                  ))}
+                </div>
+
+                <div className="pt-4">
+                  <Link
+                    to="/dashboard"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-[#81FB84] hover:text-[#a6fca9] transition"
+                  >
+                    <span>Start Step {item.number}</span>
+                    <ArrowRight size={15} />
+                  </Link>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/popover";
 import Title from "@/components/common/Title";
 import { Bell, Timer, Trash2, TrashIcon } from "lucide-react";
-import LanguageDropdown from "@/components/common/LanguageDropdown";
+
 
 const CommonNavbar = ({ open, setOpen }) => {
   const { pathname } = useLocation();
@@ -88,9 +88,7 @@ const CommonNavbar = ({ open, setOpen }) => {
               </div>
             </PopoverContent>
           </Popover> */}
-          {/* Langauge  */}
 
-          <LanguageDropdown />
 
           {/* aVATAR  */}
           {/* <Popover>

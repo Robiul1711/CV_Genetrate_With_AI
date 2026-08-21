@@ -6,9 +6,7 @@ import { useFormContext } from "react-hook-form";
 import DownloadButton from "../common/DownloadButton";
 import { useEmail } from "@/hooks/useEmail";
 import WaterMark from "@/assets/images/watermark.png";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useStatusCheck } from "../common/useStatusCheck";
+
 
 const ResumeOneEdit = () => {
   const { allRedumeData, color, setColor, font, setFont } = useResume();
@@ -51,7 +49,7 @@ const ResumeOneEdit = () => {
     if (!color) setColor(""); // optional: reset color on mount
   }, []);
 
-  const { data: status } = useStatusCheck();
+
 
   // Mapping font variable to className
   const fontMap = {

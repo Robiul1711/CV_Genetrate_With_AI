@@ -1,19 +1,53 @@
 import React from "react";
 import {
-  Application,
-  Assistant,
-  CreateIcon,
-  Multilingual,
-  Optimizer,
-  ResumeUpdate,
-  UpgradeIcon,
-} from "../AllIcons/HomeIcons";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
-import { useEmail } from "@/hooks/useEmail";
-import { BeatLoader } from "react-spinners";
+  Sparkles,
+  FileEdit,
+  Sliders,
+  Send,
+  Globe2,
+  Bot,
+  CheckCircle2,
+  ArrowRight,
+  ShieldCheck,
+} from "lucide-react";
+import { toast } from "sonner";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+
+const features = [
+  {
+    icon: <FileEdit size={22} className="text-[#81FB84]" />,
+    title: "AI Resume Builder",
+    tag: "Core Engine",
+    description:
+      "Generate complete, tailor-made resumes in minutes with context-aware AI suggestions and auto-formatting.",
+    link: "/dashboard/create-new-resume",
+  },
+  {
+    icon: <Sliders size={22} className="text-[#81FB84]" />,
+    title: "Smart ATS Optimizer",
+    tag: "High Match",
+    description:
+      "Analyze your existing CV against job descriptions to score keyword density and pass Applicant Tracking Systems.",
+    link: "/dashboard/update-existing-resume",
+  },
+  {
+    icon: <Send size={22} className="text-[#81FB84]" />,
+    title: "Cover Letter Generator",
+    tag: "Custom Pitch",
+    description:
+      "Craft customized, compelling cover letters that match your resume tone and directly address hiring managers.",
+    link: "/dashboard/create-cover-letter",
+  },
+  {
+    icon: <Globe2 size={22} className="text-[#81FB84]" />,
+    title: "Multilingual Translation",
+    tag: "Global Reach",
+    description:
+      "Effortlessly adapt and translate your CV into English, German, French, and 10+ languages with industry terms.",
+    link: "/dashboard/create-new-resume",
+  },
+];
 
 const OurFeatures = () => {
   const {
@@ -23,133 +57,111 @@ const OurFeatures = () => {
     reset,
   } = useForm();
 
-  const IMG_URL = import.meta.env.VITE_IMG_URL;
-  const axiosPublic = useAxiosPublic();
-  const { language } = useEmail();
-  const { data } = useQuery({
-    queryKey: ["ourFeatures", language],
-    queryFn: () =>
-      axiosPublic.get("/features", {
-        params: { lan: language },
-      }),
-  });
-
-  const { data: data2 } = useQuery({
-    queryKey: ["interview-coach", language],
-    queryFn: () =>
-      axiosPublic.get("/interview-coach-section", {
-        params: { lan: language },
-      }),
-  });
-  // Sending mail
-  const EmailMutation = useMutation({
-    mutationFn: async (data) => {
-      const response = await axiosPublic.post("/notify-me/", data);
-      return response?.data;
-    },
-    onSuccess: (response) => {
-      toast.success("Email sent successfully.");
-    },
-    onError: (error, _variables, context) => {
-      const errorMessage =
-        error.response?.data?.message ||
-        "Something went wrong, try again later!!";
-      toast.error(errorMessage);
-    },
-  });
   const onSubmit = (data) => {
-    EmailMutation.mutate(data);
-    reset(); // Reset form after submission
+    toast.success("Thank you! We'll notify you as soon as Interview Coach launches.");
+    reset();
   };
 
-  if (!data || !data2) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="py-12 md:py-16 lg:py-24 xl:py-28">
-      <div className="flex items-center justify-center">
-        <p className="flex items-center gap-2 text-[25px] md:text-3xl font-medium">
-          <UpgradeIcon />
-          {language === "de" ? "Unsere Funktionen" : "Our Features"}
+    <section className="py-16 md:py-24">
+      {/* Section Header */}
+      <div className="text-center space-y-4 max-w-3xl mx-auto mb-14">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#81FB84]/10 border border-[#81FB84]/30 text-[#81FB84] text-xs font-semibold uppercase tracking-wider">
+          <Sparkles size={13} /> Cutting-Edge Capabilities
+        </div>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+          Everything You Need to <br className="hidden sm:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#81FB84] via-emerald-400 to-teal-300">
+            Outshine the Competition
+          </span>
+        </h2>
+        <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
+          Built with advanced AI models trained on thousands of successful resumes and real hiring standards.
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 mt-10 md:mt-16">
-        {data?.data?.data?.map((item, index) => (
+
+      {/* 4 Feature Bento Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {features.map((item, index) => (
           <div
             key={index}
-            className="bg-[#0E0E10] rounded-[32px] p-6  hover:border border border-transparent hover:border-white duration-300 transition-all transform"
+            className="group relative bg-[#0E0E10] border border-[#262626] hover:border-[#81FB84]/50 rounded-2xl p-7 transition-all duration-300 hover:shadow-[0_0_30px_rgba(129,251,132,0.1)] flex flex-col justify-between"
           >
-            <img
-              src={IMG_URL + item.logo}
-              className="border rounded-xl lg:rounded-2xl xl:rounded-3xl p-2.5 inline-block"
-              alt=""
-            />
-            <h1 className="text-lg md:text-xl font-medium pt-4 xl:pt-16">
-              {item.title}
-            </h1>
-            <p className="text-[13px] md:text-base text-[#9B9B9B] pt-2">
-              {item.short_description}
-            </p>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-xl bg-[#16221c] border border-[#81FB84]/30 flex items-center justify-center shadow-inner group-hover:scale-105 transition">
+                  {item.icon}
+                </div>
+                <span className="text-[11px] font-semibold text-gray-400 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full uppercase tracking-wider">
+                  {item.tag}
+                </span>
+              </div>
+
+              <h3 className="text-xl font-bold text-white group-hover:text-[#81FB84] transition">
+                {item.title}
+              </h3>
+              <p className="text-sm text-gray-400 leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+
+            <div className="pt-6 mt-4 border-t border-[#262626]/60 flex items-center justify-between">
+              <Link
+                to={item.link}
+                className="text-xs font-semibold text-[#81FB84] inline-flex items-center gap-1 hover:underline"
+              >
+                <span>Try this feature</span>
+                <ArrowRight size={13} />
+              </Link>
+            </div>
           </div>
         ))}
       </div>
-      <div className="mt-8 flex max-w-[840px] mx-auto items-center justify-center text-center flex-col">
-        <div className="bg-[#0E0E10] relative rounded-[32px] p-6 md:p-10 w-full hover:border border border-transparent hover:border-white duration-300 transition-all transform">
-          <button className="absolute text-[13px] md:text-sm font-light top-0 right-1 py-2 px-3 bg-[#131316] rounded-[32px]">
-            {language === "de" ? "Bald verfügbar" : "Coming Soon"}
-          </button>
 
-          <span className="border rounded-xl lg:rounded-2xl xl:rounded-3xl p-2.5 md:p-4 inline-block">
-            <Assistant />
-          </span>
-          <h1 className="text-lg md:text-3xl font-medium pt-6 md:pt-8 lg:pt-8 xl:pt-16">
-            {data2?.data?.data?.title}
-          </h1>
-          <p className="text-[13px] md:text-lg  text-[#9B9B9B] pt-2 max-w-[840px]  mx-auto">
-            {data2?.data?.data?.short_description}
+      {/* Featured Teaser Banner: AI Interview Coach */}
+      <div className="mt-8 relative bg-gradient-to-b from-[#141e17] via-[#0E0E10] to-[#0A0A0B] border border-[#81FB84]/30 rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden">
+        <div className="max-w-3xl mx-auto text-center space-y-6">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#81FB84]/20 text-[#81FB84] text-xs font-bold uppercase tracking-wider">
+            <Bot size={13} /> Coming Soon: AI Interview Coach
+          </div>
+
+          <h3 className="text-2xl sm:text-4xl font-extrabold text-white">
+            Practice Real Job Interviews with Real-Time AI Feedback
+          </h3>
+
+          <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl mx-auto">
+            Simulate live technical & behavioral interviews, get instant clarity scoring, and master the STAR method before talking to real hiring managers.
           </p>
 
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col sm:flex-row items-start justify-center gap-4  mt-8 w-full"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto pt-2"
           >
-            <div className="w-full sm:max-w-sm">
-              <input
-                type="email"
-                {...register("email", {
-                  required:
-                    language === "de"
-                      ? "E-Mail ist erforderlich"
-                      : "Email is required",
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message:
-                      language === "de"
-                        ? "Ungültige E-Mail-Adresse"
-                        : "Invalid email address",
-                  },
-                })}
-                placeholder={language === "de" ? "Ihre E-Mail" : "Your Email"}
-                className="bg-[#0E0E10] text-white placeholder-gray-400 px-6 py-2.5 md:py-3 text-sm md:text-base rounded-lg border w-full focus:outline-none focus:ring-2 focus:ring-white transition-all duration-200"
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-
+            <input
+              type="email"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Invalid email address",
+                },
+              })}
+              placeholder="Enter your email for early access"
+              className="w-full bg-[#08090A] border border-[#262626] focus:border-[#81FB84] text-white text-sm px-4 py-3 rounded-xl focus:outline-none placeholder-gray-500 transition"
+            />
             <button
               type="submit"
-              className="font-medium px-5 md:px-7 py-2 md:py-3 text-sm md:text-base rounded-lg bg-white text-dark border border-white hover:bg-gray-200 transition-colors duration-200"
+              className="w-full sm:w-auto bg-[#81FB84] hover:bg-[#a6fca9] text-black font-bold text-sm px-6 py-3 rounded-xl transition flex-shrink-0 shadow-lg shadow-[#81FB84]/20"
             >
-              {language === "de" ? "Benachrichtigen" : "Notify Me"}
+              Get Early Access
             </button>
           </form>
+          {errors.email && (
+            <p className="text-red-400 text-xs">{errors.email.message}</p>
+          )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

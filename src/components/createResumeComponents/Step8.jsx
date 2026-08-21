@@ -15,14 +15,7 @@ import ResumeEight from "../All_Templates/ResumeEight";
 import ResumeNine from "../All_Templates/ResumeNine";
 import ResumeTen from "../All_Templates/ResumeTen";
 import ResumeEleven from "../All_Templates/ResumeEleven";
-import { useMutation } from "@tanstack/react-query";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useFormContext } from "react-hook-form";
-import { useEmail } from "@/hooks/useEmail";
-import Tailor_Modal from "./Tailor_Modal";
-import { useResume } from "@/providers/ResumeContext";
 
-// Resume data
 export const resumeData = [
   { id: 1, title: "Resume 1", resume: ImageAssets.Resume1, cvComponet: <ResumeOne /> },
   { id: 2, title: "Resume 2", resume: ImageAssets.Resume2, cvComponet: <ResumeTwo /> },
@@ -37,58 +30,24 @@ export const resumeData = [
   { id: 11, title: "Resume 11", resume: ImageAssets.Resume11, cvComponet: <ResumeEleven /> },
 ];
 
-const texts = {
-  en: {
-    heading: "Your AI-Generated Resumes Are Ready!",
-    description:
-      "We’ve created multiple resume versions tailored to your profile, optimized for the German job market. Preview, edit, and download the one that fits your goals best.",
-    edit: "Edit",
-    editing: "Editing...",
-    preview: "Preview",
-    preparing: "Preparing preview..."
-  },
-  de: {
-    heading: "Ihre KI-erstellten Lebensläufe sind fertig!",
-    description:
-      "Wir haben mehrere Lebenslauf-Versionen erstellt, die auf Ihr Profil zugeschnitten sind und für den deutschen Arbeitsmarkt optimiert wurden. Vorschau, Bearbeitung und Herunterladen desjenigen, der am besten zu Ihren Zielen passt.",
-    edit: "Bearbeiten",
-    editing: "Bearbeiten...",
-    preview: "Vorschau",
-    preparing: "Vorschau vorbereiten..."
-  }
-};
-
-
-
 const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
-  const axiosSecure = useAxiosSecure();
-  const {allRedumeData,imageset, setImageSet } =useResume()
   const navigate = useNavigate();
-  const { watch } = useFormContext();
-  // console.log()
-   const {language} =useEmail()
-  const t = texts[language];
-
-  const IdSetupMutation = useMutation({
-    mutationFn: async (body) => {
-      const res = await axiosSecure.post(`/update-template-id/${allRedumeData?.data?.id}/`, body);
-      return res.data;
-    },
-    onSuccess: (data) => console.log(data),
-    onError: (error) => console.log(error),
-  });
 
   return (
     <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
       <div className="w-full">
         {/* Heading */}
         <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
-          <Title level="title24">{t.heading}</Title>
-          <Title level="title14">{t.description}</Title>
+          <Title level="title24">Your AI-Generated Resumes Are Ready!</Title>
+          <Title level="title14">
+            We’ve created multiple resume versions tailored to your profile. Preview, edit, and download the one that fits your goals best.
+          </Title>
         </div>
         <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
-          <Title level="title40">{t.heading}</Title>
-          <Title level="title20">{t.description}</Title>
+          <Title level="title40">Your AI-Generated Resumes Are Ready!</Title>
+          <Title level="title20">
+            We’ve created multiple resume versions tailored to your profile. Preview, edit, and download the one that fits your goals best.
+          </Title>
         </div>
 
         {/* Resume Grid */}
@@ -102,35 +61,33 @@ const Step8 = ({ activeStep, setActiveStep, resumeId, setResumeId }) => {
 
               {/* Hover Overlay */}
               <div className="absolute inset-0 bg-[#0E0E10]/70 rounded-xl opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
-                <div className="flex flex-col  gap-2 sm:gap-4">
+                <div className="flex flex-col gap-2 sm:gap-4">
                   {/* Edit Button */}
                   <button
+                    type="button"
                     onClick={() => {
-                      IdSetupMutation.mutate({ template_id: item.id });
                       navigate(`/dashboard/edit-resume/${item.id}`);
-                      
                     }}
                     className="border px-2 py-1 bg-black/40 rounded-full flex items-center justify-center gap-2 text-white hover:bg-black/60 transition"
                   >
-                    {IdSetupMutation.isPending ? t.editing : t.edit} <Edit2 size={14} />
+                    Edit <Edit2 size={14} />
                   </button>
 
                   {/* Preview Button */}
                   <button
+                    type="button"
                     onClick={() => {
-                      IdSetupMutation.mutate({ template_id: item.id });
-                      setActiveStep(activeStep + 1, item.id);
+                      setActiveStep(activeStep + 1);
                       setResumeId(item.id);
                     }}
                     className="border px-2 py-1 bg-black/40 rounded-full flex items-center gap-2 text-white hover:bg-black/60 transition"
                   >
-                    {IdSetupMutation.isPending ? t.preparing : t.preview} <FaEye size={14} />
+                    Preview <FaEye size={14} />
                   </button>
                 </div>
               </div>
             </div>
           ))}
-             
         </div>
       </div>
     </div>

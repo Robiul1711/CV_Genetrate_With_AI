@@ -3,12 +3,12 @@ import { useContext, useMemo } from "react";
 import { AuthContext } from "@/context";
 
 const useAxiosSecure = () => {
-  const { token, saveAuthData, logout, user, refreshToken } =
+  const { token, saveAuthData, logout, user } =
     useContext(AuthContext);
 
   const axiosSecure = useMemo(() => {
     const instance = axios.create({
-      baseURL: import.meta.env.VITE_API_URL,
+      baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
       timeout: 30000,
     });
 
@@ -24,38 +24,10 @@ const useAxiosSecure = () => {
     instance.interceptors.response.use(
       (response) => response,
       async (error) => {
-        const originalRequest = error.config;
-
-        if (
-          error.response &&
-          error.response.status === 401 &&
-          !originalRequest._retry
-        ) {
-          originalRequest._retry = true; // prevent infinite loop
-          try {
-            const refreshRes = await axios.post(
-              `${import.meta.env.VITE_API_URL}/token/refresh/`,
-              {
-                refresh: refreshToken,
-              },
-              { headers: { Authorization: `Bearer ${token}` } }
-            );
-
-            if (refreshRes.data?.access) {
-              // Save new token
-              saveAuthData(refreshRes.data?.access);
-
-              // Update header and retry original request
-              originalRequest.headers.Authorization = `Bearer ${refreshRes.data?.access}`;
-              return instance(originalRequest);
-            } else {
-              logout();
-            }
-          } catch (err) {
-            console.error("Refresh token failed", err);
-          }
+        // Token refresh will be handled by MERN backend later
+        if (error.response && error.response.status === 401) {
+          console.warn("Unauthorized — backend not connected yet");
         }
-
         return Promise.reject(error);
       }
     );

@@ -1,113 +1,101 @@
 import React from "react";
 import {
-  AllPackageIcon,
-  CDPRIcon,
-  CustomerIcon,
-  DesignIcon,
-  FastCvIcon,
-  JobIcon,
-  MultilingualIcon,
-  TransparentIcon,
-  TrustpilotIcon,
-} from "../AllIcons/HomeIcons";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
-import { useEmail } from "@/hooks/useEmail";
-import { useQuery } from "@tanstack/react-query";
+  Briefcase,
+  Zap,
+  ShieldCheck,
+  Globe2,
+  Tag,
+  Headphones,
+  Star,
+  Layers,
+  Palette,
+  Sparkles,
+} from "lucide-react";
 
-const whyChoose = [
+const benefits = [
   {
-    id: 1,
-    icon: <JobIcon />,
-    title: "Create resumes that get interviews",
-    desc: "Backed by data, designed for results",
+    icon: <Briefcase size={20} className="text-[#81FB84]" />,
+    title: "Get More Interviews",
+    description: "Tailored keywords help your resume pass through automated ATS filters straight to hiring managers.",
   },
   {
-    id: 2,
-    icon: <FastCvIcon />,
-    title: "Create resumes that get interviews",
-    desc: "Backed by data, designed for results",
+    icon: <Zap size={20} className="text-[#81FB84]" />,
+    title: "Fast CV Creation",
+    description: "Generate a fully formatted, ATS-compliant resume in less than 10 minutes with instant AI writing.",
   },
   {
-    id: 3,
-    icon: <CDPRIcon />,
-    title: "Create resumes that get interviews",
-    desc: "Backed by data, designed for results",
+    icon: <ShieldCheck size={20} className="text-[#81FB84]" />,
+    title: "GDPR Compliant & Private",
+    description: "Your personal data is encrypted and private. We never share or sell your resume information.",
   },
   {
-    id: 4,
-    icon: <MultilingualIcon />,
-    title: "Create resumes that get interviews",
-    desc: "Backed by data, designed for results",
+    icon: <Globe2 size={20} className="text-[#81FB84]" />,
+    title: "Multilingual Resumes",
+    description: "Apply worldwide with seamless AI-powered translations into English, German, and 10+ languages.",
   },
   {
-    id: 5,
-    icon: <TransparentIcon />,
-    title: "Create resumes that get interviews",
-    desc: "Backed by data, designed for results",
+    icon: <Tag size={20} className="text-[#81FB84]" />,
+    title: "Transparent Pricing",
+    description: "No hidden subscription traps or sneaky charges. Clear plans with simple online cancellation.",
   },
   {
-    id: 6,
-    icon: <CustomerIcon />,
-    title: "Create resumes that get interviews",
-    desc: "Backed by data, designed for results",
+    icon: <Headphones size={20} className="text-[#81FB84]" />,
+    title: "24/7 Dedicated Support",
+    description: "Have questions about formatting or exports? Our career support team is always ready to assist.",
   },
   {
-    id: 7,
-    icon: <TrustpilotIcon />,
-    title: "Create resumes that get interviews",
-    desc: "Backed by data, designed for results",
+    icon: <Star size={20} className="text-[#81FB84]" />,
+    title: "Top Rated by Job Seekers",
+    description: "Consistently rated 4.9/5 stars by candidates who successfully landed roles in top tech companies.",
   },
   {
-    id: 8,
-    icon: <AllPackageIcon />,
-    title: "Create resumes that get interviews",
-    desc: "Backed by data, designed for results",
+    icon: <Layers size={20} className="text-[#81FB84]" />,
+    title: "All-in-One Job Suite",
+    description: "Resume generator, cover letter builder, and AI career assistant all under one unified platform.",
   },
   {
-    id: 9,
-    icon: <DesignIcon />,
-    title: "Create resumes that get interviews",
-    desc: "Backed by data, designed for results",
+    icon: <Palette size={20} className="text-[#81FB84]" />,
+    title: "Modern Recruiter Templates",
+    description: "Carefully designed templates tested by recruiters for readability, clean spacing, and modern typography.",
   },
 ];
+
 const CleverCV = () => {
-  const IMG_URL = import.meta.env.VITE_IMG_URL
-  const axiosPublic = useAxiosPublic();
-const { language } = useEmail();
-  const {data} = useQuery({
-    queryKey: ['benefits', language],
-    queryFn: () => axiosPublic.get('/benefits',{
-      params:{lan:language},
-    })
-  })
-
   return (
-    <div className="pb-6 mt-10 lg:mt-0 md:pb-8 ">
-      <div className="flex flex-col items-center text-center">
-  <h1 className="text-[24px] md:text-[28px] font-bold">
-    {language === "de" ? "Warum Clever CV wählen?" : "Why Choose Clever CV?"}
-  </h1>
-  <p className="text-[15px] md:text-base text-[#9B9B9B] pt-1">
-    {language === "de"
-      ? "Erstelle Lebensläufe, die zu Vorstellungsgesprächen führen - datenbasiert, optimiert und ergebnisorientiert."
-      : "Build resumes that get interviews – backed by data, designed for results."}
-  </p>
-</div>
+    <section className="py-16 md:py-24">
+      {/* Section Header */}
+      <div className="text-center space-y-4 max-w-3xl mx-auto mb-14">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#81FB84]/10 border border-[#81FB84]/30 text-[#81FB84] text-xs font-semibold uppercase tracking-wider">
+          <Sparkles size={13} /> The CleverCV Advantage
+        </div>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+          Why Choose CleverCV?
+        </h2>
+        <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
+          Built to give you the competitive edge with data-backed design and state-of-the-art AI optimization.
+        </p>
+      </div>
 
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-4 lg:gap-6">
-        {data?.data?.data?.map((item,index) => (
+      {/* 3x3 Bento Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {benefits.map((item, index) => (
           <div
             key={index}
-            className="p-4 rounded-xl border border-[#262626] hover:border hover:border-white duration-300 transition-all transform"
+            className="bg-[#0E0E10] border border-[#262626] hover:border-[#81FB84]/40 rounded-2xl p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lg space-y-3"
           >
-            {/* {console.log(item.logo)} */}
-           <img src={IMG_URL+item.logo} alt="" />
-            <h1 className=" font-bold mt-4">{item.title}</h1>
-            <p className=" text-[#9B9B9B] text-sm pt-1">{item.sub_title}</p>
+            <div className="w-10 h-10 rounded-xl bg-[#16221c] border border-[#81FB84]/30 flex items-center justify-center shadow-inner">
+              {item.icon}
+            </div>
+            <h3 className="text-base font-bold text-white pt-1">
+              {item.title}
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
+              {item.description}
+            </p>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

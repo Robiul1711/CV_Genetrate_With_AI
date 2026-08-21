@@ -1,231 +1,133 @@
 import React from "react";
-import footer from "../../assets/images/logo.png";
+import Logo from "@/components/common/Logo";
 import { Link } from "react-router-dom";
-import { FaFacebookF } from "react-icons/fa";
-import { FaMedium } from "react-icons/fa6";
-import { FaLinkedin } from "react-icons/fa";
-import { useEmail } from "@/hooks/useEmail";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
-import { useStatusCheck } from "@/components/common/useStatusCheck";
+import { FaFacebookF, FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
+
+const socialLinks = [
+  { id: 1, name: "Facebook", url: "https://facebook.com", icon: <FaFacebookF /> },
+  { id: 2, name: "LinkedIn", url: "https://linkedin.com", icon: <FaLinkedin /> },
+  { id: 3, name: "Twitter", url: "https://twitter.com", icon: <FaTwitter /> },
+  { id: 4, name: "GitHub", url: "https://github.com", icon: <FaGithub /> },
+];
 
 const Footer = () => {
-  const { language } = useEmail();
-  const axiosPublic = useAxiosPublic();
-  const { data: status } = useStatusCheck();
-// console.log(language)
-
-        const createResumePath =
-    (status?.has_subscription === false && status?.has_pay_per_download_credits === false) 
-      ? "/price"
-      : "/dashboard/create-new-resume";
-      const updateCoverPath =
-       (status?.has_subscription === false && status?.has_pay_per_download_credits === false) 
-      ? "/price"
-      : "/dashboard/create-cover-letter";
-  const { data: socialData, isLoading } = useQuery({
-    queryKey: ["social-links"],
-    queryFn: async () => {
-      const res = await axiosPublic.get(`/social-media/`);
-      return res.data;
-    },
-  });
-  const { data: footerData, isLoading: footerLoading } = useQuery({
-    queryKey: ["footer-data"],
-    queryFn: async () => {
-      const res = await axiosPublic.get(`/about-system/?lan=${language}`);
-      return res.data;
-    },
-  });
-
-  const { data: copyrightData, isLoading: copyrightLoading } = useQuery({
-    queryKey: ["copyright-data", language],
-    queryFn: async () => {  
-      const res = await axiosPublic.get(`/footer-section/`, { params: { lan: language } });
-      return res.data;
-    },
-  });
-  // console.log(copyrightData);
-
-
-
-  const texts = {
-    en: {
-      company: "Company",
-      service: "Service",
-      home: "Home",
-      pricing: "Pricing",
-      contact: "Contact",
-      aiResumeBuilder: "AI Resume Builder",
-      aiResumeOptimizer: "AI Resume Optimizer",
-      createCoverLetter: "Create Cover Letter",
-      multilingualResume: "Multilingual Resume",
-      privacyPolicy: "Privacy Policy",
-      termsOfService: "Terms of Service",
-      imprint: "Imprint",
-      // description:
-      //   "CleverCV is an AI-powered resume and cover letter builder that helps you stand out with confidence. Whether you're starting from scratch or improving an existing CV, our platform gives you step-by-step guidance, smart design suggestions, and powerful language enhancements.",
-      // copyright: " FutureTech. All rights reserved.",
-    },
-    de: {
-      company: "Unternehmen",
-      service: "Dienstleistungen",
-      home: "Startseite",
-      pricing: "Preise",
-      contact: "Kontakt",
-      aiResumeBuilder: "KI-Lebenslauf-Builder",
-      aiResumeOptimizer: "KI-Lebenslauf-Optimierer",
-      createCoverLetter: "Anschreiben erstellen",
-      multilingualResume: "Mehrsprachiger Lebenslauf",
-      privacyPolicy: "Datenschutzrichtlinie",
-      termsOfService: "Nutzungsbedingungen",
-      imprint: "Impressum",
-      // description:
-      //   "CleverCV ist ein KI-gestützter Lebenslauf- und Anschreiben-Builder, der Ihnen hilft, selbstbewusst hervorzustechen. Egal, ob Sie von Grund auf beginnen oder einen bestehenden Lebenslauf verbessern, unsere Plattform bietet Schritt-für-Schritt-Anleitungen, intelligente Designvorschläge und leistungsstarke Sprachverbesserungen.",
-      // copyright: " FutureTech. Alle Rechte vorbehalten.",
-    },
-  };
-
-  const t = texts[language] || texts.en;
-
   return (
-    <div className="bg-Primary w-full section-padding-x pt-10 md:pt-[70px] pb-5 md:pb-10">
+    <footer className="bg-[#08090A] border-t border-[#262626] w-full section-padding-x pt-12 md:pt-16 pb-8">
       {/* Top Section */}
-      <div className="flex flex-col md:flex-row md:justify-between gap-10">
+      <div className="w-full flex flex-col lg:flex-row lg:justify-between gap-12">
         {/* Left: Logo & Description */}
-        <div className="w-full md:w-[40%]">
-          <Link to={"/"}>
-            <img
-              src={`${import.meta.env.VITE_IMG_URL}/${footerData?.data?.logo}`}
-              alt="icon"
-              className="mb-4 w-[40px] md:w-[60px] text-white cursor-pointer"
-            />
-          </Link>
-          <p className="text-[15px] md:text-base text-[#666] leading-relaxed">
-            {copyrightData?.data?.content}
+        <div className="w-full lg:w-[40%] space-y-4">
+          <Logo size="lg" />
+          <p className="text-sm text-gray-400 leading-relaxed max-w-lg">
+            CleverCV is an AI-powered resume and cover letter builder that helps you stand out with confidence. Generate tailored resumes, optimize for ATS filters, and land your dream job faster.
           </p>
         </div>
 
         {/* Right: Links */}
-        <div className="md:w-full lg:w-[60%] grid grid-cols-1 sm:grid-cols-2 gap-8">
-          {/* Company */}
-          <div className="flex justify-start md:justify-end">
-            <ul className="text-[#666] space-y-3">
-              <p className="text-white text-[18px] md:text-[20px] font-semibold mb-5">
-                {t.company}
-              </p>
+        <div className="w-full lg:w-[55%] grid grid-cols-2 sm:grid-cols-3 gap-8">
+          {/* Product */}
+          <div className="space-y-3">
+            <h4 className="text-white text-sm font-semibold tracking-wider uppercase">
+              Product
+            </h4>
+            <ul className="space-y-2 text-sm text-gray-400">
               <li>
-                <Link
-                  to="/"
-                  className="text-[15px] md:text-base hover:text-white"
-                >
-                  {t.home}
+                <Link to="/dashboard/create-new-resume" className="hover:text-[#81FB84] transition">
+                  AI Resume Builder
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/price"
-                  className="text-[15px] md:text-base hover:text-white"
-                >
-                  {t.pricing}
+                <Link to="/dashboard/create-cover-letter" className="hover:text-[#81FB84] transition">
+                  Cover Letter Generator
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/contact"
-                  className="text-[15px] md:text-base hover:text-white"
-                >
-                  {t.contact}
+                <Link to="/ai-help" className="hover:text-[#81FB84] transition">
+                  AI Career Coach
+                </Link>
+              </li>
+              <li>
+                <Link to="/price" className="hover:text-[#81FB84] transition">
+                  Pricing Plans
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Service */}
-          <div className="flex justify-start md:justify-end">
-            <ul className="text-[#666] space-y-3 flex flex-col items-start">
-              <p className="text-white text-[18px] md:text-[20px] font-semibold mb-3">
-                {t.service}
-              </p>
-              <Link
-                to={createResumePath}
-                className="text-[15px] md:text-base hover:text-white"
-              >
-                {t.aiResumeBuilder}
-              </Link>
-              {/* <Link
-                to={createResumePath}
-                className="text-[15px] md:text-base hover:text-white"
-              >
-                {t.aiResumeOptimizer}
-              </Link> */}
-              <Link
-                to={updateCoverPath}
-                className="text-[15px] md:text-base hover:text-white"
-              >
-                {t.createCoverLetter}
-              </Link>
-              {/* <Link
-       to={createResumePath}
-                className="text-[15px] md:text-base hover:text-white"
-              >
-                {t.multilingualResume}
-              </Link> */}
+          {/* Quick Links */}
+          <div className="space-y-3">
+            <h4 className="text-white text-sm font-semibold tracking-wider uppercase">
+              Company
+            </h4>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li>
+                <Link to="/" className="hover:text-[#81FB84] transition">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/price" className="hover:text-[#81FB84] transition">
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-[#81FB84] transition">
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div className="space-y-3">
+            <h4 className="text-white text-sm font-semibold tracking-wider uppercase">
+              Legal
+            </h4>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li>
+                <Link to="/privacy-policy" className="hover:text-[#81FB84] transition">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/tearms-and-condition" className="hover:text-[#81FB84] transition">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link to="/imprint" className="hover:text-[#81FB84] transition">
+                  Imprint
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
       </div>
 
       {/* Divider */}
-      <hr className="my-5 lg:my-8 border-[#666]/50" />
+      <hr className="my-8 border-[#262626]" />
 
       {/* Bottom Section */}
-      <div className="flex flex-col lg:flex-row flex-wrap justify-center lg:justify-between items-center gap-5 text-center w-full">
-        {/* Left Text */}
-        <div className="flex flex-wrap justify-center gap-4 text-[#666] md:text-[16px]">
-          <Link to={"/privacy-policy"}>
-            <p className="underline text-[15px] md:text-base hover:text-white">
-              {t.privacyPolicy}
-            </p>
-          </Link>
-          <Link to={"/tearms-and-condition"}>
-            <p className="underline text-[15px] md:text-base hover:text-white">
-              {t.termsOfService}
-            </p>
-          </Link>
-          <Link to={"/imprint"}>
-            <p className="underline text-[15px] md:text-base hover:text-white">
-              {t.imprint}
-            </p>
-          </Link>
-        </div>
+      <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+        <p>© {new Date().getFullYear()} CleverCV AI. All rights reserved.</p>
 
         {/* Social Icons */}
-        <div className="flex gap-5 items-center justify-center">
-          {socialData?.data?.map((item) => (
+        <div className="flex gap-3">
+          {socialLinks.map((item) => (
             <a
               key={item.id}
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={item.name}
+              className="w-8 h-8 rounded-lg bg-[#141416] border border-[#262626] hover:border-[#81FB84] hover:text-[#81FB84] text-gray-400 flex items-center justify-center transition"
             >
-              <img
-                src={`${import.meta.env.VITE_IMG_URL}${item.icon}`}
-                alt={item.name}
-                className="w-6 h-6 md:w-8 md:h-8 object-contain"
-              />
+              {item.icon}
             </a>
           ))}
         </div>
-
-        {/* Copyright */}
-        <div className="text-[15px] md:text-base text-[#666] text-center">
-          <p>
-            {copyrightData?.data?.copyright_text}
-          </p>
-        </div>
       </div>
-    </div>
+    </footer>
   );
 };
 
