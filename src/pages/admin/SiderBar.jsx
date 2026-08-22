@@ -16,7 +16,7 @@ const SideBar = ({ sidebar, open, setOpen }) => {
     sidebar.forEach((item, index) => {
       if (item.sublink) {
         const activeSub = item.sublink.find(
-          (sub) => sub.path === location.pathname
+          (sub) => sub.path === location.pathname,
         );
         if (activeSub) {
           setActiveParentIndex(index);
@@ -37,7 +37,6 @@ const SideBar = ({ sidebar, open, setOpen }) => {
   const toggleSubmenu = (index) => {
     setActiveParentIndex((prev) => (prev === index ? null : index));
   };
-
 
   return (
     <>
@@ -66,78 +65,94 @@ const SideBar = ({ sidebar, open, setOpen }) => {
         {/* Navigation Body */}
         <div className="flex-1 py-6 px-4 flex flex-col justify-between overflow-y-auto no-scrollbar relative">
           <div className="flex flex-col gap-2">
-
-          {sidebar?.map((item, index) => {
-            const parentActive = isParentActive(item);
-            return !item?.sublink ? (
-              <Link
-                key={index}
-                to={item?.path}
-                onClick={() => {
-                  setActiveParentIndex(null);
-                  setOpen(false);
-                }}
-                className={`flex items-center text-sm gap-3 px-4 py-1 rounded-lg  font-medium transition-colors duration-200 ${
-                  isActive(item?.path, item?.extra_path, item?.extra_path2)
-                    ? "text-white border border-[#76E477]/60 border-l-[6px] border-opacity-60 shadow-md shadow-[#76E477]/30 rounded-lg bg-[#18181A] p-4"
-                    : "text-[#FFF] border-[0.5px] border-l-[6px] border-transparent  "
-                } rounded-xl`}
-              >
-                <span className="text-lg">{item?.icon}</span>
-                {item?.text}
-              </Link>
-            ) : (
-              <div className="relative" key={index}>
-                {/* Parent link */}
-                <div
-                  className={`flex items-center justify-between px-4 py-2  cursor-pointer w-full rounded-lg transition-all duration-200 ${
-                    parentActive
-                      ? "bg-[#253E8E] text-white"
-                      : "text-gray-700 hover:bg-[#E3ECFF] hover:text-[#253E8E]"
+            {sidebar?.map((item, index) => {
+              const active = isActive(item?.path, item?.extra_path, item?.extra_path2);
+              const parentActive = isParentActive(item);
+              return !item?.sublink ? (
+                <Link
+                  key={index}
+                  to={item?.path}
+                  onClick={() => {
+                    setActiveParentIndex(null);
+                    setOpen(false);
+                  }}
+                  className={`group flex items-center text-sm gap-3.5 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${
+                    active
+                      ? "text-white bg-[#18181A] border border-[#76E477]/50 border-l-[5px] border-l-[#76E477] shadow-md shadow-[#76E477]/15 font-semibold"
+                      : "text-[#D1D5DB] border border-transparent border-l-[5px] border-l-transparent hover:text-white hover:bg-[#18181D] hover:border-[#2A2A30] hover:border-l-[5px] hover:border-l-[#76E477]/70 hover:shadow-sm"
                   }`}
-                  onClick={() => toggleSubmenu(index)}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-lg">{item?.icon}</span>
-                    <p className="font-medium">{item?.text}</p>
-                  </div>
                   <span
-                    className={`transform transition-transform duration-300 ${
-                      activeParentIndex === index ? "rotate-180" : "rotate-0"
+                    className={`text-lg transition-colors duration-200 ${
+                      active
+                        ? "text-[#76E477]"
+                        : "text-gray-400 group-hover:text-[#76E477]"
                     }`}
                   >
-                    <MdKeyboardArrowDown size={20} />
+                    {item?.icon}
                   </span>
-                </div>
-
-                {/* Sublinks dropdown */}
-                <div
-                  className={`transition-all duration-300  ease-in-out overflow-hidden px-4 bg-white rounded-lg ${
-                    activeParentIndex === index
-                      ? "max-h-[500px] py-4 opacity-100 translate-y-0"
-                      : "max-h-0 opacity-0 -translate-y-2"
-                  }`}
-                >
-                  <div className="flex flex-col gap-1">
-                    {item?.sublink?.map((value, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        to={value?.path}
-                        className={`block px-4 py-2  rounded-md transition-colors duration-200 ${
-                          isActive(value?.path)
-                            ? "text-black font-medium bg-[#F0F4FF]"
-                            : "text-[#5A5C5F] font-normal hover:bg-[#F0F4FF]"
+                  <span className="truncate">{item?.text}</span>
+                </Link>
+              ) : (
+                <div className="relative" key={index}>
+                  {/* Parent link */}
+                  <div
+                    className={`group flex items-center justify-between px-4 py-3 cursor-pointer w-full rounded-xl transition-all duration-200 ${
+                      parentActive
+                        ? "bg-[#18181A] text-white border border-[#76E477]/50 border-l-[5px] border-l-[#76E477] shadow-md shadow-[#76E477]/15 font-semibold"
+                        : "text-[#D1D5DB] border border-transparent border-l-[5px] border-l-transparent hover:text-white hover:bg-[#18181D] hover:border-[#2A2A30] hover:border-l-[5px] hover:border-l-[#76E477]/70"
+                    }`}
+                    onClick={() => toggleSubmenu(index)}
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <span
+                        className={`text-lg transition-colors duration-200 ${
+                          parentActive
+                            ? "text-[#76E477]"
+                            : "text-gray-400 group-hover:text-[#76E477]"
                         }`}
-                        onClick={() => setOpen(false)}
                       >
-                        {value?.text}
-                      </Link>
-                    ))}
+                        {item?.icon}
+                      </span>
+                      <p className="font-medium truncate">{item?.text}</p>
+                    </div>
+                    <span
+                      className={`transform transition-transform duration-300 ${
+                        activeParentIndex === index ? "rotate-180" : "rotate-0"
+                      }`}
+                    >
+                      <MdKeyboardArrowDown size={20} />
+                    </span>
+                  </div>
+
+                  {/* Sublinks dropdown */}
+                  <div
+                    className={`transition-all duration-300 ease-in-out overflow-hidden px-2 rounded-xl mt-1 ${
+                      activeParentIndex === index
+                        ? "max-h-[500px] py-2 opacity-100 translate-y-0"
+                        : "max-h-0 opacity-0 -translate-y-2"
+                    }`}
+                  >
+                    <div className="flex flex-col gap-1 pl-4 border-l border-[#262626] ml-4">
+                      {item?.sublink?.map((value, subIndex) => (
+                        <Link
+                          key={subIndex}
+                          to={value?.path}
+                          className={`block px-3 py-2 text-xs rounded-lg transition-all duration-200 ${
+                            isActive(value?.path)
+                              ? "text-[#76E477] font-semibold bg-[#18181A]"
+                              : "text-gray-400 font-normal hover:text-white hover:bg-[#18181D]"
+                          }`}
+                          onClick={() => setOpen(false)}
+                        >
+                          {value?.text}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
           </div>
 
           {/* Logout */}
