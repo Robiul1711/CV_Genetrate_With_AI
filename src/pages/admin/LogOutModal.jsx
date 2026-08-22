@@ -33,7 +33,9 @@ const LogOutModal = () => {
         <DialogHeader>
           <div className="text-center flex flex-col items-center gap-4 py-10">
             <Title level="title22">Are you sure you want to log out?</Title>
-            <Title level="title14">You’ll be signed out of your Clever-CV Account</Title>
+            <Title level="title14">
+              You’ll be signed out of your Clever-CV Account
+            </Title>
 
             <div className="flex gap-4 w-full items-center justify-center py-5">
               <DialogClose asChild>
@@ -51,7 +53,9 @@ const LogOutModal = () => {
               </DialogClose>
             </div>
 
-            <Title level="title14">Your data is safe and securely stored.</Title>
+            <Title level="title14">
+              Your data is safe and securely stored.
+            </Title>
           </div>
         </DialogHeader>
       </DialogContent>
