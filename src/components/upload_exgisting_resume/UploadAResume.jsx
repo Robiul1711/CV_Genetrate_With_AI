@@ -126,10 +126,10 @@ const UploadAResume = () => {
   );
 
   return (
-    <div className="max-w-4xl mx-auto w-full px-4 py-8">
-      <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-white mb-3">Upload Your Resume</h1>
-        <p className="text-gray-400 max-w-2xl mx-auto">
+    <div className="max-w-4xl mx-auto w-full py-2">
+      <div className="text-center mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Upload Your Resume</h1>
+        <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
           Upload your existing resume in PDF, DOCX or PNG format. Our AI will analyze and optimize it for your target job.
         </p>
       </div>

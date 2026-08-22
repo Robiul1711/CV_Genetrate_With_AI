@@ -1,79 +1,43 @@
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import Title from "../common/Title";
-import { useEmail } from "@/hooks/useEmail";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-const textMap = {
-  en: {
-    pageTitle: "Basic Information",
-    firstName: "First Name *",
-    firstNamePlaceholder: "John",
-    lastName: "Last Name *",
-    lastNamePlaceholder: "Smith",
-    email: "Email *",
-    emailPlaceholder: "johnsmith@gmail.com",
-    phone: "Phone Number *",
-    phonePlaceholder: "123 456 8455",
-    address: "Address",
-    addressPlaceholder: "Berlin, Germany",
-    dob: "Date of Birth",
-    jobTitle: "Job Title *",
-    jobTitlePlaceholder: "UI/UX Designer",
-    about: "About (Optional)",
-    aboutPlaceholder: "Tell us about yourself...",
-    linkedin: "LinkedIn Profile (optional)",
-    linkedinPlaceholder: "https://www.linkedin.com/in/your-username/",
-    xing: "XING Profile (optional)",
-    xingPlaceholder: "https://www.xing.com/in/your-username/",
-    errors: {
-      firstName: "First name is required",
-      lastName: "Last name is required",
-      emailRequired: "Email is required",
-      emailInvalid: "Invalid email format",
-      phone: "Phone number is required",
-      jobTitle: "Job title is required",
-      address: "Address is required", // ✅ added
-      dob: "Date of birth is required", // ✅ added
-    },
-  },
-  de: {
-    pageTitle: "Grundlegende Informationen",
-    firstName: "Vorname *",
-    firstNamePlaceholder: "John",
-    lastName: "Nachname *",
-    lastNamePlaceholder: "Smith",
-    email: "E-Mail *",
-    emailPlaceholder: "johnsmith@gmail.com",
-    phone: "Telefonnummer *",
-    phonePlaceholder: "123 456 8455",
-    address: "Adresse",
-    addressPlaceholder: "Berlin, Deutschland",
-    dob: "Geburtsdatum",
-    jobTitle: "Berufsbezeichnung *",
-    jobTitlePlaceholder: "UI/UX Designer",
-    about: "Über mich (Optional)",
-    aboutPlaceholder: "Erzählen Sie uns etwas über sich...",
-    linkedin: "LinkedIn-Profil (optional)",
-    linkedinPlaceholder: "https://www.linkedin.com/in/your-username/",
-    xing: "XING-Profil (optional)",
-    xingPlaceholder: "https://www.xing.com/in/your-username/",
-    errors: {
-      firstName: "Vorname ist erforderlich",
-      lastName: "Nachname ist erforderlich",
-      emailRequired: "E-Mail ist erforderlich",
-      emailInvalid: "Ungültiges E-Mail-Format",
-      phone: "Telefonnummer ist erforderlich",
-      jobTitle: "Berufsbezeichnung ist erforderlich",
-      address: "Adresse ist erforderlich", // ✅ added
-      dob: "Geburtsdatum ist erforderlich", // ✅ added
-    },
+
+const t = {
+  pageTitle: "Basic Information",
+  firstName: "First Name *",
+  firstNamePlaceholder: "John",
+  lastName: "Last Name *",
+  lastNamePlaceholder: "Smith",
+  email: "Email *",
+  emailPlaceholder: "johnsmith@gmail.com",
+  phone: "Phone Number *",
+  phonePlaceholder: "123 456 8455",
+  address: "Address",
+  addressPlaceholder: "Berlin, Germany",
+  dob: "Date of Birth",
+  jobTitle: "Job Title *",
+  jobTitlePlaceholder: "UI/UX Designer",
+  about: "About (Optional)",
+  aboutPlaceholder: "Tell us about yourself...",
+  linkedin: "LinkedIn Profile (optional)",
+  linkedinPlaceholder: "https://www.linkedin.com/in/your-username/",
+  xing: "XING Profile (optional)",
+  xingPlaceholder: "https://www.xing.com/in/your-username/",
+  errors: {
+    firstName: "First name is required",
+    lastName: "Last name is required",
+    emailRequired: "Email is required",
+    emailInvalid: "Invalid email format",
+    phone: "Phone number is required",
+    jobTitle: "Job title is required",
+    address: "Address is required",
+    dob: "Date of birth is required",
   },
 };
 
 const Step_1 = () => {
-  const { language } = useEmail();
-  const t = textMap[language || "en"];
   const {
     register,
     formState: { errors },
@@ -81,8 +45,8 @@ const Step_1 = () => {
   } = useFormContext();
 
   return (
-    <div className="text-white flex items-center justify-center">
-      <div className="w-[800px] mx-auto">
+    <div className="text-white flex items-center justify-center w-full">
+      <div className="w-full max-w-[800px] mx-auto">
         <div className="text-center flex flex-col items-center gap-4 mb-5 xl:mb-10">
           <Title level="title40">{t.pageTitle}</Title>
         </div>
@@ -143,11 +107,9 @@ const Step_1 = () => {
           </div>
 
           {/* Phone Number */}
-        <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <label className="md:text-base text-[14px] font-normal text-white">
-              {
-                language ==="en" ?"Phone Number" :"Telefonnummer"
-              }
+              Phone Number
             </label>
             <Controller
               name="phone_number"
@@ -158,16 +120,12 @@ const Step_1 = () => {
               render={({ field }) => (
                 <PhoneInput
                   {...field}
-                  country={ language ==="en" ?"us":"de"}
-              placeholder={
-                  language === "en"
-                    ? "Enter your phone number"
-                    : "Geben Sie Ihre Telefonnummer ein"
-                }
+                  country={"us"}
+                  placeholder="Enter your phone number"
                   inputClass=" md:text-base text-[14px]"
-                  containerClass={`flex font-poppins gap-2 items-center  p-1  border-[1px] border-[#262626] w-full rounded-[12px] phone_input_container_profile_edit  ${
-                    errors.phone ? "border-red-500" : "border-[#D8D8D]"
-                  } `}
+                  containerClass={`flex font-poppins gap-2 items-center p-1 border-[1px] border-[#262626] w-full rounded-[12px] phone_input_container_profile_edit ${
+                    errors.phone_number ? "border-red-500" : "border-[#D8D8D]"
+                  }`}
                 />
               )}
             />
@@ -197,11 +155,13 @@ const Step_1 = () => {
             <label className="text-sm text-white">{t.dob}</label>
             <input
               type="date"
-              {...register("dob", { required: t.errors.dob })} // ✅ required added
+              {...register("dob", { required: t.errors.dob })}
               className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
             />
             {errors.dob && (
-              <span className="text-red-500 text-xs">{errors.dob.message}</span>
+              <span className="text-red-500 text-xs">
+                {errors.dob.message}
+              </span>
             )}
           </div>
 
@@ -227,11 +187,11 @@ const Step_1 = () => {
             <textarea
               placeholder={t.aboutPlaceholder}
               {...register("about")}
-              className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] h-24 resize-none text-white"
+              className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] h-20 resize-none text-white"
             />
           </div>
 
-          {/* LinkedIn */}
+          {/* LinkedIn Profile */}
           <div className="flex flex-col gap-2">
             <label className="text-sm text-white">{t.linkedin}</label>
             <input
@@ -242,7 +202,7 @@ const Step_1 = () => {
             />
           </div>
 
-          {/* XING */}
+          {/* XING Profile */}
           <div className="flex flex-col gap-2">
             <label className="text-sm text-white">{t.xing}</label>
             <input

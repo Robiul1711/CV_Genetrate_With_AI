@@ -1,10 +1,8 @@
 import { useResume } from "@/providers/ResumeContext";
 import React from "react";
 import { Sketch } from "@uiw/react-color";
-import { useEmail } from "@/hooks/useEmail";
 
 const StepDesign = () => {
-  const { language } = useEmail();
   const { color, setColor, font, setFont } = useResume();
 
   const colors = [
@@ -30,7 +28,7 @@ const StepDesign = () => {
       {/* Color Selection */}
       <div>
         <p className="text-sm text-white mb-4">
-          {language === "en" ? "Choose Color" : "Farbe wählen"}
+          Choose Color
         </p>
         <div className="flex items-center gap-3 mb-4">
           {colors.map((c, idx) => (
@@ -48,14 +46,12 @@ const StepDesign = () => {
 
         <div className="flex flex-col gap-2">
           <h1>
-            {language === "en"
-              ? "Choose your custom Color"
-              : "Wählen Sie Ihre individuelle Farbe"}
+            Choose your custom Color
           </h1>
           <div>
             <Sketch color={color} onChange={(c) => setColor(c.hex)} />
             <p>
-              {language === "en" ? "Current Color" : "Aktuelle Farbe"}: {color}
+              Current Color: {color}
             </p>
           </div>
         </div>
@@ -63,7 +59,7 @@ const StepDesign = () => {
 
       {/* Font Selection */}
       <div className="flex flex-col gap-2">
-        <h1>{language === "en" ? "Choose Font Style" : "Schriftart wählen"}</h1>
+        <h1>Choose Font Style</h1>
         <select
           value={font}
           onChange={(e) => setFont(e.target.value)}
@@ -76,7 +72,7 @@ const StepDesign = () => {
           ))}
         </select>
         <p>
-          {language === "en" ? "Current Font" : "Aktuelle Schriftart"}: {font}
+          Current Font: {font}
         </p>
       </div>
     </div>

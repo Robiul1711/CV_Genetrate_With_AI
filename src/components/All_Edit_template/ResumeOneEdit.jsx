@@ -4,7 +4,6 @@ import { useResume } from "@/providers/ResumeContext";
 import dayjs from "dayjs";
 import { useFormContext } from "react-hook-form";
 import DownloadButton from "../common/DownloadButton";
-import { useEmail } from "@/hooks/useEmail";
 import WaterMark from "@/assets/images/watermark.png";
 
 
@@ -13,8 +12,6 @@ const ResumeOneEdit = () => {
 
   const { watch } = useFormContext();
   const resumeRef = useRef();
-  const { language } = useEmail();
-
   const formValues = watch();
 
   const first_name =

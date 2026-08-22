@@ -1,4 +1,3 @@
-import { useEmail } from "@/hooks/useEmail";
 import { useResume } from "@/providers/ResumeContext";
 import React from "react";
 import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
@@ -11,7 +10,6 @@ import rehypeHighlight from "rehype-highlight";
 
 export default function HistoryViewOfCoverLetter({ resumeRef }) {
   const { coverLetter } = useResume();
-  const { language } = useEmail();
   const cover = coverLetter?.data;
 
   return (

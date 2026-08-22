@@ -10,15 +10,12 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
-import { useEmail } from "@/hooks/useEmail";
 import WaterMark from "@/assets/images/watermark.png";
 import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeThreeEdit = () => {
   const { watch } = useFormContext();
   const { allRedumeData, color, setColor, font } = useResume();
   const resumeRef = useRef();
-  const { language } = useEmail();
-
   // Map selected font to actual CSS font-family
   const fontMap = {
     inter: "Inter, sans-serif",

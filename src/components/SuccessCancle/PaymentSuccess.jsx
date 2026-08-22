@@ -1,30 +1,21 @@
 import React from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useEmail } from '@/hooks/useEmail';
+
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
-  const { language } = useEmail(); // expects "en" or "de"
 
   const handleBackToHome = () => {
     navigate('/');
   };
 
-  // Translation strings
-  const texts = language === 'de'
-    ? {
-        title: 'Zahlung erfolgreich!',
-        message:
-          'Vielen Dank für Ihre Zahlung. Ihre Transaktion wurde erfolgreich abgeschlossen.',
-        button: 'Zur Startseite'
-      }
-    : {
-        title: 'Payment Successful!',
-        message:
-          'Thank you for your payment. Your transaction has been completed successfully.',
-        button: 'Back to Home'
-      };
+  // English texts
+  const texts = {
+    title: 'Payment Successful!',
+    message: 'Thank you for your payment. Your transaction has been completed successfully.',
+    button: 'Back to Home'
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black px-4">

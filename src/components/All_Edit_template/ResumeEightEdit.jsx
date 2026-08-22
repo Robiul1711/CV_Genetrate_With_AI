@@ -4,7 +4,6 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
-import { useEmail } from "@/hooks/useEmail";
 
 import WaterMark from "@/assets/images/watermark.png";
 import { useStatusCheck } from "../common/useStatusCheck";
@@ -41,8 +40,6 @@ const ResumeEightEdit = () => {
   const { allRedumeData, color, setColor, font } = useResume();
   const { watch } = useFormContext();
   const formData = watch();
-  const { language } = useEmail();
-
   const { data: status } = useStatusCheck();
 
   const resumeRef = useRef();

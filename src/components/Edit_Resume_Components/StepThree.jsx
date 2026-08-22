@@ -3,7 +3,7 @@ import { useFormContext, useFieldArray, Controller } from "react-hook-form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { LuCirclePlus, LuTrash2 } from "react-icons/lu";
 import { useResume } from "@/providers/ResumeContext";
-import { useEmail } from "@/hooks/useEmail"; // Language hook
+
 
 const StepThree = () => {
   const { allRedumeData } = useResume();
@@ -16,33 +16,18 @@ const StepThree = () => {
     name: "educations",
   });
 
-  const { language } = useEmail(); // "en" or "de"
 
-  // Language texts
-  const texts = {
-    en: {
-      institute: "Name Of Institute *",
-      degree: "Degree *",
-      startDate: "Start Date *",
-      endDate: "End Date",
-      currentlyEnrolled: "Currently Enrolled",
-      addEducation: "Add Education",
-      institutePlaceholder: "Polytechnic Institute",
-      degreePlaceholder: "Diploma",
-    },
-    de: {
-      institute: "Name der Einrichtung *",
-      degree: "Abschluss *",
-      startDate: "Startdatum *",
-      endDate: "Enddatum",
-      currentlyEnrolled: "Derzeit eingeschrieben",
-      addEducation: "Bildung hinzufügen",
-      institutePlaceholder: "Polytechnisches Institut",
-      degreePlaceholder: "Diplom",
-    },
+  // English texts
+  const t = {
+    institute: "Name Of Institute *",
+    degree: "Degree *",
+    startDate: "Start Date *",
+    endDate: "End Date",
+    currentlyEnrolled: "Currently Enrolled",
+    addEducation: "Add Education",
+    institutePlaceholder: "Polytechnic Institute",
+    degreePlaceholder: "Diploma",
   };
-
-  const t = language === "de" ? texts.de : texts.en;
 
   useEffect(() => {
     fields.forEach((_, index) => {

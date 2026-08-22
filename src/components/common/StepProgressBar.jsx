@@ -10,8 +10,8 @@ const StepProgressBar = ({ steps, currentStep }) => {
         const isLastStep = index === steps.length - 1;
 
         return (
-          <div 
-            key={index} 
+          <div
+            key={index}
             className="flex-1 flex flex-col items-center relative"
           >
             {/* Connector Line - before each step except the first */}
@@ -20,7 +20,7 @@ const StepProgressBar = ({ steps, currentStep }) => {
                 <div
                   className={clsx(
                     "h-full w-full",
-                    isCompleted || isActive ? "bg-green-500" : "bg-gray-300"
+                    isCompleted || isActive ? "bg-green-500" : "bg-gray-300",
                   )}
                 />
               </div>
@@ -32,7 +32,7 @@ const StepProgressBar = ({ steps, currentStep }) => {
                 <div
                   className={clsx(
                     "h-full w-full",
-                    isCompleted ? "bg-green-500" : "bg-gray-300"
+                    isCompleted ? "bg-green-500" : "bg-gray-300",
                   )}
                 />
               </div>
@@ -45,8 +45,8 @@ const StepProgressBar = ({ steps, currentStep }) => {
                 isActive
                   ? "bg-green-500 text-white border-green-500 sm:shadow-lg sm:shadow-green-500/30"
                   : isCompleted
-                  ? "bg-green-500 text-white  border-green-500"
-                  : "bg-white text-gray-400 border-gray-300"
+                    ? "bg-green-500 text-white  border-green-500"
+                    : "bg-white text-gray-400 border-gray-300",
               )}
             >
               {isCompleted ? (
@@ -68,10 +68,16 @@ const StepProgressBar = ({ steps, currentStep }) => {
             </div>
 
             {/* Step Label */}
-            <div className={clsx(
-              "text-xs   text-center mt-1 py-1.5 px-2 mx-1 bg-[#18181A] sm:mt-1 font-medium whitespace-nowrap rounded-md",
-              isActive ? "text-green-500 font-semibold" : isCompleted ? "text-green-600" : "text-gray-400"
-            )}>
+            <div
+              className={clsx(
+                "text-xs   text-center mt-1 py-1.5 px-2 mx-1 bg-[#18181A] sm:mt-1 font-medium whitespace-nowrap rounded-md",
+                isActive
+                  ? "text-green-500 font-semibold"
+                  : isCompleted
+                    ? "text-green-600"
+                    : "text-gray-400",
+              )}
+            >
               {step}
             </div>
           </div>

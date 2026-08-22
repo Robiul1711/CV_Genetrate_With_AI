@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Download } from "lucide-react";
 import { resumeData } from "./Step8";
-import { useEmail } from "@/hooks/useEmail";
 import { Link } from "react-router-dom";
 import { FaAngleLeft } from "react-icons/fa";
 import Title from "../common/Title";
 
 const Step9 = ({ resumeId }) => {
-  const { language } = useEmail();
   const [resume, setResume] = useState(null);
 
   useEffect(() => {
@@ -30,9 +28,7 @@ const Step9 = ({ resumeId }) => {
         state={{ step: 9 }}
       >
         <FaAngleLeft className="cursor-pointer text-xl p-1 border border-white/30 rounded-full" />
-        <Title level="title32">
-          {language === "de" ? "Zurück" : "Go Back"}
-        </Title>
+        <Title level="title32">Go Back</Title>
       </Link>
 
           <div
@@ -43,9 +39,7 @@ const Step9 = ({ resumeId }) => {
               <div className="w-full">{resume.cvComponet}</div>
             ) : (
               <p className="text-gray-500 text-sm text-center">
-                {language === "en"
-                  ? "No resume selected"
-                  : "Kein Lebenslauf ausgewählt"}
+                No resume selected
               </p>
             )}
           </div>

@@ -40,7 +40,7 @@ const Setting = () => {
     user?.profile?.user?.email || user?.email || "user@example.com";
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-6 pb-12">
+    <div className="w-full  space-y-6 pb-12">
       {/* Page Header */}
       <div>
         <h1 className="text-2xl sm:text-3xl font-bold text-white  flex items-center gap-2">

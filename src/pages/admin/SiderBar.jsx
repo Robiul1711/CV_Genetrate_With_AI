@@ -6,14 +6,12 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import LogOutModal from "./LogOutModal";
 import { useAuth } from "@/hooks/useAuth";
-import { useEmail } from "@/hooks/useEmail";
 // import { Logout } from "@/components/common/adminIcon/CustomIcon";
 
 const SideBar = ({ sidebar, open, setOpen }) => {
   const location = useLocation();
   const [activeParentIndex, setActiveParentIndex] = useState(null);
-  const { language } = useEmail();
-  const {user} = useAuth();
+  const { user } = useAuth();
   useEffect(() => {
     sidebar.forEach((item, index) => {
       if (item.sublink) {
@@ -52,21 +50,23 @@ const SideBar = ({ sidebar, open, setOpen }) => {
       ></div>
 
       {/* Sidebar */}
-      <div
-        className={`h-full py-6 ${
+      <aside
+        className={`h-full flex flex-col ${
           open
-            ? "left-0 top-0 w-[320px] z-[220] shadow-lg bg-[#08090A] overflow-y-auto"
-            : "-left-full xl:w-[350px] w-[280px]"
+            ? "left-0 top-0 w-[300px] sm:w-[320px] z-[220] shadow-2xl bg-[#08090A]"
+            : "-left-full xl:w-[300px] 2xl:w-[320px] w-[280px]"
         }
-        bg-[#0E0E10] border-r-[1px] border-[#262626] backdrop-blur-md xl:px-8 px-4 flex flex-col gap-8 shadow-md xl:static fixed transition-all duration-300`}
+        bg-[#0E0E10] border-r border-[#262626] xl:static fixed transition-all duration-300 z-50`}
       >
-        {/* Logo */}
-        <div className="pb-2 border-b border-[#262626]">
+        {/* Logo Header (Exactly matches CommonNavbar height) */}
+        <div className="h-[72px] px-6 flex items-center border-b border-[#262626] shrink-0">
           <Logo size="md" href="/" />
         </div>
 
-        {/* Navigation */}
-        <div className="flex flex-col gap-3">
+        {/* Navigation Body */}
+        <div className="flex-1 py-6 px-4 flex flex-col justify-between overflow-y-auto no-scrollbar relative">
+          <div className="flex flex-col gap-2">
+
           {sidebar?.map((item, index) => {
             const parentActive = isParentActive(item);
             return !item?.sublink ? (
@@ -138,14 +138,14 @@ const SideBar = ({ sidebar, open, setOpen }) => {
               </div>
             );
           })}
+          </div>
 
           {/* Logout */}
-          <div className="flex absolute bottom-6 w-[80%] items-center gap-3 ">
-        
-           <LogOutModal/>
+          <div className="pt-4 mt-6 border-t border-[#262626]">
+            <LogOutModal />
           </div>
         </div>
-      </div>
+      </aside>
     </>
   );
 };

@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { CiEdit } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
-import { useEmail } from "@/hooks/useEmail"; // Language hook
+
 import dummyimg from "@/assets/images/userdummy.png";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -22,59 +22,31 @@ const StepOne = () => {
   const fileInputRef = useRef(null);
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
   const [imageError, setImageError] = useState("");
-  const { language } = useEmail(); // "en" or "de"
 
-  // Language texts
-  const texts = {
-    en: {
-      uploadPhoto: "Upload your photo *",
-      firstName: "First Name *",
-      lastName: "Last Name *",
-      email: "Email *",
-      phoneNumber: "Phone Number *",
-      address: "Address",
-      dob: "Date of Birth",
-      jobTitle: "Job Title *",
-      about: "About (Optional)",
-      linkedIn: "LinkedIn Profile (optional)",
-      xing: "XING Profile (optional)",
-      firstNamePlaceholder: "John",
-      lastNamePlaceholder: "Smith",
-      emailPlaceholder: "johnsmith@gmail.com",
-      phonePlaceholder: "123 456 8455",
-      addressPlaceholder: "Berlin, Germany",
-      jobTitlePlaceholder: "UI/UX Designer",
-      aboutPlaceholder: "Tell us about yourself...",
-      linkedInPlaceholder: "https://www.linkedin.com/in/your-username/",
-      xingPlaceholder: "https://www.xing.com/in/your-username/",
-      liveTitle: "Live Title",
-    },
-    de: {
-      uploadPhoto: "Laden Sie Ihr Foto hoch *",
-      firstName: "Vorname *",
-      lastName: "Nachname *",
-      email: "E-Mail *",
-      phoneNumber: "Telefonnummer *",
-      address: "Adresse",
-      dob: "Geburtsdatum",
-      jobTitle: "Berufsbezeichnung *",
-      about: "Über mich (optional)",
-      linkedIn: "LinkedIn-Profil (optional)",
-      xing: "XING-Profil (optional)",
-      firstNamePlaceholder: "John",
-      lastNamePlaceholder: "Smith",
-      emailPlaceholder: "johnsmith@gmail.com",
-      phonePlaceholder: "123 456 8455",
-      addressPlaceholder: "Berlin, Deutschland",
-      jobTitlePlaceholder: "UI/UX Designer",
-      aboutPlaceholder: "Erzählen Sie uns etwas über sich...",
-      linkedInPlaceholder: "https://www.linkedin.com/in/your-username/",
-      xingPlaceholder: "https://www.xing.com/in/your-username/",
-      liveTitle: "Live-Titel",
-    },
+  // English texts
+  const t = {
+    uploadPhoto: "Upload your photo *",
+    firstName: "First Name *",
+    lastName: "Last Name *",
+    email: "Email *",
+    phoneNumber: "Phone Number *",
+    address: "Address",
+    dob: "Date of Birth",
+    jobTitle: "Job Title *",
+    about: "About (Optional)",
+    linkedIn: "LinkedIn Profile (optional)",
+    xing: "XING Profile (optional)",
+    firstNamePlaceholder: "John",
+    lastNamePlaceholder: "Smith",
+    emailPlaceholder: "johnsmith@gmail.com",
+    phonePlaceholder: "123 456 8455",
+    addressPlaceholder: "Berlin, Germany",
+    jobTitlePlaceholder: "UI/UX Designer",
+    aboutPlaceholder: "Tell us about yourself...",
+    linkedInPlaceholder: "https://www.linkedin.com/in/your-username/",
+    xingPlaceholder: "https://www.xing.com/in/your-username/",
+    liveTitle: "Live Title",
   };
-
-  const t = language === "de" ? texts.de : texts.en;
 
   // Profile preview
   const [profilePreview, setProfilePreview] = useState(
@@ -101,11 +73,7 @@ const StepOne = () => {
     if (!file) return;
 
     if (file.size > 4 * 1024 * 1024) {
-      setImageError(
-        language === "de"
-          ? "Bild muss kleiner als 4 MB sein"
-          : "Image must be less than 4 MB"
-      );
+      setImageError("Image must be less than 4 MB");
       setValue("profile_photo", "", { shouldValidate: true });
 
       return;
@@ -229,7 +197,7 @@ const StepOne = () => {
 
         <div className="flex flex-col gap-2">
           <label className="md:text-base text-[14px] font-normal text-white">
-            {language === "en" ? "Phone Number" : "Telefonnummer"}
+            Phone Number
           </label>
           <Controller
             name="phone_number"
@@ -240,12 +208,8 @@ const StepOne = () => {
             render={({ field }) => (
               <PhoneInput
                 {...field}
-                country={language === "en" ? "us" : "de"}
-                placeholder={
-                  language === "en"
-                    ? "Enter your phone number"
-                    : "Geben Sie Ihre Telefonnummer ein"
-                }
+                country={"us"}
+                placeholder="Enter your phone number"
                 inputClass=" md:text-base text-[14px]"
                 containerClass={`flex font-poppins gap-2 items-center  p-1  border-[1px] border-[#262626] w-full rounded-[12px] phone_input_container_profile_edit  ${
                   errors.phone ? "border-red-500" : "border-[#D8D8D]"

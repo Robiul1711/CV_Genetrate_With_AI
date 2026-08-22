@@ -5,7 +5,6 @@ import { GoDotFill } from "react-icons/go";
 import { CiEdit } from "react-icons/ci";
 import { Checkbox } from "@/components/ui/checkbox";
 import Title from "../common/Title";
-import { useEmail } from "@/hooks/useEmail"; // Access language
 
 const Step3 = () => {
   const {
@@ -16,7 +15,6 @@ const Step3 = () => {
     formState: { errors },
   } = useFormContext();
 
-  const { language } = useEmail();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "work_experiences",
@@ -62,19 +60,18 @@ const Step3 = () => {
       <div className="w-full max-w-3xl mx-auto">
         {/* Title */}
         <div className="text-center mb-8">
-          <Title level="title40">
-            {language === "de" ? "Ihre Berufserfahrung" : "Your Work Experience"}
-          </Title>
+          <Title level="title40">Your Work Experience</Title>
           <Title level="title20">
-            {language === "de"
-              ? "Listen Sie Ihre bisherigen Jobs und Verantwortlichkeiten auf. Beginnen Sie mit Ihrer letzten Tätigkeit. Sie können mehrere Positionen hinzufügen."
-              : "List your previous jobs and responsibilities. Start with your most recent experience. You can add multiple positions."}
+            List your previous jobs and responsibilities. Start with your most
+            recent experience. You can add multiple positions.
           </Title>
         </div>
 
         {/* Work Experience Cards */}
         {fields.map((item, index) => {
-          const isCurrent = watch(`work_experiences.${index}.still_working_here`);
+          const isCurrent = watch(
+            `work_experiences.${index}.still_working_here`,
+          );
 
           return (
             <div
@@ -85,25 +82,21 @@ const Step3 = () => {
                 <div className="flex items-center gap-2">
                   <Title level="title24">
                     {watch(`work_experiences.${index}.job_title`) ||
-                      (language === "de" ? "Berufsbezeichnung" : "Job Title")}
+                      "Job Title"}
                   </Title>
                   <GoDotFill className="text-white" />
                   <Title level="title24">
                     {watch(`work_experiences.${index}.company_name`) ||
-                      (language === "de" ? "Unternehmen" : "Company")}
+                      "Company"}
                   </Title>
                 </div>
                 <div className="flex gap-2">
-                  {/* <CiEdit
-                    className="text-white cursor-pointer p-1 border border-white/30 rounded-full"
-                    size={28}
-                  /> */}
                   <button
                     type="button"
                     className="text-red-500 text-sm"
                     onClick={() => remove(index)}
                   >
-                    {language === "de" ? "Entfernen" : "Remove"}
+                    Remove
                   </button>
                 </div>
               </div>
@@ -111,12 +104,10 @@ const Step3 = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Job Title */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm">
-                    {language === "de" ? "Berufsbezeichnung *" : "Job Title *"}
-                  </label>
+                  <label className="text-sm">Job Title *</label>
                   <input
                     type="text"
-                    {...register(`work_experiences.${index}.job_title`, )}
+                    {...register(`work_experiences.${index}.job_title`)}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
                   {errors?.work_experiences?.[index]?.job_title && (
@@ -128,14 +119,10 @@ const Step3 = () => {
 
                 {/* Company Name */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm">
-                    {language === "de"
-                      ? "Unternehmensname *"
-                      : "Company Name *"}
-                  </label>
+                  <label className="text-sm">Company Name *</label>
                   <input
                     type="text"
-                    {...register(`work_experiences.${index}.company_name`, )}
+                    {...register(`work_experiences.${index}.company_name`)}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
                   {errors?.work_experiences?.[index]?.company_name && (
@@ -147,12 +134,10 @@ const Step3 = () => {
 
                 {/* Start Date */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm">
-                    {language === "de" ? "Startdatum *" : "Start Date *"}
-                  </label>
+                  <label className="text-sm">Start Date *</label>
                   <input
                     type="date"
-                    {...register(`work_experiences.${index}.start_date`, )}
+                    {...register(`work_experiences.${index}.start_date`)}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
                   {errors?.work_experiences?.[index]?.start_date && (
@@ -164,9 +149,7 @@ const Step3 = () => {
 
                 {/* End Date */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm">
-                    {language === "de" ? "Enddatum" : "End Date"}
-                  </label>
+                  <label className="text-sm">End Date</label>
                   <input
                     type="date"
                     disabled={isCurrent}
@@ -184,23 +167,17 @@ const Step3 = () => {
                     onCheckedChange={(checked) =>
                       setValue(
                         `work_experiences.${index}.still_working_here`,
-                        checked
+                        checked,
                       )
                     }
                   />
-                  <label className="text-sm">
-                    {language === "de"
-                      ? "Ich arbeite hier noch"
-                      : "I'm still working here"}
-                  </label>
+                  <label className="text-sm">I'm still working here</label>
                 </div>
 
                 {/* Responsibilities */}
                 <div className="md:col-span-2 flex flex-col gap-2">
                   <label className="text-sm">
-                    {language === "de"
-                      ? "Verantwortlichkeiten / Erfolge (optional)"
-                      : "Responsibilities / Achievements (Optional)"}
+                    Responsibilities / Achievements (Optional)
                   </label>
                   <textarea
                     rows={3}
@@ -218,12 +195,12 @@ const Step3 = () => {
           <button
             type="button"
             onClick={handleAdd}
-            className="font-medium px-4 text-sm py-2 rounded-lg flex items-center gap-2 border border-white/20 hover:bg-white hover:text-black transition-colors duration-200"
+             className="font-medium px-4 py-2 rounded-lg text-xs flex items-center gap-2 border border-white/20 hover:bg-white hover:text-black transition-colors duration-200"
           >
-            <LuCirclePlus size={20} />{" "}
-            {language === "de" ? "Erfahrung hinzufügen" : "Add Your Experience"}
+            <LuCirclePlus size={20} /> Add Your Experience
           </button>
         </div>
+        
       </div>
     </div>
   );

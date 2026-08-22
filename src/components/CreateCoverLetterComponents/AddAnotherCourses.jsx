@@ -3,63 +3,36 @@ import { useFormContext, Controller } from "react-hook-form";
 import Title from "../common/Title";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useEmail } from "@/hooks/useEmail";
+
 
 const AddAnotherCourses = () => {
   const { control } = useFormContext();
-  const { language } = useEmail();
 
-  // Translation map
-  const texts = {
-    en: {
-      headerTitle: "Tailor Your Document’s Voice",
-      headerSubtitle:
-        "Match your resume/cover letter to the company’s culture. Select one option per category",
-      tailorTitle: "Tailor Your Document’s Voice",
-      genderTitle: "Gender Language",
-      complexityTitle: "Complexity",
-      creativityTitle: "Creativity",
-      formalityTitle: "Formality",
-      formalityOptions: ["Du", "Sie"],
-      genderOptions: [
-        "Informal (Du)",
-        "Formal (Sie)",
-        "Gender (DU) ",
-        "Gender (Sie)",
-      
-      ],
-      tailorOptions: ["Professional", "Academic", "Technical", "Casual"],
-      complexityOptions: ["Simplified", "Advanced", "Academic"],
-      creativityOptions: [
-        "Straightforward",
-        "Moderate",
-        "Highly Creative",
-      ],
-    },
-    de: {
-      headerTitle: "Weitere Kurse und Schulungsdetails",
-      headerSubtitle:
-        "Geben Sie Informationen zu allen professionellen Kursen oder Schulungen an, die Sie abgeschlossen haben.",
-      tailorTitle: "Ton Ihres Dokuments anpassen",
-      genderTitle: "Geschlechtersprache",
-      complexityTitle: "Komplexität",
-      creativityTitle: "Kreativität",
-      formalityTitle: "Formell / Umgangssprachlich",
-      formalityOptions: ["Du", "Sie"],
-      genderOptions: [
-        "Informell (Du)",
-        "Formell (Sie)", 
-        "Gender (Du)",
-        "Gender (Sie) ",
-
-      ],
-      tailorOptions: ["Professionell", "Akademisch", "Technisch", "Locker"],
-      complexityOptions: ["Einfach", "Fortgeschritten", "Akademisch"],
-      creativityOptions: ["Einfach", "Mittel", "Sehr Kreativ"],
-    },
+  // English texts
+  const t = {
+    headerTitle: "Tailor Your Document's Voice",
+    headerSubtitle:
+      "Match your resume/cover letter to the company's culture. Select one option per category",
+    tailorTitle: "Tailor Your Document's Voice",
+    genderTitle: "Gender Language",
+    complexityTitle: "Complexity",
+    creativityTitle: "Creativity",
+    formalityTitle: "Formality",
+    formalityOptions: ["Du", "Sie"],
+    genderOptions: [
+      "Informal (Du)",
+      "Formal (Sie)",
+      "Gender (DU) ",
+      "Gender (Sie)",
+    ],
+    tailorOptions: ["Professional", "Academic", "Technical", "Casual"],
+    complexityOptions: ["Simplified", "Advanced", "Academic"],
+    creativityOptions: [
+      "Straightforward",
+      "Moderate",
+      "Highly Creative",
+    ],
   };
-
-  const t = language === "de" ? texts.de : texts.en;
 
   return (
     <div className="bg-black max-w-xl p-6 mx-auto rounded-md">

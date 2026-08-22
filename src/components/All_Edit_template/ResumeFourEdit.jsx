@@ -11,7 +11,6 @@ import dayjs from "dayjs";
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import DownloadButton from "../common/DownloadButton";
-import { useEmail } from "@/hooks/useEmail";
 
 import WaterMark from "@/assets/images/watermark.png";
 import { useStatusCheck } from "../common/useStatusCheck";
@@ -21,9 +20,7 @@ const ResumeFourEdit = () => {
   const { allRedumeData, color, setColor, font } = useResume();
   const { watch } = useFormContext();
   const resumeRef = useRef();
-  const [profilePreview, setProfilePreview] = useState(user);
-  const { language } = useEmail();
-  const formData = watch();
+  const [profilePreview, setProfilePreview] = useState(user);  const formData = watch();
 
   // Map selected font to actual CSS font-family
   const fontMap = {

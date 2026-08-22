@@ -4,7 +4,6 @@ import { LuCirclePlus } from "react-icons/lu";
 import { CiEdit } from "react-icons/ci";
 import Title from "../common/Title";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useEmail } from "@/hooks/useEmail"; // language hook
 
 const Step4 = () => {
   const {
@@ -14,8 +13,6 @@ const Step4 = () => {
     setValue,
     formState: { errors },
   } = useFormContext();
-
-  const { language } = useEmail();
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -59,13 +56,10 @@ const Step4 = () => {
       <div className="w-full max-w-3xl mx-auto">
         {/* Title */}
         <div className="text-center mb-8">
-          <Title level="title40">
-            {language === "de" ? "Ihre Ausbildung" : "Your Education"}
-          </Title>
+          <Title level="title40">Your Education</Title>
           <Title level="title20">
-            {language === "de"
-              ? "Listen Sie Ihre Bildungsabschlüsse auf. Beginnen Sie mit dem aktuellsten. Sie können mehrere Einträge hinzufügen."
-              : "List your education background. Start with the most recent. You can add multiple entries."}
+            List your education background. Start with the most recent. You can
+            add multiple entries.
           </Title>
         </div>
 
@@ -82,40 +76,30 @@ const Step4 = () => {
                 <div className="flex items-center gap-2">
                   <Title level="title24">
                     {watch(`educations.${index}.institute_name`) ||
-                      (language === "de" ? "Institut" : "Institute Name")}
+                      "Institute Name"}
                   </Title>
                   <Title level="title24">
-                    {watch(`educations.${index}.degree`) ||
-                      (language === "de" ? "Abschluss" : "Degree")}
+                    {watch(`educations.${index}.degree`) || "Degree"}
                   </Title>
                 </div>
                 <div className="flex gap-2">
-                  {/* <CiEdit
-                    className="text-white cursor-pointer p-1 border border-white/30 rounded-full"
-                    size={28}
-                  /> */}
                   <button
                     type="button"
                     className="text-red-500 text-sm"
                     onClick={() => remove(index)}
                   >
-                    {language === "de" ? "Entfernen" : "Remove"}
+                    Remove
                   </button>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm">
-                    {language === "de" ? "Institut *" : "Institute Name *"}
-                  </label>
+                  <label className="text-sm">Institute Name *</label>
                   <input
                     type="text"
                     {...register(`educations.${index}.institute_name`, {
-                      required:
-                        language === "de"
-                          ? "Institut ist erforderlich"
-                          : "Institute Name is required",
+                      required: "Institute Name is required",
                     })}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
@@ -127,16 +111,11 @@ const Step4 = () => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm">
-                    {language === "de" ? "Abschluss *" : "Degree *"}
-                  </label>
+                  <label className="text-sm">Degree *</label>
                   <input
                     type="text"
                     {...register(`educations.${index}.degree`, {
-                      required:
-                        language === "de"
-                          ? "Abschluss ist erforderlich"
-                          : "Degree is required",
+                      required: "Degree is required",
                     })}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
@@ -148,16 +127,11 @@ const Step4 = () => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm">
-                    {language === "de" ? "Startdatum *" : "Start Date *"}
-                  </label>
+                  <label className="text-sm">Start Date *</label>
                   <input
                     type="date"
                     {...register(`educations.${index}.start_date`, {
-                      required:
-                        language === "de"
-                          ? "Startdatum ist erforderlich"
-                          : "Start Date is required",
+                      required: "Start Date is required",
                     })}
                     className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                   />
@@ -169,9 +143,7 @@ const Step4 = () => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm">
-                    {language === "de" ? "Enddatum" : "End Date"}
-                  </label>
+                  <label className="text-sm">End Date</label>
                   <input
                     type="date"
                     disabled={isCurrent}
@@ -186,13 +158,14 @@ const Step4 = () => {
                   <Checkbox
                     checked={isCurrent}
                     onCheckedChange={(checked) =>
-                      setValue(`educations.${index}.currently_enrolled`, checked)
+                      setValue(
+                        `educations.${index}.currently_enrolled`,
+                        checked,
+                      )
                     }
                   />
                   <label className="text-sm">
-                    {language === "de"
-                      ? "Ich studiere hier noch"
-                      : "I am currently studying here"}
+                    I am currently studying here
                   </label>
                 </div>
               </div>
@@ -207,7 +180,7 @@ const Step4 = () => {
             onClick={handleAdd}
             className="font-medium px-4 text-sm py-2 rounded-lg flex items-center gap-2 border border-white/20 hover:bg-white hover:text-black transition-colors duration-200"
           >
-            <LuCirclePlus size={20} /> {language === "de" ? "Ausbildung hinzufügen" : "Add Education"}
+            <LuCirclePlus size={20} /> Add Education
           </button>
         </div>
       </div>

@@ -3,40 +3,24 @@ import { useFormContext, useFieldArray, Controller } from "react-hook-form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { LuCirclePlus, LuX } from "react-icons/lu";
 import { useResume } from "@/providers/ResumeContext";
-import { useEmail } from "@/hooks/useEmail"; // Language hook
+
 
 const StepTwo = () => {
   const { control, register, watch, setValue } = useFormContext();
   const { allRedumeData } = useResume();
   const data = allRedumeData?.data;
 
-  const { language } = useEmail(); // "en" or "de"
 
-  // Language texts
-  const texts = {
-    en: {
-      jobTitle: "Job Title *",
-      companyName: "Company Name *",
-      startDate: "Start Date *",
-      endDate: "End Date",
-      stillWorking: "I'm still working here",
-      responsibilities:
-        "Responsibilities / Achievements (Optional)",
-      addExperience: "Add Another Previous Experience",
-    },
-    de: {
-      jobTitle: "Berufsbezeichnung *",
-      companyName: "Firmenname *",
-      startDate: "Startdatum *",
-      endDate: "Enddatum",
-      stillWorking: "Ich arbeite noch hier",
-      responsibilities:
-        "Verantwortlichkeiten / Erfolge (Optional)",
-      addExperience: "Weitere Berufserfahrung hinzufügen",
-    },
+  // English texts
+  const t = {
+    jobTitle: "Job Title *",
+    companyName: "Company Name *",
+    startDate: "Start Date *",
+    endDate: "End Date",
+    stillWorking: "I'm still working here",
+    responsibilities: "Responsibilities / Achievements (Optional)",
+    addExperience: "Add Another Previous Experience",
   };
-
-  const t = language === "de" ? texts.de : texts.en;
 
   const { fields, append, remove } = useFieldArray({
     control,

@@ -11,7 +11,7 @@ const Price = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
-      className="section-padding-x section-padding-y"
+      className="mt-8 lg:mt-16"
     >
       <ScrollRestoration />
       <YourPlan />

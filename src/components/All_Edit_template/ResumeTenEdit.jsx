@@ -12,7 +12,6 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
-import { useEmail } from "@/hooks/useEmail";
 import WaterMark from "@/assets/images/watermark.png";
 import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeTenEdit = () => {
@@ -22,8 +21,6 @@ const ResumeTenEdit = () => {
   const formData = watch();
   const resumeRef = useRef(null);
   const [profilePreview, setProfilePreview] = useState(user);
-  const { language } = useEmail();
-
   // Dynamic font map
   const fontMap = {
     inter: "Inter, sans-serif",

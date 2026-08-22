@@ -12,7 +12,6 @@ import { useFormContext } from "react-hook-form";
 import CvImage from "@/assets/images/cv7.png";
 import user from "@/assets/images/placeholder-user.png";
 import DownloadButton from "../common/DownloadButton";
-import { useEmail } from "@/hooks/useEmail";
 import WaterMark from "@/assets/images/watermark.png";
 import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeSevenEdit = () => {
@@ -20,9 +19,7 @@ const ResumeSevenEdit = () => {
   const { allRedumeData, color, setColor, font } = useResume();
   const { watch } = useFormContext();
   const resumeRef = useRef(null);
-  const [profilePreview, setProfilePreview] = useState(user);
-  const { language } = useEmail();
-  const formData = watch();
+  const [profilePreview, setProfilePreview] = useState(user);  const formData = watch();
 
   const { data: status } = useStatusCheck();
 

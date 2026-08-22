@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from "react";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import { LuCirclePlus } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
-import { useEmail } from "@/hooks/useEmail";
+
 import languages from "language-list";
 
 const LEVEL_OPTIONS = [
@@ -27,34 +27,20 @@ const StepFive = () => {
     name: "languages",
   });
 
-  const { language } = useEmail(); // "en" or "de"
 
-  // ✅ Localized text
-  const texts = {
-    en: {
-      language: "Language *",
-      level: "Level *",
-      addLanguage: "Add Another Language",
-      selectLanguage: "Select Language",
-      title: "Languages You Know",
-    },
-    de: {
-      language: "Sprache *",
-      level: "Niveau *",
-      addLanguage: "Weitere Sprache hinzufügen",
-      selectLanguage: "Sprache auswählen",
-      title: "Sprachenkenntnisse",
-    },
+  // English texts
+  const t = {
+    language: "Language *",
+    level: "Level *",
+    addLanguage: "Add Another Language",
+    selectLanguage: "Select Language",
+    title: "Languages You Know",
   };
 
-  const t = language === "de" ? texts.de : texts.en;
-
-  // ✅ Get localized list of languages
+  // ✅ Get list of languages
   const languageOptions = useMemo(() => {
-    return language === "de"
-      ? languages("de").getData()
-      : languages().getData();
-  }, [language]);
+    return languages().getData();
+  }, []);
 
   // ✅ Initialize languages only once
   useEffect(() => {

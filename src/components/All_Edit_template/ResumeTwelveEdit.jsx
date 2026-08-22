@@ -13,7 +13,6 @@ import {
 import dayjs from "dayjs";
 import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
-import { useEmail } from "@/hooks/useEmail";
 import dummyuser from "@/assets/images/userdummy.png";
 const ResumeTwelveEdit = () => {
   const VITE_IMG_URL = import.meta.env.VITE_IMG_URL;
@@ -21,9 +20,7 @@ const ResumeTwelveEdit = () => {
   const { watch } = useFormContext();
   const resumeRef = useRef();
   const [profilePreview, setProfilePreview] = useState(dummyuser);
-  const formData = watch();
-  const { language } = useEmail();
-  const resumeData = {
+  const formData = watch();  const resumeData = {
     first_name: formData.first_name || allRedumeData?.data?.first_name || "",
     last_name: formData.last_name || allRedumeData?.data?.last_name || "",
     job_title: formData.job_title || allRedumeData?.data?.job_title || "",

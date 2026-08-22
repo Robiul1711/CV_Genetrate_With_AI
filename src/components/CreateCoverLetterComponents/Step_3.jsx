@@ -4,27 +4,15 @@ import Title from "@/components/common/Title";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Progress } from "@/components/ui/progress";
 import { useFormContext, Controller } from "react-hook-form";
-import { useEmail } from "@/hooks/useEmail";
 
-const textMap = {
-  en: {
-    pageTitle: "Upload Resume",
-    clickToUpload: "Click to upload",
-    fileTypes: "PDF, DOCX (Max 5MB)",
-    requiredError: "Resume is required",
-  },
-  de: {
-    pageTitle: "Lebenslauf hochladen",
-    clickToUpload: "Zum Hochladen klicken",
-    fileTypes: "PDF, DOCX (Max. 5MB)",
-    requiredError: "Lebenslauf ist erforderlich",
-  },
+const t = {
+  pageTitle: "Upload Resume",
+  clickToUpload: "Click to upload",
+  fileTypes: "PDF, DOCX (Max 5MB)",
+  requiredError: "Resume is required",
 };
 
 const Step_3 = () => {
-  const { language } = useEmail();
-  const t = textMap[language || "en"];
-
   const {
     control,
     setValue,
@@ -55,7 +43,7 @@ const Step_3 = () => {
   }, [uploadedFile]);
 
   return (
-    <div className="max-w-[800px] mx-auto">
+    <div className="max-w-[800px] mx-auto w-full">
       <div className="text-center flex flex-col items-center gap-4 mb-5">
         <Title level="title32">{t.pageTitle}</Title>
       </div>

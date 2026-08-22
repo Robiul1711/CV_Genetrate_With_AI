@@ -10,7 +10,6 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
-import { useEmail } from "@/hooks/useEmail";
 import user from "@/assets/images/placeholder-user.png";
 import WaterMark from "@/assets/images/watermark.png";
 import { useStatusCheck } from "../common/useStatusCheck";
@@ -20,9 +19,7 @@ const ResumeSixEdit = () => {
   const { allRedumeData, color, setColor, font } = useResume();
   const { watch } = useFormContext();
   const resumeRef = useRef(null);
-  const [profilePreview, setProfilePreview] = useState(user);
-  const { language } = useEmail();
-  const formData = watch();
+  const [profilePreview, setProfilePreview] = useState(user);  const formData = watch();
 
   const resume_color = color || allRedumeData?.data?.resume_color;
 

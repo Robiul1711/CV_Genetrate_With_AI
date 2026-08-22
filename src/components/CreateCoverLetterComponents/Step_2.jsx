@@ -1,52 +1,32 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import Title from "../common/Title";
-import { useEmail } from "@/hooks/useEmail";
 
-const textMap = {
-  en: {
-    pageTitle: "Job Application Details",
-    applyingFor: "Job Title You’re Applying For *",
-    applyingForPlaceholder: "Frontend Developer",
-    applyingForError: "Job title is required",
-    companyName: "Company Name *",
-    companyNamePlaceholder: "xyz Company",
-    companyNameError: "Company name is required",
-    companyLocation: "Company Location *",
-    companyLocationPlaceholder: "Germany, Berlin",
-    companyLocationError: "Company location is required",
-    hiringManager: "Hiring Manager Name *",
-    hiringManagerPlaceholder: "Dear Luci,",
-    hiringManagerError: "Hiring manager name is required",
-  },
-  de: {
-    pageTitle: "Bewerbungsdetails",
-    applyingFor: "Position, für die Sie sich bewerben *",
-    applyingForPlaceholder: "Frontend Entwickler",
-    applyingForError: "Berufsbezeichnung ist erforderlich",
-    companyName: "Firmenname *",
-    companyNamePlaceholder: "xyz Firma",
-    companyNameError: "Firmenname ist erforderlich",
-    companyLocation: "Firmenstandort *",
-    companyLocationPlaceholder: "Deutschland, Berlin",
-    companyLocationError: "Firmenstandort ist erforderlich",
-    hiringManager: "Name des Personalmanagers *",
-    hiringManagerPlaceholder: "Sehr geehrte Luci,",
-    hiringManagerError: "Name des Personalmanagers ist erforderlich",
-  },
+const t = {
+  pageTitle: "Job Application Details",
+  applyingFor: "Job Title You’re Applying For *",
+  applyingForPlaceholder: "Frontend Developer",
+  applyingForError: "Job title is required",
+  companyName: "Company Name *",
+  companyNamePlaceholder: "xyz Company",
+  companyNameError: "Company name is required",
+  companyLocation: "Company Location *",
+  companyLocationPlaceholder: "Germany, Berlin",
+  companyLocationError: "Company location is required",
+  hiringManager: "Hiring Manager Name *",
+  hiringManagerPlaceholder: "Dear Luci,",
+  hiringManagerError: "Hiring manager name is required",
 };
 
 const Step_2 = () => {
-  const { language } = useEmail();
-  const t = textMap[language || "en"];
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
   return (
-    <div className="text-white flex items-center justify-center">
-      <div className="w-[800px]">
+    <div className="text-white flex items-center justify-center w-full">
+      <div className="w-full max-w-[800px] mx-auto">
         <div className="text-center flex flex-col items-center gap-4 mb-5">
           <Title level="title40">{t.pageTitle}</Title>
         </div>

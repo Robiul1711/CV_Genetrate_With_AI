@@ -3,7 +3,6 @@ import dayjs from "dayjs";
 import { useFormContext } from "react-hook-form";
 import { useResume } from "@/providers/ResumeContext";
 import DownloadButton from "../common/DownloadButton";
-import { useEmail } from "@/hooks/useEmail";
 import {
   FaPhoneAlt,
   FaLinkedin,
@@ -18,8 +17,6 @@ const ResumeFiveEdit = () => {
   const { allRedumeData, color, setColor, font } = useResume();
   const resumeData = allRedumeData?.data || {};
   const resumeRef = useRef();
-  const { language } = useEmail();
-
   // Map selected font to actual CSS font-family
   const fontMap = {
     inter: "Inter, sans-serif",

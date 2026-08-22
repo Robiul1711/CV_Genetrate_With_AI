@@ -3,11 +3,9 @@ import Title from "../common/Title";
 import { LuCirclePlus } from "react-icons/lu";
 import { GoDotFill } from "react-icons/go";
 import { useFormContext, useFieldArray } from "react-hook-form";
-import { useEmail } from "@/hooks/useEmail"; // for language ("en" or "de")
 
 const Step7 = () => {
   const { register, control, watch } = useFormContext();
-  const { language } = useEmail(); // "en" or "de"
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -29,32 +27,20 @@ const Step7 = () => {
   }, [courses, append]);
 
   return (
-    <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6">
-      <div className="w-[800px] mx-auto">
+    <div className="text-white flex items-center justify-center p-3 lg:px-6 xl:py-6 w-full">
+      <div className="w-full max-w-[800px] mx-auto">
         {/* Titles */}
         <div className="text-center flex md:hidden flex-col items-center gap-2 mb-5 xl:mb-10">
-          <Title level="title24">
-            {language === "de"
-              ? "Kurse und Schulungen"
-              : "Courses and Training Details"}
-          </Title>
+          <Title level="title24">Courses and Training Details</Title>
           <Title level="title14">
-            {language === "de"
-              ? "Geben Sie Informationen zu beruflichen Kursen oder Schulungen an"
-              : "Provide information about any professional courses or training"}
+            Provide information about any professional courses or training
           </Title>
         </div>
 
         <div className="text-center hidden md:flex flex-col items-center gap-4 mb-5 xl:mb-10">
-          <Title level="title40">
-            {language === "de"
-              ? "Kurse und Schulungen"
-              : "Courses and Training Details"}
-          </Title>
+          <Title level="title40">Courses and Training Details</Title>
           <Title level="title20">
-            {language === "de"
-              ? "Geben Sie Informationen zu beruflichen Kursen oder Schulungen an"
-              : "Provide information about any professional courses or training"}
+            Provide information about any professional courses or training
           </Title>
         </div>
 
@@ -67,15 +53,11 @@ const Step7 = () => {
             <div className="flex justify-between items-center mb-3">
               <div className="flex items-center gap-2">
                 <Title level="title32" className="text-sm sm:text-base">
-                  {courses?.[index]?.course_name ||
-                    (language === "de" ? "Kursname" : "Course Name")}
+                  {courses?.[index]?.course_name || "Course Name"}
                 </Title>
                 <GoDotFill className="text-[#fff] text-xl" />
                 <Title level="title32" className="text-sm sm:text-base">
-                  {courses?.[index]?.name_of_institute ||
-                    (language === "de"
-                      ? "Institutsname"
-                      : "Institute Name")}
+                  {courses?.[index]?.name_of_institute || "Institute Name"}
                 </Title>
               </div>
               <button
@@ -83,44 +65,32 @@ const Step7 = () => {
                 onClick={() => remove(index)}
                 className="text-red-400 text-xs hover:underline"
               >
-                {language === "de" ? "Entfernen" : "Remove"}
+                Remove
               </button>
             </div>
 
             {/* Name of Institute */}
             <div className="flex flex-col gap-2 mb-2">
-              <label className="text-sm text-white">
-                {language === "de"
-                  ? "Name des Instituts"
-                  : "Name Of Institute"}
-              </label>
+              <label className="text-sm text-white">Name Of Institute</label>
               <input
                 type="text"
                 {...register(
-                  `courses_and_training_details.${index}.name_of_institute`
+                  `courses_and_training_details.${index}.name_of_institute`,
                 )}
-                placeholder={
-                  language === "de"
-                    ? "Name des Instituts"
-                    : "Name of Institute"
-                }
+                placeholder="Name of Institute"
                 className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               />
             </div>
 
             {/* Course Name */}
             <div className="flex flex-col gap-2 mb-2">
-              <label className="text-sm text-white">
-                {language === "de" ? "Kursname" : "Course Name"}
-              </label>
+              <label className="text-sm text-white">Course Name</label>
               <input
                 type="text"
                 {...register(
-                  `courses_and_training_details.${index}.course_name`
+                  `courses_and_training_details.${index}.course_name`,
                 )}
-                placeholder={
-                  language === "de" ? "Kursname" : "Course Name"
-                }
+                placeholder="Course Name"
                 className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
               />
             </div>
@@ -128,30 +98,24 @@ const Step7 = () => {
             {/* Dates (year only) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
-                <label className="text-sm text-white">
-                  {language === "de" ? "Startjahr" : "Start Year"}
-                </label>
+                <label className="text-sm text-white">Start Year</label>
                 <input
                   type="text"
                   placeholder="YYYY"
                   {...register(
-                    `courses_and_training_details.${index}.start_date`
+                    `courses_and_training_details.${index}.start_date`,
                   )}
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 />
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm text-white">
-                  {language === "de"
-                    ? "Endjahr (optional)"
-                    : "End Year (optional)"}
-                </label>
+                <label className="text-sm text-white">End Year (optional)</label>
                 <input
                   type="text"
                   placeholder="YYYY"
                   {...register(
-                    `courses_and_training_details.${index}.end_date`
+                    `courses_and_training_details.${index}.end_date`,
                   )}
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 />
@@ -175,9 +139,7 @@ const Step7 = () => {
             className="font-medium px-4 py-2 rounded-lg text-xs flex items-center gap-2 border border-white/20 hover:bg-white hover:text-black transition-colors duration-200"
           >
             <LuCirclePlus size={20} />
-            {language === "de"
-              ? "Weiteres Zertifikat hinzufügen"
-              : "Add Another Certificate"}
+            Add Another Certificate
           </button>
         </div>
       </div>

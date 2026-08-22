@@ -1,30 +1,21 @@
 import React from 'react';
 import { XCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useEmail } from '@/hooks/useEmail';
+
 
 const PaymentCancelled = () => {
   const navigate = useNavigate();
-  const { language } = useEmail(); // expects "en" or "de"
 
   const handleBackToHome = () => {
     navigate('/');
   };
 
-  // Translation strings
-  const texts = language === 'de'
-    ? {
-        title: 'Zahlung abgebrochen',
-        message:
-          'Ihre Zahlung konnte nicht verarbeitet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support.',
-        button: 'Zur Startseite'
-      }
-    : {
-        title: 'Payment Cancelled',
-        message:
-          'Your payment could not be processed. Please try again or contact support.',
-        button: 'Back to Home'
-      };
+  // English texts
+  const texts = {
+    title: 'Payment Cancelled',
+    message: 'Your payment could not be processed. Please try again or contact support.',
+    button: 'Back to Home'
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black px-4">

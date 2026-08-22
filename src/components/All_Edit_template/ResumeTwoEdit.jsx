@@ -10,15 +10,12 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
-import { useEmail } from "@/hooks/useEmail";
 import { useStatusCheck } from "../common/useStatusCheck";
 import WaterMark from "@/assets/images/watermark.png";
 const ResumeTwoEdit = () => {
   const { allRedumeData, color, setColor, font } = useResume();
   const { watch } = useFormContext();
-  const resumeRef = useRef();
-  const { language } = useEmail();
-  const formValues = watch();
+  const resumeRef = useRef();  const formValues = watch();
 
   // Map selected font to actual CSS font-family
   const fontMap = {

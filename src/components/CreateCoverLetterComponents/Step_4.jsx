@@ -1,41 +1,26 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import Title from "../common/Title";
-import { useEmail } from "@/hooks/useEmail";
 
-const textMap = {
-  en: {
-    pageTitle: "Why You’re a Good Fit",
-    jobQuestion: "Why do you want this job?",
-    experienceQuestion: "Relevant Experience/Skills for this role",
-    achievementQuestion: "Any specific achievement or project to highlight?",
-    keywordsQuestion: "Are there any keywords or values you'd like to emphasize?",
-    placeholder: "Write here...",
-    required: "This field is required",
-  },
-  de: {
-    pageTitle: "Warum Sie gut passen",
-    jobQuestion: "Warum möchten Sie diesen Job?",
-    experienceQuestion: "Relevante Erfahrungen/Fähigkeiten für diese Rolle",
-    achievementQuestion: "Gibt es spezielle Erfolge oder Projekte hervorzuheben?",
-    keywordsQuestion: "Gibt es Schlüsselwörter oder Werte, die Sie betonen möchten?",
-    placeholder: "Hier schreiben...",
-    required: "Dieses Feld ist erforderlich",
-  },
+const t = {
+  pageTitle: "Why You’re a Good Fit",
+  jobQuestion: "Why do you want this job?",
+  experienceQuestion: "Relevant Experience/Skills for this role",
+  achievementQuestion: "Any specific achievement or project to highlight?",
+  keywordsQuestion: "Are there any keywords or values you'd like to emphasize?",
+  placeholder: "Write here...",
+  required: "This field is required",
 };
 
 const Step_4 = () => {
-  const { language } = useEmail();
-  const t = textMap[language || "en"];
-
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
   return (
-    <div className="text-white flex items-center justify-center">
-      <div className="w-[800px] mx-auto">
+    <div className="text-white flex items-center justify-center w-full">
+      <div className="w-full max-w-[800px] mx-auto">
         <div className="text-center flex flex-col items-center gap-4 mb-5">
           <Title level="title40">{t.pageTitle}</Title>
         </div>

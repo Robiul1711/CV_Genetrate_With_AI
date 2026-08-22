@@ -1,4 +1,3 @@
-import { useEmail } from "@/hooks/useEmail";
 import { useResume } from "@/providers/ResumeContext";
 import React from "react";
 import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
@@ -10,12 +9,11 @@ import rehypeHighlight from "rehype-highlight";
 
 export default function CoverLetter({ resumeRef }) {
   const { coverLetter } = useResume();
-  const { language } = useEmail();
   const cover = coverLetter?.data;
   
   // Replace single newlines with two spaces and a newline (Markdown line break)
   // Replace double newlines with paragraph breaks
-  const processedContent = (cover?.cover_letter_content )
+  const processedContent = (cover?.cover_letter_content || "")
     .replace(/\n\n/g, '<br/><br/>')  // Double newlines for paragraphs
     .replace(/\n/g, '  \n');  // Single newlines with spaces for line breaks
 

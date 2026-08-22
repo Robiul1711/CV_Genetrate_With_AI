@@ -13,7 +13,6 @@ import { useResume } from "@/providers/ResumeContext";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 import DownloadButton from "../common/DownloadButton";
-import { useEmail } from "@/hooks/useEmail";
 import WaterMark from "@/assets/images/watermark.png";
 import { useStatusCheck } from "../common/useStatusCheck";
 const ResumeNineEdit = () => {
@@ -22,8 +21,6 @@ const ResumeNineEdit = () => {
   const { watch } = useFormContext();
   const formData = watch();
   const [profilePreview, setProfilePreview] = useState(Cv9);
-  const { language } = useEmail();
-
   // Dynamic font map
   const fontMap = {
     inter: "Inter, sans-serif",

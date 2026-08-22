@@ -11,7 +11,6 @@ import {
   FaPhoneAlt,
   FaXing,
 } from "react-icons/fa";
-import { useEmail } from "@/hooks/useEmail";
 import WaterMark from "@/assets/images/watermark.png";
 import { useStatusCheck } from "../common/useStatusCheck";
 
@@ -19,9 +18,7 @@ const ResumeElevenEdit = () => {
   const { allRedumeData, color, setColor, font } = useResume(); // Added font
   const { watch } = useFormContext();
   const formData = watch();
-  const resumeRef = useRef(null);
-  const { language } = useEmail();
-  const [profilePreview, setProfilePreview] = useState("");
+  const resumeRef = useRef(null);  const [profilePreview, setProfilePreview] = useState("");
 
   const resume_color = color || allRedumeData?.data?.resume_color;
 

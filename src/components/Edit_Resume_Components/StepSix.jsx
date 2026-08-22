@@ -3,37 +3,24 @@ import React, { useEffect } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { LuCirclePlus } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
-import { useEmail } from "@/hooks/useEmail"; // useEmail hook for language
+
 
 const StepSix = () => {
   const { allRedumeData } = useResume();
   const data = allRedumeData?.data;
 
   const { register, control, watch, setValue,formState:{errors} } = useFormContext();
-  const { language } = useEmail(); // Get language from useEmail
 
-  const texts = {
-    en: {
-      institute: "Name Of Institute *",
-      course: "Course Name *",
-      startDate: "Start Date *",
-      endDate: "End Date",
-      addButton: "Add Another Certificate",
-      institutePlaceholder: "Polytechnic Institute",
-      coursePlaceholder: "Diploma",
-    },
-    de: {
-      institute: "Name der Institution *",
-      course: "Kursname *",
-      startDate: "Startdatum *",
-      endDate: "Enddatum",
-      addButton: "Weitere Zertifikate hinzufügen",
-      institutePlaceholder: "Polytechnische Hochschule",
-      coursePlaceholder: "Diplom",
-    },
+  // English texts
+  const t = {
+    institute: "Name Of Institute *",
+    course: "Course Name *",
+    startDate: "Start Date *",
+    endDate: "End Date",
+    addButton: "Add Another Certificate",
+    institutePlaceholder: "Polytechnic Institute",
+    coursePlaceholder: "Diploma",
   };
-
-  const t = language === "de" ? texts.de : texts.en;
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -121,17 +108,13 @@ const StepSix = () => {
              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <label className="text-sm text-white">
-                  {language === "de" ? "Startjahr *" : "Start Year *"}
+                  Start Year *
                 </label>
                 <input
                   type="text"
                   placeholder="YYYY"
                   {...register(`courses_and_training_details.${index}.start_date`, {
-                    required: language === "de" ? "Startjahr ist erforderlich" : "Start year is required",
-                    // pattern: {
-                    //   value: /^\d{4}$/,
-                    //   message: language === "de" ? "Ungültiges Jahr" : "Invalid year",
-                    // },
+                    required: "Start year is required",
                   })}
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 />
@@ -144,17 +127,12 @@ const StepSix = () => {
 
               <div className="flex flex-col gap-2">
                 <label className="text-sm text-white">
-                  {language === "de" ? "Endjahr (optional)" : "End Year (optional)"}
+                  End Year (optional)
                 </label>
                 <input
                   type="text"
                   placeholder="YYYY"
-                  {...register(`courses_and_training_details.${index}.end_date`, {
-                    // pattern: {
-                    //   value: /^\d{4}$/,
-                    //   message: language === "de" ? "Ungültiges Jahr" : "Invalid year",
-                    // },
-                  })}
+                  {...register(`courses_and_training_details.${index}.end_date`)}
                   className="bg-[#0E0E10] px-3 py-1.5 text-xs rounded-lg border border-[#262626] text-white"
                 />
               </div>
