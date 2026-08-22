@@ -13,6 +13,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 
+import { motion } from "framer-motion";
+
 const SignIn = () => {
   const [searchParams] = useSearchParams();
   const redirectPath = searchParams.get("redirect") || "/";
@@ -54,11 +56,15 @@ const SignIn = () => {
   };
 
   return (
-    <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center overflow-y-auto md:overflow-y-hidden">
+    <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center overflow-y-auto md:overflow-y-hidden relative">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#81FB84]/10 blur-[140px] rounded-full pointer-events-none -z-10" />
       <ScrollRestoration />
-      <form
+      <motion.form
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-2xl px-4 sm:px-10 lg:px-[120px] py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+        className="w-full max-w-2xl px-4 sm:px-10 lg:px-[120px] py-5 md:py-8 rounded-2xl border border-[#81FB84]/20 hover:border-[#81FB84]/40 transition duration-300 bg-[#0D0D0D] shadow-2xl"
       >
         <div className="flex justify-center mb-5">
           <Logo size="lg" />
@@ -67,6 +73,7 @@ const SignIn = () => {
         <Title level="title18" className="text-center mb-6">
           Sign in to access your resumes and tools
         </Title>
+
 
         {/* Server Error */}
         {serverError && (
@@ -220,9 +227,10 @@ const SignIn = () => {
             </span>
           </Link>
         </p>
-      </form>
+      </motion.form>
     </div>
   );
 };
+
 
 export default SignIn;

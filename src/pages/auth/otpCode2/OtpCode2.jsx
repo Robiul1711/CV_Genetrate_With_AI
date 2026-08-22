@@ -5,6 +5,7 @@ import Title from "@/components/common/Title";
 import OTPInput from "react-otp-input";
 import { useEmail } from "@/hooks/useEmail";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 const OTPCode2 = () => {
   const { email } = useEmail();
@@ -49,16 +50,21 @@ const OTPCode2 = () => {
   };
 
   return (
-    <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center overflow-auto md:overflow-y-hidden">
+    <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center overflow-auto md:overflow-y-hidden relative">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#81FB84]/10 blur-[140px] rounded-full pointer-events-none -z-10" />
       <ScrollRestoration />
-      <form
+      <motion.form
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         onSubmit={handleSubmit}
-        className="w-full max-w-2xl h-auto md:h-[600px] px-4 sm:px-8 md:px-12 lg:px-32 py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+        className="w-full max-w-2xl h-auto md:h-[600px] px-4 sm:px-8 md:px-12 lg:px-32 py-5 md:py-8 rounded-2xl border border-[#81FB84]/20 hover:border-[#81FB84]/40 transition duration-300 bg-[#0D0D0D] shadow-2xl"
       >
         {/* Logo */}
         <div className="flex justify-center mb-5">
           <Logo size="lg" />
         </div>
+
 
         {/* Heading */}
         <h2 className="text-lg font-semibold text-center mb-2">
@@ -130,10 +136,10 @@ const OTPCode2 = () => {
               isPending ? "bg-gray-400" : "bg-[#FFF]"
             } text-black py-2 my-3 text-sm font-medium rounded-lg flex justify-center items-center gap-2`}
           >
-            {isPending ? "Verifying..." : "Verify & Sign In"}
+            {isPending ? "Verifying..." : "Verify"}
           </button>
         </div>
-      </form>
+      </motion.form>
     </div>
   );
 };

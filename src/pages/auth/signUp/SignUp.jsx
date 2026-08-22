@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useEmail } from "@/hooks/useEmail";
 
+import { motion } from "framer-motion";
+
 const SignUp = () => {
   const { setEmail } = useEmail();
   const [showPassword, setShowPassword] = useState(false);
@@ -46,11 +48,15 @@ const SignUp = () => {
   };
 
   return (
-    <div className="section-padding-x section-padding-y md:py-4 min-h-screen flex justify-center items-center overflow-auto md:overflow-y-hidden">
+    <div className="section-padding-x section-padding-y md:py-4 min-h-screen flex justify-center items-center overflow-auto md:overflow-y-hidden relative">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#81FB84]/10 blur-[140px] rounded-full pointer-events-none -z-10" />
       <ScrollRestoration />
-      <form
+      <motion.form
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-4xl px-4 sm:px-4 md:px-12 lg:px-24 xl:px-32 py-5 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+        className="w-full max-w-4xl px-4 sm:px-4 md:px-12 lg:px-24 xl:px-32 py-5 rounded-2xl border border-[#81FB84]/20 hover:border-[#81FB84]/40 transition duration-300 bg-[#0D0D0D] shadow-2xl"
         noValidate
       >
         <div className="flex justify-center mb-5">
@@ -58,6 +64,7 @@ const SignUp = () => {
         </div>
 
         <h2 className="text-xl font-semibold text-center mb-2">
+
           Create Your Account
         </h2>
         <Title
@@ -290,9 +297,10 @@ const SignUp = () => {
             </span>
           </Link>
         </p>
-      </form>
+      </motion.form>
     </div>
   );
 };
+
 
 export default SignUp;

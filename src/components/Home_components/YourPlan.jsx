@@ -1,9 +1,22 @@
 import React, { useState } from "react";
-import { Check, Sparkles, Zap, ShieldCheck, HelpCircle, ChevronDown, ArrowRight } from "lucide-react";
+import {
+  Check,
+  Sparkles,
+  Zap,
+  ShieldCheck,
+  HelpCircle,
+  ArrowRight,
+} from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const pricingPlans = [
   {
@@ -29,7 +42,8 @@ const pricingPlans = [
     id: "basic",
     name: "Basic Plan",
     badge: "Job Seeker",
-    description: "Great for active job seekers needing complete template access.",
+    description:
+      "Great for active job seekers needing complete template access.",
     monthlyPrice: 9.99,
     yearlyPrice: 7.99,
     period: "per month",
@@ -49,7 +63,8 @@ const pricingPlans = [
     id: "pro",
     name: "Pro Plan",
     badge: "Most Popular",
-    description: "The complete AI toolkit to supercharge your applications & interviews.",
+    description:
+      "The complete AI toolkit to supercharge your applications & interviews.",
     monthlyPrice: 19.99,
     yearlyPrice: 14.99,
     period: "per month",
@@ -151,20 +166,21 @@ const YourPlan = () => {
   };
 
   return (
-    <div className="pb-8 md:pb-16 max-w-7xl mx-auto space-y-16">
+    <div className="pb-8 md:pb-16 max-w-7xl mx-auto space-y-16 px-4">
       {/* Hero Header */}
       <div className="text-center space-y-4 max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#81FB84]/10 border border-[#81FB84]/30 text-[#81FB84] text-xs font-semibold uppercase tracking-wider">
           <Sparkles size={13} /> Transparent & Flexible Pricing
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-5xl font-bold text-white  leading-tight">
           Invest in Your Career with the <br className="hidden sm:block" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#81FB84] via-emerald-400 to-teal-300">
             Right Plan for You
           </span>
         </h1>
         <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
-          Choose a plan that fits your job search timeline. Upgrade or cancel anytime with zero commitments.
+          Choose a plan that fits your job search timeline. Upgrade or cancel
+          anytime with zero commitments.
         </p>
 
         {/* Billing Toggle */}
@@ -204,7 +220,9 @@ const YourPlan = () => {
         {pricingPlans.map((plan) => {
           const isPro = plan.popular;
           const displayPrice =
-            billingCycle === "yearly" && plan.id !== "free" && plan.id !== "pay_per_download"
+            billingCycle === "yearly" &&
+            plan.id !== "free" &&
+            plan.id !== "pay_per_download"
               ? plan.yearlyPrice
               : plan.monthlyPrice;
 
@@ -244,18 +262,20 @@ const YourPlan = () => {
                 {/* Price Display */}
                 <div className="pt-2 pb-4 border-b border-[#262626]">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-3xl sm:text-4xl font-extrabold text-white">
+                    <span className="text-3xl sm:text-4xl font-bold text-white">
                       ${displayPrice}
                     </span>
                     <span className="text-xs text-gray-400 font-medium">
                       /{plan.period}
                     </span>
                   </div>
-                  {billingCycle === "yearly" && plan.id !== "free" && plan.id !== "pay_per_download" && (
-                    <p className="text-[11px] text-[#81FB84] mt-1 font-medium">
-                      Billed annually (${(displayPrice * 12).toFixed(2)}/yr)
-                    </p>
-                  )}
+                  {billingCycle === "yearly" &&
+                    plan.id !== "free" &&
+                    plan.id !== "pay_per_download" && (
+                      <p className="text-[11px] text-[#81FB84] mt-1 font-medium">
+                        Billed annually (${(displayPrice * 12).toFixed(2)}/yr)
+                      </p>
+                    )}
                 </div>
 
                 {/* Features List */}
@@ -265,7 +285,10 @@ const YourPlan = () => {
                   </p>
                   <ul className="space-y-2.5">
                     {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs text-gray-300">
+                      <li
+                        key={idx}
+                        className="flex items-start gap-2.5 text-xs text-gray-300"
+                      >
                         <span
                           className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
                             isPro
@@ -313,70 +336,24 @@ const YourPlan = () => {
               14-Day Money-Back Guarantee
             </h4>
             <p className="text-xs text-gray-400 mt-0.5">
-              Not satisfied with your generated CV or results? Get an instant, hassle-free refund.
+              Not satisfied with your generated CV or results? Get an instant,
+              hassle-free refund.
             </p>
           </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-6 text-xs text-gray-400 font-medium">
           <div className="flex items-center gap-2">
-            <Check size={16} className="text-[#81FB84]" /> Instant Account Activation
+            <Check size={16} className="text-[#81FB84]" /> Instant Account
+            Activation
           </div>
           <div className="flex items-center gap-2">
             <Check size={16} className="text-[#81FB84]" /> Cancel Anytime Online
           </div>
           <div className="flex items-center gap-2">
-            <Check size={16} className="text-[#81FB84]" /> 256-Bit SSL Encryption
+            <Check size={16} className="text-[#81FB84]" /> 256-Bit SSL
+            Encryption
           </div>
-        </div>
-      </div>
-
-      {/* Frequently Asked Questions */}
-      <div className="max-w-3xl mx-auto space-y-6 pt-6">
-        <div className="text-center space-y-2">
-          <h2 className="text-2xl font-bold text-white">Frequently Asked Questions</h2>
-          <p className="text-gray-400 text-xs sm:text-sm">
-            Everything you need to know about our plans and billing.
-          </p>
-        </div>
-
-        <div className="space-y-3">
-          {pricingFaqs.map((faq, idx) => {
-            const isOpen = openFaq === idx;
-            return (
-              <div
-                key={idx}
-                className="bg-[#0E0E10] border border-[#262626] rounded-xl overflow-hidden transition"
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full p-4 text-left flex items-center justify-between gap-4 text-sm font-semibold text-white hover:text-[#81FB84] transition"
-                >
-                  <span>{faq.q}</span>
-                  <ChevronDown
-                    size={18}
-                    className={`text-gray-400 transform transition-transform duration-200 ${
-                      isOpen ? "rotate-180 text-[#81FB84]" : ""
-                    }`}
-                  />
-                </button>
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="px-4 pb-4 text-xs sm:text-sm text-gray-400 leading-relaxed border-t border-[#262626]/40 pt-3"
-                    >
-                      {faq.a}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
         </div>
       </div>
     </div>

@@ -43,7 +43,7 @@ const Setting = () => {
     <div className="w-full max-w-7xl mx-auto space-y-6 pb-12">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight flex items-center gap-2">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white  flex items-center gap-2">
           Account Settings
         </h1>
         <p className="text-gray-400 text-sm mt-1">
@@ -111,7 +111,8 @@ const Setting = () => {
               <span>Secure Account</span>
             </div>
             <p className="text-[11px] leading-relaxed">
-              Your profile data is encrypted. Need any assistance with billing or account safety?
+              Your profile data is encrypted. Need any assistance with billing
+              or account safety?
             </p>
           </div>
         </div>

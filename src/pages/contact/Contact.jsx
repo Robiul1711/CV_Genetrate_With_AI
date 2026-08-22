@@ -2,17 +2,24 @@ import ContactForm from "@/components/contactComponents/ContactForm";
 import ReadyToLand from "@/components/Home_components/ReadyToLand";
 import React from "react";
 import { ScrollRestoration } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   return (
-    <div className="section-padding-y">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className=""
+    >
       <ScrollRestoration />
       <ContactForm />
-      <div className="section-padding-x">
+      <div className="">
         <ReadyToLand />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 export default Contact;
+

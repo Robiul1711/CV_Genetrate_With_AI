@@ -1,6 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Check, Sparkles, Zap, ArrowUpRight, CreditCard, ShieldCheck } from "lucide-react";
+import {
+  Check,
+  Sparkles,
+  Zap,
+  ArrowUpRight,
+  CreditCard,
+  ShieldCheck,
+} from "lucide-react";
 
 const Subscription = () => {
   const activePlan = {
@@ -29,7 +36,8 @@ const Subscription = () => {
             Subscription & Billing
           </h2>
           <p className="text-gray-400 text-sm mt-1">
-            Manage your subscription tier, billing period, and unlocked AI capabilities.
+            Manage your subscription tier, billing period, and unlocked AI
+            capabilities.
           </p>
         </div>
         <Link
@@ -50,19 +58,24 @@ const Subscription = () => {
             <div className="inline-flex items-center gap-1.5 text-xs text-[#81FB84] bg-[#81FB84]/10 border border-[#81FB84]/30 px-3 py-1 rounded-full font-semibold">
               <Sparkles size={12} /> {activePlan.status}
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-bold text-white ">
               {activePlan.name}
             </h3>
             <p className="text-sm text-gray-400">
-              Next billing date: <span className="text-white font-medium">{activePlan.renewsOn}</span>
+              Next billing date:{" "}
+              <span className="text-white font-medium">
+                {activePlan.renewsOn}
+              </span>
             </p>
           </div>
 
           <div className="flex items-baseline gap-1">
-            <span className="text-3xl sm:text-4xl font-extrabold text-white">
+            <span className="text-3xl sm:text-4xl font-bold text-white">
               {activePlan.price}
             </span>
-            <span className="text-gray-400 text-sm">/{activePlan.billingCycle}</span>
+            <span className="text-gray-400 text-sm">
+              /{activePlan.billingCycle}
+            </span>
           </div>
         </div>
 
@@ -73,7 +86,10 @@ const Subscription = () => {
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             {activePlan.features.map((feature, idx) => (
-              <div key={idx} className="flex items-center gap-3 text-sm text-gray-200">
+              <div
+                key={idx}
+                className="flex items-center gap-3 text-sm text-gray-200"
+              >
                 <span className="w-5 h-5 rounded-full bg-[#81FB84]/20 text-[#81FB84] flex items-center justify-center flex-shrink-0">
                   <Check size={13} />
                 </span>

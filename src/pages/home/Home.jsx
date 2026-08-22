@@ -6,15 +6,15 @@ import OurFeatures from "@/components/Home_components/OurFeatures";
 import ReadyToLand from "@/components/Home_components/ReadyToLand";
 import SeeWhat from "@/components/Home_components/SeeWhat";
 import YourPlan from "@/components/Home_components/YourPlan";
+import FAQ from "@/components/Home_components/FAQ";
 import { useAuth } from "@/hooks/useAuth";
 import { ScrollRestoration } from "react-router-dom";
 
 const Home = () => {
+  const { user } = useAuth();
 
-  const {user} =useAuth()
-  //  console.log(user);
   return (
-    <div className="section-padding-x">
+    <div className="">
       <ScrollRestoration />
       <Banner />
       <BrandSection />
@@ -23,6 +23,7 @@ const Home = () => {
       <SeeWhat />
       <CleverCV />
       <YourPlan />
+      <FAQ />
       <ReadyToLand />
     </div>
   );

@@ -6,6 +6,7 @@ import { Lock } from "@/components/CustomIcons/CustomIcon";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 const NewPassword = () => {
   const {
@@ -33,16 +34,21 @@ const NewPassword = () => {
   };
 
   return (
-    <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center">
+    <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center relative">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#81FB84]/10 blur-[140px] rounded-full pointer-events-none -z-10" />
       <ScrollRestoration />
-      <form
+      <motion.form
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-2xl h-auto md:h-[470px] px-4 sm:px-8 md:px-12 lg:px-32 py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+        className="w-full max-w-2xl h-auto md:h-[470px] px-4 sm:px-8 md:px-12 lg:px-32 py-5 md:py-8 rounded-2xl border border-[#81FB84]/20 hover:border-[#81FB84]/40 transition duration-300 bg-[#0D0D0D] shadow-2xl"
       >
         {/* Logo */}
         <div className="flex justify-center mb-5">
           <Logo size="lg" />
         </div>
+
 
         {/* Heading */}
         <h2 className="text-lg font-semibold text-center mb-2">Create New Password</h2>
@@ -117,9 +123,10 @@ const NewPassword = () => {
             {isPending ? "Saving..." : "Save New Password"}
           </button>
         </div>
-      </form>
+      </motion.form>
     </div>
   );
 };
+
 
 export default NewPassword;

@@ -6,6 +6,7 @@ import Title from "@/components/common/Title";
 import { Mail } from "lucide-react";
 import { toast } from "sonner";
 import { useEmail } from "@/hooks/useEmail";
+import { motion } from "framer-motion";
 
 const ForgotPassword = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
@@ -36,11 +37,15 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center">
+    <div className="section-padding-x section-padding-y md:py-8 min-h-screen flex justify-center items-center relative">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#81FB84]/10 blur-[140px] rounded-full pointer-events-none -z-10" />
       <ScrollRestoration />
-      <form
+      <motion.form
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-2xl h-auto md:h-[440px] px-4 sm:px-8 lg:px-28 py-5 md:py-8 rounded-2xl border border-[#81FB84]/10 bg-[#0D0D0D]"
+        className="w-full max-w-2xl h-auto md:h-[440px] px-4 sm:px-8 lg:px-28 py-5 md:py-8 rounded-2xl border border-[#81FB84]/20 hover:border-[#81FB84]/40 transition duration-300 bg-[#0D0D0D] shadow-2xl"
       >
         {/* Logo */}
         <div className="flex justify-center mb-5">
@@ -54,6 +59,7 @@ const ForgotPassword = () => {
         <Title level="title18" className="text-center mb-6 pb-2 !font-normal">
           No worries! Enter the email associated with your account below. We'll send you a one-time verification code to reset your password.
         </Title>
+
 
         {/* Server/Success Message */}
         {serverError && (
@@ -103,9 +109,10 @@ const ForgotPassword = () => {
             {isPending ? "Sending OTP..." : "Send OTP Code"}
           </button>
         </div>
-      </form>
+      </motion.form>
     </div>
   );
 };
+
 
 export default ForgotPassword;

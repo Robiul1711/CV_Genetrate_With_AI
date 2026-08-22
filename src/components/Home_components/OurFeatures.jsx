@@ -6,13 +6,12 @@ import {
   Send,
   Globe2,
   Bot,
-  CheckCircle2,
   ArrowRight,
-  ShieldCheck,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const features = [
   {
@@ -57,39 +56,53 @@ const OurFeatures = () => {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    toast.success("Thank you! We'll notify you as soon as Interview Coach launches.");
+  const onSubmit = () => {
+    toast.success(
+      "Thank you! We'll notify you as soon as Interview Coach launches.",
+    );
     reset();
   };
 
   return (
-    <section className="py-16 md:py-24">
+    <section className="section-padding-y section-padding-x">
       {/* Section Header */}
-      <div className="text-center space-y-4 max-w-3xl mx-auto mb-14">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="text-center space-y-4 max-w-3xl mx-auto mb-14"
+      >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#81FB84]/10 border border-[#81FB84]/30 text-[#81FB84] text-xs font-semibold uppercase tracking-wider">
           <Sparkles size={13} /> Cutting-Edge Capabilities
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white ">
           Everything You Need to <br className="hidden sm:block" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#81FB84] via-emerald-400 to-teal-300">
             Outshine the Competition
           </span>
         </h2>
         <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
-          Built with advanced AI models trained on thousands of successful resumes and real hiring standards.
+          Built with advanced AI models trained on thousands of successful
+          resumes and real hiring standards.
         </p>
-      </div>
+      </motion.div>
 
       {/* 4 Feature Bento Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {features.map((item, index) => (
-          <div
+          <motion.div
             key={index}
-            className="group relative bg-[#0E0E10] border border-[#262626] hover:border-[#81FB84]/50 rounded-2xl p-7 transition-all duration-300 hover:shadow-[0_0_30px_rgba(129,251,132,0.1)] flex flex-col justify-between"
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+            className="group relative bg-[#0E0E10] border border-[#262626] hover:border-[#81FB84]/50 rounded-2xl p-7 transition-all duration-300 hover:shadow-[0_10px_30px_rgba(129,251,132,0.12)] flex flex-col justify-between"
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-xl bg-[#16221c] border border-[#81FB84]/30 flex items-center justify-center shadow-inner group-hover:scale-105 transition">
+                <div className="w-12 h-12 rounded-xl bg-[#16221c] border border-[#81FB84]/30 flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:bg-[#81FB84]/20 transition duration-300">
                   {item.icon}
                 </div>
                 <span className="text-[11px] font-semibold text-gray-400 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full uppercase tracking-wider">
@@ -108,29 +121,40 @@ const OurFeatures = () => {
             <div className="pt-6 mt-4 border-t border-[#262626]/60 flex items-center justify-between">
               <Link
                 to={item.link}
-                className="text-xs font-semibold text-[#81FB84] inline-flex items-center gap-1 hover:underline"
+                className="text-xs font-semibold text-[#81FB84] inline-flex items-center gap-1 group/btn hover:underline"
               >
                 <span>Try this feature</span>
-                <ArrowRight size={13} />
+                <ArrowRight
+                  size={13}
+                  className="group-hover/btn:translate-x-1 transition-transform"
+                />
               </Link>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
       {/* Featured Teaser Banner: AI Interview Coach */}
-      <div className="mt-8 relative bg-gradient-to-b from-[#141e17] via-[#0E0E10] to-[#0A0A0B] border border-[#81FB84]/30 rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-30px" }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="mt-8 relative bg-gradient-to-b from-[#141e17] via-[#0E0E10] to-[#0A0A0B] border border-[#81FB84]/30 rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden"
+      >
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#81FB84]/20 text-[#81FB84] text-xs font-bold uppercase tracking-wider">
             <Bot size={13} /> Coming Soon: AI Interview Coach
           </div>
 
-          <h3 className="text-2xl sm:text-4xl font-extrabold text-white">
+          <h3 className="text-2xl sm:text-4xl font-bold text-white">
             Practice Real Job Interviews with Real-Time AI Feedback
           </h3>
 
           <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl mx-auto">
-            Simulate live technical & behavioral interviews, get instant clarity scoring, and master the STAR method before talking to real hiring managers.
+            Simulate live technical & behavioral interviews, get instant clarity
+            scoring, and master the STAR method before talking to real hiring
+            managers.
           </p>
 
           <form
@@ -149,18 +173,20 @@ const OurFeatures = () => {
               placeholder="Enter your email for early access"
               className="w-full bg-[#08090A] border border-[#262626] focus:border-[#81FB84] text-white text-sm px-4 py-3 rounded-xl focus:outline-none placeholder-gray-500 transition"
             />
-            <button
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               type="submit"
-              className="w-full sm:w-auto bg-[#81FB84] hover:bg-[#a6fca9] text-black font-bold text-sm px-6 py-3 rounded-xl transition flex-shrink-0 shadow-lg shadow-[#81FB84]/20"
+              className="w-full sm:w-auto bg-[#81FB84] hover:bg-[#a6fca9] text-black font-bold text-sm px-6 py-3 rounded-xl transition flex-shrink-0 shadow-lg shadow-[#81FB84]/20 cursor-pointer"
             >
               Get Early Access
-            </button>
+            </motion.button>
           </form>
           {errors.email && (
             <p className="text-red-400 text-xs">{errors.email.message}</p>
           )}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

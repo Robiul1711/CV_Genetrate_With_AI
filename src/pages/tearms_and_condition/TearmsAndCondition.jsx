@@ -1,6 +1,7 @@
 import Title from "@/components/common/Title";
 import React from "react";
 import { ScrollRestoration } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const content = {
   lastUpdated: "Last Updated: May 16, 2025",
@@ -77,31 +78,44 @@ const content = {
 
 const TermsAndConditions = () => {
   return (
-    <div className="section-padding-x section-padding-y space-y-4">
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="section-padding-x section-padding-y space-y-4 max-w-4xl mx-auto"
+    >
       <ScrollRestoration />
 
       <Title level="title48">
         Terms and Conditions – Clever CV
       </Title>
 
-      <Title level="title16">{content.lastUpdated}</Title>
-      <Title level="title16">{content.intro}</Title>
+      <Title level="title16" className="text-gray-400">{content.lastUpdated}</Title>
+      <Title level="title16" className="text-gray-300">{content.intro}</Title>
 
       {content.sections.map((section, idx) => (
-        <div key={idx} className="mt-8 space-y-4">
-          <Title level="title32">{section.title}</Title>
-          {section.description && <Title level="title16">{section.description}</Title>}
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.4, delay: 0.05 }}
+          className="mt-8 space-y-4 bg-[#0E0E10] border border-[#262626] rounded-2xl p-6 hover:border-[#81FB84]/30 transition"
+        >
+          <Title level="title32" className="text-[#81FB84]">{section.title}</Title>
+          {section.description && <Title level="title16" className="text-gray-300">{section.description}</Title>}
           {section.items && (
-            <ul className="list-disc list-inside space-y-2 text-[17px]">
+            <ul className="list-disc list-inside space-y-2 text-[15px] text-gray-300">
               {section.items.map((item, i) => (
                 <li key={i}>{item}</li>
               ))}
             </ul>
           )}
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 
 export default TermsAndConditions;
+
